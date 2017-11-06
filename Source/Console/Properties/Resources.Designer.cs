@@ -63,9 +63,79 @@ namespace PowerSDR.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap ant2 {
+            get {
+                object obj = ResourceManager.GetObject("ant2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap arrowA {
+            get {
+                object obj = ResourceManager.GetObject("arrowA", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap arrowB {
+            get {
+                object obj = ResourceManager.GetObject("arrowB", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Black_combo {
+            get {
+                object obj = ResourceManager.GetObject("Black_combo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Black_TXonly {
+            get {
+                object obj = ResourceManager.GetObject("Black_TXonly", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Black_TXonly1 {
+            get {
+                object obj = ResourceManager.GetObject("Black_TXonly1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap black2 {
             get {
                 object obj = ResourceManager.GetObject("black2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap disk3 {
+            get {
+                object obj = ResourceManager.GetObject("disk3", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -117,6 +187,16 @@ namespace PowerSDR.Properties {
             get {
                 object obj = ResourceManager.GetObject("moon1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] napoli {
+            get {
+                object obj = ResourceManager.GetObject("napoli", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         
@@ -193,6 +273,26 @@ namespace PowerSDR.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        public static byte[] swissbo {
+            get {
+                object obj = ResourceManager.GetObject("swissbo", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] swisscbo {
+            get {
+                object obj = ResourceManager.GetObject("swisscbo", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         public static byte[] swisscki {
             get {
                 object obj = ResourceManager.GetObject("swisscki", resourceCulture);
@@ -206,6 +306,16 @@ namespace PowerSDR.Properties {
         public static byte[] swissek {
             get {
                 object obj = ResourceManager.GetObject("swissek", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] swissko {
+            get {
+                object obj = ResourceManager.GetObject("swissko", resourceCulture);
                 return ((byte[])(obj));
             }
         }

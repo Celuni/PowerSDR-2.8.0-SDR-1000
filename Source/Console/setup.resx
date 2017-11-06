@@ -120,6 +120,12 @@
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>157, 17</value>
   </metadata>
+  <data name="chkBoxTOT.ToolTip" xml:space="preserve">
+    <value>Check to Enable Time-Out Timer.
+Which Shuts down Transmitter if you keep the Radio in TX mode beyond the Time Limit
+
+If TX Time Active exceeds Timer Limit, Flex goes into RX mode Until  POP-UP Screen is cleared</value>
+  </data>
   <data name="udHttpRefresh.ToolTip" xml:space="preserve">
     <value>Select Port# to allow Remote Login by adding the Port# 
 to the end of the URL
@@ -175,6 +181,29 @@ if you find it too light, decrease this slider.</value>
 If you find the Panadapter signal too high up in the window, decrease the slider.
 If you find the Panadapter signal too low in the window, increase the slider.</value>
   </data>
+  <data name="chkDSPLevelerEnabled.ToolTip" xml:space="preserve">
+    <value>Check this box to Enabled (activate) the leveler feature.
+
+Stage 1: MIXER slider
+Stage 2: MIC slider (stay under -10 dBm on MIC meter)
+Stage 3: Expander / EQ (stay under -2 dBm on EQ meter)
+Stage 4: Leveler  (stay under &lt; 0 dBm on LEV meter)
+Stage 5: ALC / TX Filter / Modulation / DX / Compander</value>
+  </data>
+  <data name="grpDSPLeveler.ToolTip" xml:space="preserve">
+    <value>Stage 1: MIXER slider
+Stage 2: MIC slider (stay under -10 dBm on MIC meter)
+Stage 3: Expander / EQ (stay under -2 dBm on EQ meter)
+Stage 4: Leveler  (stay under &lt; 0 dBm on LEV meter)
+Stage 5: ALC / TX Filter / Modulation / DX / Compander</value>
+  </data>
+  <data name="grpDSPALC.ToolTip" xml:space="preserve">
+    <value>Stage 1: MIXER slider
+Stage 2: MIC slider (stay under -10 dBm on MIC meter)
+Stage 3: Expander / EQ (stay under -2 dBm on EQ meter)
+Stage 4: Leveler  (stay under &lt; 0 dBm on LEV meter)
+Stage 5: ALC / TX Filter / Modulation / DX / Compander</value>
+  </data>
   <data name="chkROTOREnable.ToolTip" xml:space="preserve">
     <value>Enable DDUtil to control your antenna rotor control.
 Note: You must configure DDUtil with the other end of the
@@ -195,6 +224,9 @@ Left Click on Right half of DX Spot in Pan + CTRL key to Move Antenna
   </metadata>
   <metadata name="saveFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>491, 17</value>
+  </metadata>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>56</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

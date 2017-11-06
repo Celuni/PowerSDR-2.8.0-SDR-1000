@@ -849,9 +849,11 @@ namespace PowerSDR
 					case DSPMode.FM:
 					case DSPMode.SAM:
 					case DSPMode.USB:
+                    case DSPMode.DIGU: // ke9ns add
 						return Frequency2Code(console.RX1FilterHigh,"SH");
 					case DSPMode.CWL:
 					case DSPMode.LSB:
+                    case DSPMode.DIGL: // ke9ns add
 						return Frequency2Code(console.RX1FilterLow,"SH");
 					default:
 						return Frequency2Code(console.RX1FilterHigh,"SH");
@@ -882,10 +884,12 @@ namespace PowerSDR
 					case DSPMode.FM:
 					case DSPMode.SAM:
 					case DSPMode.USB:
-						return Frequency2Code(console.RX1FilterLow,"SL");
+                    case DSPMode.DIGU: // ke9ns add
+                        return Frequency2Code(console.RX1FilterLow,"SL");
 					case DSPMode.CWL:
 					case DSPMode.LSB:
-						return Frequency2Code(console.RX1FilterHigh,"SL");
+                    case DSPMode.DIGL: // ke9ns add
+                        return Frequency2Code(console.RX1FilterHigh,"SL");
 					default:
 						return Frequency2Code(console.RX1FilterLow,"SL");
 				}
@@ -905,9 +909,9 @@ namespace PowerSDR
 			if(s == "0" || s == "2")	// read the main transceiver s meter
 			{
 				float num = 0f;
-				if(console.PowerOn)
-					num = DttSP.CalculateRXMeter(0, 0,DttSP.MeterType.SIGNAL_STRENGTH);
-				num = num+console.MultiMeterCalOffset+console.PreampOffset;
+				if(console.PowerOn)	num = DttSP.CalculateRXMeter(0, 0,DttSP.MeterType.SIGNAL_STRENGTH);
+
+                num = num+console.MultiMeterCalOffset+console.PreampOffset;
 
 				num = Math.Max(-140, num);
 				num = Math.Min(-10, num);
@@ -3156,6 +3160,8 @@ namespace PowerSDR
                     case DSPMode.SPEC:
                     case DSPMode.LSB:
                     case DSPMode.USB:
+                    case DSPMode.DIGU: // ke9ns add
+                    case DSPMode.DIGL: // ke9ns add
                         if (console.RX1Band >= Band.B160M && console.RX1Band <= Band.B40M)
                             console.RX1DSPMode = DSPMode.CWL;
                         else
@@ -8980,7 +8986,9 @@ namespace PowerSDR
 				case DSPMode.CWU:
 				case DSPMode.LSB:
 				case DSPMode.USB:
-				switch(n)
+                case DSPMode.DIGU: // ke9ns add
+                case DSPMode.DIGL: // ke9ns add
+                switch (n)
 				{
 					case "SH":
 						if(f >= 0 && f <= 1500)

@@ -182,18 +182,13 @@ namespace PowerSDR
                    
                     Debug.WriteLine("link2 " + result.ToString());
 
-                    Process.Start(result.ToString());
+                    Process.Start("explorer.exe", result.ToString());
                 }
                 catch
                 {
 
                 }
             }
-        }
-
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void okButton_Click(object sender, EventArgs e)
@@ -268,7 +263,7 @@ namespace PowerSDR
             
             Version appVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version; // ke9ns this is your current installed version
 
-            if (appVersion.CompareTo(newVersion)< 0)
+            if (appVersion.CompareTo(newVersion) < 0)
             {
                 DialogResult dr = MessageBox.Show(
                     "Version " + newVersion.Major + "." + newVersion.Minor + "." + newVersion.Build + "." + newVersion.Revision + " of ke9ns PowerSDR is available for download, would you like to download it?",
@@ -280,7 +275,12 @@ namespace PowerSDR
                 if (dr == DialogResult.No) return;
                 else if (dr == DialogResult.Yes)
                 {
-                    System.Diagnostics.Process.Start(downloadUrl);
+
+                    MessageBox.Show("OK. Make sure to make a Database backup at Setup->Export Database before you install the update.",
+                    "Database Backup Request",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+                    System.Diagnostics.Process.Start("explorer.exe", downloadUrl);
 
                 }
 

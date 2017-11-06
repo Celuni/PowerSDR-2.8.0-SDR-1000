@@ -166,7 +166,7 @@ namespace PowerSDR
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(592, 379);
+            this.ClientSize = new System.Drawing.Size(600, 384);
             this.Controls.Add(this.pnlStatus);
             this.Controls.Add(this.lblTimeRemaining);
             this.Controls.Add(this.lblStatus);
@@ -458,6 +458,8 @@ namespace PowerSDR
           
 
         }
+
+
     } // class Splash 
 
     #region Registry Access Class

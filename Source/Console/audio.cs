@@ -524,7 +524,7 @@ namespace PowerSDR
 		}
 
         private static bool vac2_enabled = false;
-        public static bool VAC2Enabled
+        public static bool VAC2Enabled // called from console.cs
         {
             set
             {
@@ -779,14 +779,14 @@ namespace PowerSDR
 			set { host1 = value; }
 		}
 
-		private static int host2 = 0;
-		public static int Host2
+		private static int host2 = 0;  // VAC1 driver from setup
+        public static int Host2
 		{
 			get { return host2; }
 			set { host2 = value; }
 		}
 
-        private static int host3 = 0;
+        private static int host3 = 0; // VAC2 driver from setup
         public static int Host3
         {
             get { return host3; }
@@ -1093,10 +1093,11 @@ namespace PowerSDR
                 }
                 else
                 {
-                    if (!vac_enabled && (tx_dsp_mode == DSPMode.DIGL || tx_dsp_mode == DSPMode.DIGU))
+                    if (!vac_enabled && (tx_dsp_mode == DSPMode.DIGL || tx_dsp_mode == DSPMode.DIGU  || (tx_dsp_mode == DSPMode.FM && console.FMData == true && console.setupForm.chkFMDataMic.Checked == false))   )
                     {
                         ScaleBuffer(in_l, in_l, frameCount, (float)vac_preamp);
                         ScaleBuffer(in_r, in_r, frameCount, (float)vac_preamp);
+                       
                     }
                     else
                     {
@@ -1666,8 +1667,7 @@ namespace PowerSDR
 #if(TIMER)
 			t1.Start();
 #endif
-         //   Trace.Write("1500============");
-
+          
 
             /*int* array_ptr = (int*)input;
             float* in_l_ptr1 = (float*)array_ptr[0];
@@ -1737,6 +1737,8 @@ namespace PowerSDR
                 // handle VAC Input
                 if (vac_enabled && rb_vacOUT_l != null && rb_vacOUT_r != null)
                 {
+                   // Debug.WriteLine("1500 VAC1");
+
                     if (vac_bypass || !localmox) // drain VAC Input ring buffer
                     {
                         if ((rb_vacIN_l.ReadSpace() >= frameCount) && (rb_vacIN_r.ReadSpace() >= frameCount))
@@ -1788,6 +1790,8 @@ namespace PowerSDR
                 // handle VAC2 Input
                 if (vac2_enabled &&  rb_vac2OUT_l != null && rb_vac2OUT_r != null)
                 {
+                 //   Debug.WriteLine("1500 VAC2");
+
                     if (vac_bypass || !localmox || !vfob_tx) // drain VAC2 Input ring buffer
                     {
                         if ((rb_vac2IN_l.ReadSpace() >= frameCount) && (rb_vac2IN_r.ReadSpace() >= frameCount))
@@ -1856,17 +1860,33 @@ namespace PowerSDR
                     }
                     else
                     {
-                        if (!vac_enabled && (tx_dsp_mode == DSPMode.DIGL || tx_dsp_mode == DSPMode.DIGU))
+                        if (!vac_enabled && (tx_dsp_mode == DSPMode.DIGL || tx_dsp_mode == DSPMode.DIGU || (tx_dsp_mode == DSPMode.FM && console.FMData == true && console.setupForm.chkFMDataMic.Checked == false))   )  // ke9ns mod for FMData
                         {
                             ScaleBuffer(in_l, in_l, frameCount, (float)vac_preamp);
                             ScaleBuffer(in_r, in_r, frameCount, (float)vac_preamp);
+                          
                         }
                         else
                         {
-                            ScaleBuffer(in_l, in_l, frameCount, (float)mic_preamp);
-                            ScaleBuffer(in_r, in_r, frameCount, (float)mic_preamp);
+                          
+                            if (console.setupForm.chkPhaseRotate.Checked == true) // ke9ns add phase rotation
+                            {
 
-                          //  if ((console.TXMeter2 == true) && (console.CurrentMeterTX1Mode == MeterTXMode.MIC)) peak1 = MaxSample(in_l, in_r, frameCount); // ke9ns add to allow for MIC level check in RX mode
+                                PhaseRotate(in_l, in_l, frameCount, (float)mic_preamp);
+                                PhaseRotate(in_r, in_r, frameCount, (float)mic_preamp);
+
+                            }
+                            else
+                            {
+                                ScaleBuffer(in_l, in_l, frameCount, (float)mic_preamp);
+                                ScaleBuffer(in_r, in_r, frameCount, (float)mic_preamp);
+
+
+                            }
+
+
+
+                            //  if ((console.TXMeter2 == true) && (console.CurrentMeterTX1Mode == MeterTXMode.MIC)) peak1 = MaxSample(in_l, in_r, frameCount); // ke9ns add to allow for MIC level check in RX mode
                         }
                     }
                 }
@@ -2276,20 +2296,19 @@ namespace PowerSDR
                 }
 
                 //--------------------------------------------------------------
-                // ke9ns add  comes here every 42msec @ 48kSR with 2048 Buffer size
-                if (console.BeaconSigAvg == true)
+                // ke9ns add  comes here every 42msec @ 48kSR with 4096 Buffer size
+                if (console.BeaconSigAvg == true) // true = beacon scan on or wwv time reading
                 {
-
-
-                    fixed (float* WWVP = &console.WWV_data[0]) // 2048 readings per frame
+                    
+                    fixed (float* WWVP = &console.WWV_data[0]) // set the address of WWVP to WWV_data[0]  (since memcpy wont work on console.wwv_data directly  4096 readings per frame
                     {
                          Win32.memcpy(WWVP, out_l_ptr1, frameCount * sizeof(float));  // dest,source  # of bytes to copy 2048 float sized bytes
                       
                     }
                   
-                        console.WWVTone = console.Goertzel(console.WWV_data, 0, frameCount); // determine the magnitude of the 100hz TONE in the sample
-                        console.WWVReady = true;
-                        console.WWV_Count = 0;
+                    console.WWVTone = console.Goertzel(console.WWV_data, 0, frameCount); // determine the magnitude of the 100hz TONE in the sample
+                    console.WWVReady = true;
+                    console.WWV_Count = 0;
          
 
                 } //   if (console.BeaconSigAvg == true)
@@ -2396,7 +2415,7 @@ namespace PowerSDR
                 } // VAC1 on
 
                 // scale output for VAC2 -- use input as spare buffer
-                /*if (vac2_enabled && !vac2_output_iq &&
+                if (vac2_enabled && !vac2_output_iq &&
                     rb_vac2IN_l != null && rb_vac2IN_r != null &&
                     rb_vac2OUT_l != null && rb_vac2OUT_r != null)
                 {
@@ -2463,7 +2482,7 @@ namespace PowerSDR
                             }
                         }
                     }
-                }*/
+                }
 
                 double vol = monitor_volume;
 
@@ -2641,13 +2660,11 @@ namespace PowerSDR
 			}
 
 			// handle VAC Input
-			if(vac_enabled && 
-				rb_vacIN_l != null && rb_vacIN_r != null && 
-				rb_vacOUT_l != null && rb_vacOUT_r != null)
+			if(vac_enabled && rb_vacIN_l != null && rb_vacIN_r != null && rb_vacOUT_l != null && rb_vacOUT_r != null)
 			{
 				if(vac_bypass || !localmox) // drain VAC Input ring buffer
 				{
-					if ((rb_vacIN_l.ReadSpace() >= frameCount)&&(rb_vacIN_r.ReadSpace() >= frameCount))
+					if ((rb_vacIN_l.ReadSpace() >= frameCount) && (rb_vacIN_r.ReadSpace() >= frameCount))
 					{
 						Win32.EnterCriticalSection(cs_vac);
 						rb_vacIN_l.ReadPtr(out_l_ptr2, frameCount);
@@ -2793,17 +2810,35 @@ namespace PowerSDR
 				{
 					if(localmox)
 					{
-						if(!vac_enabled && (tx_dsp_mode == DSPMode.DIGL || tx_dsp_mode == DSPMode.DIGU))
-						{
+						if(!vac_enabled && (tx_dsp_mode == DSPMode.DIGL || tx_dsp_mode == DSPMode.DIGU || (tx_dsp_mode == DSPMode.FM && console.FMData == true && console.setupForm.chkFMDataMic.Checked == false))    )
+                        {
 							ScaleBuffer(in_l, in_l, frameCount, (float)vac_preamp);
 							ScaleBuffer(in_r, in_r, frameCount, (float)vac_preamp);
+
+                          
+
 						}
 						else
 						{
-							ScaleBuffer(in_l, in_l, frameCount, (float)mic_preamp);
-							ScaleBuffer(in_r, in_r, frameCount, (float)mic_preamp);
 
-                            if ((console.TXMeter2 == true) && (console.CurrentMeterTX1Mode == MeterTXMode.MIC)) peak1 = MaxSample(in_l, in_r, frameCount); // ke9ns add to allow for MIC level check in RX mode
+                            if (console.setupForm.chkPhaseRotate.Checked == true) // ke9ns add phase rotation
+                            {
+                              
+                                PhaseRotate(in_l, in_l, frameCount, (float)mic_preamp);
+                                PhaseRotate(in_r, in_r, frameCount, (float)mic_preamp);
+
+                            }
+                            else
+                            {
+                                ScaleBuffer(in_l, in_l, frameCount, (float)mic_preamp);
+                                ScaleBuffer(in_r, in_r, frameCount, (float)mic_preamp);
+
+                            }
+
+
+
+
+                            if ((console.TXMeter2 == true) && ((console.CurrentMeterTX1Mode == MeterTXMode.MIC) || (console.CurrentMeterTX1Mode == MeterTXMode.Combo))) peak1 = MaxSample(in_l, in_r, frameCount); // ke9ns add, to allow for MIC level check in RX mode
                         }
 					}
 				}
@@ -3746,8 +3781,10 @@ namespace PowerSDR
 
             if (vac2_enabled && rb_vac2OUT_l != null && rb_vac2OUT_r != null)
             {
+              
                 if (vac_bypass || !localmox || !vfob_tx) // drain VAC2 Input ring buffer
                 {
+
                     if ((rb_vac2IN_l.ReadSpace() >= frameCount) && (rb_vac2IN_r.ReadSpace() >= frameCount))
                     {
                         Win32.EnterCriticalSection(cs_vac2);
@@ -3758,6 +3795,7 @@ namespace PowerSDR
                 }
                 else
                 {
+                  
                     if (rb_vac2IN_l.ReadSpace() >= frameCount)
                     {
                         Win32.EnterCriticalSection(cs_vac2);
@@ -3797,8 +3835,7 @@ namespace PowerSDR
                     peak = MaxSample(tx_in_l, tx_in_r, frameCount);
 
                     // compare power to threshold
-                    if (peak > vox_threshold)
-                        vox_active = true;
+                    if (peak > vox_threshold)    vox_active = true;
                     else
                         vox_active = false;
                 }
@@ -3841,17 +3878,27 @@ namespace PowerSDR
                 }
                 else
                 {
-                    if (!vac_enabled && (tx_dsp_mode == DSPMode.DIGL || tx_dsp_mode == DSPMode.DIGU))
+                    if (!vac_enabled && (tx_dsp_mode == DSPMode.DIGL || tx_dsp_mode == DSPMode.DIGU || (tx_dsp_mode == DSPMode.FM && console.FMData == true && console.setupForm.chkFMDataMic.Checked == false)))
                     {
                         ScaleBuffer(tx_in_l, tx_in_l, frameCount, (float)vac_preamp);
                         ScaleBuffer(tx_in_r, tx_in_r, frameCount, (float)vac_preamp);
+                       
+
                     }
                     else
                     {
-                        ScaleBuffer(tx_in_l, tx_in_l, frameCount, (float)mic_preamp);
-                        ScaleBuffer(tx_in_r, tx_in_r, frameCount, (float)mic_preamp);
+                        if (console.setupForm.chkPhaseRotate.Checked == true) // ke9ns add phase rotation
+                        {
+                            PhaseRotate(tx_in_l, tx_in_l, frameCount, (float)mic_preamp);
+                            PhaseRotate(tx_in_r, tx_in_r, frameCount, (float)mic_preamp);
+                        }
+                        else
+                        {
+                            ScaleBuffer(tx_in_l, tx_in_l, frameCount, (float)mic_preamp);
+                            ScaleBuffer(tx_in_r, tx_in_r, frameCount, (float)mic_preamp);
+                        }
 
-                        if ((console.TXMeter2 == true) && (console.CurrentMeterTX1Mode == MeterTXMode.MIC)) peak1 = MaxSample(tx_in_l, tx_in_r, frameCount); // ke9ns add to allow for MIC level check in RX mode
+                        if ((console.TXMeter2 == true) && ((console.CurrentMeterTX1Mode == MeterTXMode.MIC) || (console.CurrentMeterTX1Mode == MeterTXMode.Combo))) peak1 = MaxSample(tx_in_l, tx_in_r, frameCount); // ke9ns add to allow for MIC level check in RX mode
                     }
                 }
 
@@ -4119,6 +4166,8 @@ namespace PowerSDR
 
             if (vac2_enabled && vac2_output_iq && rb_vac2OUT_l != null && rb_vac2OUT_r != null)
             {
+                Debug.WriteLine("4VAC2--");
+
                 if ((rb_vac2OUT_l.WriteSpace() >= frameCount) && (rb_vac2OUT_r.WriteSpace() >= frameCount))
                 {
                     if (vac_correct_iq)
@@ -4417,6 +4466,7 @@ namespace PowerSDR
 
             //--------------------------------------------------------------
             // ke9ns add  comes here every 10msec @ 192kSR, 21msec @ 96kSR, 42msec @ 48kSR with 2048 Buffer size
+            // GoertzelCoefffreq = 600 for Beacon and 100 for wwv
             if (console.BeaconSigAvg == true)
             {
 
@@ -4453,14 +4503,35 @@ namespace PowerSDR
                 }
                 else // if SR !=192k
                 {
-               
-                
-                    console.WWVTone = console.Goertzel(console.WWV_data, 0, frameCount); // determine the magnitude of the 100hz TONE in the sample
-                    console.WWVReady = true;
-                    console.WWV_Count = 0;
-                    console.WWVframeCount = 0;
 
-               }
+
+                    //   console.WWVTone = console.Goertzel(console.WWV_data, 0, frameCount); // determine the magnitude of the 100hz TONE in the sample
+                    //  console.WWVReady = true;
+                    //  console.WWV_Count = 0;
+                    //  console.WWVframeCount = 0;
+
+                    if (console.WWV_Count == 2)
+                    {
+
+                        console.WWVTone = console.Goertzel(console.WWV_data, 0, console.WWVframeCount); // determine the magnitude of the 100hz TONE in the sample
+
+                        console.WWVframeCount = 0;
+                        console.WWVReady = true;
+                        console.WWV_Count = 0;
+
+                    }
+                    else
+                    {
+                        // console.WWV_Count = frameCount;  // double up the 192kSR so you get 20msec of data
+                        console.WWV_Count++;
+                        console.WWVframeCount = (frameCount * console.WWV_Count);  // double up the 192kSR so you get 20msec of data
+
+
+                    }
+
+
+
+                }
 
 
             } //   if (console.BeaconSigAvg == true)
@@ -5603,6 +5674,18 @@ namespace PowerSDR
 				outbuf[i] = inbuf[i] * scale;
 		}
 
+        //===================================================================================================
+        // ke9ns add
+        unsafe private static void PhaseRotate(float* inbuf, float* outbuf, int samples, float scale)
+        {
+   
+                for (int i = 0; i < samples; i++)
+                {
+                    outbuf[i] = -inbuf[i] * scale;
+                }
+                    
+        } // PhaseRotate
+
         /*unsafe private static void RampDownBuffer(float* buf, int samples, float scale)
         {
             for (int i = 0; i < samples; i++)
@@ -6437,7 +6520,8 @@ namespace PowerSDR
                 /*in_tx_l = 5;
 				in_tx_r = 6;*/
 
-                 retval = StartAudio(ref callback8, (uint)block_size1, sample_rate1, host1, input_dev1, output_dev1, 8, 0, latency1);    // ke9ns use primary input_dev1 device
+                Debug.WriteLine("STARTAUDIO HERE 0");
+                retval = StartAudio(ref callback8, (uint)block_size1, sample_rate1, host1, input_dev1, output_dev1, 8, 0, latency1);    // ke9ns use primary input_dev1 device
 /*
                 unsafe
                 {
@@ -6463,7 +6547,11 @@ namespace PowerSDR
                 try
                 {
                     if (num_channels == 2)
+                    {
+                        Debug.WriteLine("STARTAUDIO HERE 1");
+
                         retval = StartAudio(ref callback1, (uint)block_size1, sample_rate1, host1, input_dev1, output_dev1, num_channels, 0, latency1);  // ke9ns use primary input_dev1 device
+                    }
                     else if (num_channels == 4)
                         retval = StartAudio(ref callback4port, (uint)block_size1, sample_rate1, host1, input_dev1, output_dev1, num_channels, 0, latency1);
                 }
@@ -6480,7 +6568,7 @@ namespace PowerSDR
 			
 			if(!retval) return retval;
 
-			if(vac_enabled) // ke9ns  VAC1 that is
+			if(vac_enabled) // ke9ns  VAC1 only
 			{
               
                 int num_chan = 1;
@@ -6501,14 +6589,14 @@ namespace PowerSDR
 
                 try   // ke9ns 	int new_input = ((PADeviceInfo)comboAudioInput2.SelectedItem).Index;
                 {
-                    Debug.WriteLine("STARTING AUDIO STREAM:: INPUT: " + input_dev2 + ", Output: " + output_dev2 + 
+                    Debug.WriteLine("VAC1 STARTING AUDIO STREAM:: INPUT: " + input_dev2 + ", Output: " + output_dev2 + 
                         ", block size: " + block_size + ", sample rate: " + sample_rate + ", host: " + host2 + ", num_chan " + num_chan + ", latency: " + latency + ",callbackVAC: " + callbackVAC);
 
                     // host2 = type of audio driver
 
                     retval = StartAudio(ref callbackVAC, (uint)block_size, sample_rate, host2, input_dev2, output_dev2, num_chan, 1, latency);  // ke9ns use VAC1 input_dev2 device (was 1)
 
-                    Debug.WriteLine("STARTING AUDIO STREAM:: RETVAL: " + retval);
+                    Debug.WriteLine("VAC1 STARTING AUDIO STREAM:: RETVAL: " + retval);
 
                 }
                 catch (Exception)
@@ -6523,13 +6611,16 @@ namespace PowerSDR
               
             } // ke9ns VAC1 on
 
-            if (vac2_enabled)
+
+
+            if (vac2_enabled)  // ke9ns VAC2 only
             {
                 int num_chan = 1;
                 // ehr add for multirate iq to vac
                 int sample_rate = sample_rate3;
                 int block_size = block_size_vac2;
                 int latency = latency3;
+
                 if (vac2_output_iq)
                 {
                     num_chan = 2;
@@ -6540,9 +6631,16 @@ namespace PowerSDR
                 else if (vac2_stereo) num_chan = 2;
                 // ehr end				
                 vac2_rb_reset = true;
+
                 try
                 {
+                    Debug.WriteLine("VAC2 STARTING AUDIO STREAM:: INPUT: " + input_dev2 + ", Output: " + output_dev2 +
+                     ", block size: " + block_size + ", sample rate: " + sample_rate + ", host: " + host2 + ", num_chan " + num_chan + ", latency: " + latency + ",callbackVAC: " + callbackVAC);
+
                     retval = StartAudio(ref callbackVAC2, (uint)block_size, sample_rate, host3, input_dev3, output_dev3, num_chan, 2, latency);  // ke9ns use VAC2 input_dev3 device
+
+                    Debug.WriteLine("VAC2 STARTING AUDIO STREAM:: RETVAL: " + retval);
+
                 }
                 catch (Exception)
                 {
@@ -6569,7 +6667,7 @@ namespace PowerSDR
 
             // input_dev_index = 2; // ke9ns test
 
-            Debug.WriteLine("HOST INDEX" + host_api_index);
+            Debug.WriteLine("HOST INDEX " + host_api_index);
             Debug.WriteLine("in_dev index " + input_dev_index);
             Debug.WriteLine("out_dev index " + output_dev_index);
 
@@ -6616,15 +6714,17 @@ namespace PowerSDR
                 switch (callback_num) // ke9ns 1=vac1
                 {
                     case 1: // VAC1
-                        Debug.WriteLine("VAC1CALL=====");
                         error = PA19.PA_OpenStream(out stream2, &inparam, &outparam, sample_rate, block_size, 0, callback, 1);
+                        Debug.WriteLine("VAC1CALL===== " + error );
                         break;
                     case 2: //VAC2
+                        
                         error = PA19.PA_OpenStream(out stream3, &inparam, &outparam, sample_rate, block_size, 0, callback, 2);
+                        Debug.WriteLine("VAC2CALL===== " + error);
                         break;
                     default:
                         error = PA19.PA_OpenStream(out stream1, &inparam, &outparam, sample_rate, block_size, 0, callback, 0); // ke9ns this is the default stream  callback = callback8 (which is callback2)
-                      Debug.WriteLine("startcallback0=====");
+                        Debug.WriteLine("startcallback 0===== " + error);
                         break;
                 }
                

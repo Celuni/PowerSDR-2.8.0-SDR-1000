@@ -46,6 +46,7 @@ using NAudio.Wave;
 using NAudio.Lame;
 
 
+
 namespace PowerSDR
 {
 	public class WaveControl : System.Windows.Forms.Form
@@ -1397,13 +1398,42 @@ namespace PowerSDR
                 }
 
 
+
+
             }
             else
             {
                 file_name = console.AppDataPath + "SDRQuickAudio.wav";
             }
-        
-           
+
+            if (Directory.Exists(console.AppDataPath)) // need to see the quickaudio folder
+            {
+
+                if (File.Exists(file_name))
+                {
+
+                }
+                else
+                {
+                    MessageBox.Show("No wav file found in folder: " + file_name + "\n" +
+                           "Open Wave menu and Click the  button to record your Voice or CW,\n" +
+                           "Speak or CW your CQ message including your Callsign as you would when trying to make a contact.\n" +
+                           "Then click  button again, to end the recording", " audio File");
+                    return;
+
+                }
+            }
+            else
+            {
+                MessageBox.Show("No wav file found in folder: " + file_name + "\n" +
+                           "Open Wave menu and Click the  button to record your Voice or CW,\n" +
+                           "Speak or CW your CQ message including your Callsign as you would when trying to make a contact.\n" +
+                           "Then click  button again, to end the recording", " audio File");
+
+                return;
+            }
+
+
             if (chkQuickPlay.Checked)
 			{
               
@@ -1596,10 +1626,11 @@ namespace PowerSDR
                 WaveOptions.comboSampleRate.Text = quickmp3SR; // restore file size
 
                 //---------------------------------------------------------
-                // ke9ns add save an MP3 to go along with the WAV file
+                // ke9ns add save an MP3 to go along with the WAV file (NAudio.Lame)
                 if (chkBoxMP3.Checked == true)
                 {
                  
+                    
                     try
                     {
                         using (var reader = new WaveFileReader(file_name)) // closes reader when done using
@@ -1851,15 +1882,18 @@ namespace PowerSDR
                     int n4 = 0;
                     SizeF cl = new SizeF();  // determine left or right side of bitmap
 
-                    int fontS = 14; // was 12
+                    int fontS = 34; // was 12
 
                     int ym = 40; // height was 22
 
                     if (IMAGE == 0)
                     {
-                         ym = 22;
+                         ym = 26; // was 22
                     }
-                    int xm = 80; // width was 80
+
+                    int xm = 100; // width was 80
+
+            
 
                     long xm4 = 4 * ((xm + 3) / 4);
 
@@ -1921,10 +1955,10 @@ namespace PowerSDR
                 {
                     cl = g1.MeasureString(temp1A, new Font("Arial", fontS, FontStyle.Regular)); //  temp used to determine the size of the string when in LSB and you need to reserve a certain space
                     fontS--;
-                } while ((cl.Width > 89) && (fontS > 9));  // ke9ns reduce size of font until the string fits into bandpass
+                } while ((cl.Width > 100) && (fontS > 9));  // 89 ke9ns reduce size of font until the string fits into bandpass
 
 
-               // Debug.WriteLine("MEASUREMENT LENGTH "+ cl);
+                Debug.WriteLine("MEASUREMENT LENGTH "+ cl + " , " + fontS + " , "+ xm);
                // ke9ns cl = 89 is max width in pixels
 
                         // cl = g1.MeasureString(console.Callsign, new Font("Arial", fontS,FontStyle.Regular)); //  temp used to determine the size of the string when in LSB and you need to reserve a certain space
@@ -2294,9 +2328,9 @@ namespace PowerSDR
                     //  int hightx = console.TXFilterHigh;
                     //   int tottx = hightx - lowtx; // band width
 
-
-                    int hzperpixel = (int)(((float)bandpass / (float)xm) + .5);    //  2khz wide =  25hz/pix  6000 = 60 hz per pixel
-
+                    // xm = 80 pixels wide
+                    int hzperpixel = (int)(((float)bandpass / (float)xm ) + .5);    //  2khz wide =  25hz/pix  6000 = 75 hz per pixel
+            
            
           //  Debug.WriteLine("hzperpixel " + hzperpixel);
 
@@ -2327,16 +2361,16 @@ namespace PowerSDR
                             for (float freq = lowtx; freq < (bandpass + lowtx); freq = freq + hzperpixel,i++)             // add up all the frequencies from each line(row) of the bitmap into 1 signal
                             {
 
-                        if (ap[i, y1] > 1)
-                        {
-                            temp7 = temp7 + ((double)ap[i, y1] * (Math.Sin(t * (double)freq * 6.28318530718)));  // generate individual tone 
+                                if (ap[i, y1] > 1)
+                                {
+                                    temp7 = temp7 + ((double)ap[i, y1] * (Math.Sin(t * (double)freq * 2.0 * Math.PI) ) );  // generate individual tone 
                               
-                        }
+                                }
 
 
 
 
-                    } // freq loop
+                            } // freq loop
 
                     //============================================================
                  

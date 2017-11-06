@@ -194,7 +194,7 @@ namespace PowerSDR
             this.tbMic.TabIndex = 0;
             this.tbMic.TickFrequency = 16;
             this.tbMic.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.toolTip1.SetToolTip(this.tbMic, "Adjusts the Mic Input Volume");
+            this.toolTip1.SetToolTip(this.tbMic, resources.GetString("tbMic.ToolTip"));
             this.tbMic.Scroll += new System.EventHandler(this.tbMic_Scroll);
             // 
             // chkMicSel
@@ -229,7 +229,8 @@ namespace PowerSDR
             this.grpInput.Size = new System.Drawing.Size(216, 216);
             this.grpInput.TabIndex = 2;
             this.grpInput.TabStop = false;
-            this.grpInput.Text = "Input";
+            this.grpInput.Text = "Input (Stage 1)";
+            this.toolTip1.SetToolTip(this.grpInput, resources.GetString("grpInput.ToolTip"));
             // 
             // chkInputMuteAll
             // 
@@ -276,7 +277,7 @@ namespace PowerSDR
             this.tbLineInDB9.TabIndex = 9;
             this.tbLineInDB9.TickFrequency = 16;
             this.tbLineInDB9.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.toolTip1.SetToolTip(this.tbLineInDB9, "Adjusts the Line In DB9 Input Volume");
+            this.toolTip1.SetToolTip(this.tbLineInDB9, resources.GetString("tbLineInDB9.ToolTip"));
             this.tbLineInDB9.Scroll += new System.EventHandler(this.tbLineInDB9_Scroll);
             // 
             // lblLineInPhono
@@ -311,7 +312,7 @@ namespace PowerSDR
             this.tbLineInPhono.TabIndex = 6;
             this.tbLineInPhono.TickFrequency = 16;
             this.tbLineInPhono.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.toolTip1.SetToolTip(this.tbLineInPhono, "Adjusts the Line In Phono Input Volume");
+            this.toolTip1.SetToolTip(this.tbLineInPhono, resources.GetString("tbLineInPhono.ToolTip"));
             this.tbLineInPhono.Scroll += new System.EventHandler(this.tbLineInPhono_Scroll);
             // 
             // lblLineInRCA
@@ -346,7 +347,7 @@ namespace PowerSDR
             this.tbLineInRCA.TabIndex = 3;
             this.tbLineInRCA.TickFrequency = 16;
             this.tbLineInRCA.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.toolTip1.SetToolTip(this.tbLineInRCA, "Adjusts the Line In RCA Input Volume");
+            this.toolTip1.SetToolTip(this.tbLineInRCA, resources.GetString("tbLineInRCA.ToolTip"));
             this.tbLineInRCA.Scroll += new System.EventHandler(this.tbLineInRCA_Scroll);
             // 
             // lblMic

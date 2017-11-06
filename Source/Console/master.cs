@@ -92,9 +92,6 @@ namespace PowerSDR
                         case Model.DEMO:
                             present = true;
                             break;
-                        default:
-                            break;
-
                     }
 
                     RadiosAvailable.AddRadio(new Radio(m, null, sn, nick, present));

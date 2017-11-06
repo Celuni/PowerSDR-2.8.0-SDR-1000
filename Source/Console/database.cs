@@ -140,9 +140,9 @@ namespace PowerSDR
                                 4.996001, 4.997999, "61M Short Wave",			false,
                                 4.998001, 4.999999, "61M Short Wave",			false,
                                 5.000001, 5.060000, "61M Short Wave",			false,
-								5.900000, 6.999999, "49M Short Wave",			false,
-								7.300000, 7.350000, "41M Short Wave",			false,
-								7.360000, 9.900000, "31M Short Wave",			false,
+								5.450000, 6.999999, "49M Short Wave",			false,
+								7.300000, 8.999999, "41M Short Wave",			false, // ke9ns mod
+								9.000000, 9.900000, "31M Short Wave",			false, // ke9ns mod
 								11.600000, 12.100000, "25M Short Wave",			false,
 								13.570000, 13.870000, "22M Short Wave",			false,
 								15.100000, 15.800000, "19M Short Wave",			false,
@@ -152,102 +152,95 @@ namespace PowerSDR
 
                                 25.600000, 26.960000, "11M Short Wave",         false,
 
-                                26.960001, 26.969999, "CB ch 1",              false,
-                                26.970001, 26.979999, "CB ch 2",              false,
-                                26.980001, 26.989999, "CB ch 3",              false,
-                                26.990001, 26.999999, "CB RC",              false,
-                                27.000001, 27.009999, "CB ch 4",              false,
-                                27.010001, 27.019999, "CB ch 5",              false,
-                                27.020001, 27.029999, "CB ch 6",              false,
-                                27.030001, 27.039999, "CB ch 7",              false,
-                                27.040001, 27.049999, "CB RC",              false,
-                                27.050001, 27.059999, "CB ch 8",              false,
-                                27.060001, 27.069999, "CB ch 9",              false,
-                                27.070001, 27.079999, "CB ch 10",             false,
-                                27.080001, 27.089999, "CB ch 11",             false,
-                                27.090001, 27.099999, "CB RC",             false,
-                                27.100001, 27.109999, "CB ch 12",             false,
-                                27.110001, 27.119999, "CB ch 13",             false,
-                                27.120001, 27.129999, "CB ch 14",             false,
-                                27.130001, 27.139999, "CB ch 15",             false,
-                                27.140001, 27.149999, "CB RC",             false,
-                                27.150001, 27.159999, "CB ch 16",             false,
-                                27.160001, 27.169999, "CB ch 17",             false,
-                                27.170001, 27.179999, "CB ch 18",             false,
-                                27.180001, 27.189999, "CB ch 19",             false,
-                                27.190001, 27.199999, "CB RC",             false,
-								27.200000, 27.200000, "CB ch 20-0",             false,
-                                27.200001, 27.209999, "CB ch 20",             false,
-								27.210000, 27.210000, "CB ch 21-0",             false,
-                                27.210001, 27.219999, "CB ch 21",             false,
-								27.220000, 27.220000, "CB ch 22-0",             false,
-                                27.220001, 27.229999, "CB ch 22",             false,
-								27.250000, 27.250000, "CB ch 23-0",             false,
-                                27.250001, 27.259999, "CB ch 23",             false,
-                                27.230000, 27.230000, "CB ch 24-0",             false,
-								27.230001, 27.239999, "CB ch 24",             false,
-								27.240000, 27.240000, "CB ch 25-0",             false,
-                                27.240001, 27.249999, "CB ch 25",             false,
-								27.260000, 27.260000, "CB ch 26-0",             false,
-                                27.260001, 27.269999, "CB ch 26",             false,
-                                27.270001, 27.279999, "CB ch 27",             false,
-                                27.280001, 27.289999, "CB ch 28",             false,
-                                27.290001, 27.299999, "CB ch 29",             false,
-                                27.300001, 27.309999, "CB ch 30",             false,
-                                27.310001, 27.319999, "CB ch 31",             false,
-                                27.320001, 27.329999, "CB ch 32",             false,
-                                27.330001, 27.339999, "CB ch 33",             false,
-                                27.340001, 27.349999, "CB ch 34",             false,
-                                27.350001, 27.359999, "CB ch 35",             false,
-                                27.360001, 27.369999, "CB ch 36",             false,
-                                27.370001, 27.379999, "CB ch 37",             false,
-                                27.380001, 27.389999, "CB ch 38",             false,
-                                27.390001, 27.399999, "CB ch 39",             false,
-                                27.400001, 27.409999, "CB ch 40",             false,
+                                26.960001, 26.969999, "11M CB ch 1",              false,
+                                26.970001, 26.979999, "11M CB ch 2",              false,
+                                26.980001, 26.989999, "11M CB ch 3",              false,
+                                26.990001, 26.999999, "11M CB RC",              false,
+                                27.000001, 27.009999, "11M CB ch 4",              false,
+                                27.010001, 27.019999, "11M CB ch 5",              false,
+                                27.020001, 27.029999, "11M CB ch 6",              false,
+                                27.030001, 27.039999, "11M CB ch 7",              false,
+                                27.040001, 27.049999, "11M CB RC",              false,
+                                27.050001, 27.059999, "11M CB ch 8",              false,
+                                27.060001, 27.069999, "11M CB ch 9",              false,
+                                27.070001, 27.079999, "11M CB ch 10",             false,
+                                27.080001, 27.089999, "11M CB ch 11",             false,
+                                27.090001, 27.099999, "11M CB RC",             false,
+                                27.100001, 27.109999, "11M CB ch 12",             false,
+                                27.110001, 27.119999, "11M CB ch 13",             false,
+                                27.120001, 27.129999, "11M CB ch 14",             false,
+                                27.130001, 27.139999, "11M CB ch 15",             false,
+                                27.140001, 27.149999, "11M CB RC",             false,
+                                27.150001, 27.159999, "11M CB ch 16",             false,
+                                27.160001, 27.169999, "11M CB ch 17",             false,
+                                27.170001, 27.179999, "11M CB ch 18",             false,
+                                27.180001, 27.189999, "11M CB ch 19",             false,
+                                27.190001, 27.199999, "11M CB RC",             false,
+                                27.200001, 27.209999, "11M CB ch 20",             false,
+                                27.210001, 27.219999, "11M CB ch 21",             false,
+                                27.220001, 27.229999, "11M CB ch 22",             false,
+                                27.250001, 27.259999, "11M CB ch 23",             false,
+                                27.230001, 27.239999, "11M CB ch 24",             false,
+                                27.240001, 27.249999, "11M CB ch 25",             false,
+                                27.260001, 27.269999, "11M CB ch 26",             false,
+                                27.270001, 27.279999, "11M CB ch 27",             false,
+                                27.280001, 27.289999, "11M CB ch 28",             false,
+                                27.290001, 27.299999, "11M CB ch 29",             false,
+                                27.300001, 27.309999, "11M CB ch 30",             false,
+                                27.310001, 27.319999, "11M CB ch 31",             false,
+                                27.320001, 27.329999, "11M CB ch 32",             false,
+                                27.330001, 27.339999, "11M CB ch 33",             false,
+                                27.340001, 27.349999, "11M CB ch 34",             false,
+                                27.350001, 27.359999, "11M CB ch 35",             false,
+                                27.360001, 27.369999, "11M CB ch 36",             false,
+                                27.370001, 27.379999, "11M CB ch 37",             false,
+                                27.380001, 27.389999, "11M CB ch 38",             false,
+                                27.390001, 27.399999, "11M CB ch 39",             false,
+                                27.400001, 27.409999, "11M CB ch 40",             false,
 
-                                27.410001, 27.419999, "ch 41",             false,
-                                27.420001, 27.429999, "ch 42",             false,
-                                27.430001, 27.439999, "ch 43",             false,
-                                27.440001, 27.449999, "ch 44",             false,
-                                27.450001, 27.459999, "ch 45",             false,
-                                27.460001, 27.469999, "ch 46",             false,
-                                27.470001, 27.479999, "ch 47",             false,
-                                27.480001, 27.489999, "ch 48",             false,
-                                27.490001, 27.499999, "ch 49",             false,
-                                27.500001, 27.509999, "ch 50",             false,
+                                27.410001, 27.419999, "11M ch 41",             false,
+                                27.420001, 27.429999, "11M ch 42",             false,
+                                27.430001, 27.439999, "11M ch 43",             false,
+                                27.440001, 27.449999, "11M ch 44",             false,
+                                27.450001, 27.459999, "11M ch 45",             false,
+                                27.460001, 27.469999, "11M ch 46",             false,
+                                27.470001, 27.479999, "11M ch 47",             false,
+                                27.480001, 27.489999, "11M ch 48",             false,
+                                27.490001, 27.499999, "11M ch 49",             false,
+                                27.500001, 27.509999, "11M ch 50",             false,
 
-                                27.510001, 27.519999, "ch 51",             false,
-                                27.520001, 27.529999, "ch 52",             false,
-                                27.530001, 27.539999, "ch 53",             false,
-                                27.540001, 27.549999, "ch 54",             false,
-                                27.550001, 27.559999, "ch 55",             false,
-                                27.560001, 27.569999, "ch 56",             false,
-                                27.570001, 27.579999, "ch 57",             false,
-                                27.580001, 27.589999, "ch 58",             false,
-                                27.590001, 27.599999, "ch 59",             false,
-                                27.600001, 27.609999, "ch 60",             false,
+                                27.510001, 27.519999, "11M ch 51",             false,
+                                27.520001, 27.529999, "11M ch 52",             false,
+                                27.530001, 27.539999, "11M ch 53",             false,
+                                27.540001, 27.549999, "11M ch 54",             false,
+                                27.550001, 27.559999, "11M ch 55",             false,
+                                27.560001, 27.569999, "11M ch 56",             false,
+                                27.570001, 27.579999, "11M ch 57",             false,
+                                27.580001, 27.589999, "11M ch 58",             false,
+                                27.590001, 27.599999, "11M ch 59",             false,
+                                27.600001, 27.609999, "11M ch 60",             false,
 
-                                27.610001, 27.619999, "ch 61",             false,
-                                27.620001, 27.629999, "ch 62",             false,
-                                27.630001, 27.639999, "ch 63",             false,
-                                27.640001, 27.649999, "ch 64",             false,
-                                27.650001, 27.659999, "ch 65",             false,
-                                27.660001, 27.669999, "ch 66",             false,
-                                27.670001, 27.679999, "ch 67",             false,
-                                27.680001, 27.689999, "ch 68",             false,
-                                27.690001, 27.699999, "ch 69",             false,
-                                27.700001, 27.709999, "ch 70",             false,
+                                27.610001, 27.619999, "11M ch 61",             false,
+                                27.620001, 27.629999, "11M ch 62",             false,
+                                27.630001, 27.639999, "11M ch 63",             false,
+                                27.640001, 27.649999, "11M ch 64",             false,
+                                27.650001, 27.659999, "11M ch 65",             false,
+                                27.660001, 27.669999, "11M ch 66",             false,
+                                27.670001, 27.679999, "11M ch 67",             false,
+                                27.680001, 27.689999, "11M ch 68",             false,
+                                27.690001, 27.699999, "11M ch 69",             false,
+                                27.700001, 27.709999, "11M ch 70",             false,
 
-                                27.710001, 27.719999, "ch 71",             false,
-                                27.720001, 27.729999, "ch 72",             false,
-                                27.730001, 27.739999, "ch 73",             false,
-                                27.740001, 27.749999, "ch 74",             false,
-                                27.750001, 27.759999, "ch 75",             false,
-                                27.760001, 27.769999, "ch 76",             false,
-                                27.770001, 27.779999, "ch 77",             false,
-                                27.780001, 27.789999, "ch 78",             false,
-                                27.790001, 27.799999, "ch 79",             false,
-                                27.800001, 27.809999, "ch 80",             false,
+                                27.710001, 27.719999, "11M ch 71",             false,
+                                27.720001, 27.729999, "11M ch 72",             false,
+                                27.730001, 27.739999, "11M ch 73",             false,
+                                27.740001, 27.749999, "11M ch 74",             false,
+                                27.750001, 27.759999, "11M ch 75",             false,
+                                27.760001, 27.769999, "11M ch 76",             false,
+                                27.770001, 27.779999, "11M ch 77",             false,
+                                27.780001, 27.789999, "11M ch 78",             false,
+                                27.790001, 27.799999, "11M ch 79",             false,
+                                27.800001, 27.809999, "11M ch 80",             false,
                              
                                 27.810000, 27.999999, "11M Short Wave",         false,
 
@@ -267,10 +260,169 @@ namespace PowerSDR
 
         } //  AddBandTextSWB()
 
+        private static void AddBandRussiaTextSWB()
+        {
+            // SW Broadcast & Misc. Band Plan
+            DataTable t = ds.Tables["BandText"];
+
+            object[] data = {
+                                2.500000, 2.500000, "WWV Time",                 false,
+                                5.000000, 5.000000, "WWV Time",                 false,
+                                10.000000, 10.000000, "WWV Time",               false,
+                                15.000000, 15.000000, "WWV Time",               false,
+                                20.000000, 20.000000, "WWV Time",               false,
+                                25.000000, 25.000000, "WWV Time",               false,  // ke9ns add
+                                3.330000, 3.330000, "CHU Time",                 false,
+                                7.850000, 7.850000, "CHU Time",                 false,
+                                14.670000, 14.670000, "CHU Time",               false,
+                                4.996000, 4.996000, "RWM",                      false,
+                                9.996000, 9.996000, "RWM",                      false,
+                                14.996000, 14.996000, "RWM",                    false,
+                                4.998000, 4.998000, "EBC",                      false,
+                                15.006000, 15.006000, "EBC",                    false,
+
+                                0.135700, 0.137799, "2.2kM CW & Narrow Band",   true, // ke9ns change
+                                0.153000, 0.279000, "AM - Long Wave",           false,
+                                0.415000, 0.471999, "Maritime Band",            false,
+                                0.472000, 0.478999, "630M CW & Narrow Band",    true, // ke9ns change
+                                0.479000, 0.526400, "Maritime Band",            false,
+                                0.530000, 1.710000, "Broadcast AM Med Wave",    false,
+                                2.300000, 2.495000, "120M Short Wave",          false,
+                                3.200000, 3.329999, "90M Short Wave",           false,
+                                3.330001, 3.400000, "90M Short Wave",           false,
+                                4.750000, 4.995999, "61M Short Wave",           false,
+                                4.996001, 4.997999, "61M Short Wave",           false,
+                                4.998001, 4.999999, "61M Short Wave",           false,
+                                5.000001, 5.060000, "61M Short Wave",           false,
+                                5.900000, 6.999999, "49M Short Wave",           false,
+                                7.300000, 8.999999, "41M Short Wave",           false, // ke9ns mod
+                                9.000000, 9.900000, "31M Short Wave",           false, // ke9ns mod
+                                11.600000, 12.100000, "25M Short Wave",         false,
+                                13.570000, 13.870000, "22M Short Wave",         false,
+                                15.100000, 15.800000, "19M Short Wave",         false,
+                                17.480000, 17.900000, "16M Short Wave",         false,
+                                18.900000, 19.020000, "15M Short Wave",         false,
+                                21.450000, 21.850000, "13M Short Wave",         false,
+
+                                25.600000, 26.960000, "11M Short Wave",         true,
+
+                                26.960001, 26.969999, "11M CB ch 1",              true,
+                                26.970001, 26.979999, "11M CB ch 2",              true,
+                                26.980001, 26.989999, "11M CB ch 3",              true,
+                                26.990001, 26.999999, "11M CB RC",              true,
+                                27.000001, 27.009999, "11M CB ch 4",              true,
+                                27.010001, 27.019999, "11M CB ch 5",              true,
+                                27.020001, 27.029999, "11M CB ch 6",              true,
+                                27.030001, 27.039999, "11M CB ch 7",              true,
+                                27.040001, 27.049999, "11M CB RC",              true,
+                                27.050001, 27.059999, "11M CB ch 8",              true,
+                                27.060001, 27.069999, "11M CB ch 9",              true,
+                                27.070001, 27.079999, "11M CB ch 10",             true,
+                                27.080001, 27.089999, "11M CB ch 11",             true,
+                                27.090001, 27.099999, "11M CB RC",             true,
+                                27.100001, 27.109999, "11M CB ch 12",             true,
+                                27.110001, 27.119999, "11M CB ch 13",             true,
+                                27.120001, 27.129999, "11M CB ch 14",             true,
+                                27.130001, 27.139999, "11M CB ch 15",             true,
+                                27.140001, 27.149999, "11M CB RC",             true,
+                                27.150001, 27.159999, "11M CB ch 16",             true,
+                                27.160001, 27.169999, "11M CB ch 17",             true,
+                                27.170001, 27.179999, "11M CB ch 18",             true,
+                                27.180001, 27.189999, "11M CB ch 19",             true,
+                                27.190001, 27.199999, "11M CB RC",             true,
+                                27.200001, 27.209999, "11M CB ch 20",             true,
+                                27.210001, 27.219999, "11M CB ch 21",             true,
+                                27.220001, 27.229999, "11M CB ch 22",             true,
+                                27.250001, 27.259999, "11M CB ch 23",             true,
+                                27.230001, 27.239999, "11M CB ch 24",             true,
+                                27.240001, 27.249999, "11M CB ch 25",             true,
+                                27.260001, 27.269999, "11M CB ch 26",             true,
+                                27.270001, 27.279999, "11M CB ch 27",             true,
+                                27.280001, 27.289999, "11M CB ch 28",             true,
+                                27.290001, 27.299999, "11M CB ch 29",             true,
+                                27.300001, 27.309999, "11M CB ch 30",             true,
+                                27.310001, 27.319999, "11M CB ch 31",             true,
+                                27.320001, 27.329999, "11M CB ch 32",             true,
+                                27.330001, 27.339999, "11M CB ch 33",             true,
+                                27.340001, 27.349999, "11M CB ch 34",             true,
+                                27.350001, 27.359999, "11M CB ch 35",             true,
+                                27.360001, 27.369999, "11M CB ch 36",             true,
+                                27.370001, 27.379999, "11M CB ch 37",             true,
+                                27.380001, 27.389999, "11M CB ch 38",             true,
+                                27.390001, 27.399999, "11M CB ch 39",             true,
+                                27.400001, 27.409999, "11M CB ch 40",             true,
+
+                                27.410001, 27.419999, "11M ch 41",             true,
+                                27.420001, 27.429999, "11M ch 42",             true,
+                                27.430001, 27.439999, "11M ch 43",             true,
+                                27.440001, 27.449999, "11M ch 44",             true,
+                                27.450001, 27.459999, "11M ch 45",             true,
+                                27.460001, 27.469999, "11M ch 46",             true,
+                                27.470001, 27.479999, "11M ch 47",             true,
+                                27.480001, 27.489999, "11M ch 48",             true,
+                                27.490001, 27.499999, "11M ch 49",             true,
+                                27.500001, 27.509999, "11M ch 50",             true,
+
+                                27.510001, 27.519999, "11M ch 51",             true,
+                                27.520001, 27.529999, "11M ch 52",             true,
+                                27.530001, 27.539999, "11M ch 53",             true,
+                                27.540001, 27.549999, "11M ch 54",             true,
+                                27.550001, 27.559999, "11M ch 55",             true,
+                                27.560001, 27.569999, "11M ch 56",             true,
+                                27.570001, 27.579999, "11M ch 57",             true,
+                                27.580001, 27.589999, "11M ch 58",             true,
+                                27.590001, 27.599999, "11M ch 59",             true,
+                                27.600001, 27.609999, "11M ch 60",             true,
+
+                                27.610001, 27.619999, "11M ch 61",             true,
+                                27.620001, 27.629999, "11M ch 62",             true,
+                                27.630001, 27.639999, "11M ch 63",             true,
+                                27.640001, 27.649999, "11M ch 64",             true,
+                                27.650001, 27.659999, "11M ch 65",             true,
+                                27.660001, 27.669999, "11M ch 66",             true,
+                                27.670001, 27.679999, "11M ch 67",             true,
+                                27.680001, 27.689999, "11M ch 68",             true,
+                                27.690001, 27.699999, "11M ch 69",             true,
+                                27.700001, 27.709999, "11M ch 70",             true,
+
+                                27.710001, 27.719999, "11M ch 71",             true,
+                                27.720001, 27.729999, "11M ch 72",             true,
+                                27.730001, 27.739999, "11M ch 73",             true,
+                                27.740001, 27.749999, "11M ch 74",             true,
+                                27.750001, 27.759999, "11M ch 75",             true,
+                                27.760001, 27.769999, "11M ch 76",             true,
+                                27.770001, 27.779999, "11M ch 77",             true,
+                                27.780001, 27.789999, "11M ch 78",             true,
+                                27.790001, 27.799999, "11M ch 79",             true,
+                                27.800001, 27.809999, "11M ch 80",             true,
+
+                                27.810000, 27.860000, "11M Short Wave",        true,
+
+                                27.860001, 27.999999, "11M Short Wave",        false,
+
+
+
+                            };
+
+            Debug.WriteLine("russia2 " + (data.Length / 4));
+
+            for (int i = 0; i < data.Length / 4; i++)
+            {
+                DataRow dr = t.NewRow();
+                dr["Low"] = (double)data[i * 4 + 0];
+                dr["High"] = (double)data[i * 4 + 1];
+                dr["Name"] = (string)data[i * 4 + 2];
+                dr["TX"] = (bool)data[i * 4 + 3];
+                t.Rows.Add(dr);
+            }
+
+        } //  AddBandRussiaTextSWB()
 
         private static void ClearBandText()
         {
             ds.Tables["BandText"].Clear();
+
+            
         }
 
         //===============================================================================================
@@ -349,7 +501,7 @@ namespace PowerSDR
 
                                 "16M", "SAM", "F4", 17.500000,
                                 "16M", "SAM", "F4", 17.600000,
-                                "16M", "SAM", "F4", 17.700000,
+                                "16M", "SAM", "F4", 17.700000, 
 
                                 "14M", "SAM", "F4", 18.900000,
                                 "14M", "SAM", "F4", 19.000000,
@@ -452,11 +604,12 @@ namespace PowerSDR
      // 5.366501, 5.450000, "60M RX Only"          
 
         // ke9ns modified
-        private static void AddRegion1ABandText60m() // Germany, Luxembourg, Belgium, spain, switzerland, Finland
+        private static void AddRegion1ABandText60m() // TX Germany, Luxembourg, Belgium, spain, switzerland, Finland
         {
             DataTable t = ds.Tables["BandText"];
             Debug.WriteLine("EUROPE==============");
 
+           
             object[] data = {
                                 5.250000, 5.351499, "60M RX Only",              false,
 
@@ -484,7 +637,7 @@ namespace PowerSDR
         }
 
         //====================================================================================================================
-        // ke9ns add CB 11m
+        // ke9ns add CB 11m (not used)
         private static void AddBandText11m() // ke9ns add CB
         {
             DataTable t = ds.Tables["BandText"];
@@ -601,7 +754,6 @@ namespace PowerSDR
         } // AddRegion1ABandText11m() // ke9ns add CB
 
 
-
         // ke9ns parts of region 1 that dont get the new 60m plan
         private static void AddRegion1BBandText60m() // Netherlands
         {
@@ -628,7 +780,7 @@ namespace PowerSDR
       
 
         // ke9ns parts of region 1 that dont get the new 60m plan
-        private static void AddRegion1BandText60m()
+        private static void AddRegion1BandText60m() // RX only
         {
             DataTable t = ds.Tables["BandText"];
             Debug.WriteLine("EUROPE1==============");
@@ -1563,32 +1715,51 @@ namespace PowerSDR
 
         #endregion
 
-        #region IARU Region 2 BandText
+        #region IARU2 Region 2 BandText
 
-        private static void AddBandTextTable()  // Default bandtext - US Region 2
+        private static void AddBandTextTable()  // Default bandtext -  Region 2
         {            
             ds.Tables.Add("BandText");
             DataTable t = ds.Tables["BandText"];
 
-            Debug.WriteLine("USA==============");
+            Debug.WriteLine("US ==============");
 
             t.Columns.Add("Low", typeof(double));
             t.Columns.Add("High", typeof(double));
             t.Columns.Add("Name", typeof(string));
             t.Columns.Add("TX", typeof(bool));
 
+
+            // FT8 1.84, 3.573, 5.357, 7.074, 10.136, 14.074, 18.1, 21.074, 24.915, 28.074, 50.274? or 50.313
+
             object[] data = {
 								1.800000, 1.809999, "160M CW/Digital Modes",	true,
 								1.810000, 1.810000, "160M CW QRP",				true,
-								1.810001, 1.842999, "160M CW",					true,
-								1.843000, 1.909999, "160M SSB/SSTV/Wide Band",	true,
+								1.810001, 1.837999, "160M CW",					true, // was 1.842999,
+
+                                1.838000, 1.838000, "160M PSK/JT65 DIGU",       true, // ke9ns add
+                                1.838001, 1.839999, "160M PSK/JT65 DIGU",       true, // ke9ns add
+
+                                1.840000, 1.840000, "160M FT8 DIGU",            true, // ke9ns add  1.84
+                                1.840001, 1.842500, "160M FT8 DIGU",            true, // ke9ns add
+                                1.842501, 1.842999, "160M FT8 DIGU",            true,
+
+                                1.843000, 1.909999, "160M SSB/SSTV/Wide Band",	true,
 								1.910000, 1.910000, "160M SSB QRP",				true,
 								1.910001, 1.994999, "160M SSB/SSTV/Wide Band",	true,
 								1.995000, 1.999999, "160M Experimental",		true,
 
+
 								3.500000, 3.524999, "80M Extra CW",				true,
-								3.525000, 3.579999, "80M CW",					true,
-								3.580000, 3.589999, "80M RTTY",					true,
+								3.525000, 3.569999, "80M CW",					true,
+
+                                3.570000, 3.570000, "80M JT65 DIGU",            true, // ke9ns add
+                                3.570001, 3.572999, "80M JT65 DIGU",            true, // ke9ns add
+                               
+                                3.573000, 3.573000, "80M FT8 DIGU",            true, // ke9ns add  3.573
+                                3.573001, 3.575500, "80M FT8 DIGU",            true, // ke9ns add
+                              
+								3.575501, 3.589999, "80M PSK",					true,
 								3.590000, 3.590000, "80M RTTY DX",				true,
 								3.590001, 3.599999, "80M RTTY",					true,
 								3.600000, 3.699999, "75M Extra SSB",			true,
@@ -1616,8 +1787,17 @@ namespace PowerSDR
 								
 								7.000000, 7.024999, "40M Extra CW",				true, // ke9ns mod
 								7.025000, 7.039999, "40M CW",					true,
-								7.040000, 7.040000, "40M RTTY DX",				true,
-								7.040001, 7.099999, "40M RTTY",					true,
+
+								7.040000, 7.042999, "40M PSK",       			true,
+                                7.043000, 7.073999, "40M RTTY",                 true,
+
+                                7.074000, 7.074000, "40M FT8 DIGU",            true, // ke9ns add  7.074
+                                7.074001, 7.075999, "40M FT8 DIGU",             true, // ke9ns add
+
+                                7.076000, 7.076000, "40M JT65 DIGU",            true, // ke9ns add
+                                7.076001, 7.078999, "40M JT65 DIGU",            true, // ke9ns add
+                              
+								7.079000, 7.099999, "40M RTTY",					true,
 								7.100000, 7.124999, "40M CW",					true,
 								7.125000, 7.170999, "40M Ext/Adv SSB",			true,
 								7.171000, 7.171000, "40M SSTV",					true,
@@ -1625,15 +1805,31 @@ namespace PowerSDR
 								7.175000, 7.289999, "40M SSB",					true,
 								7.290000, 7.290000, "40M AM Calling Frequency", true,
 								7.290001, 7.299999, "40M SSB",					true,
-								
+
+							
 								10.100000, 10.129999, "30M CW",					true,
 								10.130000, 10.139999, "30M RTTY",				true,
-								10.140000, 10.149999, "30M Packet",				true,
 
-								14.000000, 14.024999, "20M Extra CW",			true,
+                                10.136000, 10.136000, "30M FT8 DIGU",            true, // ke9ns add
+                                10.136001, 10.137999, "30M PSK/FT8 DIGU",         true, // ke9ns add
+
+                                10.138000, 10.138000, "30M JT65 DIGU",            true, // ke9ns add
+                                10.138001, 10.138999, "30M JT65 DIGU",            true, // ke9ns add
+                                10.142000, 10.139999, "30M RTTY",               true,
+
+                                14.000000, 14.024999, "20M Extra CW",			true,
 								14.025000, 14.069999, "20M CW",					true,
-								14.070000, 14.094999, "20M RTTY",				true,
-								14.095000, 14.099499, "20M Packet",				true,
+								14.070000, 14.073999, "20M PSK/RTTY",			true,
+
+                                14.074000, 14.074000, "20M FT8 DIGU",            true, // ke9ns add
+                                14.074001, 14.075999, "20M FT8 DIGU",             true, // ke9ns add
+
+                                14.076000, 14.076000, "20M JT65 DIGU",            true, // ke9ns add
+                                14.076001, 14.078999, "20M JT65 DIGU",            true, // ke9ns add
+
+                                14.079000, 14.094999, "20M RTTY",                true,
+
+                                14.095000, 14.099499, "20M Packet",				true,
 								14.099500, 14.099999, "20M CW",					true,
 								14.100000, 14.100000, "20M NCDXF Beacons",	    true,
 								14.100001, 14.100499, "20M CW",					true,
@@ -1647,16 +1843,33 @@ namespace PowerSDR
 								14.286000, 14.286000, "20M AM Calling Frequency", true,
 								14.286001, 14.349999, "20M SSB",				true,
 								
+	
 								18.068000, 18.099999, "17M CW",					true,
-								18.100000, 18.104999, "17M RTTY",				true,
-								18.105000, 18.109999, "17M Packet",				true,
+								18.100000, 18.101999, "17M RTTY",				true,
+
+                                18.100000, 18.100000, "17M FT8 DIGU",            true, // ke9ns add
+                                18.100001, 18.102999, "17M FT8 DIGU",             true, // ke9ns add
+
+                                18.102000, 18.102000, "17M JT65 DIGU",            true, // ke9ns add
+                                18.102001, 18.104999, "17M JT65 DIGU",            true, // ke9ns add
+                              
+                                18.108000, 18.109999, "17M PSK",				true,
 								18.110000, 18.110000, "17M NCDXF Beacons",	    true,
 								18.110001, 18.167999, "17M SSB",				true,
 								
+
 								21.000000, 21.024999, "15M Extra CW",			true,
 								21.025000, 21.069999, "15M CW",					true,
-								21.070000, 21.099999, "15M RTTY",				true,
-								21.100000, 21.109999, "15M Packet",				true,
+								21.070000, 21.073999, "15M RTTY",				true,
+
+                                21.074000, 21.074000, "15M FT8 DIGU",            true, // ke9ns add 
+                                21.074001, 21.075999, "15M FT8 DIGU",             true, // ke9ns add
+
+                                21.076000, 21.076000, "15M JT65 DIGU",            true, // ke9ns add
+                                21.076001, 21.078999, "15M JT65 DIGU",            true, // ke9ns add
+                                21.079000, 21.099999, "15M RTTY",               true,
+
+                                21.100000, 21.109999, "15M Packet",				true,
 								21.110000, 21.149999, "15M CW",					true,
 								21.150000, 21.150000, "15M NCDXF Beacons",	    true,
 								21.150001, 21.199999, "15M CW",					true,
@@ -1665,15 +1878,29 @@ namespace PowerSDR
 								21.275000, 21.339999, "15M SSB",				true,
 								21.340000, 21.340000, "15M SSTV",				true,
 								21.340001, 21.449999, "15M SSB",				true,
-								
-								24.890000, 24.919999, "12M CW",					true,
-								24.920000, 24.924999, "12M RTTY",				true,
+							   
+								24.890000, 24.914999, "12M CW",					true, 
+                                24.915000, 24.915000, "12M FT8 DIGU",            true, // ke9ns add 
+                                24.915001, 24.916999, "12M FT8 DIGU",             true, // ke9ns add
+
+                                24.917000, 24.917000, "12M JT65 DIGU",            true, // ke9ns add 
+                                24.917001, 24.919999, "12M JT65 DIGU",             true, // ke9ns add
+
+
+                                24.920000, 24.924999, "12M RTTY",				true,
 								24.925000, 24.929999, "12M Packet",				true,
 								24.930000, 24.930000, "12M NCDXF Beacons",	    true,
 								24.930001, 24.989999, "12M SSB",				true,
 								
-								28.000000, 28.069999, "10M CW",					true,
-								28.070000, 28.149999, "10M RTTY",				true,
+								28.000000, 28.073999, "10M CW",					true,
+
+                                28.074000, 28.074000, "10M FT8 DIGU",            true, // ke9ns add 
+                                28.074001, 28.075999, "10M FT8 DIGU",             true, // ke9ns add
+                                28.076000, 28.076000, "10M JT65 DIGU",            true, // ke9ns add 
+                                28.076001, 28.078999, "10M JT65 DIGU",             true, // ke9ns add
+
+
+								28.079000, 28.149999, "10M RTTY",				true,
 								28.150000, 28.199999, "10M CW",					true,
 								28.200000, 28.200000, "10M NCDXF Beacons",	    true,
 								28.200001, 28.299999, "10M Beacons",			true,
@@ -1694,9 +1921,21 @@ namespace PowerSDR
 								50.060000, 50.079999, "6M Beacon Sub-Band",		true,
 								50.080000, 50.099999, "6M CW",					true,
 								50.100000, 50.124999, "6M DX Window",			true,
-								50.125000, 50.125000, "6M Calling Frequency",	true,
-								50.125001, 50.299999, "6M SSB",					true,
-								50.300000, 50.599999, "6M All Modes",			true,
+
+								50.125000, 50.125000, "6M Calling Frequency",	true, // calling freq
+
+								50.125001, 50.273999, "6M SSB",					true,
+
+                                50.276000, 50.276000, "6M JT65 DIGU",            true, // ke9ns add 
+                                50.276001, 50.278999, "6M JT65 DIGU",             true, // ke9ns add
+                                50.279000, 50.309999, "6M All Modes",          true,
+                                50.310000, 50.310000, "6M JT65 DIGU",            true, // ke9ns add 
+                                50.310001, 50.312999, "6M JT65 DIGU",             true, // ke9ns add
+
+                                50.313000, 50.313000, "6M FT8 DIGU",            true, // ke9ns add   ?
+                                50.313001, 50.315999, "6M FT8 DIGU",             true, // ke9ns add
+
+                                50.316000, 50.599999, "6M All Modes",			true,
 								50.600000, 50.619999, "6M Non Voice",			true,
 								50.620000, 50.620000, "6M Digital Packet",      true,
 								50.620001, 50.799999, "6M Non Voice",			true,
@@ -1894,9 +2133,652 @@ namespace PowerSDR
           
         } // AddBandTextTable() Region2
 
+        private static void AddBand2TextTable()  // IARU2 ham bandtext (because 60m is like IARU1)
+        {
+            ds.Tables.Add("BandText");
+            DataTable t = ds.Tables["BandText"];
+
+            Debug.WriteLine("IARU2==============");
+
+            t.Columns.Add("Low", typeof(double));
+            t.Columns.Add("High", typeof(double));
+            t.Columns.Add("Name", typeof(string));
+            t.Columns.Add("TX", typeof(bool));
+
+            object[] data = {
+                                1.800000, 1.809999, "160M CW/Digital Modes",    true,
+                                1.810000, 1.810000, "160M CW QRP",              true,
+                                1.810001, 1.842999, "160M CW",                  true,
+                                1.843000, 1.909999, "160M SSB/SSTV/Wide Band",  true,
+                                1.910000, 1.910000, "160M SSB QRP",             true,
+                                1.910001, 1.994999, "160M SSB/SSTV/Wide Band",  true,
+                                1.995000, 1.999999, "160M Experimental",        true,
+
+                                3.500000, 3.524999, "80M Extra CW",             true,
+                                3.525000, 3.579999, "80M CW",                   true,
+                                3.580000, 3.589999, "80M RTTY",                 true,
+                                3.590000, 3.590000, "80M RTTY DX",              true,
+                                3.590001, 3.599999, "80M RTTY",                 true,
+                                3.600000, 3.699999, "75M Extra SSB",            true,
+                                3.700000, 3.789999, "75M Ext/Adv SSB",          true,
+                                3.790000, 3.799999, "75M Ext/Adv DX Window",    true,
+                                3.800000, 3.844999, "75M SSB",                  true,
+                                3.845000, 3.845000, "75M SSTV",                 true,
+                                3.845001, 3.884999, "75M SSB",                  true,
+                                3.885000, 3.885000, "75M AM Calling Frequency", true,
+                                3.885001, 3.999999, "75M SSB",                  true,
+
+                           /*     5.167500, 5.167500, "60M Emergency Channel",            true, // ke9ns add
+
+                                5.250000, 5.331999, "60M General",              false,
+                                5.332000, 5.332000, "60M Channel 1",            true,
+                                5.332001, 5.347999, "60M General",              false,
+                                5.348000, 5.348000, "60M Channel 2",            true,
+                                5.348001, 5.358499, "60M General",              false,
+                                5.358500, 5.358500, "60M Channel 3 (IARU 1)",           true,
+                                5.358501, 5.372999, "60M General",              false,
+                                5.373000, 5.373000, "60M Channel 4",            true,
+                                5.373001, 5.404999, "60M General",              false,
+                                5.405000, 5.405000, "60M Channel 5",            true,
+                                5.405001, 5.449999, "60M General",              false,
+                            */
+                                7.000000, 7.024999, "40M Extra CW",             true, // ke9ns mod
+								7.025000, 7.039999, "40M CW",                   true,
+                                7.040000, 7.040000, "40M RTTY DX",              true,
+                                7.040001, 7.099999, "40M RTTY",                 true,
+                                7.100000, 7.124999, "40M CW",                   true,
+                                7.125000, 7.170999, "40M Ext/Adv SSB",          true,
+                                7.171000, 7.171000, "40M SSTV",                 true,
+                                7.171001, 7.174999, "40M Ext/Adv SSB",          true,
+                                7.175000, 7.289999, "40M SSB",                  true,
+                                7.290000, 7.290000, "40M AM Calling Frequency", true,
+                                7.290001, 7.299999, "40M SSB",                  true,
+
+                                10.100000, 10.129999, "30M CW",                 true,
+                                10.130000, 10.139999, "30M RTTY",               true,
+                                10.140000, 10.149999, "30M Packet",             true,
+
+                                14.000000, 14.024999, "20M Extra CW",           true,
+                                14.025000, 14.069999, "20M CW",                 true,
+                                14.070000, 14.094999, "20M RTTY",               true,
+                                14.095000, 14.099499, "20M Packet",             true,
+                                14.099500, 14.099999, "20M CW",                 true,
+                                14.100000, 14.100000, "20M NCDXF Beacons",      true,
+                                14.100001, 14.100499, "20M CW",                 true,
+                                14.100500, 14.111999, "20M Packet",             true,
+                                14.112000, 14.149999, "20M CW",                 true,
+                                14.150000, 14.174999, "20M Extra SSB",          true,
+                                14.175000, 14.224999, "20M Ext/Adv SSB",        true,
+                                14.225000, 14.229999, "20M SSB",                true,
+                                14.230000, 14.230000, "20M SSTV",               true,
+                                14.230001, 14.285999, "20M SSB",                true,
+                                14.286000, 14.286000, "20M AM Calling Frequency", true,
+                                14.286001, 14.349999, "20M SSB",                true,
+
+                                18.068000, 18.099999, "17M CW",                 true,
+                                18.100000, 18.104999, "17M RTTY",               true,
+                                18.105000, 18.109999, "17M Packet",             true,
+                                18.110000, 18.110000, "17M NCDXF Beacons",      true,
+                                18.110001, 18.167999, "17M SSB",                true,
+
+                                21.000000, 21.024999, "15M Extra CW",           true,
+                                21.025000, 21.069999, "15M CW",                 true,
+                                21.070000, 21.099999, "15M RTTY",               true,
+                                21.100000, 21.109999, "15M Packet",             true,
+                                21.110000, 21.149999, "15M CW",                 true,
+                                21.150000, 21.150000, "15M NCDXF Beacons",      true,
+                                21.150001, 21.199999, "15M CW",                 true,
+                                21.200000, 21.224999, "15M Extra SSB",          true,
+                                21.225000, 21.274999, "15M Ext/Adv SSB",        true,
+                                21.275000, 21.339999, "15M SSB",                true,
+                                21.340000, 21.340000, "15M SSTV",               true,
+                                21.340001, 21.449999, "15M SSB",                true,
+
+                                24.890000, 24.919999, "12M CW",                 true,
+                                24.920000, 24.924999, "12M RTTY",               true,
+                                24.925000, 24.929999, "12M Packet",             true,
+                                24.930000, 24.930000, "12M NCDXF Beacons",      true,
+                                24.930001, 24.989999, "12M SSB",                true,
+
+                                28.000000, 28.069999, "10M CW",                 true,
+                                28.070000, 28.149999, "10M RTTY",               true,
+                                28.150000, 28.199999, "10M CW",                 true,
+                                28.200000, 28.200000, "10M NCDXF Beacons",      true,
+                                28.200001, 28.299999, "10M Beacons",            true,
+                                28.300000, 28.679999, "10M SSB",                true,
+                                28.680000, 28.680000, "10M SSTV",               true,
+                                28.680001, 28.999999, "10M SSB",                true,
+                                29.000000, 29.199999, "10M AM",                 true,
+                                29.200000, 29.299999, "10M SSB",                true,
+                                29.300000, 29.509999, "10M Satellite Downlinks", true,
+                                29.510000, 29.519999, "10M Deadband",           true,
+                                29.520000, 29.589999, "10M Repeater Inputs",    true,
+                                29.590000, 29.599999, "10M Deadband",           true,
+                                29.600000, 29.600000, "10M FM Simplex",         true,
+                                29.600001, 29.609999, "10M Deadband",           true,
+                                29.610000, 29.699999, "10M Repeater Outputs",   true,
+
+                                50.000000, 50.059999, "6M CW",                  true,
+                                50.060000, 50.079999, "6M Beacon Sub-Band",     true,
+                                50.080000, 50.099999, "6M CW",                  true,
+                                50.100000, 50.124999, "6M DX Window",           true,
+                                50.125000, 50.125000, "6M Calling Frequency",   true,
+                                50.125001, 50.299999, "6M SSB",                 true,
+                                50.300000, 50.599999, "6M All Modes",           true,
+                                50.600000, 50.619999, "6M Non Voice",           true,
+                                50.620000, 50.620000, "6M Digital Packet",      true,
+                                50.620001, 50.799999, "6M Non Voice",           true,
+                                50.800000, 50.999999, "6M RC",                  true,
+                                51.000000, 51.099999, "6M Pacific DX Window",   true,
+                                51.100000, 51.119999, "6M Deadband",            true,
+                                51.120000, 51.179999, "6M Digital Repeater Inputs", true,
+                                51.180000, 51.479999, "6M Repeater Inputs",     true,
+                                51.480000, 51.619999, "6M Deadband",            true,
+                                51.620000, 51.679999, "6M Digital Repeater Outputs", true,
+                                51.680000, 51.979999, "6M Repeater Outputs",    true,
+                                51.980000, 51.999999, "6M Deadband",            true,
+                                52.000000, 52.019999, "6M Repeater Inputs",     true,
+                                52.020000, 52.020000, "6M FM Simplex",          true,
+                                52.020001, 52.039999, "6M Repeater Inputs",     true,
+                                52.040000, 52.040000, "6M FM Simplex",          true,
+                                52.040001, 52.479999, "6M Repeater Inputs",     true,
+                                52.480000, 52.499999, "6M Deadband",            true,
+                                52.500000, 52.524999, "6M Repeater Outputs",    true,
+                                52.525000, 52.525000, "6M Primary FM Simplex",  true,
+                                52.525001, 52.539999, "6M Deadband",            true,
+                                52.540000, 52.540000, "6M Secondary FM Simplex", true,
+                                52.540001, 52.979999, "6M Repeater Outputs",    true,
+                                52.980000, 52.999999, "6M Deadbands",           true,
+                                53.000000, 53.000000, "6M Remote Base FM Spx",  true,
+                                53.000001, 53.019999, "6M Repeater Inputs",     true,
+                                53.020000, 53.020000, "6M FM Simplex",          true,
+                                53.020001, 53.479999, "6M Repeater Inputs",     true,
+                                53.480000, 53.499999, "6M Deadband",            true,
+                                53.500000, 53.519999, "6M Repeater Outputs",    true,
+                                53.520000, 53.520000, "6M FM Simplex",          true,
+                                53.520001, 53.899999, "6M Repeater Outputs",    true,
+                                53.900000, 53.900000, "6M FM Simplex",          true,
+                                53.900010, 53.979999, "6M Repeater Outputs",    true,
+                                53.980000, 53.999999, "6M Deadband",            true,
+
+                                144.000000, 144.099999, "2M CW",                true,
+                                144.100000, 144.199999, "2M CW/SSB",            true,
+                                144.200000, 144.200000, "2M Calling",           true,
+                                144.200001, 144.274999, "2M CW/SSB",            true,
+                                144.275000, 144.299999, "2M Beacon Sub-Band",   true,
+                                144.300000, 144.499999, "2M Satellite",         true,
+                                144.500000, 144.599999, "2M Linear Translator Inputs", true,
+                                144.600000, 144.899999, "2M FM Repeater",       true,
+                                144.900000, 145.199999, "2M FM Simplex",        true,
+                                145.200000, 145.499999, "2M FM Repeater",       true,
+                                145.500000, 145.799999, "2M FM Simplex",        true,
+                                145.800000, 145.999999, "2M Satellite",         true,
+                                146.000000, 146.399999, "2M FM Repeater",       true,
+                                146.400000, 146.609999, "2M FM Simplex",        true,
+                                146.610000, 147.389999, "2M FM Repeater",       true,
+                                147.390000, 147.599999, "2M FM Simplex",        true,
+                                147.600000, 147.999999, "2M FM Repeater",       true,
+
+                                222.000000, 222.024999, "1.25M EME/Weak Signal",        true,
+                                222.025000, 222.049999, "1.25M Weak Signal",            true,
+                                222.050000, 222.059999, "1.25M Propagation Beacons",    true,
+                                222.060000, 222.099999, "1.25M Weak Signal",            true,
+                                222.100000, 222.100000, "1.25M SSB/CW Calling",         true,
+                                222.100001, 222.149999, "1.25M Weak Signal CW/SSB",     true,
+                                222.150000, 222.249999, "1.25M Local Option",           true,
+                                222.250000, 223.380000, "1.25M FM Repeater Inputs",     true,
+                                223.380001, 223.399999, "1.25M General",                true,
+                                223.400000, 223.519999, "1.25M FM Simplex",             true,
+                                223.520000, 223.639999, "1.25M Digital/Packet",         true,
+                                223.640000, 223.700000, "1.25M Links/Control",          true,
+                                223.700001, 223.709999, "1.25M General",                true,
+                                223.710000, 223.849999, "1.25M Local Option",           true,
+                                223.850000, 224.980000, "1.25M Repeater Outputs",       true,
+
+                                420.000000, 425.999999, "70cm ATV Repeater",    true,
+                                426.000000, 431.999999, "70cm ATV Simplex",     true,
+                                432.000000, 432.069999, "70cm EME",             true,
+                                432.070000, 432.099999, "70cm Weak Signal CW",  true,
+                                432.100000, 432.100000, "70cm Calling Frequency", true,
+                                432.100001, 432.299999, "70cm Mixed Mode Weak Signal", true,
+                                432.300000, 432.399999, "70cm Propagation Beacons", true,
+                                432.400000, 432.999999, "70cm Mixed Mode Weak Signal", true,
+                                433.000000, 434.999999, "70cm Auxillary/Repeater Links", true,
+                                435.000000, 437.999999, "70cm Satellite Only",  true,
+                                438.000000, 441.999999, "70cm ATV Repeater",    true,
+                                442.000000, 444.999999, "70cm Local Repeaters", true,
+                                445.000000, 445.999999, "70cm Local Option",    true,
+                                446.000000, 446.000000, "70cm Simplex",         true,
+                                446.000001, 446.999999, "70cm Local Option",    true,
+                                447.000000, 450.000000, "70cm Local Repeaters", true,
+
+                                902.000000, 902.099999, "33cm Weak Signal SSTV/FAX/ACSSB", true,
+                                902.100000, 902.100000, "33cm Weak Signal Calling", true,
+                                902.100001, 902.799999, "33cm Weak Signal SSTV/FAX/ACSSB", true,
+                                902.800000, 902.999999, "33cm Weak Signal EME/CW", true,
+                                903.000000, 903.099999, "33cm Digital Modes",   true,
+                                903.100000, 903.100000, "33cm Alternate Calling", true,
+                                903.100001, 905.999999, "33cm Digital Modes",   true,
+                                906.000000, 908.999999, "33cm FM Repeater Inputs", true,
+                                909.000000, 914.999999, "33cm ATV",             true,
+                                915.000000, 917.999999, "33cm Digital Modes",   true,
+                                918.000000, 920.999999, "33cm FM Repeater Outputs", true,
+                                921.000000, 926.999999, "33cm ATV",             true,
+                                927.000000, 928.000000, "33cm FM Simplex/Links", true,
+
+                                1240.000000, 1245.999999, "23cm ATV #1",        true,
+                                1246.000000, 1251.999999, "23cm FM Point/Links", true,
+                                1252.000000, 1257.999999, "23cm ATV #2, Digital Modes", true,
+                                1258.000000, 1259.999999, "23cm FM Point/Links", true,
+                                1260.000000, 1269.999999, "23cm Sat Uplinks/Wideband Exp.", true,
+                                1270.000000, 1275.999999, "23cm Repeater Inputs", true,
+                                1276.000000, 1281.999999, "23cm ATV #3",        true,
+                                1282.000000, 1287.999999, "23cm Repeater Outputs",  true,
+                                1288.000000, 1293.999999, "23cm Simplex ATV/Wideband Exp.", true,
+                                1294.000000, 1294.499999, "23cm Simplex FM",        true,
+                                1294.500000, 1294.500000, "23cm FM Simplex Calling", true,
+                                1294.500001, 1294.999999, "23cm Simplex FM",        true,
+                                1295.000000, 1295.799999, "23cm SSTV/FAX/ACSSB/Exp.", true,
+                                1295.800000, 1295.999999, "23cm EME/CW Expansion",  true,
+                                1296.000000, 1296.049999, "23cm EME Exclusive",     true,
+                                1296.050000, 1296.069999, "23cm Weak Signal",       true,
+                                1296.070000, 1296.079999, "23cm CW Beacons",        true,
+                                1296.080000, 1296.099999, "23cm Weak Signal",       true,
+                                1296.100000, 1296.100000, "23cm CW/SSB Calling",    true,
+                                1296.100001, 1296.399999, "23cm Weak Signal",       true,
+                                1296.400000, 1296.599999, "23cm X-Band Translator Input", true,
+                                1296.600000, 1296.799999, "23cm X-Band Translator Output", true,
+                                1296.800000, 1296.999999, "23cm Experimental Beacons", true,
+                                1297.000000, 1300.000000, "23cm Digital Modes",     true,
+
+                                2300.000000, 2302.999999, "2.3GHz High Data Rate", true,
+                                2303.000000, 2303.499999, "2.3GHz Packet",      true,
+                                2303.500000, 2303.800000, "2.3GHz TTY Packet",  true,
+                                2303.800001, 2303.899999, "2.3GHz General", true,
+                                2303.900000, 2303.900000, "2.3GHz Packet/TTY/CW/EME", true,
+                                2303.900001, 2304.099999, "2.3GHz CW/EME",      true,
+                                2304.100000, 2304.100000, "2.3GHz Calling Frequency", true,
+                                2304.100001, 2304.199999, "2.3GHz CW/EME/SSB",  true,
+                                2304.200000, 2304.299999, "2.3GHz SSB/SSTV/FAX/Packet AM/Amtor", true,
+                                2304.300000, 2304.319999, "2.3GHz Propagation Beacon Network", true,
+                                2304.320000, 2304.399999, "2.3GHz General Propagation Beacons", true,
+                                2304.400000, 2304.499999, "2.3GHz SSB/SSTV/ACSSB/FAX/Packet AM", true,
+                                2304.500000, 2304.699999, "2.3GHz X-Band Translator Input", true,
+                                2304.700000, 2304.899999, "2.3GHz X-Band Translator Output", true,
+                                2304.900000, 2304.999999, "2.3GHz Experimental Beacons", true,
+                                2305.000000, 2305.199999, "2.3GHz FM Simplex", true,
+                                2305.200000, 2305.200000, "2.3GHz FM Simplex Calling", true,
+                                2305.200001, 2305.999999, "2.3GHz FM Simplex", true,
+                                2306.000000, 2308.999999, "2.3GHz FM Repeaters", true,
+                                2309.000000, 2310.000000, "2.3GHz Control/Aux Links", true,
+                                2390.000000, 2395.999999, "2.3GHz Fast-Scan TV", true,
+                                2396.000000, 2398.999999, "2.3GHz High Rate Data", true,
+                                2399.000000, 2399.499999, "2.3GHz Packet", true,
+                                2399.500000, 2399.999999, "2.3GHz Control/Aux Links", true,
+                                2400.000000, 2402.999999, "2.4GHz Satellite", true,
+                                2403.000000, 2407.999999, "2.4GHz Satellite High-Rate Data", true,
+                                2408.000000, 2409.999999, "2.4GHz Satellite", true,
+                                2410.000000, 2412.999999, "2.4GHz FM Repeaters", true,
+                                2413.000000, 2417.999999, "2.4GHz High-Rate Data", true,
+                                2418.000000, 2429.999999, "2.4GHz Fast-Scan TV", true,
+                                2430.000000, 2432.999999, "2.4GHz Satellite", true,
+                                2433.000000, 2437.999999, "2.4GHz Sat. High-Rate Data", true,
+                                2438.000000, 2450.000000, "2.4GHz Wideband FM/FSTV/FMTV", true,
+
+                                3456.000000, 3456.099999, "3.4GHz General", true,
+                                3456.100000, 3456.100000, "3.4GHz Calling Frequency", true,
+                                3456.100001, 3456.299999, "3.4GHz General", true,
+                                3456.300000, 3456.400000, "3.4GHz Propagation Beacons", true,
+
+                                5760.000000, 5760.099999, "5.7GHz General", true,
+                                5760.100000, 5760.100000, "5.7GHz Calling Frequency", true,
+                                5760.100001, 5760.299999, "5.7GHz General", true,
+                                5760.300000, 5760.400000, "5.7GHz Propagation Beacons", true,
+
+                                10368.000000, 10368.099999, "10GHz General", true,
+                                10368.100000, 10368.100000, "10GHz Calling Frequency", true,
+                                10368.100001, 10368.400000, "10GHz General", true,
+
+                                24192.000000, 24192.099999, "24GHz General", true,
+                                24192.100000, 24192.100000, "24GHz Calling Frequency", true,
+                                24192.100001, 24192.400000, "24GHz General", true,
+
+                                47088.000000, 47088.099999, "47GHz General", true,
+                                47088.100000, 47088.100000, "47GHz Calling Frequency", true,
+                                47088.100001, 47088.400000, "47GHz General", true,
+            };
+
+            for (int i = 0; i < data.Length / 4; i++)
+            {
+                DataRow dr = t.NewRow();
+                dr["Low"] = (double)data[i * 4 + 0];
+                dr["High"] = (double)data[i * 4 + 1];
+                dr["Name"] = (string)data[i * 4 + 2];
+                dr["TX"] = (bool)data[i * 4 + 3];
+                t.Rows.Add(dr);
+            }
+
+           
+        } // AddBand2TextTable() Region2
+
         #endregion
 
-        #region IARU Region 3 BandText
+        private static void AddBandAusTextTable()  // ke9ns add Australia
+        {
+            ds.Tables.Add("BandText");
+            DataTable t = ds.Tables["BandText"];
+
+            Debug.WriteLine("Australia==============");
+
+            t.Columns.Add("Low", typeof(double));
+            t.Columns.Add("High", typeof(double));
+            t.Columns.Add("Name", typeof(string));
+            t.Columns.Add("TX", typeof(bool));
+
+            object[] data = {
+                                1.800000, 1.809999, "160M CW/Digital Modes",    true,
+                                1.810000, 1.810000, "160M CW QRP",              true,
+                                1.810001, 1.842999, "160M CW",                  true,
+                                1.843000, 1.909999, "160M SSB/SSTV/Wide Band",  true,
+                                1.910000, 1.910000, "160M SSB QRP",             true,
+                                1.910001, 1.994999, "160M SSB/SSTV/Wide Band",  true,
+                                1.995000, 1.999999, "160M Experimental",        true,
+
+                                3.500000, 3.524999, "80M Extra CW",             true,
+                                3.525000, 3.579999, "80M CW",                   true,
+                                3.580000, 3.589999, "80M RTTY",                 true,
+                                3.590000, 3.590000, "80M RTTY DX",              true,
+                                3.590001, 3.599999, "80M RTTY",                 true,
+                                3.600000, 3.699999, "75M Extra SSB",            true,
+                                3.700000, 3.789999, "75M Ext/Adv SSB",          true,
+                                3.790000, 3.799999, "75M Ext/Adv DX Window",    true,
+                                3.800000, 3.844999, "75M SSB",                  true,
+                                3.845000, 3.845000, "75M SSTV",                 true,
+                                3.845001, 3.884999, "75M SSB",                  true,
+                                3.885000, 3.885000, "75M AM Calling Frequency", true,
+                                3.885001, 3.999999, "75M SSB",                  true,
+
+                           
+                                7.000000, 7.024999, "40M Extra CW",             true, // ke9ns mod
+								7.025000, 7.039999, "40M CW",                   true,
+                                7.040000, 7.040000, "40M RTTY DX",              true,
+                                7.040001, 7.099999, "40M RTTY",                 true,
+                                7.100000, 7.124999, "40M CW",                   true,
+                                7.125000, 7.170999, "40M Ext/Adv SSB",          true,
+                                7.171000, 7.171000, "40M SSTV",                 true,
+                                7.171001, 7.174999, "40M Ext/Adv SSB",          true,
+                                7.175000, 7.289999, "40M SSB",                  true,
+                                7.290000, 7.290000, "40M AM Calling Frequency", true,
+                                7.290001, 7.299999, "40M SSB",                  true,
+
+                                10.100000, 10.129999, "30M CW",                 true,
+                                10.130000, 10.139999, "30M RTTY",               true,
+                                10.140000, 10.149999, "30M Packet",             true,
+
+                                14.000000, 14.024999, "20M Extra CW",           true,
+                                14.025000, 14.069999, "20M CW",                 true,
+                                14.070000, 14.094999, "20M RTTY",               true,
+                                14.095000, 14.099499, "20M Packet",             true,
+                                14.099500, 14.099999, "20M CW",                 true,
+                                14.100000, 14.100000, "20M NCDXF Beacons",      true,
+                                14.100001, 14.100499, "20M CW",                 true,
+                                14.100500, 14.111999, "20M Packet",             true,
+                                14.112000, 14.149999, "20M CW",                 true,
+                                14.150000, 14.174999, "20M Extra SSB",          true,
+                                14.175000, 14.224999, "20M Ext/Adv SSB",        true,
+                                14.225000, 14.229999, "20M SSB",                true,
+                                14.230000, 14.230000, "20M SSTV",               true,
+                                14.230001, 14.285999, "20M SSB",                true,
+                                14.286000, 14.286000, "20M AM Calling Frequency", true,
+                                14.286001, 14.349999, "20M SSB",                true,
+
+                                18.068000, 18.099999, "17M CW",                 true,
+                                18.100000, 18.104999, "17M RTTY",               true,
+                                18.105000, 18.109999, "17M Packet",             true,
+                                18.110000, 18.110000, "17M NCDXF Beacons",      true,
+                                18.110001, 18.167999, "17M SSB",                true,
+
+                                21.000000, 21.024999, "15M Extra CW",           true,
+                                21.025000, 21.069999, "15M CW",                 true,
+                                21.070000, 21.099999, "15M RTTY",               true,
+                                21.100000, 21.109999, "15M Packet",             true,
+                                21.110000, 21.149999, "15M CW",                 true,
+                                21.150000, 21.150000, "15M NCDXF Beacons",      true,
+                                21.150001, 21.199999, "15M CW",                 true,
+                                21.200000, 21.224999, "15M Extra SSB",          true,
+                                21.225000, 21.274999, "15M Ext/Adv SSB",        true,
+                                21.275000, 21.339999, "15M SSB",                true,
+                                21.340000, 21.340000, "15M SSTV",               true,
+                                21.340001, 21.449999, "15M SSB",                true,
+
+                                24.890000, 24.919999, "12M CW",                 true,
+                                24.920000, 24.924999, "12M RTTY",               true,
+                                24.925000, 24.929999, "12M Packet",             true,
+                                24.930000, 24.930000, "12M NCDXF Beacons",      true,
+                                24.930001, 24.989999, "12M SSB",                true,
+
+                                28.000000, 28.069999, "10M CW",                 true,
+                                28.070000, 28.149999, "10M RTTY",               true,
+                                28.150000, 28.199999, "10M CW",                 true,
+                                28.200000, 28.200000, "10M NCDXF Beacons",      true,
+                                28.200001, 28.299999, "10M Beacons",            true,
+                                28.300000, 28.679999, "10M SSB",                true,
+                                28.680000, 28.680000, "10M SSTV",               true,
+                                28.680001, 28.999999, "10M SSB",                true,
+                                29.000000, 29.199999, "10M AM",                 true,
+                                29.200000, 29.299999, "10M SSB",                true,
+                                29.300000, 29.509999, "10M Satellite Downlinks", true,
+                                29.510000, 29.519999, "10M Deadband",           true,
+                                29.520000, 29.589999, "10M Repeater Inputs",    true,
+                                29.590000, 29.599999, "10M Deadband",           true,
+                                29.600000, 29.600000, "10M FM Simplex",         true,
+                                29.600001, 29.609999, "10M Deadband",           true,
+                                29.610000, 29.699999, "10M Repeater Outputs",   true,
+
+                                50.000000, 50.059999, "6M CW",                  true,
+                                50.060000, 50.079999, "6M Beacon Sub-Band",     true,
+                                50.080000, 50.099999, "6M CW",                  true,
+                                50.100000, 50.124999, "6M DX Window",           true,
+                                50.125000, 50.125000, "6M Calling Frequency",   true,
+                                50.125001, 50.299999, "6M SSB",                 true,
+                                50.300000, 50.599999, "6M All Modes",           true,
+                                50.600000, 50.619999, "6M Non Voice",           true,
+                                50.620000, 50.620000, "6M Digital Packet",      true,
+                                50.620001, 50.799999, "6M Non Voice",           true,
+                                50.800000, 50.999999, "6M RC",                  true,
+                                51.000000, 51.099999, "6M Pacific DX Window",   true,
+                                51.100000, 51.119999, "6M Deadband",            true,
+                                51.120000, 51.179999, "6M Digital Repeater Inputs", true,
+                                51.180000, 51.479999, "6M Repeater Inputs",     true,
+                                51.480000, 51.619999, "6M Deadband",            true,
+                                51.620000, 51.679999, "6M Digital Repeater Outputs", true,
+                                51.680000, 51.979999, "6M Repeater Outputs",    true,
+                                51.980000, 51.999999, "6M Deadband",            true,
+                                52.000000, 52.019999, "6M Repeater Inputs",     true,
+                                52.020000, 52.020000, "6M FM Simplex",          true,
+                                52.020001, 52.039999, "6M Repeater Inputs",     true,
+                                52.040000, 52.040000, "6M FM Simplex",          true,
+                                52.040001, 52.479999, "6M Repeater Inputs",     true,
+                                52.480000, 52.499999, "6M Deadband",            true,
+                                52.500000, 52.524999, "6M Repeater Outputs",    true,
+                                52.525000, 52.525000, "6M Primary FM Simplex",  true,
+                                52.525001, 52.539999, "6M Deadband",            true,
+                                52.540000, 52.540000, "6M Secondary FM Simplex", true,
+                                52.540001, 52.979999, "6M Repeater Outputs",    true,
+                                52.980000, 52.999999, "6M Deadbands",           true,
+                                53.000000, 53.000000, "6M Remote Base FM Spx",  true,
+                                53.000001, 53.019999, "6M Repeater Inputs",     true,
+                                53.020000, 53.020000, "6M FM Simplex",          true,
+                                53.020001, 53.479999, "6M Repeater Inputs",     true,
+                                53.480000, 53.499999, "6M Deadband",            true,
+                                53.500000, 53.519999, "6M Repeater Outputs",    true,
+                                53.520000, 53.520000, "6M FM Simplex",          true,
+                                53.520001, 53.899999, "6M Repeater Outputs",    true,
+                                53.900000, 53.900000, "6M FM Simplex",          true,
+                                53.900010, 53.979999, "6M Repeater Outputs",    true,
+                                53.980000, 53.999999, "6M Deadband",            true,
+
+                                144.000000, 144.099999, "2M CW",                true,
+                                144.100000, 144.199999, "2M CW/SSB",            true,
+                                144.200000, 144.200000, "2M Calling",           true,
+                                144.200001, 144.274999, "2M CW/SSB",            true,
+                                144.275000, 144.299999, "2M Beacon Sub-Band",   true,
+                                144.300000, 144.499999, "2M Satellite",         true,
+                                144.500000, 144.599999, "2M Linear Translator Inputs", true,
+                                144.600000, 144.899999, "2M FM Repeater",       true,
+                                144.900000, 145.199999, "2M FM Simplex",        true,
+                                145.200000, 145.499999, "2M FM Repeater",       true,
+                                145.500000, 145.799999, "2M FM Simplex",        true,
+                                145.800000, 145.999999, "2M Satellite",         true,
+                                146.000000, 146.399999, "2M FM Repeater",       true,
+                                146.400000, 146.609999, "2M FM Simplex",        true,
+                                146.610000, 147.389999, "2M FM Repeater",       true,
+                                147.390000, 147.599999, "2M FM Simplex",        true,
+                                147.600000, 147.999999, "2M FM Repeater",       true,
+
+                                222.000000, 222.024999, "1.25M EME/Weak Signal",        true,
+                                222.025000, 222.049999, "1.25M Weak Signal",            true,
+                                222.050000, 222.059999, "1.25M Propagation Beacons",    true,
+                                222.060000, 222.099999, "1.25M Weak Signal",            true,
+                                222.100000, 222.100000, "1.25M SSB/CW Calling",         true,
+                                222.100001, 222.149999, "1.25M Weak Signal CW/SSB",     true,
+                                222.150000, 222.249999, "1.25M Local Option",           true,
+                                222.250000, 223.380000, "1.25M FM Repeater Inputs",     true,
+                                223.380001, 223.399999, "1.25M General",                true,
+                                223.400000, 223.519999, "1.25M FM Simplex",             true,
+                                223.520000, 223.639999, "1.25M Digital/Packet",         true,
+                                223.640000, 223.700000, "1.25M Links/Control",          true,
+                                223.700001, 223.709999, "1.25M General",                true,
+                                223.710000, 223.849999, "1.25M Local Option",           true,
+                                223.850000, 224.980000, "1.25M Repeater Outputs",       true,
+
+                                420.000000, 425.999999, "70cm ATV Repeater",    true,
+                                426.000000, 431.999999, "70cm ATV Simplex",     true,
+                                432.000000, 432.069999, "70cm EME",             true,
+                                432.070000, 432.099999, "70cm Weak Signal CW",  true,
+                                432.100000, 432.100000, "70cm Calling Frequency", true,
+                                432.100001, 432.299999, "70cm Mixed Mode Weak Signal", true,
+                                432.300000, 432.399999, "70cm Propagation Beacons", true,
+                                432.400000, 432.999999, "70cm Mixed Mode Weak Signal", true,
+                                433.000000, 434.999999, "70cm Auxillary/Repeater Links", true,
+                                435.000000, 437.999999, "70cm Satellite Only",  true,
+                                438.000000, 441.999999, "70cm ATV Repeater",    true,
+                                442.000000, 444.999999, "70cm Local Repeaters", true,
+                                445.000000, 445.999999, "70cm Local Option",    true,
+                                446.000000, 446.000000, "70cm Simplex",         true,
+                                446.000001, 446.999999, "70cm Local Option",    true,
+                                447.000000, 450.000000, "70cm Local Repeaters", true,
+
+                                902.000000, 902.099999, "33cm Weak Signal SSTV/FAX/ACSSB", true,
+                                902.100000, 902.100000, "33cm Weak Signal Calling", true,
+                                902.100001, 902.799999, "33cm Weak Signal SSTV/FAX/ACSSB", true,
+                                902.800000, 902.999999, "33cm Weak Signal EME/CW", true,
+                                903.000000, 903.099999, "33cm Digital Modes",   true,
+                                903.100000, 903.100000, "33cm Alternate Calling", true,
+                                903.100001, 905.999999, "33cm Digital Modes",   true,
+                                906.000000, 908.999999, "33cm FM Repeater Inputs", true,
+                                909.000000, 914.999999, "33cm ATV",             true,
+                                915.000000, 917.999999, "33cm Digital Modes",   true,
+                                918.000000, 920.999999, "33cm FM Repeater Outputs", true,
+                                921.000000, 926.999999, "33cm ATV",             true,
+                                927.000000, 928.000000, "33cm FM Simplex/Links", true,
+
+                                1240.000000, 1245.999999, "23cm ATV #1",        true,
+                                1246.000000, 1251.999999, "23cm FM Point/Links", true,
+                                1252.000000, 1257.999999, "23cm ATV #2, Digital Modes", true,
+                                1258.000000, 1259.999999, "23cm FM Point/Links", true,
+                                1260.000000, 1269.999999, "23cm Sat Uplinks/Wideband Exp.", true,
+                                1270.000000, 1275.999999, "23cm Repeater Inputs", true,
+                                1276.000000, 1281.999999, "23cm ATV #3",        true,
+                                1282.000000, 1287.999999, "23cm Repeater Outputs",  true,
+                                1288.000000, 1293.999999, "23cm Simplex ATV/Wideband Exp.", true,
+                                1294.000000, 1294.499999, "23cm Simplex FM",        true,
+                                1294.500000, 1294.500000, "23cm FM Simplex Calling", true,
+                                1294.500001, 1294.999999, "23cm Simplex FM",        true,
+                                1295.000000, 1295.799999, "23cm SSTV/FAX/ACSSB/Exp.", true,
+                                1295.800000, 1295.999999, "23cm EME/CW Expansion",  true,
+                                1296.000000, 1296.049999, "23cm EME Exclusive",     true,
+                                1296.050000, 1296.069999, "23cm Weak Signal",       true,
+                                1296.070000, 1296.079999, "23cm CW Beacons",        true,
+                                1296.080000, 1296.099999, "23cm Weak Signal",       true,
+                                1296.100000, 1296.100000, "23cm CW/SSB Calling",    true,
+                                1296.100001, 1296.399999, "23cm Weak Signal",       true,
+                                1296.400000, 1296.599999, "23cm X-Band Translator Input", true,
+                                1296.600000, 1296.799999, "23cm X-Band Translator Output", true,
+                                1296.800000, 1296.999999, "23cm Experimental Beacons", true,
+                                1297.000000, 1300.000000, "23cm Digital Modes",     true,
+
+                                2300.000000, 2302.999999, "2.3GHz High Data Rate", true,
+                                2303.000000, 2303.499999, "2.3GHz Packet",      true,
+                                2303.500000, 2303.800000, "2.3GHz TTY Packet",  true,
+                                2303.800001, 2303.899999, "2.3GHz General", true,
+                                2303.900000, 2303.900000, "2.3GHz Packet/TTY/CW/EME", true,
+                                2303.900001, 2304.099999, "2.3GHz CW/EME",      true,
+                                2304.100000, 2304.100000, "2.3GHz Calling Frequency", true,
+                                2304.100001, 2304.199999, "2.3GHz CW/EME/SSB",  true,
+                                2304.200000, 2304.299999, "2.3GHz SSB/SSTV/FAX/Packet AM/Amtor", true,
+                                2304.300000, 2304.319999, "2.3GHz Propagation Beacon Network", true,
+                                2304.320000, 2304.399999, "2.3GHz General Propagation Beacons", true,
+                                2304.400000, 2304.499999, "2.3GHz SSB/SSTV/ACSSB/FAX/Packet AM", true,
+                                2304.500000, 2304.699999, "2.3GHz X-Band Translator Input", true,
+                                2304.700000, 2304.899999, "2.3GHz X-Band Translator Output", true,
+                                2304.900000, 2304.999999, "2.3GHz Experimental Beacons", true,
+                                2305.000000, 2305.199999, "2.3GHz FM Simplex", true,
+                                2305.200000, 2305.200000, "2.3GHz FM Simplex Calling", true,
+                                2305.200001, 2305.999999, "2.3GHz FM Simplex", true,
+                                2306.000000, 2308.999999, "2.3GHz FM Repeaters", true,
+                                2309.000000, 2310.000000, "2.3GHz Control/Aux Links", true,
+                                2390.000000, 2395.999999, "2.3GHz Fast-Scan TV", true,
+                                2396.000000, 2398.999999, "2.3GHz High Rate Data", true,
+                                2399.000000, 2399.499999, "2.3GHz Packet", true,
+                                2399.500000, 2399.999999, "2.3GHz Control/Aux Links", true,
+                                2400.000000, 2402.999999, "2.4GHz Satellite", true,
+                                2403.000000, 2407.999999, "2.4GHz Satellite High-Rate Data", true,
+                                2408.000000, 2409.999999, "2.4GHz Satellite", true,
+                                2410.000000, 2412.999999, "2.4GHz FM Repeaters", true,
+                                2413.000000, 2417.999999, "2.4GHz High-Rate Data", true,
+                                2418.000000, 2429.999999, "2.4GHz Fast-Scan TV", true,
+                                2430.000000, 2432.999999, "2.4GHz Satellite", true,
+                                2433.000000, 2437.999999, "2.4GHz Sat. High-Rate Data", true,
+                                2438.000000, 2450.000000, "2.4GHz Wideband FM/FSTV/FMTV", true,
+
+                                3456.000000, 3456.099999, "3.4GHz General", true,
+                                3456.100000, 3456.100000, "3.4GHz Calling Frequency", true,
+                                3456.100001, 3456.299999, "3.4GHz General", true,
+                                3456.300000, 3456.400000, "3.4GHz Propagation Beacons", true,
+
+                                5760.000000, 5760.099999, "5.7GHz General", true,
+                                5760.100000, 5760.100000, "5.7GHz Calling Frequency", true,
+                                5760.100001, 5760.299999, "5.7GHz General", true,
+                                5760.300000, 5760.400000, "5.7GHz Propagation Beacons", true,
+
+                                10368.000000, 10368.099999, "10GHz General", true,
+                                10368.100000, 10368.100000, "10GHz Calling Frequency", true,
+                                10368.100001, 10368.400000, "10GHz General", true,
+
+                                24192.000000, 24192.099999, "24GHz General", true,
+                                24192.100000, 24192.100000, "24GHz Calling Frequency", true,
+                                24192.100001, 24192.400000, "24GHz General", true,
+
+                                47088.000000, 47088.099999, "47GHz General", true,
+                                47088.100000, 47088.100000, "47GHz Calling Frequency", true,
+                                47088.100001, 47088.400000, "47GHz General", true,
+            };
+
+            for (int i = 0; i < data.Length / 4; i++)
+            {
+                DataRow dr = t.NewRow();
+                dr["Low"] = (double)data[i * 4 + 0];
+                dr["High"] = (double)data[i * 4 + 1];
+                dr["Name"] = (string)data[i * 4 + 2];
+                dr["TX"] = (bool)data[i * 4 + 3];
+                t.Rows.Add(dr);
+            }
+
+         
+        } // AddBandAusTextTable() 
+
+        #region IARU3 Region 3 BandText
 
         private static void AddRegion3BandText160m()
         {
@@ -2452,45 +3334,72 @@ namespace PowerSDR
 			t.Columns.Add("Filter", typeof(string));
 			t.Columns.Add("Freq", typeof(double));
 
-			object[] data = {
+
+           
+            // FT8 1.84, 3.573, 5.357, 7.074, 10.136, 14.074, 18.1, 21.074, 24.915, 28.074, 50.274? or 50.313
+
+            object[] data = {
 								"160M", "CWL", "F5", 1.810000,
 								"160M", "CWU", "F1", 1.835000,
+                                "160M", "DIGU","F1", 1.840000, // FT8 3k
 								"160M", "LSB", "F6", 1.845000,
+
 								"80M", "CWL", "F1", 3.501000,
+                                "80M", "DIGU","F1", 3.573000, // FT8 3k
 								"80M", "LSB", "F6", 3.751000,
 								"80M", "LSB", "F6", 3.850000,
-								"60M", "USB", "F6", 5.330500,
+
+                                "60M", "USB", "F6", 5.330500,
 								"60M", "USB", "F6", 5.346500,
-								"60M", "USB", "F6", 5.357000,
+								"60M", "USB", "F6", 5.357000, // FT8/JT65
 								"60M", "USB", "F6", 5.371500,
 								"60M", "USB", "F6", 5.403500,
-								"40M", "CWL", "F1", 7.001000,
-								"40M", "LSB", "F6", 7.152000,
+
+                                "40M", "CWL", "F1", 7.001000,
+                                "40M", "DIGU", "F1",7.074000, // FT8 3k
+                                "40M", "LSB", "F6", 7.152000,
 								"40M", "LSB", "F6", 7.255000,
+
 								"30M", "CWU", "F1", 10.120000,
 								"30M", "CWU", "F1", 10.130000,
+                                "30M", "DIGU", "F1",10.136000, // FT8 3k
 								"30M", "CWU", "F5", 10.140000,
+
 								"20M", "CWU", "F1", 14.010000,
+                                "20M", "DIGU", "F1",14.074000, // FT8 3k
 								"20M", "USB", "F6", 14.230000,
 								"20M", "USB", "F6", 14.336000,
+
 								"17M", "CWU", "F1", 18.090000,
+                                "17M", "DIGU", "F1",18.100000, // FT8 3k
 								"17M", "USB", "F6", 18.125000,
 								"17M", "USB", "F6", 18.140000,
+
 								"15M", "CWU", "F1", 21.001000,
+                                "15M", "DIGU", "F1",21.074000, // FT8 3k
 								"15M", "USB", "F6", 21.255000,
 								"15M", "USB", "F6", 21.300000,
+
 								"12M", "CWU", "F1", 24.895000,
 								"12M", "USB", "F6", 24.900000,
-								"12M", "USB", "F6", 24.910000,
-								"10M", "CWU", "F1", 28.010000,
+							    "12M", "DIGU", "F1",24.915000, // FT8 3k ?
+                                "12M", "USB", "F6", 24.970000,
+
+                                "10M", "CWU", "F1", 28.010000,
+                                "10M", "DIGU", "F1",28.074000, // FT8 3k
 								"10M", "USB", "F6", 28.300000,
 								"10M", "USB", "F6", 28.400000,
+
 								"6M", "CWU", "F1", 50.010000,
-								"6M", "USB", "F6", 50.125000,
-								"6M", "USB", "F6", 50.200000,
+								"6M", "USB", "F6", 50.125000, // calling freq
+                                "6M", "USB", "F6", 50.200000,
+                                "6M", "DIGU", "F1",50.274000, // FT8 3k ? JT65?
+								"6M", "DIGU", "F1",50.313000, // FT8 3k ?
+
 								"2M", "CWU", "F1", 144.010000,
 								"2M", "USB", "F6", 144.200000,
 								"2M", "USB", "F6", 144.210000,
+
 								"WWV", "SAM", "F5", 2.500000,
 								"WWV", "SAM", "F5", 5.000000,
 								"WWV", "SAM", "F5", 10.000000,
@@ -2500,6 +3409,7 @@ namespace PowerSDR
                                 "WWV", "USB", "F6", 3.330000,
                                 "WWV", "USB", "F6", 7.850000,
                                 "WWV", "USB", "F6", 14.670000,
+
 								"GEN", "SAM", "F5", 13.845000,
 								"GEN", "SAM", "F5", 9.550000,
                                 "GEN", "SAM", "F5", 5.975000,
@@ -2519,6 +3429,170 @@ namespace PowerSDR
 				ds.Tables["BandStack"].Rows.Add(dr);
 			}
 		} //addbandstacktable
+
+
+        private static void AddBand2StackTable() // ke9ns add IARU2 same as US plan except 60m is same as IARU1
+        {
+            ds.Tables.Add("BandStack");
+            DataTable t = ds.Tables["BandStack"];
+
+            t.Columns.Add("BandName", typeof(string));
+            t.Columns.Add("Mode", typeof(string));
+            t.Columns.Add("Filter", typeof(string));
+            t.Columns.Add("Freq", typeof(double));
+
+            object[] data = {
+                                "160M", "CWL", "F5", 1.810000,
+                                "160M", "CWU", "F1", 1.835000,
+                                "160M", "LSB", "F6", 1.845000,
+                                "80M", "CWL", "F1", 3.501000,
+                                "80M", "LSB", "F6", 3.751000,
+                                "80M", "LSB", "F6", 3.850000,
+                    
+                                "60M", "DIGU", "F1", 5.351500, // DIGI
+                                "60M", "USB", "F6", 5.35400, // uk CHANNEL 7
+                                "60M", "USB", "F6", 5.35700, // us channel 3
+                                "60M", "USB", "F6", 5.35000, // 
+                                "60M", "USB", "F6", 5.36300, // uK channel 8
+                                "60M", "CWU", "F6", 5.366525, // CW
+
+                                "40M", "CWL", "F1", 7.001000,
+                                "40M", "LSB", "F6", 7.152000,
+                                "40M", "LSB", "F6", 7.255000,
+                                "30M", "CWU", "F1", 10.120000,
+                                "30M", "CWU", "F1", 10.130000,
+                                "30M", "CWU", "F5", 10.140000,
+                                "20M", "CWU", "F1", 14.010000,
+                                "20M", "USB", "F6", 14.230000,
+                                "20M", "USB", "F6", 14.336000,
+                                "17M", "CWU", "F1", 18.090000,
+                                "17M", "USB", "F6", 18.125000,
+                                "17M", "USB", "F6", 18.140000,
+                                "15M", "CWU", "F1", 21.001000,
+                                "15M", "USB", "F6", 21.255000,
+                                "15M", "USB", "F6", 21.300000,
+                                "12M", "CWU", "F1", 24.895000,
+                                "12M", "USB", "F6", 24.900000,
+                                "12M", "USB", "F6", 24.910000,
+                                "10M", "CWU", "F1", 28.010000,
+                                "10M", "USB", "F6", 28.300000,
+                                "10M", "USB", "F6", 28.400000,
+                                "6M", "CWU", "F1", 50.010000,
+                                "6M", "USB", "F6", 50.125000,
+                                "6M", "USB", "F6", 50.200000,
+                                "2M", "CWU", "F1", 144.010000,
+                                "2M", "USB", "F6", 144.200000,
+                                "2M", "USB", "F6", 144.210000,
+                                "WWV", "SAM", "F5", 2.500000,
+                                "WWV", "SAM", "F5", 5.000000,
+                                "WWV", "SAM", "F5", 10.000000,
+                                "WWV", "SAM", "F5", 15.000000,
+                                "WWV", "SAM", "F5", 20.000000,
+                                "WWV", "SAM", "F5", 25.000000, // ke9ns add
+                                "WWV", "USB", "F6", 3.330000,
+                                "WWV", "USB", "F6", 7.850000,
+                                "WWV", "USB", "F6", 14.670000,
+                                "GEN", "SAM", "F5", 13.845000,
+                                "GEN", "SAM", "F5", 9.550000,
+                                "GEN", "SAM", "F5", 5.975000,
+                                "GEN", "SAM", "F5", 3.250000,
+                                "GEN", "SAM", "F4", 0.590000,
+
+
+            };
+
+            for (int i = 0; i < data.Length / 4; i++)
+            {
+                DataRow dr = ds.Tables["BandStack"].NewRow();
+                dr["BandName"] = (string)data[i * 4 + 0];
+                dr["Mode"] = (string)data[i * 4 + 1];
+                dr["Filter"] = (string)data[i * 4 + 2];
+                dr["Freq"] = ((double)data[i * 4 + 3]).ToString("f6");
+                ds.Tables["BandStack"].Rows.Add(dr);
+            }
+        } //addband2stacktable
+
+        private static void AddBandAusStackTable() // ke9ns add Australia (bandstack is like IARU1)
+        {
+            ds.Tables.Add("BandStack");
+            DataTable t = ds.Tables["BandStack"];
+
+            t.Columns.Add("BandName", typeof(string));
+            t.Columns.Add("Mode", typeof(string));
+            t.Columns.Add("Filter", typeof(string));
+            t.Columns.Add("Freq", typeof(double));
+
+            object[] data = {
+                                "160M", "CWL", "F5", 1.810000,
+                                "160M", "CWU", "F1", 1.835000,
+                                "160M", "LSB", "F6", 1.845000,
+
+                                "80M", "CWL", "F1", 3.501000,
+                                "80M", "LSB", "F6", 3.751000,
+                                "80M", "LSB", "F6", 3.790000,
+
+                                "60M", "DIGU", "F1", 5.351500, // DIGI
+                                "60M", "USB", "F6", 5.35400, // uk CHANNEL 7
+                                "60M", "USB", "F6", 5.35700, // us channel 3
+                                "60M", "USB", "F6", 5.35000, // 
+                                "60M", "USB", "F6", 5.36300, // uK channel 8
+                                "60M", "CWU", "F6", 5.366525, // CW
+
+                                "40M", "CWL", "F1", 7.001000,
+                                "40M", "LSB", "F6", 7.152000,
+                                "40M", "LSB", "F6", 7.255000,
+                                "30M", "CWU", "F1", 10.120000,
+                                "30M", "CWU", "F1", 10.130000,
+                                "30M", "CWU", "F5", 10.140000,
+                                "20M", "CWU", "F1", 14.010000,
+                                "20M", "USB", "F6", 14.230000,
+                                "20M", "USB", "F6", 14.336000,
+                                "17M", "CWU", "F1", 18.090000,
+                                "17M", "USB", "F6", 18.125000,
+                                "17M", "USB", "F6", 18.140000,
+                                "15M", "CWU", "F1", 21.001000,
+                                "15M", "USB", "F6", 21.255000,
+                                "15M", "USB", "F6", 21.300000,
+                                "12M", "CWU", "F1", 24.895000,
+                                "12M", "USB", "F6", 24.900000,
+                                "12M", "USB", "F6", 24.910000,
+                                "10M", "CWU", "F1", 28.010000,
+                                "10M", "USB", "F6", 28.300000,
+                                "10M", "USB", "F6", 28.400000,
+                                "6M", "CWU", "F1", 50.010000,
+                                "6M", "USB", "F6", 50.125000,
+                                "6M", "USB", "F6", 50.200000,
+                                "2M", "CWU", "F1", 144.010000,
+                                "2M", "USB", "F6", 144.200000,
+                                "2M", "USB", "F6", 144.210000,
+                                "WWV", "SAM", "F5", 2.500000,
+                                "WWV", "SAM", "F5", 5.000000,
+                                "WWV", "SAM", "F5", 10.000000,
+                                "WWV", "SAM", "F5", 15.000000,
+                                "WWV", "SAM", "F5", 20.000000,
+                                "WWV", "SAM", "F5", 25.000000, // ke9ns add
+                                "WWV", "USB", "F6", 3.330000,
+                                "WWV", "USB", "F6", 7.850000,
+                                "WWV", "USB", "F6", 14.670000,
+                                "GEN", "SAM", "F5", 13.845000,
+                                "GEN", "SAM", "F5", 9.550000,
+                                "GEN", "SAM", "F5", 5.975000,
+                                "GEN", "SAM", "F5", 3.250000,
+                                "GEN", "SAM", "F4", 0.590000,
+
+
+            };
+
+            for (int i = 0; i < data.Length / 4; i++)
+            {
+                DataRow dr = ds.Tables["BandStack"].NewRow();
+                dr["BandName"] = (string)data[i * 4 + 0];
+                dr["Mode"] = (string)data[i * 4 + 1];
+                dr["Filter"] = (string)data[i * 4 + 2];
+                dr["Freq"] = ((double)data[i * 4 + 3]).ToString("f6");
+                ds.Tables["BandStack"].Rows.Add(dr);
+            }
+        } //addbandAusstacktable
 
         private static void AddRegion1BandStack() // Europe
         {
@@ -6176,13 +7250,15 @@ namespace PowerSDR
                 } 
             }
             return database_exists;
-		}
 
-		public static void Update()
+		} // init()
+
+		public static void Update()  // ke9ns write database file
 		{
             try
             {
-                ds.WriteXml(file_name, XmlWriteMode.WriteSchema);
+                
+                ds.WriteXml(file_name, XmlWriteMode.WriteSchema); // ds.WriteXml(file_name, XmlWriteMode.WriteSchema);
             }
             catch (Exception ex)
             {                
@@ -6191,9 +7267,10 @@ namespace PowerSDR
                     "ERROR: Database Write Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-		}
 
-		public static void Exit()
+        } // Update()
+
+        public static void Exit()
 		{
 			Update();
 			ds = null;
@@ -6861,6 +7938,7 @@ namespace PowerSDR
                     break;
 
                 case FRSRegion.Netherlands: // EU13
+
                     AddRegion1BandStack();
 
                     AddBandStackSWL(); // ke9ns add
@@ -6884,10 +7962,12 @@ namespace PowerSDR
                     break;
 
                 case FRSRegion.Russia: // RUSS
-                  //  AddRegion1BandStack();
-                    AddRegion1ABandStack();
+                    Debug.WriteLine("RUSSIA===============");
 
+                  //  AddRegion1BandStack();
+                    AddRegion1ABandStack(); // 60m bandstack
                     AddBandStackSWL(); // ke9ns add
+
                     ClearBandText();
                     AddRegion1BandText160m();
                     AddRegion1BandText80m();
@@ -6901,12 +7981,14 @@ namespace PowerSDR
                     AddRegion1BandText17m();
                     AddRegion1BandText15m();
                     AddRussiaBandText12m();
-                    AddRussiaBandText11m();
+                 
                     AddRegion1BandText10m();
                     AddGreeceBandText6m();
                     AddRegion1BandText4m();
                     AddRegion1BandTextVHFplus();
-                    AddBandTextSWB();
+                    //  AddRussiaBandText11m(); // ke9ns this was the original
+                    AddBandRussiaTextSWB();
+
                     break;
 
                 case FRSRegion.Sweden: // EU06
@@ -6935,10 +8017,46 @@ namespace PowerSDR
                     AddBandTextSWB();
                     break;
 
-                case FRSRegion.Region_3:
+                case FRSRegion.Australia: // ke9ns add new
+
+
+                    AddBandAusStackTable(); // Ham bandstack (60m is same as IARU1)
+                    AddBandStackSWL(); // ke9ns add
+
+                    ClearBandText();
+
+                    AddBandAusTextTable(); // Ham band text
+
+                    AddBandTextSWB(); // short wave text
+
+                    AddRegion1BandText60m(); // KE9NS add no transmit
+
+                    break;
+
+                case FRSRegion.IARU2: // ke9ns add was region_2
+
+                 
+                    AddBand2StackTable(); // Ham bandstack (60m is same as IARU1)
+                    AddBandStackSWL(); // ke9ns add
+
+                    ClearBandText();
+
+                    AddBand2TextTable(); // Ham band text
+
+                    AddBandTextSWB(); // short wave text
+
+                    AddRegion1ABandText60m(); // KE9NS add transmit
+
+                  
+                    break;
+
+
+                case FRSRegion.IARU3: // ke9ns mod was region_3
+
                     AddRegion3BandStack();
                     AddBandStackSWL(); // ke9ns add
                     ClearBandText();
+   
                     AddRegion3BandText160m();
                     AddRegion3BandText80m();
                    // AddRegion3BandText60m();

@@ -296,8 +296,7 @@ namespace PowerSDR
 		AUDIGY_2_ZS,
 		EXTIGY,
 		MP3_PLUS,
-		SANTA_CRUZ,
-		KX_DRIVER,
+		SANTA_CRUZ,				
 		LAST,
 	}
 
@@ -2416,9 +2415,6 @@ namespace PowerSDR
                     case SoundCard.EDIROL_FA_66:
                         rx1_meter_cal_offset = -46.82864f;
                         break;
-                    case SoundCard.KX_DRIVER:
-                        rx1_meter_cal_offset = -22.43533f;
-                        break;
                     case SoundCard.UNSUPPORTED_CARD:
                         rx1_meter_cal_offset = -22.43533f;
                         break;
@@ -2449,9 +2445,6 @@ namespace PowerSDR
                         break;
                     case SoundCard.EDIROL_FA_66:
                         RX1DisplayCalOffset = -80.429f;
-                        break;
-                    case SoundCard.KX_DRIVER:
-                        RX1DisplayCalOffset = -48.62103f;
                         break;
                     case SoundCard.UNSUPPORTED_CARD:
                         RX1DisplayCalOffset = -48.62103f;
@@ -8193,8 +8186,7 @@ namespace PowerSDR
 				*/
 			}
 
-			if(current_model == Model.SDR1000)              
-				hw = new HW(0x378);				// create hardware object
+			if(current_model == Model.SDR1000)              hw = new HW(0x378);				// create hardware object
 
             //BT 5/3/10 moved siolistener to last init item to prevent default data
             //being sent via CAT
@@ -18542,7 +18534,6 @@ namespace PowerSDR
 						Hdw.X2 = (byte)((Hdw.X2 & 0xC0) | x2_2_tx);
 					break;
 			}
-
         } // UpdateExtCtrl()
 
         // Added 06/24/05 BT for CAT commands
@@ -21624,8 +21615,8 @@ namespace PowerSDR
                 case Model.SDR1000:
                 case Model.DEMO:
                 case Model.SOFTROCK40:
-                    bool rx_only = SetupForm.RXOnly;					// Save RX Only Setting
-                    SetupForm.RXOnly = true;
+                    //bool rx_only = SetupForm.RXOnly;					// Save RX Only Setting
+                    //SetupForm.RXOnly = true;
 
                     double vfoa = VFOAFreq;								// save current VFOA
 
@@ -46048,8 +46039,7 @@ namespace PowerSDR
 
                 if (!(fwc_init && (current_model == Model.FLEX5000 || current_model == Model.FLEX3000)))
                 {
-                    if(current_model == Model.SDR1000)     
-						Hdw.StandBy();
+                    if(current_model == Model.SDR1000)     Hdw.StandBy();
                 }
                 else
                 {
@@ -46736,9 +46726,9 @@ namespace PowerSDR
             }
 
             	if(num_channels == 2)
-            		{
+            	{
             if(current_model == Model.SDR1000)  Hdw.MuteRelay = chkMUT.Checked;
-            	}
+				}
 
        
 
@@ -47694,8 +47684,7 @@ namespace PowerSDR
 
 		private void HdwMOXChanged(bool tx, double freq)
 		{
-			if(current_model == Model.SDR1000)		
-				Hdw.UpdateHardware = false;
+			if(current_model == Model.SDR1000)		Hdw.UpdateHardware = false;
 
 			if(tx)
 			{
@@ -47879,8 +47868,7 @@ namespace PowerSDR
                     if (rx1_dsp_mode != DSPMode.DRM &&
                     rx1_dsp_mode != DSPMode.SPEC)
                         if_shift = true;
-				}
-                				
+				}				
 			}   
 
             if (!fwc_init && !hid_init && current_model != Model.FLEX5000 && current_model != Model.FLEX3000 && current_model != Model.FLEX1500)
@@ -47939,8 +47927,7 @@ namespace PowerSDR
                 chkPower.BackColor = Color.Red;
             }
 
-			if(current_model == Model.SDR1000)				
-			comboPreamp.Enabled = !chkMOX.Checked;
+			if(current_model == Model.SDR1000)				comboPreamp.Enabled = !chkMOX.Checked;
 			setupForm.MOX = chkMOX.Checked;
 			ResetMultiMeterPeak();
 			//chkMOX.BackColor = button_selected_color;
@@ -47995,8 +47982,8 @@ namespace PowerSDR
 			for(int i=0; i<meter_text_history.Length; i++)
 				meter_text_history[i] = 0.0f;
 
-			if(!fwc_init) || current_model == Model.SDR1000)
-                comboPreamp.Enabled = !chkMOX.Checked;
+			if(!fwc_init || current_model == Model.SDR1000)
+				comboPreamp.Enabled = !chkMOX.Checked;
 			setupForm.MOX = chkMOX.Checked;
 			ResetMultiMeterPeak();
 			chkMOX.BackColor = SystemColors.Control;
@@ -48048,11 +48035,11 @@ namespace PowerSDR
 
             // only allow softrock style xmit  for cw and ssb for now
             if (rx1_dsp_mode != DSPMode.CWL && rx1_dsp_mode != DSPMode.CWU &&
-               rx1_dsp_mode != DSPMode.USB && rx1_dsp_mode != DSPMode.LSB &&
+                rx1_dsp_mode != DSPMode.USB && rx1_dsp_mode != DSPMode.LSB &&
                 ( /* current_model == Model.SDR1000_DDSLOCKED || */ current_model == Model.SOFTROCK40)
                 )
             {
-               chkMOX.Checked = false;
+                chkMOX.Checked = false;
                 return;
             }
 
@@ -49163,8 +49150,7 @@ namespace PowerSDR
 			{
 				if(comboTuneMode.SelectedIndex == (int)ATUTuneMode.BYPASS)
 				{
-                    if(current_model == Model.SDR1000)    					
-					Hdw.PA_ATUTune(ATUTuneMode.BYPASS);	
+                    if(current_model == Model.SDR1000)    					Hdw.PA_ATUTune(ATUTuneMode.BYPASS);	
 					tuned_band = Band.FIRST;
 					if(chkTUN.BackColor == button_selected_color)
 						chkTUN.BackColor = SystemColors.Control;
@@ -49637,8 +49623,7 @@ namespace PowerSDR
 			else
 				chkBCI.BackColor = SystemColors.Control;
 			
-            if(current_model == Model.SDR1000)                
-			SetHWFilters(dds_freq);
+            if(current_model == Model.SDR1000)                SetHWFilters(dds_freq);
 		}
 
         public bool CheckForTXCW()

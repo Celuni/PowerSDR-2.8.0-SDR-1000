@@ -231,7 +231,7 @@ namespace PowerSDR
         public Button SSBbutton;
         public TextBox textBox1;
         public TextBox nodeBox1;
-        private TextBox textBox3;
+        private RichTextBox textBox3;
         public TextBox callBox;
         public TextBox portBox2;
         private TextBox statusBox;
@@ -260,8 +260,8 @@ namespace PowerSDR
         private Button SWLbutton2;
         public CheckBoxTS chkBoxNA;
         public CheckBoxTS chkBoxWrld;
-        private NumericUpDownTS udDisplayLat;
-        private NumericUpDownTS udDisplayLong;
+        public NumericUpDownTS udDisplayLat;
+        public NumericUpDownTS udDisplayLong;
         private Label label3;
         private Label label4;
         public CheckBoxTS chkBoxBeam;
@@ -319,10 +319,10 @@ namespace PowerSDR
 
             if (!File.Exists(file_name))
             {
-                console.DXMemList.List.Add(new DXMemRecord("k1rfi.com:7300"));
+                console.DXMemList.List.Add(new DXMemRecord("wb8zrl.no-ip.org:7300")); // k1rfi.com:7300
                 console.DXMemList.List.Add(new DXMemRecord("ve7cc.net:23"));
                 console.DXMemList.List.Add(new DXMemRecord("telnet.reversebeacon.net:7000"));
-                console.DXMemList.List.Add(new DXMemRecord(""));
+                console.DXMemList.List.Add(new DXMemRecord("n7od.pentux.net:7300"));
                 console.DXMemList.List.Add(new DXMemRecord(""));
                 console.DXMemList.List.Add(new DXMemRecord(""));
                 console.DXMemList.List.Add(new DXMemRecord(""));
@@ -364,17 +364,17 @@ namespace PowerSDR
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SpotControl));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.SWLbutton = new System.Windows.Forms.Button();
             this.SSBbutton = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.nodeBox1 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.RichTextBox();
             this.callBox = new System.Windows.Forms.TextBox();
             this.portBox2 = new System.Windows.Forms.TextBox();
             this.statusBox = new System.Windows.Forms.TextBox();
@@ -449,7 +449,7 @@ namespace PowerSDR
             // 
             this.SWLbutton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.SWLbutton.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.SWLbutton.Location = new System.Drawing.Point(615, 262);
+            this.SWLbutton.Location = new System.Drawing.Point(615, 386);
             this.SWLbutton.Name = "SWLbutton";
             this.SWLbutton.Size = new System.Drawing.Size(75, 23);
             this.SWLbutton.TabIndex = 2;
@@ -462,7 +462,7 @@ namespace PowerSDR
             // 
             this.SSBbutton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.SSBbutton.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.SSBbutton.Location = new System.Drawing.Point(12, 361);
+            this.SSBbutton.Location = new System.Drawing.Point(12, 485);
             this.SSBbutton.Name = "SSBbutton";
             this.SSBbutton.Size = new System.Drawing.Size(75, 23);
             this.SSBbutton.TabIndex = 1;
@@ -480,13 +480,13 @@ namespace PowerSDR
             this.textBox1.Cursor = System.Windows.Forms.Cursors.Default;
             this.textBox1.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.HideSelection = false;
-            this.textBox1.Location = new System.Drawing.Point(12, 126);
+            this.textBox1.Location = new System.Drawing.Point(12, 143);
             this.textBox1.MaximumSize = new System.Drawing.Size(1000, 1000);
             this.textBox1.MaxLength = 10000000;
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(759, 79);
+            this.textBox1.Size = new System.Drawing.Size(759, 186);
             this.textBox1.TabIndex = 6;
             this.textBox1.TabStop = false;
             this.textBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.textBox1_MouseDown);
@@ -496,7 +496,7 @@ namespace PowerSDR
             // 
             this.nodeBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nodeBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nodeBox1.Location = new System.Drawing.Point(658, 260);
+            this.nodeBox1.Location = new System.Drawing.Point(658, 384);
             this.nodeBox1.MaxLength = 50;
             this.nodeBox1.Name = "nodeBox1";
             this.nodeBox1.Size = new System.Drawing.Size(84, 22);
@@ -511,19 +511,19 @@ namespace PowerSDR
             // textBox3
             // 
             this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(287, 7);
-            this.textBox3.Multiline = true;
+            this.textBox3.Location = new System.Drawing.Point(298, 7);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(484, 113);
+            this.textBox3.Size = new System.Drawing.Size(473, 130);
             this.textBox3.TabIndex = 8;
             this.textBox3.TabStop = false;
             this.textBox3.Text = resources.GetString("textBox3.Text");
+            this.textBox3.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.textBox3_LinkClicked);
             // 
             // callBox
             // 
             this.callBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.callBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.callBox.Location = new System.Drawing.Point(682, 364);
+            this.callBox.Location = new System.Drawing.Point(682, 488);
             this.callBox.MaxLength = 20;
             this.callBox.Name = "callBox";
             this.callBox.Size = new System.Drawing.Size(87, 22);
@@ -538,7 +538,7 @@ namespace PowerSDR
             // 
             this.portBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.portBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.portBox2.Location = new System.Drawing.Point(696, 262);
+            this.portBox2.Location = new System.Drawing.Point(696, 386);
             this.portBox2.MaxLength = 7;
             this.portBox2.Name = "portBox2";
             this.portBox2.Size = new System.Drawing.Size(56, 22);
@@ -554,7 +554,7 @@ namespace PowerSDR
             // 
             this.statusBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.statusBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.statusBox.Location = new System.Drawing.Point(13, 232);
+            this.statusBox.Location = new System.Drawing.Point(13, 356);
             this.statusBox.Name = "statusBox";
             this.statusBox.Size = new System.Drawing.Size(156, 22);
             this.statusBox.TabIndex = 11;
@@ -567,7 +567,7 @@ namespace PowerSDR
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button1.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.button1.Location = new System.Drawing.Point(101, 361);
+            this.button1.Location = new System.Drawing.Point(101, 485);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(68, 23);
             this.button1.TabIndex = 3;
@@ -581,7 +581,7 @@ namespace PowerSDR
             // 
             this.statusBoxSWL.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.statusBoxSWL.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.statusBoxSWL.Location = new System.Drawing.Point(614, 234);
+            this.statusBoxSWL.Location = new System.Drawing.Point(614, 358);
             this.statusBoxSWL.Name = "statusBoxSWL";
             this.statusBoxSWL.Size = new System.Drawing.Size(156, 22);
             this.statusBoxSWL.TabIndex = 16;
@@ -594,7 +594,7 @@ namespace PowerSDR
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.label1.Location = new System.Drawing.Point(13, 215);
+            this.label1.Location = new System.Drawing.Point(13, 339);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(102, 13);
             this.label1.TabIndex = 17;
@@ -605,7 +605,7 @@ namespace PowerSDR
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.label2.Location = new System.Drawing.Point(612, 218);
+            this.label2.Location = new System.Drawing.Point(612, 342);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(113, 13);
             this.label2.TabIndex = 18;
@@ -615,7 +615,7 @@ namespace PowerSDR
             // 
             this.btnTrack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnTrack.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnTrack.Location = new System.Drawing.Point(258, 316);
+            this.btnTrack.Location = new System.Drawing.Point(258, 440);
             this.btnTrack.Name = "btnTrack";
             this.btnTrack.Size = new System.Drawing.Size(75, 23);
             this.btnTrack.TabIndex = 62;
@@ -623,12 +623,14 @@ namespace PowerSDR
             this.toolTip1.SetToolTip(this.btnTrack, resources.GetString("btnTrack.ToolTip"));
             this.btnTrack.UseVisualStyleBackColor = false;
             this.btnTrack.Click += new System.EventHandler(this.btnTrack_Click);
+            this.btnTrack.MouseEnter += new System.EventHandler(this.btnTrack_MouseEnter);
+            this.btnTrack.MouseLeave += new System.EventHandler(this.btnTrack_MouseLeave);
             // 
             // nameBox
             // 
             this.nameBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nameBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nameBox.Location = new System.Drawing.Point(687, 262);
+            this.nameBox.Location = new System.Drawing.Point(687, 386);
             this.nameBox.MaxLength = 20;
             this.nameBox.Name = "nameBox";
             this.nameBox.Size = new System.Drawing.Size(46, 22);
@@ -645,37 +647,37 @@ namespace PowerSDR
             this.dataGridView1.AllowUserToResizeColumns = false;
             this.dataGridView1.AllowUserToResizeRows = false;
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.OliveDrab;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.OliveDrab;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView1.Location = new System.Drawing.Point(12, 7);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
-            this.dataGridView1.Size = new System.Drawing.Size(269, 113);
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.dataGridView1.Size = new System.Drawing.Size(280, 130);
             this.dataGridView1.TabIndex = 72;
-            this.toolTip1.SetToolTip(this.dataGridView1, "Enter DX address : port#\r\nExample:  k1rfi.com:7300\r\n");
+            this.toolTip1.SetToolTip(this.dataGridView1, "Enter DX address : port#\r\nExample:  wb8zrl.no-ip.org:7300\r\n");
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.DoubleClick += new System.EventHandler(this.dataGridView1_DoubleClick);
             // 
@@ -687,34 +689,34 @@ namespace PowerSDR
             this.dataGridView2.AllowUserToResizeColumns = false;
             this.dataGridView2.AllowUserToResizeRows = false;
             this.dataGridView2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.OliveDrab;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView2.DefaultCellStyle = dataGridViewCellStyle11;
-            this.dataGridView2.Location = new System.Drawing.Point(488, 63);
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.OliveDrab;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView2.DefaultCellStyle = dataGridViewCellStyle5;
+            this.dataGridView2.Location = new System.Drawing.Point(498, 143);
             this.dataGridView2.MultiSelect = false;
             this.dataGridView2.Name = "dataGridView2";
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView2.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView2.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridView2.Size = new System.Drawing.Size(254, 94);
             this.dataGridView2.TabIndex = 75;
             this.toolTip1.SetToolTip(this.dataGridView2, "memories");
@@ -724,7 +726,7 @@ namespace PowerSDR
             // 
             this.SWLbutton2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.SWLbutton2.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.SWLbutton2.Location = new System.Drawing.Point(696, 262);
+            this.SWLbutton2.Location = new System.Drawing.Point(696, 386);
             this.SWLbutton2.Name = "SWLbutton2";
             this.SWLbutton2.Size = new System.Drawing.Size(75, 23);
             this.SWLbutton2.TabIndex = 76;
@@ -737,7 +739,7 @@ namespace PowerSDR
             // 
             this.btnBeacon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnBeacon.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnBeacon.Location = new System.Drawing.Point(192, 361);
+            this.btnBeacon.Location = new System.Drawing.Point(192, 485);
             this.btnBeacon.Name = "btnBeacon";
             this.btnBeacon.Size = new System.Drawing.Size(75, 23);
             this.btnBeacon.TabIndex = 85;
@@ -750,7 +752,7 @@ namespace PowerSDR
             // 
             this.btnTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnTime.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnTime.Location = new System.Drawing.Point(511, 220);
+            this.btnTime.Location = new System.Drawing.Point(511, 344);
             this.btnTime.Name = "btnTime";
             this.btnTime.Size = new System.Drawing.Size(75, 23);
             this.btnTime.TabIndex = 89;
@@ -764,7 +766,7 @@ namespace PowerSDR
             this.checkBoxTone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBoxTone.AutoSize = true;
             this.checkBoxTone.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.checkBoxTone.Location = new System.Drawing.Point(559, 273);
+            this.checkBoxTone.Location = new System.Drawing.Point(559, 397);
             this.checkBoxTone.Name = "checkBoxTone";
             this.checkBoxTone.Size = new System.Drawing.Size(46, 17);
             this.checkBoxTone.TabIndex = 93;
@@ -779,7 +781,7 @@ namespace PowerSDR
             this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.textBox2.Enabled = false;
             this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(559, 293);
+            this.textBox2.Location = new System.Drawing.Point(559, 417);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(37, 20);
             this.textBox2.TabIndex = 94;
@@ -791,7 +793,7 @@ namespace PowerSDR
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button2.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.button2.Location = new System.Drawing.Point(297, 57);
+            this.button2.Location = new System.Drawing.Point(297, 181);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(68, 23);
             this.button2.TabIndex = 99;
@@ -805,7 +807,7 @@ namespace PowerSDR
             this.DXPost.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.DXPost.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.DXPost.Enabled = false;
-            this.DXPost.Location = new System.Drawing.Point(12, 273);
+            this.DXPost.Location = new System.Drawing.Point(12, 397);
             this.DXPost.Name = "DXPost";
             this.DXPost.Size = new System.Drawing.Size(64, 23);
             this.DXPost.TabIndex = 100;
@@ -820,7 +822,7 @@ namespace PowerSDR
             this.textBoxDXCall.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.textBoxDXCall.Enabled = false;
             this.textBoxDXCall.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxDXCall.Location = new System.Drawing.Point(82, 274);
+            this.textBoxDXCall.Location = new System.Drawing.Point(82, 398);
             this.textBoxDXCall.Name = "textBoxDXCall";
             this.textBoxDXCall.Size = new System.Drawing.Size(87, 22);
             this.textBoxDXCall.TabIndex = 101;
@@ -834,7 +836,7 @@ namespace PowerSDR
             this.textBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.textBox4.Enabled = false;
             this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox4.Location = new System.Drawing.Point(480, 365);
+            this.textBox4.Location = new System.Drawing.Point(480, 489);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(37, 20);
             this.textBox4.TabIndex = 102;
@@ -849,7 +851,7 @@ namespace PowerSDR
             this.chkISS.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkISS.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.chkISS.Image = null;
-            this.chkISS.Location = new System.Drawing.Point(367, 219);
+            this.chkISS.Location = new System.Drawing.Point(367, 343);
             this.chkISS.Name = "chkISS";
             this.chkISS.Size = new System.Drawing.Size(46, 24);
             this.chkISS.TabIndex = 104;
@@ -864,7 +866,7 @@ namespace PowerSDR
             this.chkMoon.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkMoon.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.chkMoon.Image = null;
-            this.chkMoon.Location = new System.Drawing.Point(320, 219);
+            this.chkMoon.Location = new System.Drawing.Point(320, 343);
             this.chkMoon.Name = "chkMoon";
             this.chkMoon.Size = new System.Drawing.Size(58, 24);
             this.chkMoon.TabIndex = 103;
@@ -877,7 +879,7 @@ namespace PowerSDR
             this.chkBoxContour.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkBoxContour.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.chkBoxContour.Image = null;
-            this.chkBoxContour.Location = new System.Drawing.Point(343, 289);
+            this.chkBoxContour.Location = new System.Drawing.Point(343, 413);
             this.chkBoxContour.Name = "chkBoxContour";
             this.chkBoxContour.Size = new System.Drawing.Size(70, 24);
             this.chkBoxContour.TabIndex = 98;
@@ -889,7 +891,7 @@ namespace PowerSDR
             // 
             this.tbPanPower.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.tbPanPower.AutoSize = false;
-            this.tbPanPower.Location = new System.Drawing.Point(339, 337);
+            this.tbPanPower.Location = new System.Drawing.Point(339, 461);
             this.tbPanPower.Maximum = 1500;
             this.tbPanPower.Minimum = 1;
             this.tbPanPower.Name = "tbPanPower";
@@ -907,7 +909,7 @@ namespace PowerSDR
             this.chkBoxAnt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkBoxAnt.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.chkBoxAnt.Image = null;
-            this.chkBoxAnt.Location = new System.Drawing.Point(343, 313);
+            this.chkBoxAnt.Location = new System.Drawing.Point(343, 437);
             this.chkBoxAnt.Name = "chkBoxAnt";
             this.chkBoxAnt.Size = new System.Drawing.Size(55, 24);
             this.chkBoxAnt.TabIndex = 96;
@@ -924,7 +926,7 @@ namespace PowerSDR
             this.chkBoxDIG.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkBoxDIG.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.chkBoxDIG.Image = null;
-            this.chkBoxDIG.Location = new System.Drawing.Point(182, 290);
+            this.chkBoxDIG.Location = new System.Drawing.Point(182, 414);
             this.chkBoxDIG.Name = "chkBoxDIG";
             this.chkBoxDIG.Size = new System.Drawing.Size(85, 24);
             this.chkBoxDIG.TabIndex = 70;
@@ -936,13 +938,13 @@ namespace PowerSDR
             this.checkBoxMUF.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBoxMUF.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.checkBoxMUF.Image = null;
-            this.checkBoxMUF.Location = new System.Drawing.Point(273, 286);
+            this.checkBoxMUF.Location = new System.Drawing.Point(273, 410);
             this.checkBoxMUF.Name = "checkBoxMUF";
             this.checkBoxMUF.Size = new System.Drawing.Size(75, 24);
             this.checkBoxMUF.TabIndex = 95;
             this.checkBoxMUF.Text = "VOACAP";
-            this.toolTip1.SetToolTip(this.checkBoxMUF, "Use VOACAP to map Signal Strength from your station, \r\nbased on your Lat & Long\r\n" +
-        "\r\nView using TRACK button\r\n\r\n");
+            this.toolTip1.SetToolTip(this.checkBoxMUF, "Hit F1 for a Full Description\r\n\r\nUse VOACAP to map Signal Strength from your stat" +
+        "ion, \r\nbased on your Lat & Long\r\n\r\nView using TRACK button\r\n\r\n");
             this.checkBoxMUF.CheckedChanged += new System.EventHandler(this.checkBoxMUF_CheckedChanged);
             this.checkBoxMUF.MouseDown += new System.Windows.Forms.MouseEventHandler(this.checkBoxMUF_MouseDown);
             // 
@@ -954,7 +956,7 @@ namespace PowerSDR
             0,
             0,
             0});
-            this.udDisplayWWV.Location = new System.Drawing.Point(511, 270);
+            this.udDisplayWWV.Location = new System.Drawing.Point(511, 394);
             this.udDisplayWWV.Maximum = new decimal(new int[] {
             4,
             0,
@@ -982,7 +984,7 @@ namespace PowerSDR
             this.checkBoxWWV.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBoxWWV.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.checkBoxWWV.Image = null;
-            this.checkBoxWWV.Location = new System.Drawing.Point(511, 249);
+            this.checkBoxWWV.Location = new System.Drawing.Point(511, 373);
             this.checkBoxWWV.Name = "checkBoxWWV";
             this.checkBoxWWV.Size = new System.Drawing.Size(98, 24);
             this.checkBoxWWV.TabIndex = 90;
@@ -998,7 +1000,7 @@ namespace PowerSDR
             0,
             0,
             0});
-            this.numericUpDownTS1.Location = new System.Drawing.Point(417, 364);
+            this.numericUpDownTS1.Location = new System.Drawing.Point(417, 488);
             this.numericUpDownTS1.Maximum = new decimal(new int[] {
             5,
             0,
@@ -1026,7 +1028,7 @@ namespace PowerSDR
             this.BoxBFScan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.BoxBFScan.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.BoxBFScan.Image = null;
-            this.BoxBFScan.Location = new System.Drawing.Point(343, 361);
+            this.BoxBFScan.Location = new System.Drawing.Point(343, 485);
             this.BoxBFScan.Name = "BoxBFScan";
             this.BoxBFScan.Size = new System.Drawing.Size(87, 24);
             this.BoxBFScan.TabIndex = 87;
@@ -1039,7 +1041,7 @@ namespace PowerSDR
             this.BoxBScan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.BoxBScan.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.BoxBScan.Image = null;
-            this.BoxBScan.Location = new System.Drawing.Point(273, 362);
+            this.BoxBScan.Location = new System.Drawing.Point(273, 486);
             this.BoxBScan.Name = "BoxBScan";
             this.BoxBScan.Size = new System.Drawing.Size(81, 24);
             this.BoxBScan.TabIndex = 86;
@@ -1054,7 +1056,7 @@ namespace PowerSDR
             this.chkBoxBeam.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkBoxBeam.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.chkBoxBeam.Image = null;
-            this.chkBoxBeam.Location = new System.Drawing.Point(417, 313);
+            this.chkBoxBeam.Location = new System.Drawing.Point(417, 437);
             this.chkBoxBeam.Name = "chkBoxBeam";
             this.chkBoxBeam.Size = new System.Drawing.Size(88, 24);
             this.chkBoxBeam.TabIndex = 83;
@@ -1071,7 +1073,7 @@ namespace PowerSDR
             0,
             0,
             0});
-            this.udDisplayLong.Location = new System.Drawing.Point(614, 365);
+            this.udDisplayLong.Location = new System.Drawing.Point(614, 489);
             this.udDisplayLong.Maximum = new decimal(new int[] {
             180,
             0,
@@ -1104,7 +1106,7 @@ namespace PowerSDR
             0,
             0,
             0});
-            this.udDisplayLat.Location = new System.Drawing.Point(538, 365);
+            this.udDisplayLat.Location = new System.Drawing.Point(538, 489);
             this.udDisplayLat.Maximum = new decimal(new int[] {
             90,
             0,
@@ -1133,13 +1135,12 @@ namespace PowerSDR
             this.chkBoxMem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkBoxMem.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.chkBoxMem.Image = null;
-            this.chkBoxMem.Location = new System.Drawing.Point(417, 335);
+            this.chkBoxMem.Location = new System.Drawing.Point(417, 459);
             this.chkBoxMem.Name = "chkBoxMem";
             this.chkBoxMem.Size = new System.Drawing.Size(123, 24);
             this.chkBoxMem.TabIndex = 74;
             this.chkBoxMem.Text = "MEMORIES to Pan";
-            this.toolTip1.SetToolTip(this.chkBoxMem, "Show Memories directly on Panadapter.\r\n\r\nLEFT CLICK on visible Memory + CTRL to s" +
-        "et Mode\r\n\r\nLEFT CLICK on PAN + ALT + M keys to save New Memory\r\n");
+            this.toolTip1.SetToolTip(this.chkBoxMem, resources.GetString("chkBoxMem.ToolTip"));
             this.chkBoxMem.CheckedChanged += new System.EventHandler(this.chkBoxMem_CheckedChanged);
             // 
             // chkBoxPan
@@ -1147,7 +1148,7 @@ namespace PowerSDR
             this.chkBoxPan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkBoxPan.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.chkBoxPan.Image = null;
-            this.chkBoxPan.Location = new System.Drawing.Point(417, 290);
+            this.chkBoxPan.Location = new System.Drawing.Point(417, 414);
             this.chkBoxPan.Name = "chkBoxPan";
             this.chkBoxPan.Size = new System.Drawing.Size(100, 24);
             this.chkBoxPan.TabIndex = 71;
@@ -1162,7 +1163,7 @@ namespace PowerSDR
             this.chkBoxSSB.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkBoxSSB.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.chkBoxSSB.Image = null;
-            this.chkBoxSSB.Location = new System.Drawing.Point(182, 260);
+            this.chkBoxSSB.Location = new System.Drawing.Point(182, 384);
             this.chkBoxSSB.Name = "chkBoxSSB";
             this.chkBoxSSB.Size = new System.Drawing.Size(85, 24);
             this.chkBoxSSB.TabIndex = 69;
@@ -1176,7 +1177,7 @@ namespace PowerSDR
             this.chkBoxCW.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkBoxCW.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.chkBoxCW.Image = null;
-            this.chkBoxCW.Location = new System.Drawing.Point(182, 232);
+            this.chkBoxCW.Location = new System.Drawing.Point(182, 356);
             this.chkBoxCW.Name = "chkBoxCW";
             this.chkBoxCW.Size = new System.Drawing.Size(85, 24);
             this.chkBoxCW.TabIndex = 68;
@@ -1190,7 +1191,7 @@ namespace PowerSDR
             this.chkMapBand.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkMapBand.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.chkMapBand.Image = null;
-            this.chkMapBand.Location = new System.Drawing.Point(417, 267);
+            this.chkMapBand.Location = new System.Drawing.Point(417, 391);
             this.chkMapBand.Name = "chkMapBand";
             this.chkMapBand.Size = new System.Drawing.Size(113, 24);
             this.chkMapBand.TabIndex = 67;
@@ -1203,7 +1204,7 @@ namespace PowerSDR
             this.chkMapCountry.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkMapCountry.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.chkMapCountry.Image = null;
-            this.chkMapCountry.Location = new System.Drawing.Point(417, 221);
+            this.chkMapCountry.Location = new System.Drawing.Point(417, 345);
             this.chkMapCountry.Name = "chkMapCountry";
             this.chkMapCountry.Size = new System.Drawing.Size(88, 22);
             this.chkMapCountry.TabIndex = 66;
@@ -1218,7 +1219,7 @@ namespace PowerSDR
             this.chkMapCall.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkMapCall.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.chkMapCall.Image = null;
-            this.chkMapCall.Location = new System.Drawing.Point(417, 244);
+            this.chkMapCall.Location = new System.Drawing.Point(417, 368);
             this.chkMapCall.Name = "chkMapCall";
             this.chkMapCall.Size = new System.Drawing.Size(88, 24);
             this.chkMapCall.TabIndex = 65;
@@ -1233,7 +1234,7 @@ namespace PowerSDR
             this.chkPanMode.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkPanMode.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.chkPanMode.Image = null;
-            this.chkPanMode.Location = new System.Drawing.Point(273, 263);
+            this.chkPanMode.Location = new System.Drawing.Point(273, 387);
             this.chkPanMode.Name = "chkPanMode";
             this.chkPanMode.Size = new System.Drawing.Size(148, 23);
             this.chkPanMode.TabIndex = 63;
@@ -1249,7 +1250,7 @@ namespace PowerSDR
             this.chkGrayLine.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkGrayLine.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.chkGrayLine.Image = null;
-            this.chkGrayLine.Location = new System.Drawing.Point(273, 244);
+            this.chkGrayLine.Location = new System.Drawing.Point(273, 368);
             this.chkGrayLine.Name = "chkGrayLine";
             this.chkGrayLine.Size = new System.Drawing.Size(105, 17);
             this.chkGrayLine.TabIndex = 61;
@@ -1265,7 +1266,7 @@ namespace PowerSDR
             this.chkSUN.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSUN.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.chkSUN.Image = null;
-            this.chkSUN.Location = new System.Drawing.Point(273, 219);
+            this.chkSUN.Location = new System.Drawing.Point(273, 343);
             this.chkSUN.Name = "chkSUN";
             this.chkSUN.Size = new System.Drawing.Size(46, 24);
             this.chkSUN.TabIndex = 60;
@@ -1280,7 +1281,7 @@ namespace PowerSDR
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
             this.label3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label3.Location = new System.Drawing.Point(537, 343);
+            this.label3.Location = new System.Drawing.Point(537, 467);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(139, 13);
             this.label3.TabIndex = 81;
@@ -1291,7 +1292,7 @@ namespace PowerSDR
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label4.AutoSize = true;
             this.label4.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label4.Location = new System.Drawing.Point(693, 343);
+            this.label4.Location = new System.Drawing.Point(693, 467);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(71, 13);
             this.label4.TabIndex = 82;
@@ -1302,7 +1303,7 @@ namespace PowerSDR
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label5.AutoSize = true;
             this.label5.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.label5.Location = new System.Drawing.Point(541, 324);
+            this.label5.Location = new System.Drawing.Point(541, 448);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(227, 13);
             this.label5.TabIndex = 84;
@@ -1366,7 +1367,7 @@ namespace PowerSDR
             this.chkBoxWrld.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkBoxWrld.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.chkBoxWrld.Image = null;
-            this.chkBoxWrld.Location = new System.Drawing.Point(12, 327);
+            this.chkBoxWrld.Location = new System.Drawing.Point(12, 451);
             this.chkBoxWrld.Name = "chkBoxWrld";
             this.chkBoxWrld.Size = new System.Drawing.Size(194, 24);
             this.chkBoxWrld.TabIndex = 78;
@@ -1378,7 +1379,7 @@ namespace PowerSDR
             this.chkBoxNA.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkBoxNA.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.chkBoxNA.Image = null;
-            this.chkBoxNA.Location = new System.Drawing.Point(12, 309);
+            this.chkBoxNA.Location = new System.Drawing.Point(12, 433);
             this.chkBoxNA.Name = "chkBoxNA";
             this.chkBoxNA.Size = new System.Drawing.Size(175, 19);
             this.chkBoxNA.TabIndex = 77;
@@ -1390,7 +1391,7 @@ namespace PowerSDR
             this.chkAlwaysOnTop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkAlwaysOnTop.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.chkAlwaysOnTop.Image = null;
-            this.chkAlwaysOnTop.Location = new System.Drawing.Point(668, 291);
+            this.chkAlwaysOnTop.Location = new System.Drawing.Point(668, 415);
             this.chkAlwaysOnTop.Name = "chkAlwaysOnTop";
             this.chkAlwaysOnTop.Size = new System.Drawing.Size(103, 24);
             this.chkAlwaysOnTop.TabIndex = 58;
@@ -1403,7 +1404,7 @@ namespace PowerSDR
             this.chkDXMode.Checked = true;
             this.chkDXMode.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkDXMode.Image = null;
-            this.chkDXMode.Location = new System.Drawing.Point(682, 364);
+            this.chkDXMode.Location = new System.Drawing.Point(682, 488);
             this.chkDXMode.Name = "chkDXMode";
             this.chkDXMode.Size = new System.Drawing.Size(91, 24);
             this.chkDXMode.TabIndex = 59;
@@ -1414,7 +1415,7 @@ namespace PowerSDR
             // SpotControl
             // 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.ClientSize = new System.Drawing.Size(784, 396);
+            this.ClientSize = new System.Drawing.Size(784, 520);
             this.Controls.Add(this.chkISS);
             this.Controls.Add(this.chkMoon);
             this.Controls.Add(this.textBox4);
@@ -1473,6 +1474,7 @@ namespace PowerSDR
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button2);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MaximumSize = new System.Drawing.Size(800, 1000);
             this.Menu = this.mainMenu1;
             this.MinimumSize = new System.Drawing.Size(800, 400);
@@ -1480,7 +1482,9 @@ namespace PowerSDR
             this.Text = "DX / SWL Spotter";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SpotControl_FormClosing);
             this.Load += new System.EventHandler(this.SpotControl_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SpotControl_KeyDown);
             this.Layout += new System.Windows.Forms.LayoutEventHandler(this.SpotControl_Layout);
+            this.MouseEnter += new System.EventHandler(this.SpotControl_MouseEnter);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbPanPower)).EndInit();
@@ -1776,7 +1780,7 @@ namespace PowerSDR
             string file_name = " ";
             string file_name1 = " ";
 
-            int FLAG22 = 0;
+          //  int FLAG22 = 0;
 
 
             file_name = console.AppDataPath + "SWL.csv"; //  sked - b15.csv  
@@ -2134,7 +2138,7 @@ namespace PowerSDR
                                 //-------------------------------------------------------------------------------------
                                 //-------------------------------------------------------------------------------------
                                 // Ke9ns MERGE SWL and SWL2
-                                FLAG22 = 0; // reset for next line
+                                //FLAG22 = 0; // reset for next line
 
                                 if ((SWL2_Index1 > 0) && (SWL_Index1 > 2)) // only try and merge SWL2 into SWL if SWL2 exists
                                 {
@@ -2183,7 +2187,7 @@ namespace PowerSDR
 
                                                 //  Debug.WriteLine("INSERT 2 HERE= index=" + SWL_Index1 + " Freq=" + SWL_Freq[SWL_Index1] + " station name=" + SWL_Station[SWL_Index1]);
 
-                                                FLAG22 = 1; // flag that you inserted a new SWL2 line into SWL
+                                                //FLAG22 = 1; // flag that you inserted a new SWL2 line into SWL
 
                                                 if (SWL_Band[SWL_Index1] > SWL_Index) // MHZ of the current examined spot > the mhz your looking at?
                                                 {
@@ -2623,8 +2627,7 @@ namespace PowerSDR
 
         private bool pause = false; // true = pause dx spot window update.
 
-        private static byte Flag8 = 0; // 1= DX_Index value changed due to spot age cut, 
-
+       
         //====================================================================================================
         //====================================================================================================
         // ke9ns add Thread routine (get DX spots)
@@ -2866,13 +2869,13 @@ namespace PowerSDR
                                 DX_Spotter[DX_Index1] = sb.ToString();
 
                             }
-                            catch (FormatException e)
+                            catch (FormatException)
                             {
                                 DX_Spotter[DX_Index1] = "NA";
                            
                             //    textBox1.Text = e.ToString();
                             }
-                            catch (ArgumentOutOfRangeException e)
+                            catch (ArgumentOutOfRangeException )
                             {
                            
                             //    textBox1.Text = e.ToString();
@@ -2956,12 +2959,12 @@ namespace PowerSDR
 
 
                             } // try to determine if in the cw portion or ssb portion of each band
-                            catch (FormatException e)
+                            catch (FormatException )
                             {
                                 DX_Freq[DX_Index1] = 0;
                                 DX_Mode[DX_Index1] = 0; // ssb mode
                             }
-                            catch (ArgumentOutOfRangeException e)
+                            catch (ArgumentOutOfRangeException)
                             {
                                 DX_Freq[DX_Index1] = 0;
                                 DX_Mode[DX_Index1] = 0; // ssb mode
@@ -3018,7 +3021,7 @@ namespace PowerSDR
                                     DX_Mode[DX_Index1] = 4; // olivia mode
 
                                 }
-                                else if (DX_Message[DX_Index1].Contains("jt65"))
+                                else if (DX_Message[DX_Index1].Contains("jt6"))
                                 {
                                     if (chkBoxDIG.Checked != true) continue; // check for a Digitla mode spot
                                     DX_Mode[DX_Index1] = 5; // jt65 mode
@@ -3084,9 +3087,24 @@ namespace PowerSDR
                                     DX_Mode[DX_Index1] = 14; // AM mode
 
                                 }
+                                else if (DX_Message[DX_Index1].Contains("ft8"))
+                                {
+                                    if (chkBoxDIG.Checked != true) continue; // check for a Digitla mode spot
+                                    DX_Mode[DX_Index1] = 15; // ft8 mode
 
+                                }
+                                else if (DX_Message[DX_Index1].Contains("mfsk"))
+                                {
+                                    if (chkBoxDIG.Checked != true) continue; // check for a Digitla mode spot
+                                    DX_Mode[DX_Index1] = 16; // mfsk mode
 
+                                }
+                                else if (DX_Message[DX_Index1].Contains("feld"))
+                                {
+                                    if (chkBoxDIG.Checked != true) continue; // check for a Digitla mode spot
+                                    DX_Mode[DX_Index1] = 17; // Feld hell mode
 
+                                }
 
                                 if (DX_Mode[DX_Index1] == 0)
                                 {
@@ -4425,6 +4443,10 @@ namespace PowerSDR
                 else if (DX_Mode[ii] == 12) DXmode = " drm ";
                 else if (DX_Mode[ii] == 13) DXmode = " sstv";
                 else if (DX_Mode[ii] == 14) DXmode = " am  ";
+                else if (DX_Mode[ii] == 15) DXmode = " ft8 ";
+                else if (DX_Mode[ii] == 16) DXmode = " mfsk";
+                else if (DX_Mode[ii] == 17) DXmode = " feld";
+
 
                 else DXmode = "     ";
 
@@ -4495,6 +4517,9 @@ namespace PowerSDR
                 else if (BX_Mode[ii] == 12) DXmode = " drm ";
                 else if (BX_Mode[ii] == 13) DXmode = " sstv";
                 else if (BX_Mode[ii] == 14) DXmode = " am  ";
+                else if (BX_Mode[ii] == 15) DXmode = " ft8 ";
+                else if (BX_Mode[ii] == 16) DXmode = " mfsk";
+                else if (BX_Mode[ii] == 17) DXmode = " feld";
 
                 else DXmode = "     ";
 
@@ -4573,7 +4598,7 @@ namespace PowerSDR
                     if (UTCAGE > 35) // if its an old SPOT then remove it from the list
                     {
 
-                        Flag8 = 1; // signal that the DX_Index will change due to an old spot being removed
+                      //  Flag8 = 1; // signal that the DX_Index will change due to an old spot being removed
 
                         kk = ii; // 
 
@@ -4851,6 +4876,9 @@ namespace PowerSDR
                             else if (DX_Mode[iii] == 12) console.RX1DSPMode = DSPMode.LSB;
                             else if (DX_Mode[iii] == 13) console.RX1DSPMode = DSPMode.DIGL;
                             else if (DX_Mode[iii] == 14) console.RX1DSPMode = DSPMode.SAM;
+                            else if (DX_Mode[iii] == 15) console.RX1DSPMode = DSPMode.DIGU; // FT8
+                            else if (DX_Mode[iii] == 16) console.RX1DSPMode = DSPMode.DIGL;
+                            else if (DX_Mode[iii] == 17) console.RX1DSPMode = DSPMode.DIGL;
                             else console.RX1DSPMode = DSPMode.LSB;
 
 
@@ -4880,6 +4908,10 @@ namespace PowerSDR
                             else if (DX_Mode[iii] == 12) console.RX1DSPMode = DSPMode.USB;
                             else if (DX_Mode[iii] == 13) console.RX1DSPMode = DSPMode.DIGU;
                             else if (DX_Mode[iii] == 14) console.RX1DSPMode = DSPMode.SAM;
+                            else if (DX_Mode[iii] == 15) console.RX1DSPMode = DSPMode.DIGU; // FT8
+                            else if (DX_Mode[iii] == 16) console.RX1DSPMode = DSPMode.DIGU;
+                            else if (DX_Mode[iii] == 17) console.RX1DSPMode = DSPMode.DIGU;
+
                             else console.RX1DSPMode = DSPMode.USB;
 
                         }
@@ -4953,6 +4985,9 @@ namespace PowerSDR
                             else if (BX_Mode[iii] == 12) console.RX1DSPMode = DSPMode.LSB;
                             else if (BX_Mode[iii] == 13) console.RX1DSPMode = DSPMode.DIGL;
                             else if (BX_Mode[iii] == 14) console.RX1DSPMode = DSPMode.SAM;
+                            else if (BX_Mode[iii] == 15) console.RX1DSPMode = DSPMode.DIGU; // ft8
+                            else if (BX_Mode[iii] == 16) console.RX1DSPMode = DSPMode.DIGL;
+                            else if (BX_Mode[iii] == 17) console.RX1DSPMode = DSPMode.DIGL;
                             else console.RX1DSPMode = DSPMode.LSB;
 
 
@@ -4982,6 +5017,10 @@ namespace PowerSDR
                             else if (BX_Mode[iii] == 12) console.RX1DSPMode = DSPMode.USB;
                             else if (BX_Mode[iii] == 13) console.RX1DSPMode = DSPMode.DIGU;
                             else if (BX_Mode[iii] == 14) console.RX1DSPMode = DSPMode.SAM;
+                            else if (BX_Mode[iii] == 15) console.RX1DSPMode = DSPMode.DIGU; // ft8
+                            else if (BX_Mode[iii] == 16) console.RX1DSPMode = DSPMode.DIGU;
+                            else if (BX_Mode[iii] == 17) console.RX1DSPMode = DSPMode.DIGU;
+
                             else console.RX1DSPMode = DSPMode.USB;
 
                         }
@@ -5242,6 +5281,19 @@ namespace PowerSDR
 
                 }
 
+                if (chkISS.Checked == true)
+                {
+                    Thread t1 = new Thread(new ThreadStart(ISSOrbit));                                // turn on track map (sun, grayline, voacap, or beacon)
+
+                    t1.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-US");
+                    t1.CurrentUICulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-US");
+
+                    t1.Name = "ISS Orbit Plot Thread";
+                    t1.IsBackground = true;
+                    t1.Priority = ThreadPriority.BelowNormal;
+                    t1.Start();
+
+                } //  if (chkISS.Checked == true)
 
                 Thread t = new Thread(new ThreadStart(TrackSun));  // turn on track map (sun, grayline, voacap, or beacon)
 
@@ -5386,6 +5438,129 @@ namespace PowerSDR
         } // sunangle
 
 
+        //===============================================================================================================================
+        //===============================================================================================================================
+        int ISSCount = 0; // get 360 deg of tracking data to draw a orbital plot
+        Stopwatch ISSTimer = new Stopwatch();
+
+
+        double ISSLONMap = 0;
+        double ISSLATMap = 0;
+        int ISSTime = 0;
+
+        Stream stream;
+        StreamReader reader;
+        String content1;
+        
+        int[] ISS_XX = new int[300];
+        int[] ISS_YY = new int[300];
+      
+
+        bool ISSUPDATE = false;   // true = update when SUN/MOON/ISS move udpates (once per minute)
+
+        int ISSTimeStampStep = 60;
+
+        private void ISSOrbit()   // plot orbit of ISS
+        {
+          
+            ISSTimer.Restart();
+
+            ISSCount = 0;
+
+            while(ISSCount < 20) // was 360 for 90min orbit period 
+            {
+
+                Thread.Sleep(50);
+              
+
+                if (ISSTimer.ElapsedMilliseconds >= 50)
+                {
+                    ISSTimer.Restart();
+                 
+                    try
+                    {
+
+                        WebClient client = new WebClient();
+
+                        if (ISSCount == 0) // very first data point to get timestamp
+                        {
+                            Debug.WriteLine("ISS First TRY");
+                            stream = client.OpenRead("https://api.wheretheiss.at/v1/satellites/25544"); // get the current timestamp
+
+                            reader = new StreamReader(stream);
+                            content1 = reader.ReadToEnd();
+                            reader.Close();
+
+
+                            int ind2 = content1.IndexOf("timestamp") + 11;
+                            string lon1 = content1.Substring(ind2, 10);
+                            Debug.WriteLine("READ timestamp0= " + lon1);
+                            ISSTime = Convert.ToInt32(lon1);
+
+                        
+                        }
+                        else  // get all the remaining data points to plot orbit
+                        {
+
+                            Debug.WriteLine("SEND timestamp1= " + ISSTime);
+
+                            stream = client.OpenRead("https://api.wheretheiss.at/v1/satellites/25544/positions?timestamps=" + ISSTime); //  "timestamp":1493561091
+
+                            reader = new StreamReader(stream);
+                            content1 = reader.ReadToEnd();
+                            reader.Close();
+
+                            Debug.WriteLine("internet data stream: " + content1);
+
+                            int ind = content1.IndexOf("latitude") + 10;
+                            string lat = content1.Substring(ind, 9);
+                            Debug.WriteLine("GOT latitude= " + lat);
+                            ISSLATMap = Convert.ToDouble(lat);
+      
+                            int ind1 = content1.IndexOf("longitude") + 11;
+                            string lon = content1.Substring(ind1, 9);
+                            Debug.WriteLine("GOT longitude= " + lon);
+                            ISSLONMap = Convert.ToDouble(lon);
+                                  
+
+                            int Sun_WidthY1 = Sun_Bot1 - Sun_Top1;             // # of Y pixels from top to bottom of map
+                            int Sun_Width = Sun_Right - Sun_Left;              //used by sun track routine
+
+                            ISS_YY[ISSCount] = ISS_Y = (int)(((180 - (ISSLATMap + 90)) / 180.0) * Sun_WidthY1) + Sun_Top1;  //latitude 90N to -90S
+                            ISS_XX[ISSCount] = ISS_X = (int)(((ISSLONMap + 180.0) / 360.0) * Sun_Width) + Sun_Left;  // longitude -180W to +180E
+                           
+                            g.DrawLine(OrgPen, ISS_X, ISS_Y, ISS_X + 1, ISS_Y + 1);
+
+                            
+                        } //get next data point
+
+                        ISSTime = ISSTime + ISSTimeStampStep;
+
+                        ISSCount++;
+
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine("Could not read internet ISS data: " + ex);
+
+                        textBox1.Text = "Could not Get Internet ISS data.";
+                         
+                    }
+
+                  
+
+                } // wait 1 sec , take next reading to plot orbit
+
+                
+
+            } // WHILE still getting readings to plot orbit
+
+            ISSTimer.Stop();  // done ploting orbit
+
+        } // ISSOrbit
+
+
+
 
         public static Color GrayLine_Last = Color.FromArgb(70, Color.Black);                       // used to check if setup.cs changed the color
         public static Band RX1Band_Last = 0;                                                      // to track a change in RX1 band
@@ -5424,6 +5599,8 @@ namespace PowerSDR
         const double DEG_to_RAD = Math.PI / 180.0; // 0.01745329251   converting angles to radians
         const double RAD_to_DEG = 180.0 / Math.PI; // 57.2957795131   converting radians back to angles
 
+
+        Graphics g;
 
         //===============================================================================================================================
         //===============================================================================================================================
@@ -5598,8 +5775,11 @@ namespace PowerSDR
                         if ( (UTCNEW != UTCLAST2) || (Setup.DisplayGrayLineColor != GrayLine_Last) || (Map_Last == 1))
                         {
                             Debug.WriteLine("==================== SUN and GrayLine calculations=================");
-                           
-                            UTCLAST2 = UTCNEW;                            // store time for compare next time
+
+                            if (UTCNEW != UTCLAST2) ISSUPDATE = true;
+
+
+                                UTCLAST2 = UTCNEW;                            // store time for compare next time
 
                             //=================================================================================================
                             //=================================================================================================
@@ -6038,7 +6218,7 @@ namespace PowerSDR
                         if ((Console.DXR == 0))  MAP = new Bitmap(Map_image); // load up Map image
                         else MAP = new Bitmap(Map_image2); // load up Map image
 
-                        Graphics g = Graphics.FromImage(MAP);
+                         g = Graphics.FromImage(MAP);
 
                         g.InterpolationMode = InterpolationMode.HighQualityBicubic;
                         g.SmoothingMode = SmoothingMode.HighQuality;
@@ -6049,708 +6229,12 @@ namespace PowerSDR
                         //------------------------------------------------------------------------------------------------------------------------
                         //------------------------------------------------------------------------------------------------------------------------
 
-                        if (MOON == true)
-                        {
-
-                            Debug.WriteLine("=====================MOON CALCULATIONS");
-
-                            //--------------------------------------------------------------------
-                            // Convert Universal Time to Ephemeris Time
-                            // jd = juliandate(UTC, 'yyyy/mm/dd HH:MM:SS');
-
-                       
-                            double y = DateTime.UtcNow.Year; //  year 2017
-                            double m = DateTime.UtcNow.Month; // month = 1 to 12
-                            double D1 = DateTime.UtcNow.Day; // day of month 1 to 31
-                            double H = DateTime.UtcNow.Hour; // hour 0 to 24
-
-                            double JD = DateTime.UtcNow.ToOADate() + 2415018.5; // convert OLE AUtomation Date to Julian Date
-                            Debug.WriteLine("Julian day " + JD);
-                          
-                            double d = JD - 2451543.5; // convert Julian Date to something the orbital routine can use. (the Day number)
-                            Debug.WriteLine("Current Day number " + d);
-
-                            //  d = -3543; // for April 19th 1990 test
-
-                            //--------------------------------------------------------------------------------------------
-                            // Moon oribital elements data set
-                            //--------------------------------------------------------------------------------------------
-                         
-                            // http://aa.usno.navy.mil/data/docs/AltAz.php
-                            // data set for MOON in DEG (must be converted to Radians before a SIN or COS or TAN is used)
-                            // https://spaceflight.nasa.gov/realdata/elements/
-
-                            double N = (125.1228 - 0.0529538083 * d) ;  // DEG RA of the long ascending node defines the ascending and descending orbit locations with respect to the earths equatorial plane
-                            double i = 5.1454;                          // DEG Inclination to the ecliptic deg  defines the orientation of the orbit with respect to the earths equator <
-                            double w = (318.0634 + 0.1643573223 * d);   // DEG Arg of Perigee (Perihelion) defines the low point,perigee of the orbit is with respect to the earths surface.
-                            double a = 60.2666;                         //     Mean distance (Earth equitorial radii) Semi-major axis defines size of the orbit
-                            double e = 0.0549006;                       //     Eccentricity defines the shape of the orbit
-                            double M = (115.3654 + 13.0649929509 * d);  // DEG True/mean anomaly defines where the satellite is within the orbit with respect to perigee (low point)
-                            double ecl = 23.43704;                      // DEG Angle of the obliquity of the ecliptic plane (obliquity of the earth)
-                            
-                           
-                            //--------------------------------------
-                            Debug.WriteLine("Starting N " + N);
-                            Debug.WriteLine("Starting w " + w);
-                            Debug.WriteLine("Starting M " + M);
-
-                            while (N > 360) // normalize values
-                            {
-                                N = N - 360.0;
-                            }
-                            while (N < 0)
-                            {
-                                N = N + 360.0;
-                            }
-
-                            while (w > 360)
-                            {
-                                w = w - 360.0;
-                            }
-                            while (w < 0)
-                            {
-                                w = w + 360.0;
-                            }
-
-                            while (M > 360)
-                            {
-                                M = M - 360.0;
-                            }
-                            while (M < 0)
-                            {
-                                M = M + 360.0;
-                            }
-                         
-                 
-                            //-----------------------------------------------------------------------------------------
-                            // Compute E, the eccentric anomaly 
-                            // E0 is the eccentric anomaly approximation estimate  (this will initially have a relativly high error)
-
-                            double E0 = M + (RAD_to_DEG) * e * ( Math.Sin(M * (DEG_to_RAD))) * (1.0 + e * ( Math.Cos(M * (DEG_to_RAD)))); 
-
-                            // Compute E1 and set it to E0 until the E1 == E0
-                            double E1 = E0 - (E0 - (RAD_to_DEG) * e * ( Math.Sin(E0 * (DEG_to_RAD))) - M) / (1 - e * ( Math.Cos(E0 * (DEG_to_RAD))));
-                         
-                            while (E1 - E0 > .000005) // compare in DEG
-                            {
-                                E0 = E1;
-                                E1 = E0 - (E0 - (RAD_to_DEG) * e * ( Math.Sin(E0 * (DEG_to_RAD))) - M) / (1 - e * ( Math.Cos(E0 * (DEG_to_RAD))) );
-                            }
-
-                            double E = E1;
-                        
-                            //---------------------------------------------------------------------------------
-                            // Compute rectangular coordinates (x, y) in the plane of the lunar orbit
-                            double x1 = a * ( Math.Cos(E * (DEG_to_RAD)) - e);
-                            double y1 = a * ( Math.Sqrt(1 - e * e) *  Math.Sin(E * (DEG_to_RAD)));
-
-                            //---------------------------------------------------------------------------------
-                            // convert this to distance and true anomaly
-                            double r = Math.Sqrt(y1 * y1 + x1 * x1);
-                            double v = RAD_to_DEG * Math.Atan2(y1 ,x1);
-
-                        
-                            while (v > 360)
-                            {
-                                v = v - 360.0;
-                            }
-                            while (v < 0)
-                            {
-                                v = v + 360.0;
-                            }
-
-                           
-                            //---------------------------------------------------------------------------------
-                            // Compute moon's position in ecliptic coordinates
-                            double xeclip = r * ( Math.Cos(N * (DEG_to_RAD)) * Math.Cos((v + w) * (DEG_to_RAD)) - Math.Sin(N * (DEG_to_RAD)) * Math.Sin((v + w) * (DEG_to_RAD)) * Math.Cos(i * (DEG_to_RAD)));
-                            double yeclip = r * ( Math.Sin(N * (DEG_to_RAD)) * Math.Cos((v + w) * (DEG_to_RAD)) + Math.Cos(N * (DEG_to_RAD)) * Math.Sin((v + w) * (DEG_to_RAD)) * Math.Cos(i * (DEG_to_RAD)));
-                            double zeclip = r * ( Math.Sin((v + w) * (DEG_to_RAD)) * Math.Sin(i * (DEG_to_RAD)));
-                        
-                            //---------------------------------------------------------------------------------
-                            // Ecliptic LONG and LAT    (RAD TO DEG = 57.2957795131)
-
-                            double MoonLON = RAD_to_DEG *  Math.Atan2(yeclip , xeclip ); //longitude  geocentric (earth centered) position in the ecliptic coordinate system.
-                            double MoonLAT = RAD_to_DEG *  Math.Atan2(zeclip, Math.Sqrt(xeclip * xeclip + yeclip * yeclip)); //latitude
-
-                            while (MoonLON > 360) // normalize
-                            {
-                                MoonLON = MoonLON - 360.0;
-                            }
-                            while (MoonLON < 0)
-                            {
-                                MoonLON = MoonLON + 360.0;
-                            }
-                          
-                            
-                            //-----------------------------------------------------------------------------------------
-                            // Perturbations
-                            double Lm = (N + w + M) % 360; // Moons mean long
-                            double F = (Lm - N) % 360;    // Moons argument of latitude
-
-                            double wSun = (282.9404 + 4.70935E-5 * d) % 360; // longitude of perihelion
-                            double Ms = (356.0470 + 0.9856002585 * d) % 360; // suns mean anomaly
-                            double Ls = (wSun + Ms) % 360;   // Suns mean longitude
-                            double D = Lm - Ls; // Moons mean elongation
-
-
-                           // Add these terms to the Moon's longitude (degrees):
-                            double LunarPLon= - 1.274 * Math.Sin((M - 2 * D)* DEG_to_RAD) // (the Evection)
-                               + 0.658 * Math.Sin((2 * D) * DEG_to_RAD)                     //(the Variation)
-                               - 0.186 * Math.Sin((Ms) * DEG_to_RAD)                        //(the Yearly Equation)
-                               - 0.059 * Math.Sin((2 * M - 2 * D) * DEG_to_RAD)
-                               - 0.057 * Math.Sin((M - 2 * D + Ms) * DEG_to_RAD)
-                               + 0.053 * Math.Sin((M + 2 * D) * DEG_to_RAD)
-                               + 0.046 * Math.Sin((2 * D - Ms) * DEG_to_RAD)
-                               + 0.041 * Math.Sin((M - Ms) * DEG_to_RAD)
-                               - 0.035 * Math.Sin((D) * DEG_to_RAD)                         //(the Parallactic Equation)
-                               - 0.031 * Math.Sin((M + Ms) * DEG_to_RAD)
-                               - 0.015 * Math.Sin((2 * F - 2 * D) * DEG_to_RAD)
-                               + 0.011 * Math.Sin((M - 4 * D) * DEG_to_RAD);
-
-                            // Add these terms to the Moon's latitude (degrees):
-                          double LunarPLat =  -0.173 * Math.Sin(F - 2 * D)
-                            - 0.055 * Math.Sin((M - F - 2 * D) * DEG_to_RAD)
-                            - 0.046 * Math.Sin((M + F - 2 * D) * DEG_to_RAD)
-                            + 0.033 * Math.Sin((F + 2 * D) * DEG_to_RAD)
-                            + 0.017 * Math.Sin((2 * M + F) * DEG_to_RAD);
-
-                            MoonLON = MoonLON + LunarPLon;
-                            MoonLAT = MoonLAT + LunarPLat;
-
-                           //-------------------------------------------------------------------------------------
-
-                            while (MoonLON > 360) // re-normalize
-                            {
-                                MoonLON = MoonLON - 360.0;
-                            }
-                            while (MoonLON < 0)
-                            {
-                                MoonLON = MoonLON + 360.0;
-                            }
-
-                         
-                            //--------------------------------------------------------------------------------------------------
-                            // Geocentric (earth centered) coordinates(ie standing at the center of the earth)
-                            r = 1.0;
-
-                            double xh = r * Math.Cos(MoonLON * DEG_to_RAD) * Math.Cos(MoonLAT * DEG_to_RAD);
-                            double yh = r * Math.Sin(MoonLON * DEG_to_RAD) * Math.Cos(MoonLAT * DEG_to_RAD);
-                            double zh = r * Math.Sin(MoonLAT * DEG_to_RAD);
-
-                            double xg = xh;
-                            double yg = yh;
-                            double zg = zh;
-
-                            Debug.WriteLine("xg " + xg);
-                            Debug.WriteLine("yg " + yg);
-                            Debug.WriteLine("zg " + zg);
-
-                            Debug.WriteLine(" ");
-                            //--------------------------------------------------------------------------------------------------
-                            // Equatorial coordinates (rectangular coordinates)
-                            // ecl = angle of the obliquity of the ecliptic  23.43704
-
-                            double xe = xg;
-                            double ye = yg * Math.Cos(ecl * DEG_to_RAD) - zg * Math.Sin(ecl * DEG_to_RAD);
-                            double ze = yg * Math.Sin(ecl * DEG_to_RAD) + zg * Math.Cos(ecl * DEG_to_RAD);
-
-                            Debug.WriteLine("xe " + xe);
-                            Debug.WriteLine("ye " + ye);
-                            Debug.WriteLine("ze " + ze);
-
-                            double RA = RAD_to_DEG *  Math.Atan2(ye, xe);                            // Right Ascension deg, and Declination deg
-                            double dec = RAD_to_DEG * Math.Atan2(ze, Math.Sqrt(xe * xe + ye * ye));
-
-                            Debug.WriteLine("start RA " + RA);   // should be 309.5 for test but in Hours divide by 15
-                            Debug.WriteLine("dec " + dec);       // should be -19.1 for test
-
-                            while (RA > 360) // normalize
-                            {
-                                RA = RA - 360.0;
-                            }
-                            while (RA < 0)
-                            {
-                                RA = RA + 360.0;
-                            }
-
-                            Debug.WriteLine("RA " + RA); // should be 309.5 for test
-                            Debug.WriteLine("dec " + dec); // should be -19.1 for test
-
-                            Debug.WriteLine(" ");
-
-
-                            //--------------------------------------------------------------------------------------------------
-                            // vernal (spring) equinox position = 0deg RA and counts eastward 0-360 as 24hours (15deg per hour)
-                             
-                            double MJD = JD - 2400000.5;
-
-                            double T = (MJD - 51544.5) / 36525.0;
-    
-                            Debug.WriteLine("Current T " + T);
-
-                            double GMST = ((280.46061837 + 360.98564736629 * (MJD - 51544.5)) + 0.000387933 * T * T - T * T * T / 38710000.0) % 360.0;  // ST in degrees
-                            if (GMST < 0) // normalize
-                            {
-                                 GMST += 360.0;
-                            }
-
-                            Debug.WriteLine("Current GMST in deg " + GMST);
-
-                            double ST = GMST/15; // current Sidereal time in hours
-
-                            Debug.WriteLine("Current GMST (hours) " + ST);  // ST in hours
-                            Debug.WriteLine(" " );
-
-
-                            //------------------------------------------------------------------------------------------------
-                            // FIND LST and AZIMUTH and ELEVATION
-
-                            double LST = GMST + (double)udDisplayLong.Value; // use your local Longitude to find LST and your azimuth
-                            Debug.WriteLine("ORIG LST " + LST); // 
-
-                            // your local long is already in -180+180 but GMST is 0-360 already where 0-180 is east, 181-360 is west
-
-                            if (LST > 360)
-                            {
-                                LST = LST - 180;
-                            }
-                            if (LST < 0)
-                            {
-                                LST = LST - 360.0;
-                            }
-
-                            Debug.WriteLine("NEW LST " + LST);
-                            Debug.WriteLine(" ");
-
-
-                            double HA = LST - RA;
-
-                            Debug.WriteLine("ORIG HA " + HA);
-
-                            // normalize -360+360 to -180+180
-                            HA = (HA > 180) ? HA - 360 : (HA < -180) ? HA + 360 : HA; // in deg
-
-                            Debug.WriteLine("NEW HA " + HA);
-                            Debug.WriteLine(" ");
-
-                            double x2 = Math.Cos(HA * DEG_to_RAD) * Math.Cos(dec * DEG_to_RAD);
-                            double y2 = Math.Sin(HA * DEG_to_RAD) * Math.Cos(dec * DEG_to_RAD);
-                            double z2 = Math.Sin(dec * DEG_to_RAD);
-
-                            double xhor = x2 * Math.Sin((double)udDisplayLat.Value * DEG_to_RAD) - z2 * Math.Cos((double)udDisplayLat.Value * DEG_to_RAD);
-                            double yhor = y2;
-                            double zhor = x2 * Math.Cos((double)udDisplayLat.Value * DEG_to_RAD) + z2 * Math.Sin((double)udDisplayLat.Value * DEG_to_RAD);
-
-                            double az = RAD_to_DEG * Math.Atan2(yhor, xhor) + 180.0; // 0=north, 90=East, 180=South, 270=West (just like your rotor controller)
-                            double alt = RAD_to_DEG * Math.Asin(zhor);  // 0=Horizon, 90=Zenith, -90 = Straight Down to heck
-
-                            Debug.WriteLine("Azimuth deg " + az);
-                            Debug.WriteLine("Altitude " + alt);
-                            Debug.WriteLine(" ");
-
-                             Moon_AZ = (int)az; // beam heading value
-                             Moon_ALT = (int)alt;  // altitude value
-
-                            //-----------------------------------------------
-
-                            Debug.WriteLine("Moon RA (hours) " + (RA / 15));
-
-
-                            double MoonLONMap = 0;
-
-                            MoonLONMap = (GMST - RA);
-
-                            //---------------------------------------------------------------
-                            // normalize -360 +360 and convert directly to -180 +180
-                            // if value > 180 then it must be on East side. if value < -180 must be on West
-                            // if value > 0 but < 180 then must be on west side
-                            // if value > -180 but < 0 then must be on east side
-                            MoonLONMap = (MoonLONMap > 180) ? MoonLONMap - 360 : (MoonLONMap < -180) ? MoonLONMap + 360 : MoonLONMap;
-
-                            MoonLONMap = -MoonLONMap;
-
-                            Debug.WriteLine("Moonlonmap0 " + MoonLONMap);
-
-                            if (MoonLONMap < -180) MoonLONMap = MoonLONMap + 360;
-                            else if (MoonLONMap > 180) MoonLONMap = MoonLONMap - 360;
-
-                            Debug.WriteLine("Moonlonmap1 " + MoonLONMap);
-
-                            double MoonLATMap = dec; // latitude
-                        
-                            //---------------------------------------------------------------------------------------------
-                          
-                            Debug.WriteLine("Moon lon map " + MoonLONMap);
-                            Debug.WriteLine("Moon lat map " + MoonLATMap);
-                            Debug.WriteLine(" ");
-
-                            //---------------------------------------------------------------------------------------------
-
-                            //  Sun_Top1 = 26;                                     // 45 Y pixel location of top of map
-                            //  Sun_Bot1 = 465;                                    // 485 Y pixel locaiton of bottom of map 
-                            //  Sun_Left = 57;                                       // Left side at equator used by Grayline routine
-                            //  Sun_Right = 939;
-
-                            int Sun_WidthY1 = Sun_Bot1 - Sun_Top1;             // # of Y pixels from top to bottom of map
-                            int Sun_Width = Sun_Right - Sun_Left;              //used by sun track routine
-
-                         
-                            Moon_Y = (int)(((180 - (MoonLATMap + 90)) / 180.0) * Sun_WidthY1) + Sun_Top1;  //latitude 90N to -90S
-                            Moon_X = (int)(((MoonLONMap + 180.0) / 360.0) * Sun_Width) + Sun_Left;  // longitude -180W to +180E
-
-                           
-                            Image src1 = new Bitmap(moon_image); // load up MOON image ( use PNG to allow transparent background)
-
-                            // need to convert lat and long to x, y points
-
-                            g.DrawImage(src1, Moon_X - 11, Moon_Y - 13, 23, 27); // was -10 , -10      draw Moon 20 x 20 pixel
-                            g.DrawString("Beam:" + Moon_AZ.ToString(), font1, grid_text_brush, Moon_X + 15, Moon_Y - 10);
-                            g.DrawString("Elev:" + Moon_ALT.ToString(), font1, grid_text_brush, Moon_X + 15, Moon_Y);
-
-                  
-                        } // MOON = true
-
-
-
-                        
-
-
-                        //------------------------------------------------------------------------------------------------------------------------
-                        //------------------------------------------------------------------------------------------------------------------------
-                        //------------------------------------------------------------------------------------------------------------------------
-
-                        if (ISS == true)
-                        {
-                            Debug.WriteLine("=====================ISS CALCULATIONS");
-
-                            // this allows you to get the actual zenith location of the ISS directly from the internet
-                            //# Get current ISS position 
-                            //17      req_iss = requests.get('http://api.open-notify.org/iss-now.json')
-                            //18      dict = req_iss.json()
-                            //19      latlong = dict['iss_position'];
-                            //                          20      lat1 = latlong['latitude']
-                            //21      lon1 = latlong['longitude']
-                            //22 	    #Calculate Distance to Home 
-
-                            // ISS(ZARYA)
-                            //1 25544U 98067A   14361.11356206  .00017231  00000 - 0  28015 - 3 0  6359
-                            //2 25544  51.6460 222.7302 0007398 178.4506 330.5659 15.52766391921266
-
-                            double ISSLONMap = 0;
-                            double ISSLATMap = 0;
-                            double ISSSLONMap = 0;
-                            double ISSSLATMap = 0;
-                            double ISSALTMap = 0;
-                            double ISSVELMap = 0;
-                            string ISSVISMap = "";
-                            double ISSFOOTMap = 0;
-
-                            // http://wheretheiss.at/w/developer
-                            // https://api.wheretheiss.at/v1/satellites/25544
-                            // https://api.wheretheiss.at/v1/satellites/25544/positions?timestamps=1436029902
-                            // https://api.wheretheiss.at/v1/satellites/25544/positions?daynum=2457871.1669097
-
-
-                            //{"name":"iss","id":25544,"latitude":-32.739945364219,"longitude":-107.25136003491,"altitude":417.65983955229,"velocity":27571.144857654,"visibility":"eclipsed","footprint":4495.5385611307,"timestamp":1493174688,"daynum":2457869.6144444,"solar_lat":13.543779931213,"solar_lon":138.26084380559,"units":"kilometers"}
-                            // "map_url": "https://maps.google.com/maps?q=37.795517,-122.393693&z=4"
-
-
-
-                            try
-                            {
-                              
-                                WebClient client = new WebClient();
-                                Stream stream = client.OpenRead("https://api.wheretheiss.at/v1/satellites/25544");
-                                StreamReader reader = new StreamReader(stream);
-                                String content = reader.ReadToEnd();
-                                reader.Close();
-
-
-                                Debug.WriteLine("internet data stream: " + content);
-
-
-                                if (content.Contains("latitude") == true)
-                                {
-
-                                    int ind = content.IndexOf("latitude") + 10;
-                                    string lat = content.Substring(ind, 9);
-                                    Debug.WriteLine("Found latitude= " + lat);
-                                    ISSLATMap = Convert.ToDouble(lat);
-
-
-                                    if (content.Contains("longitude") == true)
-                                    {
-
-                                        int ind1 = content.IndexOf("longitude") + 11;
-                                        string lon = content.Substring(ind1, 9);
-                                        Debug.WriteLine("found longitude= " + lon);
-                                        ISSLONMap = Convert.ToDouble(lon);
-
-
-                                        if (content.Contains("altitude") == true)
-                                        {
-
-                                            int ind2 = content.IndexOf("altitude") + 10;
-                                            string alt1 = content.Substring(ind2, 9);
-                                            Debug.WriteLine("found  altitude= " + alt1);
-                                            ISSALTMap = Convert.ToDouble(alt1) * 1000;
-
-
-                                            if (content.Contains("velocity") == true) // in KM
-                                            {
-
-                                                int ind3 = content.IndexOf("velocity") + 10;
-                                                string vel = content.Substring(ind3, 9);
-                                                Debug.WriteLine("found velocity= " + vel);
-                                                ISSVELMap = Convert.ToDouble(vel);
-
-                                                
-                                                if (content.Contains("visibility") == true)
-                                                {
-                                                    int ind4 = content.IndexOf("visibility") + 13;
-                                                    string vis = content.Substring(ind4, 9);
-                                                    Debug.WriteLine("found visibility= " + vis);
-                                                    ISSVISMap = vel;
-
-                                                    if (content.Contains("footprint") == true)
-                                                    {
-                                                        int ind5 = content.IndexOf("footprint") + 11;
-                                                        string foot = content.Substring(ind5, 9);
-                                                        Debug.WriteLine("found footprint= " + foot);
-                                                        ISSFOOTMap = Convert.ToDouble(foot);
-
-                                                        if (content.Contains("solar_lat") == true)
-                                                        {
-                                                            int ind6 = content.IndexOf("solar_lat") + 11;
-                                                            string slat = content.Substring(ind6, 9);
-                                                            Debug.WriteLine("found solar_lat= " + slat);
-                                                            ISSSLATMap = Convert.ToDouble(slat);
-
-                                                            if (content.Contains("solar_lon") == true)
-                                                            {
-                                                                int ind7 = content.IndexOf("solar_lon") + 11;
-                                                                string slon = content.Substring(ind7, 9);
-                                                                Debug.WriteLine("found solar_lon= " + slon);
-                                                                ISSSLONMap = Convert.ToDouble(slon);
-
-                                                            } // solar_lon
-
-                                                        } // solar_lat
-
-                                                    } // footprint
-
-                                                } // visibility
-
-                                            } // velocity
-
-                                        } // altitude
-
-                                    } // longitude
-
-                                } // longitude
-
-                              
-
-                            }
-                            catch (Exception ex)
-                            {
-                                Debug.WriteLine("Could not read internet ISS data: " + ex);
-
-                                textBox1.Text = "Could not Get Internet ISS data. Turning off ISS display";
-
-                                chkISS.Checked = false; // turn off ISS internet lat and long since its not reading correctly
-                                ISSLONMap = 0;
-                                ISSLATMap = 0;
-                            }
-
-                         
-                            //-------------------------------------------------------------------------------------------------------
-                            //-------------------------------------------------------------------------------------------------------
-                            //-------------------------------------------------------------------------------------------------------
-                            //-------------------------------------------------------------------------------------------------------
-
-                        
-                            double y = DateTime.UtcNow.Year; //  year 2017
-                            double m = DateTime.UtcNow.Month; // month = 1 to 12
-                            double D1 = DateTime.UtcNow.Day; // day of month 1 to 31
-                            double H = DateTime.UtcNow.Hour; // hour 0 to 24
-
-                            double JD = DateTime.UtcNow.ToOADate() + 2415018.5; // convert OLE AUtomation Date to Julian Date
-                         
-                            double d = JD - 2451543.5; // convert Julian Date to something the orbital routine can use. (the Day number)
-                           
-                        
-                            //--------------------------------------------------------------------------------------------
-                            // ISS oribital elements data set
-                            //--------------------------------------------------------------------------------------------
-
-                            const double EarthRadEq = 6378.1370; // Declare Earth Equatorial Radius Measurements in km
-
-                            // data set for ISS in DEG (must be converted to Radians before a SIN or COS or TAN is used)
-                            // https://spaceflight.nasa.gov/realdata/elements/
-
-                            //    Satellite: ISS
-                            //  Catalog Number: 25544
-                            //    Epoch time:      17111.63786841 = yrday.fracday
-                            //Element set:     900
-                            //Inclination: 51.6386  deg
-                            //RA of node:       320.1717  deg
-                            //Eccentricity:     .0006757
-                            //  Arg of perigee: 78.1062  deg
-                            //Mean anomaly: 282.0848  deg
-                            //Mean motion: 15.54123175  rev / day
-                            //  Decay rate:    1.67170E-04  rev / day ^ 2
-                            // Epoch rev:            1295
-                            //Checksum: 309
-                           // double N = (125.1228 - 0.0529538083 * d);  // for MOON
-
-                            double bc = 0.00016717;     // Ballistic Coefficient derivative of mean motion (daily rate of change in the numbe of revs / day)
-                            double BSTAR = 0.00010270;   // drag Term 
-                            double mm = 15.54189435;    // how many orbits are completed each day
-
-                            double N = (295.8085 );     // DEG RA of the long ascending node defines the ascending and descending orbit locations with respect to the earths equatorial plane
-                            double i = 51.6369;         // DEG Inclination to the ecliptic deg  defines the orientation of the orbit with respect to the earths equator <
-                            double w = (94.0665);     // DEG Arg of Perigee (Perihelion) defines the low point,perigee of the orbit is with respect to the earths surface.
-                            double a = 1.06;            //  6777.943 kmeters earth is 6371km radius   Mean distance (Earth equitorial radii) Semi-major axis defines size of the orbit
-                            double e = 0.0006891;       //     Eccentricity defines the shape of the orbit
-                            double M = (266.1275);     // DEG v = true, mean anomaly defines where the satellite is within the orbit with respect to perigee (low point)
-
-                            double ecl = 23.43704;      // DEG Angle of the obliquity of the ecliptic plane (this is static)
-
- 
-                            //--------------------------------------------------------------------------------------------------
-                            // vernal (spring) equinox position = 0deg RA and counts eastward 0-360 as 24hours (15deg per hour)
-
-                         
-                            double MJD = JD - 2400000.5;
-                            double T = (MJD - 51544.5) / 36525.0;
-
-                            Debug.WriteLine("Current T " + T);
-
-                            double GMST = ((280.46061837 + 360.98564736629 * (MJD - 51544.5)) + 0.000387933 * T * T - T * T * T / 38710000.0) % 360.0;
-                            if (GMST < 0)
-                            {
-                                GMST += 360.0;
-                            }
-
-                            Debug.WriteLine("Current GMST in deg " + GMST);
-
-                            double ST = GMST / 15; // current Sidereal time in hours
-
-                            Debug.WriteLine("Current GMST (hours) " + ST);
-
-                            Debug.WriteLine(" ");
-
-
-
-                            //---------------------------------------------------------------------------------------------
-
-                            ISS_LAT = ISSLATMap; // values from internet site
-                            ISS_LON = ISSLONMap;
-
-                            Debug.WriteLine("ISS lon map " + ISSLONMap);
-                            Debug.WriteLine("ISS lat map " + ISSLATMap);
-                            Debug.WriteLine("ISS ALT map " + ISSALTMap);
-                            Debug.WriteLine("MY lon map " + (double)udDisplayLong.Value);
-                            Debug.WriteLine("MY lat map " + (double)udDisplayLat.Value);
-                            Debug.WriteLine(" ");
-
-
-                            Calculate(ISSLATMap, ISSLONMap, ISSALTMap, (double)udDisplayLat.Value, (double)udDisplayLong.Value, 30); // get the ISS_AZ and ISS_ALT values based on 
-
-                            Debug.WriteLine("ISS AZ map " + ISS_AZ);
-                            Debug.WriteLine("ISS ELV map " + ISS_ALT);
-
-                            //---------------------------------------------------------------------------------------------
-
-                          
-                            int Sun_WidthY1 = Sun_Bot1 - Sun_Top1;             // # of Y pixels from top to bottom of map
-                            int Sun_Width = Sun_Right - Sun_Left;              //used by sun track routine
-
-
-                            ISS_Y = (int)(((180 - (ISSLATMap + 90)) / 180.0) * Sun_WidthY1) + Sun_Top1;  //latitude 90N to -90S
-                            ISS_X = (int)(((ISSLONMap + 180.0) / 360.0) * Sun_Width) + Sun_Left;  // longitude -180W to +180E
-
-                            int direction = 0; // deg angle
-                            int ISS_XX = 0;
-                            int ISS_YY = 0;
-
-                            Image src1 = new Bitmap(iss_image); // load up ISS image ( use PNG to allow transparent background)
-
-                            // need to convert lat and long to x, y points
-
-                            g.DrawImage(src1, ISS_X - 25, ISS_Y - 16, 50, 33); // was -10 , -10      draw ISS 20 x 20 pixel
-
-                            g.DrawString("Beam:" + ISS_AZ.ToString(), font1, grid_text_brush, ISS_X + 8, ISS_Y+ 10 );
-                            g.DrawString("Elev:" + ISS_ALT.ToString(), font1, grid_text_brush, ISS_X + 8, ISS_Y + 20);
-
-                            // int area = Math.PI *( R * R);  111.36 km per deg of land 
-
-                            // int Radius = (int)Math.Sqrt(ISSFOOTMap/Math.PI); // radiius = sqrt(4495km / 3.14) = 37.8 km radius
-                            // around 40075 km from 0 to 360 deg around the earth
-                            // X Radius = (int)((double)Radius * .4); // 882 pixels represent 360 deg or 2.45 pixels per deg or 2.45pixels per 111.32km or 45.4km per pixel
-                            // Y 439 pixel for 180 deg or 2.45 pixel per deg per 11.32km or 91km per pixel 
-                            int Radius = (int)((double)ISSFOOTMap / 2);
-
-                            int Radius_X = (int)((double)Radius / 45.4);
-                           
-
-                            g.DrawEllipse(OrgPen, ISS_X - Radius_X, ISS_Y - Radius_X, Radius_X * 2,  Radius_X * 2);  // draw circle showing coverage area for ISS
-
-                          
-                            if (ISS_Y > ISS_YL) // going down
-                            {
-                                direction = 180;
-                                ISS_YY = 20;
-                            }
-                            else if (ISS_Y < ISS_YL)
-                            {
-                                ISS_YY = -20;
-                                direction = 0;
-                            }
-
-                            if (ISS_X > ISS_XL) // going East (right)
-                            {
-                                if (direction == 0)
-                                {
-                                    ISS_XX = 40;
-                                    direction = 45;
-                                }
-                                else
-                                {
-                                    ISS_XX = 40;
-                                    direction = 135;
-                                }
-                            }
-                            else
-                            {
-                                if (direction == 0)
-                                {
-                                    ISS_XX = -40;
-                                    direction = 315;
-                                }
-                                else
-                                {
-                                    ISS_XX = -40;
-                                    direction = 225;
-                                }
-                            }
-
-                          //  g.DrawLine(OrgPen, ISS_X, ISS_Y,ISS_X + ISS_XX,ISS_Y + ISS_YY );
-
-                            ISS_YL = ISS_Y;
-                            ISS_XL = ISS_X;
-
-
-                        } // ISS = true
-
-
-
-                        //------------------------------------------------------------------------------------------------------------------------
-                        //------------------------------------------------------------------------------------------------------------------------
-                        //------------------------------------------------------------------------------------------------------------------------
-
-                        if (SUN == true)
+                      
+                            //------------------------------------------------------------------------------------------------------------------------
+                            //------------------------------------------------------------------------------------------------------------------------
+                            //------------------------------------------------------------------------------------------------------------------------
+
+                            if (SUN == true)
                         {
                             Debug.WriteLine("=====================SUN CALCULATIONS");
 
@@ -6783,7 +6267,7 @@ namespace PowerSDR
 
                             }
 
-                        } // sun tracker enabled
+                        } //  sun tracker enabled
 
 
 
@@ -6867,6 +6351,719 @@ namespace PowerSDR
                             }  // for loop  
 
                         } // if GRAYLINE enabled
+
+                        if (MOON == true)
+                        {
+
+                            Debug.WriteLine("=====================MOON CALCULATIONS");
+
+                            //--------------------------------------------------------------------
+                            // Convert Universal Time to Ephemeris Time
+                            // jd = juliandate(UTC, 'yyyy/mm/dd HH:MM:SS');
+
+
+                            double y = DateTime.UtcNow.Year; //  year 2017
+                            double m = DateTime.UtcNow.Month; // month = 1 to 12
+                            double D1 = DateTime.UtcNow.Day; // day of month 1 to 31
+                            double H = DateTime.UtcNow.Hour; // hour 0 to 24
+
+                            double JD = DateTime.UtcNow.ToOADate() + 2415018.5; // convert OLE AUtomation Date to Julian Date
+                            Debug.WriteLine("Julian day " + JD);
+
+                            double d = JD - 2451543.5; // convert Julian Date to something the orbital routine can use. (the Day number)
+                            Debug.WriteLine("Current Day number " + d);
+
+                            //  d = -3543; // for April 19th 1990 test
+
+                            //--------------------------------------------------------------------------------------------
+                            // Moon oribital elements data set
+                            //--------------------------------------------------------------------------------------------
+
+                            // http://aa.usno.navy.mil/data/docs/AltAz.php
+                            // data set for MOON in DEG (must be converted to Radians before a SIN or COS or TAN is used)
+                            // https://spaceflight.nasa.gov/realdata/elements/
+
+                            double N = (125.1228 - 0.0529538083 * d);  // DEG RA of the long ascending node defines the ascending and descending orbit locations with respect to the earths equatorial plane
+                            double i = 5.1454;                          // DEG Inclination to the ecliptic deg  defines the orientation of the orbit with respect to the earths equator <
+                            double w = (318.0634 + 0.1643573223 * d);   // DEG Arg of Perigee (Perihelion) defines the low point,perigee of the orbit is with respect to the earths surface.
+                            double a = 60.2666;                         //     Mean distance (Earth equitorial radii) Semi-major axis defines size of the orbit
+                            double e = 0.0549006;                       //     Eccentricity defines the shape of the orbit
+                            double M = (115.3654 + 13.0649929509 * d);  // DEG True/mean anomaly defines where the satellite is within the orbit with respect to perigee (low point)
+                            double ecl = 23.43704;                      // DEG Angle of the obliquity of the ecliptic plane (obliquity of the earth)
+
+
+                            //--------------------------------------
+                            Debug.WriteLine("Starting N " + N);
+                            Debug.WriteLine("Starting w " + w);
+                            Debug.WriteLine("Starting M " + M);
+
+                            while (N > 360) // normalize values
+                            {
+                                N = N - 360.0;
+                            }
+                            while (N < 0)
+                            {
+                                N = N + 360.0;
+                            }
+
+                            while (w > 360)
+                            {
+                                w = w - 360.0;
+                            }
+                            while (w < 0)
+                            {
+                                w = w + 360.0;
+                            }
+
+                            while (M > 360)
+                            {
+                                M = M - 360.0;
+                            }
+                            while (M < 0)
+                            {
+                                M = M + 360.0;
+                            }
+
+
+                            //-----------------------------------------------------------------------------------------
+                            // Compute E, the eccentric anomaly 
+                            // E0 is the eccentric anomaly approximation estimate  (this will initially have a relativly high error)
+
+                            double E0 = M + (RAD_to_DEG) * e * (Math.Sin(M * (DEG_to_RAD))) * (1.0 + e * (Math.Cos(M * (DEG_to_RAD))));
+
+                            // Compute E1 and set it to E0 until the E1 == E0
+                            double E1 = E0 - (E0 - (RAD_to_DEG) * e * (Math.Sin(E0 * (DEG_to_RAD))) - M) / (1 - e * (Math.Cos(E0 * (DEG_to_RAD))));
+
+                            while (E1 - E0 > .000005) // compare in DEG
+                            {
+                                E0 = E1;
+                                E1 = E0 - (E0 - (RAD_to_DEG) * e * (Math.Sin(E0 * (DEG_to_RAD))) - M) / (1 - e * (Math.Cos(E0 * (DEG_to_RAD))));
+                            }
+
+                            double E = E1;
+
+                            //---------------------------------------------------------------------------------
+                            // Compute rectangular coordinates (x, y) in the plane of the lunar orbit
+                            double x1 = a * (Math.Cos(E * (DEG_to_RAD)) - e);
+                            double y1 = a * (Math.Sqrt(1 - e * e) * Math.Sin(E * (DEG_to_RAD)));
+
+                            //---------------------------------------------------------------------------------
+                            // convert this to distance and true anomaly
+                            double r = Math.Sqrt(y1 * y1 + x1 * x1);
+                            double v = RAD_to_DEG * Math.Atan2(y1, x1);
+
+
+                            while (v > 360)
+                            {
+                                v = v - 360.0;
+                            }
+                            while (v < 0)
+                            {
+                                v = v + 360.0;
+                            }
+
+
+                            //---------------------------------------------------------------------------------
+                            // Compute moon's position in ecliptic coordinates
+                            double xeclip = r * (Math.Cos(N * (DEG_to_RAD)) * Math.Cos((v + w) * (DEG_to_RAD)) - Math.Sin(N * (DEG_to_RAD)) * Math.Sin((v + w) * (DEG_to_RAD)) * Math.Cos(i * (DEG_to_RAD)));
+                            double yeclip = r * (Math.Sin(N * (DEG_to_RAD)) * Math.Cos((v + w) * (DEG_to_RAD)) + Math.Cos(N * (DEG_to_RAD)) * Math.Sin((v + w) * (DEG_to_RAD)) * Math.Cos(i * (DEG_to_RAD)));
+                            double zeclip = r * (Math.Sin((v + w) * (DEG_to_RAD)) * Math.Sin(i * (DEG_to_RAD)));
+
+                            //---------------------------------------------------------------------------------
+                            // Ecliptic LONG and LAT    (RAD TO DEG = 57.2957795131)
+
+                            double MoonLON = RAD_to_DEG * Math.Atan2(yeclip, xeclip); //longitude  geocentric (earth centered) position in the ecliptic coordinate system.
+                            double MoonLAT = RAD_to_DEG * Math.Atan2(zeclip, Math.Sqrt(xeclip * xeclip + yeclip * yeclip)); //latitude
+
+                            while (MoonLON > 360) // normalize
+                            {
+                                MoonLON = MoonLON - 360.0;
+                            }
+                            while (MoonLON < 0)
+                            {
+                                MoonLON = MoonLON + 360.0;
+                            }
+
+
+                            //-----------------------------------------------------------------------------------------
+                            // Perturbations
+                            double Lm = (N + w + M) % 360; // Moons mean long
+                            double F = (Lm - N) % 360;    // Moons argument of latitude
+
+                            double wSun = (282.9404 + 4.70935E-5 * d) % 360; // longitude of perihelion
+                            double Ms = (356.0470 + 0.9856002585 * d) % 360; // suns mean anomaly
+                            double Ls = (wSun + Ms) % 360;   // Suns mean longitude
+                            double D = Lm - Ls; // Moons mean elongation
+
+
+                            // Add these terms to the Moon's longitude (degrees):
+                            double LunarPLon = -1.274 * Math.Sin((M - 2 * D) * DEG_to_RAD) // (the Evection)
+                               + 0.658 * Math.Sin((2 * D) * DEG_to_RAD)                     //(the Variation)
+                               - 0.186 * Math.Sin((Ms) * DEG_to_RAD)                        //(the Yearly Equation)
+                               - 0.059 * Math.Sin((2 * M - 2 * D) * DEG_to_RAD)
+                               - 0.057 * Math.Sin((M - 2 * D + Ms) * DEG_to_RAD)
+                               + 0.053 * Math.Sin((M + 2 * D) * DEG_to_RAD)
+                               + 0.046 * Math.Sin((2 * D - Ms) * DEG_to_RAD)
+                               + 0.041 * Math.Sin((M - Ms) * DEG_to_RAD)
+                               - 0.035 * Math.Sin((D) * DEG_to_RAD)                         //(the Parallactic Equation)
+                               - 0.031 * Math.Sin((M + Ms) * DEG_to_RAD)
+                               - 0.015 * Math.Sin((2 * F - 2 * D) * DEG_to_RAD)
+                               + 0.011 * Math.Sin((M - 4 * D) * DEG_to_RAD);
+
+                            // Add these terms to the Moon's latitude (degrees):
+                            double LunarPLat = -0.173 * Math.Sin(F - 2 * D)
+                              - 0.055 * Math.Sin((M - F - 2 * D) * DEG_to_RAD)
+                              - 0.046 * Math.Sin((M + F - 2 * D) * DEG_to_RAD)
+                              + 0.033 * Math.Sin((F + 2 * D) * DEG_to_RAD)
+                              + 0.017 * Math.Sin((2 * M + F) * DEG_to_RAD);
+
+                            MoonLON = MoonLON + LunarPLon;
+                            MoonLAT = MoonLAT + LunarPLat;
+
+                            //-------------------------------------------------------------------------------------
+
+                            while (MoonLON > 360) // re-normalize
+                            {
+                                MoonLON = MoonLON - 360.0;
+                            }
+                            while (MoonLON < 0)
+                            {
+                                MoonLON = MoonLON + 360.0;
+                            }
+
+
+                            //--------------------------------------------------------------------------------------------------
+                            // Geocentric (earth centered) coordinates(ie standing at the center of the earth)
+                            r = 1.0;
+
+                            double xh = r * Math.Cos(MoonLON * DEG_to_RAD) * Math.Cos(MoonLAT * DEG_to_RAD);
+                            double yh = r * Math.Sin(MoonLON * DEG_to_RAD) * Math.Cos(MoonLAT * DEG_to_RAD);
+                            double zh = r * Math.Sin(MoonLAT * DEG_to_RAD);
+
+                            double xg = xh;
+                            double yg = yh;
+                            double zg = zh;
+
+                            Debug.WriteLine("xg " + xg);
+                            Debug.WriteLine("yg " + yg);
+                            Debug.WriteLine("zg " + zg);
+
+                            Debug.WriteLine(" ");
+                            //--------------------------------------------------------------------------------------------------
+                            // Equatorial coordinates (rectangular coordinates)
+                            // ecl = angle of the obliquity of the ecliptic  23.43704
+
+                            double xe = xg;
+                            double ye = yg * Math.Cos(ecl * DEG_to_RAD) - zg * Math.Sin(ecl * DEG_to_RAD);
+                            double ze = yg * Math.Sin(ecl * DEG_to_RAD) + zg * Math.Cos(ecl * DEG_to_RAD);
+
+                            Debug.WriteLine("xe " + xe);
+                            Debug.WriteLine("ye " + ye);
+                            Debug.WriteLine("ze " + ze);
+
+                            double RA = RAD_to_DEG * Math.Atan2(ye, xe);                            // Right Ascension deg, and Declination deg
+                            double dec = RAD_to_DEG * Math.Atan2(ze, Math.Sqrt(xe * xe + ye * ye));
+
+                            Debug.WriteLine("start RA " + RA);   // should be 309.5 for test but in Hours divide by 15
+                            Debug.WriteLine("dec " + dec);       // should be -19.1 for test
+
+                            while (RA > 360) // normalize
+                            {
+                                RA = RA - 360.0;
+                            }
+                            while (RA < 0)
+                            {
+                                RA = RA + 360.0;
+                            }
+
+                            Debug.WriteLine("RA " + RA); // should be 309.5 for test
+                            Debug.WriteLine("dec " + dec); // should be -19.1 for test
+
+                            Debug.WriteLine(" ");
+
+
+                            //--------------------------------------------------------------------------------------------------
+                            // vernal (spring) equinox position = 0deg RA and counts eastward 0-360 as 24hours (15deg per hour)
+
+                            double MJD = JD - 2400000.5;
+
+                            double T = (MJD - 51544.5) / 36525.0;
+
+                            Debug.WriteLine("Current T " + T);
+
+                            double GMST = ((280.46061837 + 360.98564736629 * (MJD - 51544.5)) + 0.000387933 * T * T - T * T * T / 38710000.0) % 360.0;  // ST in degrees
+                            if (GMST < 0) // normalize
+                            {
+                                GMST += 360.0;
+                            }
+
+                            Debug.WriteLine("Current GMST in deg " + GMST);
+
+                            double ST = GMST / 15; // current Sidereal time in hours
+
+                            Debug.WriteLine("Current GMST (hours) " + ST);  // ST in hours
+                            Debug.WriteLine(" ");
+
+
+                            //------------------------------------------------------------------------------------------------
+                            // FIND LST and AZIMUTH and ELEVATION
+
+                            double LST = GMST + (double)udDisplayLong.Value; // use your local Longitude to find LST and your azimuth
+                            Debug.WriteLine("ORIG LST " + LST); // 
+
+                            // your local long is already in -180+180 but GMST is 0-360 already where 0-180 is east, 181-360 is west
+
+                            if (LST > 360)
+                            {
+                                LST = LST - 180;
+                            }
+                            if (LST < 0)
+                            {
+                                LST = LST - 360.0;
+                            }
+
+                            Debug.WriteLine("NEW LST " + LST);
+                            Debug.WriteLine(" ");
+
+
+                            double HA = LST - RA;
+
+                            Debug.WriteLine("ORIG HA " + HA);
+
+                            // normalize -360+360 to -180+180
+                            HA = (HA > 180) ? HA - 360 : (HA < -180) ? HA + 360 : HA; // in deg
+
+                            Debug.WriteLine("NEW HA " + HA);
+                            Debug.WriteLine(" ");
+
+                            double x2 = Math.Cos(HA * DEG_to_RAD) * Math.Cos(dec * DEG_to_RAD);
+                            double y2 = Math.Sin(HA * DEG_to_RAD) * Math.Cos(dec * DEG_to_RAD);
+                            double z2 = Math.Sin(dec * DEG_to_RAD);
+
+                            double xhor = x2 * Math.Sin((double)udDisplayLat.Value * DEG_to_RAD) - z2 * Math.Cos((double)udDisplayLat.Value * DEG_to_RAD);
+                            double yhor = y2;
+                            double zhor = x2 * Math.Cos((double)udDisplayLat.Value * DEG_to_RAD) + z2 * Math.Sin((double)udDisplayLat.Value * DEG_to_RAD);
+
+                            double az = RAD_to_DEG * Math.Atan2(yhor, xhor) + 180.0; // 0=north, 90=East, 180=South, 270=West (just like your rotor controller)
+                            double alt = RAD_to_DEG * Math.Asin(zhor);  // 0=Horizon, 90=Zenith, -90 = Straight Down to heck
+
+                            Debug.WriteLine("Azimuth deg " + az);
+                            Debug.WriteLine("Altitude " + alt);
+                            Debug.WriteLine(" ");
+
+                            Moon_AZ = (int)az; // beam heading value
+                            Moon_ALT = (int)alt;  // altitude value
+
+                            //-----------------------------------------------
+
+                            Debug.WriteLine("Moon RA (hours) " + (RA / 15));
+
+
+                            double MoonLONMap = 0;
+
+                            MoonLONMap = (GMST - RA);
+
+                            //---------------------------------------------------------------
+                            // normalize -360 +360 and convert directly to -180 +180
+                            // if value > 180 then it must be on East side. if value < -180 must be on West
+                            // if value > 0 but < 180 then must be on west side
+                            // if value > -180 but < 0 then must be on east side
+                            MoonLONMap = (MoonLONMap > 180) ? MoonLONMap - 360 : (MoonLONMap < -180) ? MoonLONMap + 360 : MoonLONMap;
+
+                            MoonLONMap = -MoonLONMap;
+
+                            Debug.WriteLine("Moonlonmap0 " + MoonLONMap);
+
+                            if (MoonLONMap < -180) MoonLONMap = MoonLONMap + 360;
+                            else if (MoonLONMap > 180) MoonLONMap = MoonLONMap - 360;
+
+                            Debug.WriteLine("Moonlonmap1 " + MoonLONMap);
+
+                            double MoonLATMap = dec; // latitude
+
+                            //---------------------------------------------------------------------------------------------
+
+                            Debug.WriteLine("Moon lon map " + MoonLONMap);
+                            Debug.WriteLine("Moon lat map " + MoonLATMap);
+                            Debug.WriteLine(" ");
+
+                            //---------------------------------------------------------------------------------------------
+
+                            //  Sun_Top1 = 26;                                     // 45 Y pixel location of top of map
+                            //  Sun_Bot1 = 465;                                    // 485 Y pixel locaiton of bottom of map 
+                            //  Sun_Left = 57;                                       // Left side at equator used by Grayline routine
+                            //  Sun_Right = 939;
+
+                            int Sun_WidthY1 = Sun_Bot1 - Sun_Top1;             // # of Y pixels from top to bottom of map
+                            int Sun_Width = Sun_Right - Sun_Left;              //used by sun track routine
+
+
+                            Moon_Y = (int)(((180 - (MoonLATMap + 90)) / 180.0) * Sun_WidthY1) + Sun_Top1;  //latitude 90N to -90S
+                            Moon_X = (int)(((MoonLONMap + 180.0) / 360.0) * Sun_Width) + Sun_Left;  // longitude -180W to +180E
+
+
+                            Image src1 = new Bitmap(moon_image); // load up MOON image ( use PNG to allow transparent background)
+
+                            // need to convert lat and long to x, y points
+
+                            g.DrawImage(src1, Moon_X - 11, Moon_Y - 13, 23, 27); // was -10 , -10      draw Moon 20 x 20 pixel
+                            g.DrawString("Beam:" + Moon_AZ.ToString(), font1, grid_text_brush, Moon_X + 15, Moon_Y - 10);
+                            g.DrawString("Elev:" + Moon_ALT.ToString(), font1, grid_text_brush, Moon_X + 15, Moon_Y);
+
+
+                        } // MOON = true
+
+
+
+
+
+
+                        //------------------------------------------------------------------------------------------------------------------------
+                        //------------------------------------------------------------------------------------------------------------------------
+                        //------------------------------------------------------------------------------------------------------------------------
+
+                        if (ISS == true)
+                        {
+                            Debug.WriteLine("=====================ISS CALCULATIONS");
+
+                            // this allows you to get the actual zenith location of the ISS directly from the internet
+                            //# Get current ISS position 
+                            //17      req_iss = requests.get('http://api.open-notify.org/iss-now.json')
+                            //18      dict = req_iss.json()
+                            //19      latlong = dict['iss_position'];
+                            //                          20      lat1 = latlong['latitude']
+                            //21      lon1 = latlong['longitude']
+                            //22 	    #Calculate Distance to Home 
+
+                            // ISS(ZARYA)
+                            //1 25544U 98067A   14361.11356206  .00017231  00000 - 0  28015 - 3 0  6359
+                            //2 25544  51.6460 222.7302 0007398 178.4506 330.5659 15.52766391921266
+
+                            double ISSSLONMap = 0;
+                            double ISSSLATMap = 0;
+                            double ISSALTMap = 0;
+                            double ISSVELMap = 0;
+                            string ISSVISMap = "";
+                            double ISSFOOTMap = 0;
+
+                            // http://wheretheiss.at/w/developer
+                            // https://api.wheretheiss.at/v1/satellites/25544
+                            // https://api.wheretheiss.at/v1/satellites/25544/positions?timestamps=1436029902
+                            // https://api.wheretheiss.at/v1/satellites/25544/positions?daynum=2457871.1669097
+
+
+                            //{"name":"iss","id":25544,"latitude":-32.739945364219,"longitude":-107.25136003491,"altitude":417.65983955229,"velocity":27571.144857654,"visibility":"eclipsed","footprint":4495.5385611307,"timestamp":1493174688,"daynum":2457869.6144444,"solar_lat":13.543779931213,"solar_lon":138.26084380559,"units":"kilometers"}
+                            // "map_url": "https://maps.google.com/maps?q=37.795517,-122.393693&z=4"
+
+
+
+                            try
+                            {
+
+                                WebClient client = new WebClient();
+                                Stream stream = client.OpenRead("https://api.wheretheiss.at/v1/satellites/25544");
+                                StreamReader reader = new StreamReader(stream);
+                                String content = reader.ReadToEnd();
+                                reader.Close();
+
+
+                                Debug.WriteLine("internet data stream: " + content);
+
+
+                                if (content.Contains("latitude") == true)
+                                {
+
+                                    int ind = content.IndexOf("latitude") + 10;
+                                    string lat = content.Substring(ind, 9);
+                                    Debug.WriteLine("Found latitude= " + lat);
+                                    ISSLATMap = Convert.ToDouble(lat);
+
+
+                                    if (content.Contains("longitude") == true)
+                                    {
+
+                                        int ind1 = content.IndexOf("longitude") + 11;
+                                        string lon = content.Substring(ind1, 9);
+                                        Debug.WriteLine("found longitude= " + lon);
+                                        ISSLONMap = Convert.ToDouble(lon);
+
+
+                                        if (content.Contains("altitude") == true)
+                                        {
+
+                                            int ind2 = content.IndexOf("altitude") + 10;
+                                            string alt1 = content.Substring(ind2, 9);
+                                            Debug.WriteLine("found  altitude= " + alt1);
+                                            ISSALTMap = Convert.ToDouble(alt1) * 1000;
+
+
+                                            if (content.Contains("velocity") == true) // in KM
+                                            {
+
+                                                int ind3 = content.IndexOf("velocity") + 10;
+                                                string vel = content.Substring(ind3, 9);
+                                                Debug.WriteLine("found velocity= " + vel);
+                                                ISSVELMap = Convert.ToDouble(vel);
+
+
+                                                if (content.Contains("visibility") == true)
+                                                {
+                                                    int ind4 = content.IndexOf("visibility") + 13;
+                                                    string vis = content.Substring(ind4, 9);
+                                                    Debug.WriteLine("found visibility= " + vis);
+                                                    ISSVISMap = vel;
+
+                                                    if (content.Contains("footprint") == true)
+                                                    {
+                                                        int ind5 = content.IndexOf("footprint") + 11;
+                                                        string foot = content.Substring(ind5, 9);
+                                                        Debug.WriteLine("found footprint= " + foot);
+                                                        ISSFOOTMap = Convert.ToDouble(foot);
+
+                                                        if (content.Contains("solar_lat") == true)
+                                                        {
+                                                            int ind6 = content.IndexOf("solar_lat") + 11;
+                                                            string slat = content.Substring(ind6, 9);
+                                                            Debug.WriteLine("found solar_lat= " + slat);
+                                                            ISSSLATMap = Convert.ToDouble(slat);
+
+                                                            if (content.Contains("solar_lon") == true)
+                                                            {
+                                                                int ind7 = content.IndexOf("solar_lon") + 11;
+                                                                string slon = content.Substring(ind7, 9);
+                                                                Debug.WriteLine("found solar_lon= " + slon);
+                                                                ISSSLONMap = Convert.ToDouble(slon);
+
+                                                            } // solar_lon
+
+                                                        } // solar_lat
+
+                                                    } // footprint
+
+                                                } // visibility
+
+                                            } // velocity
+
+                                        } // altitude
+
+                                    } // longitude
+
+                                } // longitude
+
+
+
+                            }
+                            catch (Exception ex)
+                            {
+                                Debug.WriteLine("Could not read internet ISS data: " + ex);
+
+                                textBox1.Text = "Could not Get Internet ISS data. Turning off ISS display";
+
+                                chkISS.Checked = false; // turn off ISS internet lat and long since its not reading correctly
+                                ISSLONMap = 0;
+                                ISSLATMap = 0;
+                            }
+
+
+                            //-------------------------------------------------------------------------------------------------------
+                            //-------------------------------------------------------------------------------------------------------
+                            //-------------------------------------------------------------------------------------------------------
+                            //-------------------------------------------------------------------------------------------------------
+
+
+                            double y = DateTime.UtcNow.Year; //  year 2017
+                            double m = DateTime.UtcNow.Month; // month = 1 to 12
+                            double D1 = DateTime.UtcNow.Day; // day of month 1 to 31
+                            double H = DateTime.UtcNow.Hour; // hour 0 to 24
+
+                            double JD = DateTime.UtcNow.ToOADate() + 2415018.5; // convert OLE AUtomation Date to Julian Date
+
+                            double d = JD - 2451543.5; // convert Julian Date to something the orbital routine can use. (the Day number)
+
+
+                            Debug.WriteLine("Jday " + JD);
+
+                            Debug.WriteLine("day " + d);
+
+
+                            //--------------------------------------------------------------------------------------------
+                            // ISS oribital elements data set
+                            //--------------------------------------------------------------------------------------------
+
+                          //  const double EarthRadEq = 6378.1370; // Declare Earth Equatorial Radius Measurements in km
+
+                            // data set for ISS in DEG (must be converted to Radians before a SIN or COS or TAN is used)
+                            // https://spaceflight.nasa.gov/realdata/elements/
+
+                            //    Satellite: ISS
+                            //  Catalog Number: 25544
+                            //    Epoch time:      17111.63786841 = yrday.fracday
+                            //Element set:     900
+                            //Inclination: 51.6386  deg
+                            //RA of node:       320.1717  deg
+                            //Eccentricity:     .0006757
+                            //  Arg of perigee: 78.1062  deg
+                            //Mean anomaly: 282.0848  deg
+                            //Mean motion: 15.54123175  rev / day
+                            //  Decay rate:    1.67170E-04  rev / day ^ 2
+                            // Epoch rev:            1295
+                            //Checksum: 309
+                            // double N = (125.1228 - 0.0529538083 * d);  // for MOON
+
+                          //  double bc = 0.00016717;     // Ballistic Coefficient derivative of mean motion (daily rate of change in the numbe of revs / day)
+                          //  double BSTAR = 0.00010270;   // drag Term 
+                          //  double mm = 15.54189435;    // how many orbits are completed each day
+
+                         //   double N = (295.8085);     // DEG RA of the long ascending node defines the ascending and descending orbit locations with respect to the earths equatorial plane
+                          //  double i = 51.6369;         // DEG Inclination to the ecliptic deg  defines the orientation of the orbit with respect to the earths equator <
+                          //  double w = (94.0665);     // DEG Arg of Perigee (Perihelion) defines the low point,perigee of the orbit is with respect to the earths surface.
+                         //   double a = 1.06;            //  6777.943 kmeters earth is 6371km radius   Mean distance (Earth equitorial radii) Semi-major axis defines size of the orbit
+                          //  double e = 0.0006891;       //     Eccentricity defines the shape of the orbit
+                           // double M = (266.1275);     // DEG v = true, mean anomaly defines where the satellite is within the orbit with respect to perigee (low point)
+
+                          //  double ecl = 23.43704;      // DEG Angle of the obliquity of the ecliptic plane (this is static)
+
+
+                            //--------------------------------------------------------------------------------------------------
+                            // vernal (spring) equinox position = 0deg RA and counts eastward 0-360 as 24hours (15deg per hour)
+
+
+                            double MJD = JD - 2400000.5;
+                            double T = (MJD - 51544.5) / 36525.0;
+
+                            Debug.WriteLine("Current T " + T);
+
+                            double GMST = ((280.46061837 + 360.98564736629 * (MJD - 51544.5)) + 0.000387933 * T * T - T * T * T / 38710000.0) % 360.0;
+                            if (GMST < 0)
+                            {
+                                GMST += 360.0;
+                            }
+
+                            Debug.WriteLine("Current GMST in deg " + GMST);
+
+                            double ST = GMST / 15; // current Sidereal time in hours
+
+                            Debug.WriteLine("Current GMST (hours) " + ST);
+
+                            Debug.WriteLine(" ");
+
+
+
+                            //---------------------------------------------------------------------------------------------
+
+                            ISS_LAT = ISSLATMap; // values from internet site
+                            ISS_LON = ISSLONMap;
+
+                            Debug.WriteLine("ISS lon map " + ISSLONMap);
+                            Debug.WriteLine("ISS lat map " + ISSLATMap);
+                            Debug.WriteLine("ISS ALT map " + ISSALTMap);
+                            Debug.WriteLine("MY lon map " + (double)udDisplayLong.Value);
+                            Debug.WriteLine("MY lat map " + (double)udDisplayLat.Value);
+                            Debug.WriteLine(" ");
+
+
+                            Calculate(ISSLATMap, ISSLONMap, ISSALTMap, (double)udDisplayLat.Value, (double)udDisplayLong.Value, 30); // get the ISS_AZ and ISS_ALT values based on 
+
+                            Debug.WriteLine("ISS AZ map " + ISS_AZ);
+                            Debug.WriteLine("ISS ELV map " + ISS_ALT);
+
+                            //---------------------------------------------------------------------------------------------
+
+
+                            int Sun_WidthY1 = Sun_Bot1 - Sun_Top1;             // # of Y pixels from top to bottom of map
+                            int Sun_Width = Sun_Right - Sun_Left;              //used by sun track routine
+
+
+                            ISS_Y = (int)(((180 - (ISSLATMap + 90)) / 180.0) * Sun_WidthY1) + Sun_Top1;  //latitude 90N to -90S
+                            ISS_X = (int)(((ISSLONMap + 180.0) / 360.0) * Sun_Width) + Sun_Left;  // longitude -180W to +180E
+
+
+                            Image src1 = new Bitmap(iss_image); // load up ISS image ( use PNG to allow transparent background)
+
+                            // need to convert lat and long to x, y points
+
+                            g.DrawImage(src1, ISS_X - 25, ISS_Y - 16, 50, 33); // was -10 , -10      draw ISS 20 x 20 pixel
+
+                            g.DrawString("Beam:" + ISS_AZ.ToString(), font1, grid_text_brush, ISS_X + 8, ISS_Y + 10);
+                            g.DrawString("Elev:" + ISS_ALT.ToString(), font1, grid_text_brush, ISS_X + 8, ISS_Y + 20);
+
+                            // int area = Math.PI *( R * R);  111.36 km per deg of land 
+
+                            // int Radius = (int)Math.Sqrt(ISSFOOTMap/Math.PI); // radiius = sqrt(4495km / 3.14) = 37.8 km radius
+                            // around 40075 km from 0 to 360 deg around the earth
+                            // X Radius = (int)((double)Radius * .4); // 882 pixels represent 360 deg or 2.45 pixels per deg or 2.45pixels per 111.32km or 45.4km per pixel
+                            // Y 439 pixel for 180 deg or 2.45 pixel per deg per 11.32km or 91km per pixel 
+                            int Radius = (int)((double)ISSFOOTMap / 2);
+
+                            int Radius_X = (int)((double)Radius / 45.4);
+
+
+                            g.DrawEllipse(OrgPen, ISS_X - Radius_X, ISS_Y - Radius_X, Radius_X * 2, Radius_X * 2);  // draw circle showing coverage area for ISS
+
+                            if (ISSUPDATE == true) // update only 1 time per minute
+                            {
+
+                                ISSUPDATE = false;
+
+
+                                try
+                                {
+
+                                    WebClient client = new WebClient();
+
+                                    Debug.WriteLine("SEND timestamp1= " + ISSTime);
+
+                                    stream = client.OpenRead("https://api.wheretheiss.at/v1/satellites/25544/positions?timestamps=" + ISSTime); //  "timestamp":1493561091
+
+                                    reader = new StreamReader(stream);
+                                    content1 = reader.ReadToEnd();
+                                    reader.Close();
+
+                                    Debug.WriteLine("internet data stream: " + content1);
+
+                                    int ind = content1.IndexOf("latitude") + 10;
+                                    string lat = content1.Substring(ind, 9);
+                                    Debug.WriteLine("GOT latitude= " + lat);
+                                    ISSLATMap = Convert.ToDouble(lat);
+
+                                    int ind1 = content1.IndexOf("longitude") + 11;
+                                    string lon = content1.Substring(ind1, 9);
+                                    Debug.WriteLine("GOT longitude= " + lon);
+                                    ISSLONMap = Convert.ToDouble(lon);
+
+                                    ISS_YY[ISSCount] = (int)(((180 - (ISSLATMap + 90)) / 180.0) * Sun_WidthY1) + Sun_Top1;  //latitude 90N to -90S
+                                    ISS_XX[ISSCount] = (int)(((ISSLONMap + 180.0) / 360.0) * Sun_Width) + Sun_Left;  // longitude -180W to +180E
+
+                                    ISSTime = ISSTime + ISSTimeStampStep;
+
+                                    for (int ii = 0; ii < ISSCount; ii++) // draw arc
+                                    {
+                                        ISS_XX[ii] = ISS_XX[ii + 1]; // shift old data down to put new data at top
+                                        ISS_YY[ii] = ISS_YY[ii + 1];
+
+                                        g.DrawLine(OrgPen, ISS_XX[ii], ISS_YY[ii], ISS_XX[ii] + 1, ISS_YY[ii] + 1);
+                                    }
+
+                                }
+                                catch (Exception ex)
+                                {
+                                    Debug.WriteLine("Could not read internet ISS data: " + ex);
+
+
+                                }
+                            }
+                            else
+                            {
+                                for (int ii = 0; ii < ISSCount; ii++) // draw arc  just refresh screen
+                                {
+
+                                    g.DrawLine(OrgPen, ISS_XX[ii], ISS_YY[ii], ISS_XX[ii] + 1, ISS_YY[ii] + 1);
+                                }
+
+                            }
+
+                        } // ISS == true
+
 
 
                         //---------------------------------------------------------------------------
@@ -8210,7 +8407,7 @@ namespace PowerSDR
             }
             catch (Exception ex)
             {
-                //   Debug.WriteLine("noaa fault=== " + ex);
+                  Debug.WriteLine("noaa fault=== " + ex);
                 textBox1.Text += "Failed to download Space Weather \r\n";
 
             }
@@ -8339,6 +8536,8 @@ namespace PowerSDR
 
         public bool beacon16 = false; // true=PTT was diable prior to running a beacon chk, false = PPT was not disabled prior to running beacon chk
 
+
+        public PreampMode beacon44;  // to store preamp mode before running beacon scan
         public DSPMode beacon7;       // to store prior operating mode before running beacon scan
         public int beacon8 = 0;       // to store prior high filter before running beacon scan
         public int beacon9= 0;        //to store prior low filter before running beacon scan
@@ -8418,6 +8617,20 @@ namespace PowerSDR
                         else console.picDisplay.BackgroundImage = MAP;
 
                     }
+                    
+                    if (chkISS.Checked == true)
+                    {
+                        Thread t1 = new Thread(new ThreadStart(ISSOrbit));                                // turn on track map (sun, grayline, voacap, or beacon)
+
+                        t1.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-US");
+                        t1.CurrentUICulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-US");
+
+                        t1.Name = "ISS Orbit Plot Thread";
+                        t1.IsBackground = true;
+                        t1.Priority = ThreadPriority.BelowNormal;
+                        t1.Start();
+
+                    } //  if (chkISS.Checked == true)
 
                     Thread t = new Thread(new ThreadStart(TrackSun)); // turn on track map (sun, grayline, voacap, or beacon)
 
@@ -8430,6 +8643,9 @@ namespace PowerSDR
                     t.IsBackground = true;
                     t.Priority = ThreadPriority.Normal;
                     t.Start();
+
+
+                  
 
                     textBox1.Text = "Clicked to Turn on GrayLine Sun Tracker\r\n";
 
@@ -9055,7 +9271,7 @@ namespace PowerSDR
                             if (tsTime1 >= BandSwitchDelay)    // (beacon6 > 25) // wait for band switching pulse to disapate
                             {
                                 int tempDB = 0;
-                                int tempDB1 = 0;
+                               // int tempDB1 = 0;
 
                                
                                 tempDB = console.ReadAvgStrength(0);    // get beacon CW signal strength, but this does not factor out the noise floor (i.e. S5 signal might just be the noise floor at S5)
@@ -9617,7 +9833,7 @@ namespace PowerSDR
 
         public int WWVThreshold = 0; // the trip point where the PCM BCD data stream from WWV determines a 1 or 0
 
-        int above_count = 0;
+        
         int below_count = 0; // counter for how many times you got new data and it was below the threshold
 
         int[] storage = new int[200];
@@ -9646,13 +9862,14 @@ namespace PowerSDR
         {
 
 
-         //   timeProcPeriodic = new TimeProc(TimerPeriodicEventCallback);
-         //   setup_timer(1000);
+            //   timeProcPeriodic = new TimeProc(TimerPeriodicEventCallback);
+            //   setup_timer(1000);
 
+            beacon44 = console.RX1PreampMode;       // get preamp mode so you can restore it when you turn off wwvtime
 
-            beacon7 = console.RX1DSPMode;           // get mode so you can restore it when you turn off the beacon check
-            beacon8 = console.RX1FilterHigh;        // get high filter so you can restore it when you turn off the beacon check
-            beacon9 = console.RX1FilterLow;         // get low filter so you can restore it when you turn off the beacon check
+            beacon7 = console.RX1DSPMode;           // get mode so you can restore it when you turn off wwvtime
+            beacon8 = console.RX1FilterHigh;        // get high filter so you can restore it when you turn off wwvtime
+            beacon9 = console.RX1FilterLow;         // get low filter so you can restore it when you turn off wwvtime
 
             beacon89 = console.RX1Filter;           // get filter name so you can restore
 
@@ -9662,8 +9879,10 @@ namespace PowerSDR
             beacon33 = console.DSPBufPhoneRX;       // get DSP RX buffer size (needs to be 4096 for good wwv pulses
 
 
-         //   beacon55 = console.CATPreamp;
+            //   beacon55 = console.CATPreamp;
 
+
+            console.RX1PreampMode = PreampMode.HIGH; // turn on Preamp
 
             oldSR = console.SampleRate1;            // get SR
 
@@ -9731,7 +9950,7 @@ namespace PowerSDR
 
                 console.RX1Filter = Filter.VAR1;
 
-                console.UpdateRX1Filters(70, 170);
+                console.UpdateRX1Filters(80, 140);
 
                 textBox1.Text += "Tone detection. Waiting for Start of Minute!\r\n";
 
@@ -9769,7 +9988,7 @@ namespace PowerSDR
       
 
             double BCDAdj = 3;                // % adjustment to what it determined to be the High signal
-            int BCDCount = 0;              // counter for the % adjustment
+          //  int BCDCount = 0;              // counter for the % adjustment
 
             int BCDSignalON1 = 0;         // BCD data steam high dbm signal found while running
             int BCDSignalOFF1 = 0;           // BCD data steam low dbm signal found while running
@@ -9790,7 +10009,7 @@ namespace PowerSDR
             int BCD1 = 0; // false BCD value detected as (0), true BCD value detected as (1)   [for this last second]
 
             bool WWVStart = false; // true = got start of minute frame
-            bool WWVStop = false; // true = got entire 1 minute frame
+           // bool WWVStop = false; // true = got entire 1 minute frame
             bool[] WWVFault = { false, false, false, false, false, false }; // true = bad data bit somewhere in WWV frames
             bool WWVPos = false;  // true = indicates you got a Position indicator frame at least 1 time before you got the HOLE (i.e. before WWVStart == true)
 
@@ -9823,7 +10042,7 @@ namespace PowerSDR
             BCDSignalOFF = 0;         // RESET BCD data steam high dbm signal found while running
             BCDSignalOFF1 = 0;         // RESET BCD data steam high dbm signal found while running
 
-            BCDCount = 0;
+            //BCDCount = 0;
             BCDAdj = 0;
             
             Debug.WriteLine("WWV>>2");
@@ -9866,6 +10085,8 @@ namespace PowerSDR
                     if (BCDSignal > BCDSignalON)
                     {
                         BCDSignalON = BCDSignal;  // get maximum magnitude
+                      //  Debug.WriteLine(">>>>>>WWVTONE: " + BCDSignal + " , " + BCDSignalON + " , " + BCDSignalON1 + " , " + checkBoxTone.Checked + " , " + WWVThreshold);
+
                     }
 
                 }
@@ -9875,7 +10096,7 @@ namespace PowerSDR
 
   
             BCDSignalON1 = 0;         // RESET BCD data steam high dbm signal found while running
-            BCDCount = 0;
+            //BCDCount = 0;
 
             BCDAdj = 3.0;
 
@@ -9949,7 +10170,7 @@ namespace PowerSDR
                             indexS = 0;
                             WWVPos = false;
                             WWVStart = false;
-                            WWVStop = false;
+                            // WWVStop = false;
                             WWVFault[0] = WWVFault[1] = WWVFault[2] = WWVFault[3] = WWVFault[4] = WWVFault[5] = false;
                             WTime = false;
                         }
@@ -9973,7 +10194,7 @@ namespace PowerSDR
                     {
                         BCDSignal = console.WWVTone;  // get Magnitude value from audio.cs and Goertzel routine
 
-                      //  Debug.WriteLine("WWVTONE: " + ST2.ElapsedMilliseconds + " , "+BCDSignal);
+                    //  Debug.WriteLine("WWVTONE: " + BCDSignal + " , "+ BCDSignalON + " , " + BCDSignalON1 + " , " + checkBoxTone.Checked + " , " + WWVThreshold);
 
                       //  ST2.Restart();
 
@@ -9988,6 +10209,7 @@ namespace PowerSDR
                     if (BCDSignal > BCDSignalON1)
                     {
                         BCDSignalON1 = BCDSignal;  // get maximum magnitude
+                      
                     }
 
 
@@ -9997,7 +10219,7 @@ namespace PowerSDR
                         BCDSignalON = BCDSignalON1;
 
                         BCDSignalON1 = 0;         // RESET BCD data steam high dbm signal found while running
-                        BCDCount = 0;
+                       // BCDCount = 0;
 
                         ST.Restart();
 
@@ -10021,7 +10243,7 @@ namespace PowerSDR
                             indexS = 0;
                             WWVPos = false;
                             WWVStart = false;
-                            WWVStop = false;
+                            //WWVStop = false;
                             WWVFault[0] = WWVFault[1] = WWVFault[2] = WWVFault[3] = WWVFault[4] = WWVFault[5] = false;
                             WTime = false;
                         }
@@ -10033,7 +10255,7 @@ namespace PowerSDR
                         WWVCF = 0;
                     }
 
-                    BCDAdj = 3.0;
+                    BCDAdj = 3.0; // was 3
                     WWVThreshold = (int)((double)BCDSignalON / BCDAdj);          // 33% of full scale adjust the threshold based on the last seconds ON/OFF dBm values
 
                 } // WWVPitch == true (pitch detection)
@@ -10131,7 +10353,7 @@ namespace PowerSDR
                             BCDAdj = 3;
                             WWVPos = false;
                             WWVStart = false;
-                            WWVStop = false;
+                           // WWVStop = false;
                             WWVFault[0] = WWVFault[1] = WWVFault[2] = WWVFault[3] = WWVFault[4] = WWVFault[5] = false;
                             WWVNewTime.Stop();
 
@@ -10155,7 +10377,7 @@ namespace PowerSDR
                             Debug.WriteLine("UTC Min: " + newMinutes);
                             Debug.WriteLine("UTC Day of year: " + newDay);
 
-                            WWVStop = true;
+                            //WWVStop = true;
                             WTime = false;  // DONE
                             WWVPos = false;
 
@@ -10188,7 +10410,7 @@ namespace PowerSDR
                                 WWVCF = 0;
                                 WWVPos = false;
                                 WWVStart = false;
-                                WWVStop = false;
+                                //WWVStop = false;
                                 WWVFault[0] = WWVFault[1] = WWVFault[2] = WWVFault[3] = WWVFault[4] = WWVFault[5] = false;
                                 goto EXITOUT;
                             }
@@ -10542,7 +10764,9 @@ namespace PowerSDR
             console.BlockSize1 = beacon66;          // get blocksize (must be 2048 during wwv bcd read)
             console.VFOAFreq = beacon88;             // restore VfoA
 
-            
+            console.RX1PreampMode = beacon44; // restore preamp
+
+
             if (beacon33 != 4096)
             {
                 console.DSPBufPhoneRX = beacon33;
@@ -10578,8 +10802,8 @@ namespace PowerSDR
 
 
 
-        double sPrev = 0.0;
-        double sPrev2 = 0.0;
+      //  double sPrev = 0.0;
+      //  double sPrev2 = 0.0;
 
         double normalizedfreq = 0.0;
         public double Coeff = 0.0;
@@ -10613,6 +10837,9 @@ namespace PowerSDR
    
             normalizedfreq = freq / SIGNAL_SAMPLE_RATE;
             Coeff = 2 * Math.Cos(2 * Math.PI * normalizedfreq);
+
+            Debug.WriteLine("COEFF= " + Coeff + ", freq= " + freq);
+
         }
 
         private void checkBoxTone_CheckedChanged(object sender, EventArgs e)
@@ -11202,7 +11429,7 @@ RT1:
                                     VOA_Index++;
 
                                 }
-                                catch(Exception a)
+                                catch(Exception )
                                 {
                                     Debug.WriteLine("fault> "+ result.ToString());
 
@@ -11809,6 +12036,11 @@ RT1:
             } // dx spot on
 
             Map_Last = 1;
+
+
+
+
+
         } // chkISS_CheckedChanged
 
 
@@ -12107,10 +12339,101 @@ RT1:
                     
             } // Calculate(oblate)
 
+        private void textBox3_LinkClicked(object sender, LinkClickedEventArgs e)
+        {
+            var result = new StringBuilder(Environment.ExpandEnvironmentVariables("%userprofile%"));
+
+            try
+            {
+
+                System.Diagnostics.Process.Start(e.LinkText);    // HTTP
+            }
+            catch
+            {
+                try
+                {
+                    var link = e.LinkText.Replace("file://%userprofile%", ""); //file
+                    link = link.Replace("%20", " ");
+
+                    result.Append(link);
+
+                    Debug.WriteLine("link2 " + result.ToString());
+
+                    Process.Start("explorer.exe", result.ToString());
+                }
+                catch
+                {
+
+                }
+            }
+
+        } // textbox3_linkclicked
+
+
+        //=========================================
+        // for F1 help sceen
+        private void SpotControl_KeyDown(object sender, KeyEventArgs e) // ke9ns keypreview must be TRUE and use MouseIsOverControl(Control c)
+        {
+            Debug.WriteLine("F1 key0");
+
+
+
+            if (e.KeyCode == Keys.F1) // ke9ns add for help messages (F1 help screen)
+            {
+              
+
+                Debug.WriteLine("F1 key");
+
+                if (MouseIsOverControl(checkBoxMUF) == true)
+                {
+                    if (console.helpboxForm == null || console.helpboxForm.IsDisposed) console.helpboxForm = new helpbox(console);
+
+                    console.helpboxForm.Show();
+                    console.helpboxForm.Focus();
+                    console.helpboxForm.WindowState = FormWindowState.Normal; // ke9ns add
+                  
+                    console.helpboxForm.helpbox_message.Text = console.helpboxForm.PropagationTextBox.Text;
+                }
+                else if (MouseIsOverControl(btnTrack) == true)
+                {
+                    if (console.helpboxForm == null || console.helpboxForm.IsDisposed) console.helpboxForm = new helpbox(console);
+
+                    console.helpboxForm.Show();
+                    console.helpboxForm.Focus();
+                    console.helpboxForm.WindowState = FormWindowState.Normal; // ke9ns add
+                    
+                    console.helpboxForm.helpbox_message.Text = console.helpboxForm.TRACKMap.Text;
+                }
+
+
+
+            } // if (e.KeyCode == Keys.F1)
 
 
 
 
+        } // SpotControl_KeyDown
+
+
+        public bool MouseIsOverControl(Control c) // ke9ns keypreview must be TRUE and use MouseIsOverControl(Control c)
+        {
+            return c.ClientRectangle.Contains(c.PointToClient(Control.MousePosition));
+        }
+
+        private void btnTrack_MouseEnter(object sender, EventArgs e)
+        {
+          
+        }
+
+        private void SpotControl_MouseEnter(object sender, EventArgs e)
+        {
+            Console.HELPMAP = true;
+        }
+
+        private void btnTrack_MouseLeave(object sender, EventArgs e)
+        {
+            Console.HELPMAP = false;
+        }
     } // Spotcontrol
 
     //============================================================
