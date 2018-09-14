@@ -1,0 +1,44 @@
+﻿  am_demod.c
+  banal.c
+  bufvec.c
+  correctIQ.c
+  cwtones.c
+  cxops.c
+  dcblock.c
+  dttspagc.c
+  filt2p2z.c
+  filter.c
+  filterbank.c
+  fm_demod.c
+  graphiceq.c
+  hilbert.c
+  isoband.c
+  keyd.c
+  keyer.c
+  keyerio.c
+  lmadf.c
+  malloc16.c
+  Создание кода...
+  Компиляция...
+  meter.c
+  noiseblanker.c
+  oscillator.c
+  ovsv.c
+  resample.c
+  resampleF.c
+  ringb.c
+  sdr.c
+  sdrexport.c
+  spectrum.c
+  speechproc.c
+  splitfields.c
+  spottone.c
+  update.c
+  window.c
+  winmain.c
+  wscompand.c
+  Создание кода...
+  fastrig.c
+C:\Program Files\Microsoft Visual Studio\2017\Professional\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(1216,5): warning MSB8012: TargetPath(D:\Build\PowerSDR_v2.8.0.92\Source\DttSP\../../temp/Debug/DttSP\DttSP.dll) не соответствует значению свойства выходного файла (D:\Build\PowerSDR_v2.8.0.92\bin\Debug\DttSP.dll) для Linker. Это может привести к неправильной сборке проекта. Чтобы исправить это, убедитесь, что значения свойств $(OutDir), $(TargetName) и $(TargetExt) соответствуют значению, указанному в %(Link.OutputFile).
+     Создается библиотека ../../temp/Debug/DttSP\DttSP.lib и объект ../../temp/Debug/DttSP\DttSP.exp
+  DttSP.vcxproj -> D:\Build\PowerSDR_v2.8.0.92\Source\DttSP\../../temp/Debug/DttSP\DttSP.dll

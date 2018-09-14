@@ -85,7 +85,12 @@ namespace PowerSDR
 			}
 			base.Dispose( disposing );
 
-            console.RXOnly = false; // reset radio
+          
+            if (console.setupForm != null)
+            {
+                if (console.setupForm.chkBoxTOT.Checked) console.RXOnly = false; // reset radio
+            }
+
             console.TOT_TRIP = false; // reset timer
         }
 
@@ -172,7 +177,11 @@ namespace PowerSDR
         // ke9ns close big pop-up box
         private void TOTBOX_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-            console.RXOnly = false; // reset radio
+          
+            if (console.setupForm != null)
+            {
+               if (console.setupForm.chkBoxTOT.Checked) console.RXOnly = false; // reset radio
+            }
             console.TOT_TRIP = false; // reset timer
 
             this.Hide();
@@ -191,7 +200,11 @@ namespace PowerSDR
       // ke9ns click on big button in center of pop-up box
         private void btnTrack_Click(object sender, EventArgs e)
         {
-            console.RXOnly = false; // reset radio
+           
+            if (console.setupForm != null)
+            {
+                if (console.setupForm.chkBoxTOT.Checked) console.RXOnly = false; // reset radio
+            }
             console.TOT_TRIP = false; // reset timer
 
             Common.SaveForm(this, "TOTBOX");    // w4tme

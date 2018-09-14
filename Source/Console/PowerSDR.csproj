@@ -29,6 +29,8 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <PublishUrl>ftp://web909.ixwebhosting.com:21/darirnk.com/Publish/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -43,8 +45,8 @@
     <PublisherName>ke9ns</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>55</ApplicationRevision>
-    <ApplicationVersion>2.8.0.55</ApplicationVersion>
+    <ApplicationRevision>27</ApplicationRevision>
+    <ApplicationVersion>2.8.0.27</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -83,7 +85,7 @@
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
-    <DefineConstants>NO_WIDETX;NO_MCL_PM;NO_KE9NS;NO_DJ</DefineConstants>
+    <DefineConstants>DEBUG;NO_WIDETX;NO_MCL_PM;NO_KE9NS;NO_DJ</DefineConstants>
     <DocumentationFile>
     </DocumentationFile>
     <DebugSymbols>false</DebugSymbols>
@@ -133,7 +135,7 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <OutputPath>bin\x86\Release\</OutputPath>
+    <OutputPath>..\..\bin\Release\</OutputPath>
     <DefineConstants>NO_WIDETX;NO_MCL_PM;NO_KE9NS;NO_DJ</DefineConstants>
     <BaseAddress>285212672</BaseAddress>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -174,17 +176,11 @@
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Microsoft.VisualBasic.Compatibility" />
     <Reference Include="Microsoft.VisualC" />
-    <Reference Include="NAudio, Version=1.7.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NAudio.1.7.3\lib\net35\NAudio.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="NAudio, Version=1.8.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.1.8.4\lib\net35\NAudio.dll</HintPath>
     </Reference>
-    <Reference Include="NAudio.Lame, Version=1.0.3.3048, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NAudio.Lame.1.0.4\lib\net20\NAudio.Lame.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="NAudio.Lame, Version=1.0.5.22475, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.Lame.1.0.7\lib\net20\NAudio.Lame.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="Sanford.Collections">
@@ -215,11 +211,18 @@
     <Reference Include="System.Drawing">
       <Name>System.Drawing</Name>
     </Reference>
+    <Reference Include="System.Json, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Json.4.4.0\lib\netstandard1.0\System.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.Management" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Speech" />
     <Reference Include="System.Windows.Forms">
       <Name>System.Windows.Forms</Name>
+    </Reference>
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.5.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
@@ -272,6 +275,7 @@
     <Compile Include="CAT\RemoteProfiles.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="CAT\SDRSerialPortIII.cs" />
     <Compile Include="CAT\SDRSerialPortII.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -290,6 +294,22 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="conrec.cs" />
+    <Compile Include="GDF\GDFBuilder.cs" />
+    <Compile Include="GDF\GDFBuilder.UnWrapped.cs" />
+    <Compile Include="GDF\GDFCell.cs" />
+    <Compile Include="GDF\GDFDisplayBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GDF\GDFDisplayBox.designer.cs">
+      <DependentUpon>GDFDisplayBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GDF\GDFPage.cs" />
+    <Compile Include="GDF\GDFPageManager.cs" />
+    <Compile Include="GDF\GDFRow.cs" />
+    <Compile Include="GDF\Tokenizer\RTFBuilderParser.cs" />
+    <Compile Include="helpbox1.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Http.cs" />
     <Compile Include="ColorButton.cs">
       <SubType>Component</SubType>
@@ -497,6 +517,28 @@
     <Compile Include="helpbox.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="RTF\IRTFCell.cs" />
+    <Compile Include="RTF\IRtfProcessor.cs" />
+    <Compile Include="RTF\IRTFRow.cs" />
+    <Compile Include="RTF\RTFAlignment.cs" />
+    <Compile Include="RTF\RTFBorderSide.cs" />
+    <Compile Include="RTF\RTFBuilder.cs" />
+    <Compile Include="RTF\RTFBuilder.RTFFonts.cs" />
+    <Compile Include="RTF\RTFBuilder.RTFFormatWrap.cs" />
+    <Compile Include="RTF\RTFBuilder.RTFParaWrap.cs" />
+    <Compile Include="RTF\RTFBuilder.UnWrapped.cs" />
+    <Compile Include="RTF\RTFBuilderbase.cs" />
+    <Compile Include="RTF\RTFCell.cs" />
+    <Compile Include="RTF\RTFCellDefinition.cs" />
+    <Compile Include="RTF\RTFCellDefinitionBuilder.cs" />
+    <Compile Include="RTF\RTFFont.cs" />
+    <Compile Include="RTF\RTFImage.cs" />
+    <Compile Include="RTF\RTFRow.cs" />
+    <Compile Include="RTF\RTFRowDefinition.cs" />
+    <Compile Include="RTF\RTFUtil.cs" />
+    <Compile Include="spot_decoder.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="TOTBOX.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -683,6 +725,13 @@
     <EmbeddedResource Include="DJConsoleUI\Setup_MP3LE.resx">
       <DependentUpon>Setup_MP3LE.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GDF\GDFDisplayBox.resx">
+      <DependentUpon>GDFDisplayBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="helpbox1.resx">
+      <DependentUpon>helpbox1.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="hid\FLEX1500DebugForm.resx">
       <DependentUpon>FLEX1500DebugForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -699,6 +748,10 @@
       <DependentUpon>helpbox.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="spot_decoder.resx">
+      <DependentUpon>spot_decoder.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="TOTBOX.resx">
       <DependentUpon>TOTBOX.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -710,12 +763,6 @@
     <EmbeddedResource Include="HttpServer\template.html" />
     <None Include="images\meterback1.png" />
     <None Include="images\meterback2.png" />
-    <Content Include="libmp3lame.32.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="libmp3lame.64.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <EmbeddedResource Include="Resources\star.png" />
     <EmbeddedResource Include="Resources\met3.jpg" />
     <EmbeddedResource Include="Resources\meterback1.png" />
@@ -735,6 +782,15 @@
     <EmbeddedResource Include="Resources\arrowB.png" />
     <EmbeddedResource Include="Resources\Black_TXonly.png" />
     <EmbeddedResource Include="Resources\Black_combo.png" />
+    <EmbeddedResource Include="Resources\Wmap1.jpg" />
+    <EmbeddedResource Include="Resources\SC.png" />
+    <EmbeddedResource Include="Resources\SCB.png" />
+    <Content Include="libmp3lame.32.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="libmp3lame.64.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Scripts\json-serialize.js" />
     <Content Include="Scripts\json-serialize.min.js" />
     <EmbeddedResource Include="Resources\picD1.png" />
@@ -976,7 +1032,9 @@
       <DependentUpon>xvtr.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <Content Include="CAT\CATStructs.xml" />
+    <Content Include="CAT\CATStructs.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <EmbeddedResource Include="images\flex-3000.jpg" />
     <Content Include="images\PowerSDR.ico" />
     <EmbeddedResource Include="Resources\napoli.ttf" />
@@ -984,7 +1042,7 @@
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
       <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 и x64%29</ProductName>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -1014,12 +1072,12 @@
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Visual.C++.14.0.x64">
       <Visible>False</Visible>
-      <ProductName>Библиотеки среды выполнения Visual C++ "14" %28x64%29</ProductName>
+      <ProductName>Visual C++ "14" Runtime Libraries %28x64%29</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Visual.C++.14.0.x86">
       <Visible>False</Visible>
-      <ProductName>Библиотеки среды выполнения Visual C++ "14" %28x86%29</ProductName>
+      <ProductName>Visual C++ "14" Runtime Libraries %28x86%29</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
@@ -1111,7 +1169,9 @@
       <Name>PowerMate</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Analyzer Include="..\packages\Roslyn.Analyzers.1.0.3.4\analyzers\dotnet\cs\Roslyn.Analyzers.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>

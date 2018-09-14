@@ -296,7 +296,8 @@ namespace PowerSDR
 		AUDIGY_2_ZS,
 		EXTIGY,
 		MP3_PLUS,
-		SANTA_CRUZ,				
+		SANTA_CRUZ,
+		SB0222
 		LAST,
 	}
 
@@ -18534,6 +18535,7 @@ namespace PowerSDR
 						Hdw.X2 = (byte)((Hdw.X2 & 0xC0) | x2_2_tx);
 					break;
 			}
+
         } // UpdateExtCtrl()
 
         // Added 06/24/05 BT for CAT commands
@@ -29224,7 +29226,7 @@ namespace PowerSDR
                         chkFWCATU.Visible = false;
                         chkFWCATUBypass.Visible = false;
                         break;
-                    case Model.DEMO:
+                 */   case Model.DEMO:
                         MinFreq = Math.Max(if_freq, 0.000001);
                         if (XVTRPresent)
                             MaxFreq = 146.0;
@@ -46727,8 +46729,8 @@ namespace PowerSDR
 
             	if(num_channels == 2)
             	{
-            if(current_model == Model.SDR1000)  Hdw.MuteRelay = chkMUT.Checked;
-				}
+                if(current_model == Model.SDR1000)  Hdw.MuteRelay = chkMUT.Checked;
+                }
 
        
 
@@ -47868,7 +47870,8 @@ namespace PowerSDR
                     if (rx1_dsp_mode != DSPMode.DRM &&
                     rx1_dsp_mode != DSPMode.SPEC)
                         if_shift = true;
-				}				
+				}
+                				
 			}   
 
             if (!fwc_init && !hid_init && current_model != Model.FLEX5000 && current_model != Model.FLEX3000 && current_model != Model.FLEX1500)
@@ -47983,7 +47986,7 @@ namespace PowerSDR
 				meter_text_history[i] = 0.0f;
 
 			if(!fwc_init || current_model == Model.SDR1000)
-				comboPreamp.Enabled = !chkMOX.Checked;
+            comboPreamp.Enabled = !chkMOX.Checked;
 			setupForm.MOX = chkMOX.Checked;
 			ResetMultiMeterPeak();
 			chkMOX.BackColor = SystemColors.Control;
@@ -48039,7 +48042,7 @@ namespace PowerSDR
                 ( /* current_model == Model.SDR1000_DDSLOCKED || */ current_model == Model.SOFTROCK40)
                 )
             {
-                chkMOX.Checked = false;
+               chkMOX.Checked = false;
                 return;
             }
 
@@ -50687,7 +50690,7 @@ namespace PowerSDR
 								}
 							}
 							break;
-					/*	case Model.SOFTROCK40:
+						case Model.SOFTROCK40:
 							//!!!!drm patch
 							double osc_freq = soft_rock_center_freq*1e6 - freq*1e6;
 							if ( rx1_dsp_mode  == DSPMode.DRM ) // if we're in DRM mode we need to be offset 12khz
@@ -50698,7 +50701,7 @@ namespace PowerSDR
 							tuned_freq = freq;
 							//Debug.WriteLine("osc_freq: "+osc_freq.ToString("f6"));
 							dsp.GetDSPRX(0, 0).RXOsc = osc_freq;
-							break; */
+							break;
 					}
 				}
 			}			

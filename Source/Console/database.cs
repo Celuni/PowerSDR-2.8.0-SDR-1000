@@ -54,8 +54,39 @@ namespace PowerSDR
         {
             set { file_name = value; }
         }
-        
-        
+
+
+        //==============================================================
+        // ke9ns add tell functions not to try and re-add "bandtext" only new bandtext data
+        private static bool bandtextrefresh = false;
+
+        private static bool bandstackrefresh = true; // default is true to allow initial database creation of stack
+
+        public static bool BandTextRefresh // true = reset bandtext
+        {
+            get
+            {
+                return bandtextrefresh;
+            }
+            set
+            {
+                bandtextrefresh = value;
+            }
+
+        }
+
+        public static bool BandStackRefresh // true = reset your bandstack
+        {
+            get
+            {
+                return bandstackrefresh;
+            }
+            set
+            {
+                bandstackrefresh = value;
+            }
+
+        }
         //=========================================================================
         // ke9ns add my own database RevQ
         private static string file_name1 = "";
@@ -73,7 +104,7 @@ namespace PowerSDR
         // Private Member Functions
         // ======================================================
 
-        private static void VerifyTables(Model model)
+        private static void VerifyTables(Model model) // ke9ns for FRSRegion.US
 		{
 			if(!ds.Tables.Contains("BandText"))
 				AddBandTextTable();
@@ -90,14 +121,56 @@ namespace PowerSDR
 			if(!ds.Tables.Contains("GroupList"))
 				AddGroupListTable();
 
-			if(!ds.Tables.Contains("TXProfile"))
-				AddTXProfileTable(model);
+            Debug.WriteLine("VERIFYTABLE HERE");
 
-			if(!ds.Tables.Contains("TXProfileDef"))
-				AddTXProfileDefTable(model);
+			if(!ds.Tables.Contains("TXProfile"))AddTXProfileTable(model);
+
+            if (!ds.Tables.Contains("TXProfileDef"))	AddTXProfileDefTable(model);
 
 			Update();
 		}
+
+        //========================================================
+        // ke9ns add
+        public static void RefreshTables(FRSRegion temp)
+        {
+
+            Debug.WriteLine("RefreshTables= " + bandtextrefresh + " , " + bandstackrefresh);
+
+            if (temp == FRSRegion.US)
+            {
+                ClearBandText();
+                
+                Debug.WriteLine("bandtext cleared");
+
+                AddBandTextTable(); //  AddBandTextSWB() is added here at the end of this function
+              
+                Debug.WriteLine("bandtext added");
+
+                if (bandstackrefresh == true)
+                {
+                    ds.Tables["BandStack"].Clear();
+
+                    AddBandStackTable(); // 
+
+                    AddBandStackSWL(); // ke9ns add
+                }
+
+                Update();
+                Debug.WriteLine("bandtext updated");
+
+
+            }
+            else // 
+            {
+                Debug.WriteLine("bandtext not US region");
+
+                UpdateRegion(temp); // this will do the above for other FRSRegions
+
+            }
+
+        } // refreshtables
+
 
 		private static void AddFormTable(string name)
 		{
@@ -106,85 +179,152 @@ namespace PowerSDR
 			ds.Tables[name].Columns.Add("Value", typeof(string));
 		}
 
+        //======================================================================================
         private static void AddBandTextSWB()
         {
             // SW Broadcast & Misc. Band Plan
             DataTable t = ds.Tables["BandText"];
 
             object[] data = {
-                                2.500000, 2.500000, "WWV Time",					false,
-								5.000000, 5.000000, "WWV Time",					false,
-								10.000000, 10.000000, "WWV Time",				false,
-								15.000000, 15.000000, "WWV Time",			    false,
-								20.000000, 20.000000, "WWV Time",			    false,
-                                25.000000, 25.000000, "WWV Time",               false,  // ke9ns add
-                                3.330000, 3.330000, "CHU Time",                 false,
-                                7.850000, 7.850000, "CHU Time",                 false,
-                                14.670000, 14.670000, "CHU Time",               false,
+
+                                0.060000, 0.060000, "WWVB Time",                false,  // ke9ns add
+                                2.500000, 2.500000, "WWV Night Time",           false,
+                                5.000000, 5.000000, "WWV Night Time",           false,
+                                10.000000, 10.000000, "WWV Day-Evening Time",       false,
+                                15.000000, 15.000000, "WWV Day Time",       false,
+                                20.000000, 20.000000, "WWV Day Time",           false,
+                                25.000000, 25.000000, "WWV Day Time",           false,  // ke9ns add
+                                3.330000, 3.330000, "CHU Night Time",           false,
+                                7.850000, 7.850000, "CHU Night Time",           false,
+                                14.670000, 14.670000, "CHU Day Time",           false,
                                 4.996000, 4.996000, "RWM",                      false,
-                                9.996000, 9.996000, "RWM",                     	false,
-                                14.996000, 14.996000, "RWM",                   	false,
-                                4.998000, 4.998000, "EBC",                     	false,
+                                9.996000, 9.996000, "RWM",                      false,
+                                14.996000, 14.996000, "RWM",                    false,
+                                4.998000, 4.998000, "EBC",                      false,
                                 15.006000, 15.006000, "EBC",                    false,
 
-								0.135700, 0.137799, "2.2kM CW & Narrow Band",   true, // ke9ns change
-                                0.153000, 0.279000, "AM - Long Wave",			false,
+                                0.135700, 0.137799, "2.2kM CW & Narrow Band",   true, // 2200m ham ke9ns change
+
+                                0.137800, 0.148499, "Long Wave",                false, // ke9ns add
+                                0.148500, 0.283500, "International AM LW",      false, // ke9ns mod
+                                0.283501, 0.414999, "Long Wave - Beacons",      false, // ke9ns add
                                 0.415000, 0.471999, "Maritime Band",            false,
-                                0.472000, 0.478999, "630M CW & Narrow Band",    true, // ke9ns change
+
+                                0.472000, 0.478999, "630M CW & Narrow Band",    true, // 630m ham ke9ns change
+
                                 0.479000, 0.526400, "Maritime Band",            false,
-								0.530000, 1.710000, "Broadcast AM Med Wave",	false,
-								2.300000, 2.495000, "120M Short Wave",			false,
-								3.200000, 3.329999, "90M Short Wave",			false,
-                                3.330001, 3.400000, "90M Short Wave",			false,
-								4.750000, 4.995999, "61M Short Wave",			false,
-                                4.996001, 4.997999, "61M Short Wave",			false,
-                                4.998001, 4.999999, "61M Short Wave",			false,
-                                5.000001, 5.060000, "61M Short Wave",			false,
-								5.450000, 6.999999, "49M Short Wave",			false,
-								7.300000, 8.999999, "41M Short Wave",			false, // ke9ns mod
-								9.000000, 9.900000, "31M Short Wave",			false, // ke9ns mod
-								11.600000, 12.100000, "25M Short Wave",			false,
-								13.570000, 13.870000, "22M Short Wave",			false,
-								15.100000, 15.800000, "19M Short Wave",			false,
-								17.480000, 17.900000, "16M Short Wave",			false,
-								18.900000, 19.020000, "15M Short Wave",			false,
-								21.450000, 21.850000, "13M Short Wave",			false,
+                                0.526401, 0.529999, "Long Wave - Beacons",      false,   // ke9ns add
 
-                                25.600000, 26.960000, "11M Short Wave",         false,
+                                0.530000, 0.530000, "TIS Travelers info stat",  false, // ke9ns add
+								0.530001, 1.609999, "Broadcast AM Med Wave",    false,
+                                1.610000, 1.610000, "TIS Travelers info stat",  false,
+                                1.610001, 1.710000, "Extd Bcast AM Med Wave",   false,
+                                1.710001, 1.799999, "Medium Wave",              false, // ke9ns add
+                                // 160m ham
+								2.000000, 2.499999, "120M Tropical Short Wave", false,
+                                // wwv 2.5000 mhz
+                                2.500001, 2.999999, "120M Tropical Short Wave", false, // ke9ns add
+                                3.000000, 3.199999, "90M Tropical Short Wave",  false, // ke9ns add
+                                3.200000, 3.329999, "90M Tropical Short Wave",  false,
+                                // chu 3.3
+                                3.330001, 3.499999, "90M Tropical Short Wave",  false,
+                                // 3.5 - 4.0 80-75m ham
+                                4.000001, 4.745999, "61M Night Short Wave",     false, // ke9ns add
+                                4.750000, 4.995999, "61M NIght Short Wave",     false,
+                                4.996001, 4.997999, "61M Night Short Wave",     false,
+                                4.998001, 4.999999, "61M Night Short Wave",     false,
+                                // wwv
+                               
+                                5.000001, 5.157499, "61M Night Short Wave",     false, // ke9ns add
+                                5.167500, 5.167500, "61M USB Alaska Emergency",  true, // ke9ns add
+                                5.167501, 5.249999, "61M Night Short Wave",     false, // ke9ns add
 
-                                26.960001, 26.969999, "11M CB ch 1",              false,
-                                26.970001, 26.979999, "11M CB ch 2",              false,
-                                26.980001, 26.989999, "11M CB ch 3",              false,
+                                // 60m ham 5.250-5.450
+                                5.450001, 6.999999, "49M Night Short Wave",     false,
+                                // 40m ham
+								
+                                7.300000, 7.453499, "41M Night Short Wave",     false, // ke9ns mod
+                                7.453500, 7.456500, "41M USB Caribbean Emergency",  true, // ke9ns mod
+                             
+                                7.456501, 7.849999, "41M Night Short Wave",     false, // ke9ns mod
+                               
+                                // chu 7.85
+                                7.850001, 7.853000, "41M USB Caribbean Emergency",  true, // ke9ns mod
+
+                                7.853001, 8.999999, "41M Night Short Wave",     false, // ke9ns mod
+
+                                9.000000, 9.900000, "31M Evening Short Wave",	false, // ke9ns mod
+                                9.900001, 9.999999, "31M Evening Short Wave",   false, // ke9ns add
+                                // wwv
+                                10.000001, 10.099999, "31M Evening Short Wave", false, // ke9ns add
+                                // 30m 10.1 - 10.15 mhz
+	                            10.150001, 11.599999, "25M Evening Short Wave", false, // ke9ns add
+                                11.600000, 12.100000, "25M Evening Short Wave",	false,
+                                12.100001, 13.569999, "25M Evening Short Wave", false, // ke9ns add
+
+                                13.570000, 13.870000, "22M Daytime Short Wave",	false,
+                                13.870001, 13.997999, "22M Daytime Short Wave", false, // ke9ns add
+
+                                13.998000, 13.999999, "22M Caribbean Red Cross",  true, // ke9ns mod
+
+                                // 20m 14.000-14.350
+
+								14.350001, 14.414999, "19M Daytime Short Wave",	false,
+
+                                14.415000, 14.418000, "19M Caribbean Emergency",  true, // ke9ns mod
+
+                                14.418001, 14.999999, "19M Daytime Short Wave", false,
+
+                                // wwv
+                                15.000001, 15.800000, "19M Daytime Short Wave", false,
+                                15.800001, 17.479999, "19M Daytime Short Wave", false, // ke9ns add
+                                17.480000, 18.067999, "16M Daytime Short Wave",	false, // ke9ns mod
+                                // 17m 18.068-18.168
+                                18.168001, 18.899999, "16M Daytime Short Wave", false, // ke9ns add
+                                18.900000, 19.999999, "14M Daytime Short Wave",	false, // ke9ns mod
+                                // wwv
+                                20.000001, 20.999999, "13M Daytime Short Wave", false, // ke9ns mod
+                              
+                                // 15m 21.000 - 21.450
+                                21.450001, 24.889999, "13M Daytime Short Wave",	false,
+
+                                // 12m 24.89 - 24.99 mhz
+                                // wwv
+                                25.000001, 26.960000, "11M Day Short Wave",     false,
+
+                                26.960001, 26.969999, "11M CB ch 1",            false,
+                                26.970001, 26.979999, "11M CB ch 2",            false,
+                                26.980001, 26.989999, "11M CB ch 3",            false,
                                 26.990001, 26.999999, "11M CB RC",              false,
-                                27.000001, 27.009999, "11M CB ch 4",              false,
-                                27.010001, 27.019999, "11M CB ch 5",              false,
-                                27.020001, 27.029999, "11M CB ch 6",              false,
-                                27.030001, 27.039999, "11M CB ch 7",              false,
+                                27.000001, 27.009999, "11M CB ch 4",            false,
+                                27.010001, 27.019999, "11M CB ch 5",            false,
+                                27.020001, 27.029999, "11M CB ch 6",            false,
+                                27.030001, 27.039999, "11M CB ch 7",            false,
                                 27.040001, 27.049999, "11M CB RC",              false,
-                                27.050001, 27.059999, "11M CB ch 8",              false,
-                                27.060001, 27.069999, "11M CB ch 9",              false,
-                                27.070001, 27.079999, "11M CB ch 10",             false,
-                                27.080001, 27.089999, "11M CB ch 11",             false,
-                                27.090001, 27.099999, "11M CB RC",             false,
-                                27.100001, 27.109999, "11M CB ch 12",             false,
-                                27.110001, 27.119999, "11M CB ch 13",             false,
-                                27.120001, 27.129999, "11M CB ch 14",             false,
-                                27.130001, 27.139999, "11M CB ch 15",             false,
-                                27.140001, 27.149999, "11M CB RC",             false,
-                                27.150001, 27.159999, "11M CB ch 16",             false,
-                                27.160001, 27.169999, "11M CB ch 17",             false,
-                                27.170001, 27.179999, "11M CB ch 18",             false,
-                                27.180001, 27.189999, "11M CB ch 19",             false,
-                                27.190001, 27.199999, "11M CB RC",             false,
-                                27.200001, 27.209999, "11M CB ch 20",             false,
-                                27.210001, 27.219999, "11M CB ch 21",             false,
-                                27.220001, 27.229999, "11M CB ch 22",             false,
-                                27.250001, 27.259999, "11M CB ch 23",             false,
-                                27.230001, 27.239999, "11M CB ch 24",             false,
-                                27.240001, 27.249999, "11M CB ch 25",             false,
-                                27.260001, 27.269999, "11M CB ch 26",             false,
-                                27.270001, 27.279999, "11M CB ch 27",             false,
-                                27.280001, 27.289999, "11M CB ch 28",             false,
+                                27.050001, 27.059999, "11M CB ch 8",            false,
+                                27.060001, 27.069999, "11M CB ch 9",            false,
+                                27.070001, 27.079999, "11M CB ch 10",           false,
+                                27.080001, 27.089999, "11M CB ch 11",           false,
+                                27.090001, 27.099999, "11M CB RC",              false,
+                                27.100001, 27.109999, "11M CB ch 12",           false,
+                                27.110001, 27.119999, "11M CB ch 13",           false,
+                                27.120001, 27.129999, "11M CB ch 14",           false,
+                                27.130001, 27.139999, "11M CB ch 15",           false,
+                                27.140001, 27.149999, "11M CB RC",              false,
+                                27.150001, 27.159999, "11M CB ch 16",           false,
+                                27.160001, 27.169999, "11M CB ch 17",           false,
+                                27.170001, 27.179999, "11M CB ch 18",           false,
+                                27.180001, 27.189999, "11M CB ch 19",           false,
+                                27.190001, 27.199999, "11M CB RC",              false,
+                                27.200001, 27.209999, "11M CB ch 20",           false,
+                                27.210001, 27.219999, "11M CB ch 21",           false,
+                                27.220001, 27.229999, "11M CB ch 22",           false,
+                                27.250001, 27.259999, "11M CB ch 23",           false,
+                                27.230001, 27.239999, "11M CB ch 24",           false,
+                                27.240001, 27.249999, "11M CB ch 25",           false,
+                                27.260001, 27.269999, "11M CB ch 26",           false,
+                                27.270001, 27.279999, "11M CB ch 27",           false,
+                                27.280001, 27.289999, "11M CB ch 28",           false,
                                 27.290001, 27.299999, "11M CB ch 29",             false,
                                 27.300001, 27.309999, "11M CB ch 30",             false,
                                 27.310001, 27.319999, "11M CB ch 31",             false,
@@ -244,7 +384,8 @@ namespace PowerSDR
                              
                                 27.810000, 27.999999, "11M Short Wave",         false,
 
-
+                                // 10m 28-29.7 mhz
+                                // 6m 50 - 54 mhz
 
                             };
 
@@ -266,70 +407,116 @@ namespace PowerSDR
             DataTable t = ds.Tables["BandText"];
 
             object[] data = {
-                                2.500000, 2.500000, "WWV Time",                 false,
-                                5.000000, 5.000000, "WWV Time",                 false,
-                                10.000000, 10.000000, "WWV Time",               false,
-                                15.000000, 15.000000, "WWV Time",               false,
-                                20.000000, 20.000000, "WWV Time",               false,
-                                25.000000, 25.000000, "WWV Time",               false,  // ke9ns add
-                                3.330000, 3.330000, "CHU Time",                 false,
-                                7.850000, 7.850000, "CHU Time",                 false,
-                                14.670000, 14.670000, "CHU Time",               false,
+                                0.060000, 0.060000, "WWVB Time",                false,  // ke9ns add
+                                2.500000, 2.500000, "WWV Night Time",           false,
+                                5.000000, 5.000000, "WWV Night Time",           false,
+                                10.000000, 10.000000, "WWV Day-Evening Time",       false,
+                                15.000000, 15.000000, "WWV Day Time",       false,
+                                20.000000, 20.000000, "WWV Day Time",           false,
+                                25.000000, 25.000000, "WWV Day Time",           false,  // ke9ns add
+                                3.330000, 3.330000, "CHU Night Time",           false,
+                                7.850000, 7.850000, "CHU Night Time",           false,
+                                14.670000, 14.670000, "CHU Day Time",           false,
                                 4.996000, 4.996000, "RWM",                      false,
                                 9.996000, 9.996000, "RWM",                      false,
                                 14.996000, 14.996000, "RWM",                    false,
                                 4.998000, 4.998000, "EBC",                      false,
                                 15.006000, 15.006000, "EBC",                    false,
 
-                                0.135700, 0.137799, "2.2kM CW & Narrow Band",   true, // ke9ns change
-                                0.153000, 0.279000, "AM - Long Wave",           false,
+                                0.135700, 0.137799, "2.2kM CW & Narrow Band",   true, // 2200m ham ke9ns change
+
+                                0.137800, 0.148499, "Long Wave",                false, // ke9ns add
+                                0.148500, 0.283500, "International AM LW",      false, // ke9ns mod
+                                0.283501, 0.414999, "Long Wave - Beacons",      false, // ke9ns add
                                 0.415000, 0.471999, "Maritime Band",            false,
-                                0.472000, 0.478999, "630M CW & Narrow Band",    true, // ke9ns change
+
+                                0.472000, 0.478999, "630M CW & Narrow Band",    true, // 630m ham ke9ns change
+
                                 0.479000, 0.526400, "Maritime Band",            false,
-                                0.530000, 1.710000, "Broadcast AM Med Wave",    false,
-                                2.300000, 2.495000, "120M Short Wave",          false,
-                                3.200000, 3.329999, "90M Short Wave",           false,
-                                3.330001, 3.400000, "90M Short Wave",           false,
-                                4.750000, 4.995999, "61M Short Wave",           false,
-                                4.996001, 4.997999, "61M Short Wave",           false,
-                                4.998001, 4.999999, "61M Short Wave",           false,
-                                5.000001, 5.060000, "61M Short Wave",           false,
-                                5.900000, 6.999999, "49M Short Wave",           false,
-                                7.300000, 8.999999, "41M Short Wave",           false, // ke9ns mod
-                                9.000000, 9.900000, "31M Short Wave",           false, // ke9ns mod
-                                11.600000, 12.100000, "25M Short Wave",         false,
-                                13.570000, 13.870000, "22M Short Wave",         false,
-                                15.100000, 15.800000, "19M Short Wave",         false,
-                                17.480000, 17.900000, "16M Short Wave",         false,
-                                18.900000, 19.020000, "15M Short Wave",         false,
-                                21.450000, 21.850000, "13M Short Wave",         false,
 
-                                25.600000, 26.960000, "11M Short Wave",         true,
+                                0.526401, 0.529999, "Long Wave - Beacons",      false,   // ke9ns add
+                                0.530000, 0.530000, "TIS Travelers info stat",  false, // ke9ns add
+								0.530001, 1.609999, "Broadcast AM Med Wave",    false,
+                                1.610000, 1.610000, "TIS Travelers info stat",  false,
+                                1.610001, 1.710000, "Extd Bcast AM Med Wave",   false,
+                                1.710001, 1.799999, "Medium Wave",              false, // ke9ns add
+                                // 160m ham
+								2.000000, 2.499999, "120M Tropical Short Wave", false,
+                                // wwv 2.5000 mhz
+                                2.500001, 2.999999, "120M Tropical Short Wave", false, // ke9ns add
+                                3.000000, 3.199999, "90M Tropical Short Wave",  false, // ke9ns add
+                                3.200000, 3.329999, "90M Tropical Short Wave",  false,
+                                // chu 3.3
+                                3.330001, 3.499999, "90M Tropical Short Wave",  false,
+                                // 3.5 - 4.0 80-75m ham
+                                4.000001, 4.745999, "61M Night Short Wave",     false, // ke9ns add
+                                4.750000, 4.995999, "61M NIght Short Wave",     false,
+                                4.996001, 4.997999, "61M Night Short Wave",     false,
+                                4.998001, 4.999999, "61M Night Short Wave",     false,
+                                // wwv
+                                5.000001, 5.060000, "61M Night Short Wave",     false,
+                                5.060001, 5.249999, "61M Night Short Wave",     false, // ke9ns add
+                                // 60m ham
+                                5.450000, 6.999999, "49M Night Short Wave",     false,
+                                // 40m ham
+								7.300000, 7.849999, "41M Night Short Wave",     false, // ke9ns mod
+                                // chu 7.85
+                                7.850001, 8.999999, "41M Night Short Wave",     false, // ke9ns mod
 
+                                9.000000, 9.900000, "31M Evening Short Wave",   false, // ke9ns mod
+                                9.900001, 9.999999, "31M Evening Short Wave",   false, // ke9ns add
+                                // wwv
+                                10.000001, 10.099999, "31M Evening Short Wave", false, // ke9ns add
+                                // 30m 10.1 - 10.15 mhz
+	                            10.150001, 11.599999, "25M Evening Short Wave", false, // ke9ns add
+                                11.600000, 12.100000, "25M Evening Short Wave", false,
+                                12.100001, 13.569999, "25M Evening Short Wave", false, // ke9ns add
+
+                                13.570000, 13.870000, "22M Daytime Short Wave",  false,
+                                13.870001, 13.999999, "22M Daytime Short Wave", false, // ke9ns add
+
+                                // 20m 14.000-14.350
+								14.350001, 14.999999, "19M Daytime Short Wave", false,
+                                // wwv
+                                15.000001, 15.800000, "19M Daytime Short Wave", false,
+                                15.800001, 17.479999, "19M Daytime Short Wave", false, // ke9ns add
+                                17.480000, 18.067999, "16M Daytime Short Wave", false, // ke9ns mod
+                                // 17m 18.068-18.168
+                                18.168001, 18.899999, "16M Daytime Short Wave", false, // ke9ns add
+                                18.900000, 19.999999, "14M Daytime Short Wave", false, // ke9ns mod
+                                // wwv
+                                20.000001, 20.999999, "13M Daytime Short Wave", false, // ke9ns mod
+                              
+                                // 15m 21.000 - 21.450
+                                21.450001, 24.889999, "13M Daytime Short Wave", false,
+
+                                // 12m 24.89 - 24.99 mhz
+                                // wwv
+                                25.000001, 26.960000, "11M Day Short Wave",     false,
                                 26.960001, 26.969999, "11M CB ch 1",              true,
                                 26.970001, 26.979999, "11M CB ch 2",              true,
                                 26.980001, 26.989999, "11M CB ch 3",              true,
-                                26.990001, 26.999999, "11M CB RC",              true,
+                                26.990001, 26.999999, "11M CB RC",                true,
                                 27.000001, 27.009999, "11M CB ch 4",              true,
                                 27.010001, 27.019999, "11M CB ch 5",              true,
                                 27.020001, 27.029999, "11M CB ch 6",              true,
                                 27.030001, 27.039999, "11M CB ch 7",              true,
-                                27.040001, 27.049999, "11M CB RC",              true,
+                                27.040001, 27.049999, "11M CB RC",                true,
                                 27.050001, 27.059999, "11M CB ch 8",              true,
                                 27.060001, 27.069999, "11M CB ch 9",              true,
                                 27.070001, 27.079999, "11M CB ch 10",             true,
                                 27.080001, 27.089999, "11M CB ch 11",             true,
-                                27.090001, 27.099999, "11M CB RC",             true,
+                                27.090001, 27.099999, "11M CB RC",                true,
                                 27.100001, 27.109999, "11M CB ch 12",             true,
                                 27.110001, 27.119999, "11M CB ch 13",             true,
                                 27.120001, 27.129999, "11M CB ch 14",             true,
                                 27.130001, 27.139999, "11M CB ch 15",             true,
-                                27.140001, 27.149999, "11M CB RC",             true,
+                                27.140001, 27.149999, "11M CB RC",                true,
                                 27.150001, 27.159999, "11M CB ch 16",             true,
                                 27.160001, 27.169999, "11M CB ch 17",             true,
                                 27.170001, 27.179999, "11M CB ch 18",             true,
                                 27.180001, 27.189999, "11M CB ch 19",             true,
-                                27.190001, 27.199999, "11M CB RC",             true,
+                                27.190001, 27.199999, "11M CB RC",                true,
                                 27.200001, 27.209999, "11M CB ch 20",             true,
                                 27.210001, 27.219999, "11M CB ch 21",             true,
                                 27.220001, 27.229999, "11M CB ch 22",             true,
@@ -544,9 +731,22 @@ namespace PowerSDR
 								1.810000, 1.835999, "160M CW",	                true,
                                 1.836000, 1.836000, "160M CW QRP",	            true,
                                 1.836001, 1.837999, "160M CW",	                true,
-								1.838000, 1.839999, "160M Narrow Band Modes",	true,
-								1.840000, 1.842999, "160M All Modes & Digital",	true,
-                                1.843000, 1.999999, "160M All Modes",	true,
+
+                                1.838000, 1.838000, "160M PSK/JT65 DIGU",       true, // ke9ns add
+                                1.838001, 1.839999, "160M PSK/JT65 DIGU",       true, // ke9ns add
+
+                                1.840000, 1.840000, "160M FT8 DIGU",            true, // ke9ns add  1.84
+                                1.840001, 1.842500, "160M FT8 DIGU",            true, // ke9ns add
+                                1.842501, 1.842999, "160M FT8 DIGU",            true,
+
+                                1.843000, 1.909999, "160M SSB/SSTV/Wide Band",  true,
+                                1.910000, 1.910000, "160M SSB QRP",             true,
+                                1.910001, 1.994999, "160M SSB/SSTV/Wide Band",  true,
+                                1.995000, 1.999999, "160M Experimental",        true,
+
+                               // 1.838000, 1.839999, "160M Narrow Band Modes",	true,
+								//1.840000, 1.842999, "160M All Modes & Digital",	true,
+                              //  1.843000, 1.999999, "160M All Modes",	true,
                             };
 
             for (int i = 0; i < data.Length / 4; i++)
@@ -566,13 +766,37 @@ namespace PowerSDR
             object[] data = {
 								3.500000, 3.559999, "80M CW",	    			true,
                                 3.560000, 3.560000, "80M CW QRP",	    		true,
-                                3.560001, 3.579999, "80M CW",	    			true,
-								3.580000, 3.599999, "80M Narrow Band Modes",	true,
+                                3.560001, 3.569999, "80M CW",	    			true,
+
+                                3.570000, 3.570000, "80M JT65 DIGU",            true, // ke9ns add
+                                3.570001, 3.572999, "80M JT65 DIGU",            true, // ke9ns add
+                               
+                                3.573000, 3.573000, "80M FT8 DIGU",             true, // ke9ns add  3.573
+                                3.573001, 3.575500, "80M FT8 DIGU",             true, // ke9ns add
+                              
+								3.575501, 3.589999, "80M PSK",                  true,
+                                3.590000, 3.590000, "80M RTTY DX",              true,
+                                3.590001, 3.599999, "80M RTTY",                 true,
+
+                               // 3.580000, 3.599999, "80M Narrow Band Modes",	true,
 								3.600000, 3.689999, "80M All Modes",			true,
+                             
                                 3.690000, 3.690000, "80M SSB QRP",			    true,
                                 3.690001, 3.759999, "80M All Modes",			true,
                                 3.760000, 3.760000, "80M SSB Emergency",        true,
                                 3.760001, 3.799999, "80M All Modes",			true,
+
+                //  3.600000, 3.699999, "75M Extra SSB",            true,
+                //  3.700000, 3.789999, "75M Ext/Adv SSB",          true,
+                //  3.790000, 3.799999, "75M Ext/Adv DX Window",    true,
+
+                              //  3.800000, 3.844999, "75M US SSB",                  false,
+                              //  3.845000, 3.845000, "75M US SSTV",                 false,
+                              //  3.845001, 3.884999, "75M US SSB",                  false,
+                              ///  3.885000, 3.885000, "75M US AM Calling Frequency", false,
+                              //  3.885001, 3.999999, "75M US SSB",
+
+
                             };
 
             for (int i = 0; i < data.Length / 4; i++)
@@ -584,7 +808,7 @@ namespace PowerSDR
                 dr["TX"] = (bool)data[i * 4 + 3];
                 t.Rows.Add(dr);
             }
-        }
+        } // region 1 80m bandtext
 
 
       //  channels_60m.Add(new Channel(5.3320, 2800));
@@ -611,16 +835,16 @@ namespace PowerSDR
 
            
             object[] data = {
-                                5.250000, 5.351499, "60M RX Only",              false,
+                                5.250000, 5.351499, "60M RX Only",                  false,
 
-                                5.351500, 5.353999, "60M 200hz Narrow Band Modes",    true,
-                                5.354000, 5.356999, "60M USB Voice (UK CH 7)",  true,
-                                5.357000, 5.359999, "60M USB Voice (US CH 3)",  true,
-                                5.360000, 5.362999, "60M USB Voice",            true,
-                                5.363000, 5.365999, "60M USB Voice (UK CH 8)",  true,
-                                5.366000, 5.366500, "60M 20hz Narrow Band Modes",    true,
+                                5.351500, 5.353999, "60M 200hz Narrow Band Modes",  true,
+                                5.354000, 5.356999, "60M USB Voice (UK CH 7)",      true,
+                                5.357000, 5.359999, "60M USB Voice (US CH 3)",      true,
+                                5.360000, 5.362999, "60M USB Voice",                true,
+                                5.363000, 5.365999, "60M USB Voice (UK CH 8)",      true,
+                                5.366000, 5.366500, "60M 20hz Narrow Band Modes",   true,
 
-                                5.366501, 5.450000, "60M RX Only",              false,
+                                5.366501, 5.450000, "60M RX Only",                  false,
                             };
 
            
@@ -752,10 +976,10 @@ namespace PowerSDR
             }
 
         } // AddRegion1ABandText11m() // ke9ns add CB
+    
 
-
-        // ke9ns parts of region 1 that dont get the new 60m plan
-        private static void AddRegion1BBandText60m() // Netherlands
+        // ke9ns parts of region 1 that doesnt get the new 60m plan
+        private static void AddRegion1BBandText60m() // Netherlands (no longer as of 5/25/18 ke9ns)
         {
             DataTable t = ds.Tables["BandText"];
 
@@ -819,13 +1043,38 @@ namespace PowerSDR
             object[] data = {
 								7.000000, 7.029999, "40M CW",			    	true,
                                 7.030000, 7.030000, "40M CW QRP",			    true,
-                                7.030001, 7.034999, "40M CW",			    	true,
-								7.035000, 7.039999, "40M Narrow Band Modes",	true,
-								7.040000, 7.059999, "40M All Modes",			true,
+                                7.030001, 7.039999, "40M CW",			    	true,
+
+                                7.040000, 7.042999, "40M PSK",                  true,
+                                7.043000, 7.059999, "40M RTTY",                 true,
+
                                 7.060000, 7.060000, "40M SSB Emergency",        true,
-                                7.060001, 7.089999, "40M All Modes",			true,
-                                7.090000, 7.090000, "40M SSB QRP",              true,
-                                7.090001, 7.199999, "40M All Modes",            true,
+                                7.060001, 7.069999, "40M All Modes",            true,
+
+                                7.070000, 7.070000, "40m PSK",                  true,            // ke9ns add
+                                7.070001, 7.073999, "40m PSK",                  true,
+
+                                7.074000, 7.074000, "40M FT8 DIGU / ALL",             true, // ke9ns add  7.074
+                                7.074001, 7.075999, "40M FT8 DIGU / ALL",             true, // ke9ns add
+
+                                7.076000, 7.076000, "40M JT65 DIGU",            true, // ke9ns add
+                                7.076001, 7.078999, "40M JT65 DIGU",            true, // ke9ns add
+                               
+                                7.079000, 7.089999, "40M RTTY",                 true,
+							
+                                //	7.035000, 7.039999, "40M Narrow Band Modes",	true,
+							   //	7.040000, 7.059999, "40M All Modes",			true,
+                              
+                               7.090000, 7.090000, "40M SSB QRP",              true,
+                               7.090001, 7.199999, "40M All Modes",            true,
+
+                               7.200000, 7.299999, "40M RX ONLY",              false,
+
+                              //  7.200000, 7.289999, "40M US SSB",               false,
+                              //  7.290000, 7.290000, "40M AM Calling Frequency", false,
+                              //  7.290001, 7.299999, "40M SSB",
+
+
                             };
 
             for (int i = 0; i < data.Length / 4; i++)
@@ -837,7 +1086,7 @@ namespace PowerSDR
                 dr["TX"] = (bool)data[i * 4 + 3];
                 t.Rows.Add(dr);
             }
-        }
+        } // AddRegion1BandText40m()
 
         private static void AddRegion1BandText30m()
         {
@@ -845,8 +1094,20 @@ namespace PowerSDR
             object[] data = {
 								10.100000, 10.115999, "30M CW",					true,
                                 10.116000, 10.116000, "30M CW QRP",				true,
-                                10.116001, 10.139999, "30M CW",					true,
+                                10.116001, 10.129999, "30M CW",					true,
+
+                                10.130000, 10.135999, "30M RTTY",               true,
+
+                                10.136000, 10.136000, "30M FT8 DIGU",           true, // ke9ns add
+                                10.136001, 10.137999, "30M FT8 DIGU",       true, // ke9ns add
+
+                                10.138000, 10.138000, "30M PSK/JT65 DIGU",          true, // ke9ns add
+                                10.138001, 10.138999, "30M PSK/JT65 DIGU",          true, // ke9ns add
+                                10.139000, 10.139999, "30M RTTY",               true,
+
                                 10.140000, 10.149999, "30M Narrow Band Modes",	true,
+
+
                             };
 
             for (int i = 0; i < data.Length / 4; i++)
@@ -858,7 +1119,7 @@ namespace PowerSDR
                 dr["TX"] = (bool)data[i * 4 + 3];
                 t.Rows.Add(dr);
             }
-        }
+        } // AddRegion1BandText30m()
 
         private static void AddRegion1BandText20m()
         {
@@ -867,20 +1128,49 @@ namespace PowerSDR
 								14.000000, 14.059999, "20M CW",		        	true,
                                 14.060000, 14.060000, "20M CW QRP",		        true,
                                 14.060001, 14.069999, "20M CW",		        	true,
-								14.070000, 14.098999, "20M Narrow Band Modes",	true,
-								14.099000, 14.099999, "20M Beacons",			true,
-                                14.100000, 14.100000, "20M NCDXF Beacons",	    true,
-                                14.100001, 14.100999, "20M Beacons",			true,
+
+                                14.070000, 14.073999, "20M PSK",                true,
+
+                                14.074000, 14.074000, "20M FT8 DIGU Freq",      true, // ke9ns add
+                                14.074001, 14.075999, "20M FT8 DIGU",           true, // ke9ns add
+
+                                14.076000, 14.076000, "20M JT65 DIGU Freq",     true, // ke9ns add
+                                14.076001, 14.078999, "20M JT65 DIGU",          true, // ke9ns add
+
+                                14.079000, 14.094999, "20M RTTY",               true,
+
+                                14.095000, 14.098999, "20M Packet",             true,
+                                14.099000, 14.099999, "20M Beacons",            true,
+
+                                14.100000, 14.100000, "20M NCDXF Beacons",      true,
+                                14.100001, 14.100999, "20M Beacons",            true,
                                 14.101000, 14.111999, "20M All Mode Digital",   true,
+                              
                                 14.112000, 14.129999, "20M All Mode",           true,
                                 14.130000, 14.130000, "20M Digital Voice",      true,
                                 14.130001, 14.229999, "20M All Modes",          true,
-                                14.230000, 14.230000, "20M SSTV",				true,
-                                14.230001, 14.284999, "20M All Modes",          true,
-                                14.285000, 14.285000, "20M SSB QRP",			true,
-                                14.285001, 14.299999, "20M All Modes",          true,
+
+                                14.230000, 14.230000, "20M SSTV",               true,
+                                14.230001, 14.232999, "20M SSTV",               true,
+
+                                14.233000, 14.233000, "20M EasyPal",            true,
+                                14.233001, 14.235999, "20M EasyPal",            true,
+
+                                14.236000, 14.236001, "20M FreeDV (Digital Voice)", true,                // ke9ns add   
+                                14.236002, 14.284999, "20M All Modes",          true,
+                                14.285000, 14.285000, "20M SSB QRP",            true,
+                                14.285001, 14.285999, "20M All Modes",          true,
+
+                                14.286000, 14.286000, "20M AM Calling Freq",    true,
+                                                               
+                                14.286001, 14.299999, "20M All Modes",          true,
                                 14.300000, 14.300000, "20M SSB Emergency",      true,
-                                14.300001, 14.349999, "20M All Modes",          true,
+
+                                14.300001, 14.339999, "20M All Modes",          true,  
+                                14.340000, 14.340001, "20M DV (Digital Voice)", true,                // ke9ns add   
+                                14.340002, 14.349999, "20M ALL Modes",          true,
+
+
                             };
 
             for (int i = 0; i < data.Length / 4; i++)
@@ -892,7 +1182,7 @@ namespace PowerSDR
                 dr["TX"] = (bool)data[i * 4 + 3];
                 t.Rows.Add(dr);
             }
-        }
+        } // AddRegion1BandText20m()
 
         private static void AddRegion1BandText17m()
         {
@@ -901,13 +1191,30 @@ namespace PowerSDR
 								18.068000, 18.085999, "17M CW",					true,
                                 18.086000, 18.086000, "17M CW QRP",				true,
                                 18.086001, 18.094999, "17M CW",					true,
-								18.095000, 18.108999, "17M Narrow Band Modes",	true,
+
+                                18.095000, 18.099999, "17M Narrow Band Modes",    true,
+                               
+                                18.100000, 18.100000, "17M FT8 DIGU",           true, // ke9ns add
+                                18.100001, 18.101999, "17M FT8 DIGU",           true, // ke9ns add
+
+                                18.102000, 18.102000, "17M JT65 DIGU",          true, // ke9ns add
+                                18.102001, 18.103999, "17M JT65 DIGU",          true, // ke9ns add
+
+                                18.104000, 18.107999, "17M RTTY",                true,
+
+                                18.108000, 18.108999, "17M PSK / Packet",                true,
+
 								18.109000, 18.109999, "17M Beacons",		    true,
                                 18.110000, 18.110000, "17M NCDXF Beacons",	    true,
                                 18.110001, 18.110499, "17M Beacons",		    true,
+
 								18.110500, 18.159999, "17M All Modes",			true,
                                 18.160000, 18.160000, "17M SSB Emergency",		true,
-                                18.160001, 18.167999, "17M All Modes",			true,
+                               
+                                18.160001, 18.147999, "17M All Modes",                true,
+                                18.148000, 18.148001, "17M DV (Digital Voice)", true,                // ke9ns add   
+								18.148002, 18.167999, "17M All Modes",                true,
+
                             };
 
             for (int i = 0; i < data.Length / 4; i++)
@@ -919,7 +1226,7 @@ namespace PowerSDR
                 dr["TX"] = (bool)data[i * 4 + 3];
                 t.Rows.Add(dr);
             }
-        }
+        } //  AddRegion1BandText17m()
 
         private static void AddRegion1BandText15m()
         {
@@ -928,19 +1235,36 @@ namespace PowerSDR
 								21.000000, 21.059999, "15M CW",			        true,
                                 21.060000, 21.060000, "15M CW QRP",			    true,
                                 21.060001, 21.069999, "15M CW",			        true,
-								21.070000, 21.109999, "15M Narrow Band Modes",	true,
-								21.110000, 21.119999, "15M Wide Band Digital",	true,
+
+                                21.070000, 21.073999, "15M RTTY",               true,
+
+                                21.074000, 21.074000, "15M FT8 DIGU",           true, // ke9ns add 
+                                21.074001, 21.075999, "15M FT8 DIGU",           true, // ke9ns add
+
+                                21.076000, 21.076000, "15M JT65 DIGU",          true, // ke9ns add
+                                21.076001, 21.078999, "15M JT65 DIGU",          true, // ke9ns add
+                                21.079000, 21.099999, "15M RTTY",               true,
+
+                                21.100000, 21.109999, "15M Packet",             true,
+
+                                21.110000, 21.119999, "15M Wide Band Digital",	true,
+
                                 21.120000, 21.148999, "15M Narrow Band Modes",	true,
+
                                 21.149000, 21.149999, "15M Beacons",		    true,
                                 21.150000, 21.150000, "15M NCDXF Beacons",	    true,
                                 21.150001, 21.150999, "15M Beacons",		    true,
+
 								21.151000, 21.179999, "15M All Modes",			true,
                                 21.180000, 21.180000, "15M Digital Voice",		true,
                                 21.180001, 21.284999, "15M All Modes",			true,
                                 21.285000, 21.285000, "15M SSB QRP",	    	true,
                                 21.285001, 21.359999, "15M All Modes",			true,
                                 21.360000, 21.360000, "15M SSB Emergency",      true,
-                                21.360001, 21.449999, "15M All Modes",			true,
+                                21.360001, 21.450000, "15M All Modes",			true,
+
+                               
+
                             };
 
             for (int i = 0; i < data.Length / 4; i++)
@@ -952,7 +1276,7 @@ namespace PowerSDR
                 dr["TX"] = (bool)data[i * 4 + 3];
                 t.Rows.Add(dr);
             }
-        }
+        } // AddRegion1BandText15m()
 
         private static void AddRegion1BandText12m()
         {
@@ -961,12 +1285,29 @@ namespace PowerSDR
 								24.890000, 24.905999, "12M CW",					true,
                                 24.906000, 24.906000, "12M CW QRP",		        true,
                                 24.906001, 24.914999, "12M CW",					true,
-                                24.915000, 24.928999, "12M Narrow Band Modes",	true,
-								24.929000, 24.929999, "12M Beacons",		    true,
+
+                               // 24.915000, 24.928999, "12M Narrow Band Modes",	true,
+                                24.915000, 24.915000, "12M FT8 DIGU",           true, // ke9ns add 
+                                24.915001, 24.916999, "12M FT8 DIGU",           true, // ke9ns add
+
+                                24.917000, 24.917000, "12M JT65 DIGU",          true, // ke9ns add
+                                24.917001, 24.919999, "12M JT65 DIGU",          true, // ke9ns add
+
+                                24.920000, 24.924999, "12M RTTY",               true,
+                                24.925000, 24.928999, "12M Packet",             true,
+
+                                24.929000, 24.929999, "12M Beacons",		    true,
                                 24.930000, 24.930000, "12M NCDXF Beacons",	    true,
                                 24.930001, 24.930999, "12M Beacons",		    true,
-                                24.931000, 24.939999, "12M All Modes Digital",	true,
+
+                                24.931000, 24.937999, "12M All Modes Digital",	true,
+                                24.938000, 24.938001, "12M DV (Digital Voice)", true,                // ke9ns add    
+                                24.938002, 24.939999, "12M All Modes Digital",  true,
+
                                 24.940000, 24.989999, "12M All Modes",			true,
+
+                          
+
                             };
 
             for (int i = 0; i < data.Length / 4; i++)
@@ -978,7 +1319,7 @@ namespace PowerSDR
                 dr["TX"] = (bool)data[i * 4 + 3];
                 t.Rows.Add(dr);
             }
-        }
+        } //AddRegion1BandText12m()
 
         private static void AddRegion1BandText10m()
         {
@@ -987,10 +1328,23 @@ namespace PowerSDR
 								28.000000, 28.059999, "10M CW",					true,
                                 28.060000, 28.060000, "10M CW QRP",	        	true,
                                 28.060001, 28.069999, "10M CW",					true,
-								28.070000, 28.189999, "10M Narrow Band Modes",	true,
-								28.190000, 28.199999, "10M Beacons",			true,
+
+								28.070000, 28.073999, "10M Narrow Band Modes",	true,
+
+                                28.074000, 28.074000, "10M FT8 DIGU",           true, // ke9ns add 
+                                28.074001, 28.075999, "10M FT8 DIGU",           true, // ke9ns add
+                                28.076000, 28.076000, "10M JT65 DIGU",          true, // ke9ns add 
+                                28.076001, 28.078999, "10M JT65 DIGU",          true, // ke9ns add
+
+								28.079000, 28.149999, "10M RTTY",               true,
+
+                                28.150000, 28.189999, "10M Narrow Band Modes",  true,
+
+
+                                28.190000, 28.199999, "10M Beacons",			true,
                                 28.200000, 28.200000, "10m NCDXF Beacons",       true,
                                 28.200001, 28.224999, "10M Beacons",			true,
+
                                 28.225000, 28.299999, "10M All Mode Beacons",	true,
                                 28.300000, 28.319999, "10M All Mode Digital",	true,
                                 28.320001, 28.329999, "10M All Modes",	    	true,
@@ -1012,6 +1366,9 @@ namespace PowerSDR
                                 29.610000, 29.649999, "10M FM Simplex",         true,
                                 29.650000, 29.659999, "10M Deadband",			true,
                                 29.660000, 29.699999, "10M Repeater Outputs",	true,
+
+
+
                             };
 
             for (int i = 0; i < data.Length / 4; i++)
@@ -1023,27 +1380,52 @@ namespace PowerSDR
                 dr["TX"] = (bool)data[i * 4 + 3];
                 t.Rows.Add(dr);
             }
-        }
+
+        } //  AddRegion1BandText10m()
 
         private static void AddRegion1BandText6m()
         {
             // 50.0 - 52.0 MHz
             DataTable t = ds.Tables["BandText"];
             object[] data = {
-								50.000000, 50.079999, "6M Beacon Sub-Band",		true,
-								50.080000, 50.089999, "6M CW",					true,
+                                50.000000, 50.079999, "6M Beacon Sub-Band",     true,
+                                50.080000, 50.089999, "6M CW",                  true,
                                 50.090000, 50.090000, "6M CW Calling",          true,
                                 50.090001, 50.099999, "6M CW",                  true,
-                                50.100000, 50.109999, "6M CW & SSB",			true,
+                                50.100000, 50.109999, "6M CW & SSB",            true,
                                 50.110000, 50.110000, "6M SSB DX Calling",      true,
-                                50.110001, 50.129999, "6M CW & SSB",			true,
-                                50.130000, 50.149999, "6M CW, SSB & Digital",	true,
+                                50.110001, 50.124999, "6M CW & SSB",            true,
+                                50.125000, 50.125000, "6M US Calling Frequency",   true, // calling freq
+                                50.125001, 50.129999, "6M CW & SSB",           true,
+                                50.130000, 50.149999, "6M CW, SSB & Digital",   true,
                                 50.150000, 50.150000, "6M SSB Calling",         true,
-                                50.150001, 50.209999, "6M CW, SSB & Digital",	true,
-                                50.210000, 50.249999, "6M Meteor Scatter",      true,
-                                50.250000, 50.284999, "6M CW, SSB & Digital",	true,
-                                50.285000, 50.285000, "6M PSK Calling",         true,
-                                50.285001, 50.399999, "6M CW, SSB & Digital",	true,
+
+                                50.150001, 50.209999, "6M CW, SSB & Digital",   true,
+                                50.210000, 50.210001, "6M DV (Digital Voice)", true,                // ke9ns add
+                                50.210002, 50.249999, "6M Meteor Scatter",      true,
+
+                                50.250000, 50.250000, "6M PSK Calling",         true,
+                                50.250001, 50.275999, "6M CW, SSB & Digital",	true,
+
+                                50.276000, 50.276000, "6M JT65 DIGU",           true, // ke9ns add 
+                                50.276001, 50.278999, "6M JT65 DIGU",           true, // ke9ns add
+                                50.279000, 50.284999, "6M All Modes",           true,
+                              
+                                50.285000, 50.309999, "6M All Modes",           true,
+
+                                50.310000, 50.310000, "6M JT65 DIGU",           true, // ke9ns add 
+                                50.310001, 50.312999, "6M JT65 DIGU",           true, // ke9ns add
+
+                                50.313000, 50.313000, "6M FT8 DIGU",            true, // ke9ns add   ?
+                                50.313001, 50.315999, "6M FT8 DIGU",            true, // ke9ns add
+
+                                50.316000, 50.322999, "6M CW, SSB & Digital",	true,
+
+                                50.323000, 50.323000, "6M DX FT8 DIGU",            true, // ke9ns add   ?
+                                50.323001, 50.325999, "6M DX FT8 DIGU",            true, // ke9ns add
+
+                                50.326000, 50.399999, "6M CW, SSB & Digital", true,
+
                                 50.400000, 50.400000, "6M WSPR Beacons",        true,
                                 50.400001, 50.499999, "6M CW, SSB & Digital",	true,
                                 50.500000, 50.619999, "6M All Modes",           true,
@@ -1057,6 +1439,9 @@ namespace PowerSDR
                                 51.590000, 51.809999, "6M All Modes",           true,
                                 51.810000, 51.989999, "6M FM Repeater Ouputs",	true,
                                 51.990000, 51.999999, "6M All Modes",           true,
+
+
+                               
                             };
 
             for (int i = 0; i < data.Length / 4; i++)
@@ -1068,7 +1453,7 @@ namespace PowerSDR
                 dr["TX"] = (bool)data[i * 4 + 3];
                 t.Rows.Add(dr);
             }
-        }
+        } // AddRegion1BandText6m()
 
         private static void AddRegion1BandText4m()
         {
@@ -1104,7 +1489,7 @@ namespace PowerSDR
             }
         }
 
-        private static void AddRegion1BandTextVHFplus()
+        private static void AddRegion1BandTextVHFplus() // UK_PLUS
         {
             // IARU Region 1: 2M and above Band Plan
             DataTable t = ds.Tables["BandText"];
@@ -1131,6 +1516,10 @@ namespace PowerSDR
                                 145.594000, 145.793499, "2M Repeater Outputs",          true,
                                 145.793500, 145.799999, "2M Deadband",                  true,
                                 145.800000, 146.000000, "2M All Mode Sat.",             true,
+                                146.000001, 146.899999, "2M WB Digital Ex NoV",         true, // ke9ns add
+                                146.900000, 147.000000, "2M NB Digital Ex NoV",         true, // ke9ns add
+                               
+                                
                                 // 430 - 440 MHz
 								430.000000, 430.024999, "70cm Sub-Regional",	        true,
                                 430.025000, 430.374999, "70cm Repeater Outputs",	    true,
@@ -1317,7 +1706,15 @@ namespace PowerSDR
 								1.810000, 1.835999, "160M CW",	                true,
                                 1.836000, 1.836000, "160M CW QRP",	            true,
                                 1.836001, 1.837999, "160M CW",	                true,
-								1.838000, 1.839999, "160M Narrow Band Modes",	true,
+
+                                1.838000, 1.838000, "160M PSK/JT65 DIGU",       true, // ke9ns add
+                                1.838001, 1.839999, "160M PSK/JT65 DIGU",       true, // ke9ns add
+
+                                1.840000, 1.840000, "160M FT8 DIGU",            true, // ke9ns add  1.84
+                                1.840001, 1.842500, "160M FT8 DIGU",            true, // ke9ns add
+                                1.842501, 1.842999, "160M FT8 DIGU",            true,
+
+                                1.830000, 1.839999, "160M Narrow Band Modes",	true,
 								1.840000, 1.849999, "160M All Modes & Digital",	true,
                                 1.850000, 1.999999, "160M General RX",	        false,
                             };
@@ -1341,9 +1738,19 @@ namespace PowerSDR
 								1.810000, 1.829999, "160M General RX",	        true,
                                 1.830000, 1.836000, "160M CW QRP",	            true,
                                 1.836001, 1.837999, "160M CW",	                true,
-								1.838000, 1.839999, "160M Narrow Band Modes",	true,
-								1.840000, 1.849999, "160M All Modes & Digital",	true,
-                                1.850000, 1.999999, "160M General RX",	        false,
+
+                                1.838000, 1.838000, "160M PSK/JT65 DIGU",       true, // ke9ns add
+                                1.838001, 1.839999, "160M PSK/JT65 DIGU",       true, // ke9ns add
+
+                                1.840000, 1.840000, "160M FT8 DIGU",            true, // ke9ns add  1.84
+                                1.840001, 1.842500, "160M FT8 DIGU",            true, // ke9ns add
+                                1.842501, 1.842999, "160M FT8 DIGU",            true,
+
+                                1.843000, 1.849999, "160M All Modes & Digital", true,
+                                
+                                1.850000, 1.999999, "160M General RX",          false,
+
+
                             };
 
             for (int i = 0; i < data.Length / 4; i++)
@@ -1365,9 +1772,21 @@ namespace PowerSDR
 								1.810000, 1.835999, "160M CW",	                true,
                                 1.836000, 1.836000, "160M CW QRP",	            true,
                                 1.836001, 1.837999, "160M CW",	                true,
-								1.838000, 1.839999, "160M Narrow Band Modes",	true,
-								1.840000, 1.879999, "160M All Modes & Digital",	true,
+
+                                1.838000, 1.838000, "160M PSK/JT65 DIGU",       true, // ke9ns add
+                                1.838001, 1.839999, "160M PSK/JT65 DIGU",       true, // ke9ns add
+
+                                1.840000, 1.840000, "160M FT8 DIGU",            true, // ke9ns add  1.84
+                                1.840001, 1.842500, "160M FT8 DIGU",            true, // ke9ns add
+                                1.842501, 1.842999, "160M FT8 DIGU",            true,
+
+								1.843000, 1.879999, "160M All Modes & Digital",	true,
+
                                 1.880000, 1.999999, "160M General RX",	        false,
+
+                                
+
+
                             };
 
             for (int i = 0; i < data.Length / 4; i++)
@@ -1408,11 +1827,11 @@ namespace PowerSDR
 								5.333000, 5.338000, "60M Band Segment 6",		true,
 
                                 5.338001, 5.353999, "60M Band",                 false,
-								5.354000, 5.358000, "60M Band Segment 7 (IARU 1)",	true,
+								5.354000, 5.358000, "60M Band Seg 7 (IARU1)",	true,
 
                                 5.358001, 5.361999, "60M Band",                 false,
                                 5.362000, 5.362999, "60M Band Segment 8",		true,
-                                5.363000, 5.365999, "60M Band Segment 8 (IARU 1)",		true,
+                                5.363000, 5.365999, "60M Band Seg 8 (IARU1)",		true,
                                 5.366000, 5.374500, "60M Band Segment 8",		true,
 
                                 5.374501, 5.377999, "60M Band",                 false,                                
@@ -1424,7 +1843,7 @@ namespace PowerSDR
                                 5.401501, 5.403499, "60M Band",                 false,
                                 5.403500, 5.406500, "60M Band Segment 11",		true,
 
-                                5.406501, 5.449999, "60M Band",                 false,
+                                5.406501, 5.450000, "60M Band",                 false,
 
 			};
 
@@ -1482,7 +1901,7 @@ namespace PowerSDR
                                 5.383001, 5.389999, "60M Band",                 false,
                                 5.390000, 5.393000, "60M Band Segment 4",		true, 
                                                                
-                                5.393001, 5.449999, "60M Band",                 false,
+                                5.393001, 5.450000, "60M Band",                 false,
 			};
 
             for (int i = 0; i < data.Length / 4; i++)
@@ -1506,10 +1925,23 @@ namespace PowerSDR
 								7.035000, 7.039999, "40M Narrow Band Modes",	true,
 								7.040000, 7.059999, "40M All Modes",			true,
                                 7.060000, 7.060000, "40M SSB Emergency",        true,
-                                7.060001, 7.089999, "40M All Modes",			true,
+                                7.060001, 7.069999, "40M All Modes",          true,
+
+                                7.070000, 7.070000, "40m PSK",                  true,            // ke9ns add
+                                7.070001, 7.073999, "40m PSK",                  true,
+
+
+                                7.074000, 7.074000, "40M FT8 DIGU / ALL",             true, // ke9ns add  7.074
+                                7.074001, 7.075999, "40M FT8 DIGU / ALL",             true, // ke9ns add
+
+                                7.076000, 7.076000, "40M JT65 DIGU",            true, // ke9ns add
+                                7.076001, 7.078999, "40M JT65 DIGU",            true, // ke9ns add
+                                7.079000, 7.089999, "40M RTTY",                 true,
+ 
                                 7.090000, 7.090000, "40M SSB QRP",              true,
                                 7.090001, 7.099999, "40M All Modes",            true,
-                                7.100000, 7.199999, "40M General RX",           false,
+                                7.100000, 7.299999, "40M General RX",           false,
+
                             };
 
             for (int i = 0; i < data.Length / 4; i++)
@@ -1533,9 +1965,22 @@ namespace PowerSDR
 								7.035000, 7.039999, "40M Narrow Band Modes",	true,
 								7.040000, 7.059999, "40M All Modes",			true,
                                 7.060000, 7.060000, "40M SSB Emergency",        true,
-                                7.060001, 7.089999, "40M All Modes",			true,
+                                7.060001, 7.069999, "40M All Modes",			true,
+
+                                7.070000, 7.070000, "40m PSK",                  true,            // ke9ns add
+                                7.070001, 7.073999, "40m PSK",                  true,
+
+                                7.074000, 7.074000, "40M FT8 DIGU",             true, // ke9ns add  7.074
+                                7.074001, 7.075999, "40M FT8 DIGU",             true, // ke9ns add
+
+                                7.076000, 7.076000, "40M JT65 DIGU",            true, // ke9ns add
+                                7.076001, 7.078999, "40M JT65 DIGU",            true, // ke9ns add
+                              
+                                7.079000, 7.089999, "40M All Modes",            true,
+
                                 7.090000, 7.090000, "40M SSB QRP",              true,
                                 7.090001, 7.199999, "40M All Modes",            true,
+                                7.200000, 7.299999, "40M RX ONLY",              false,
                             };
 
             for (int i = 0; i < data.Length / 4; i++)
@@ -1559,7 +2004,11 @@ namespace PowerSDR
                                 24.906001, 24.914999, "12M CW",					true,
                                 24.915000, 24.928999, "12M Narrow Band Modes",	true,
 								24.929000, 24.930999, "12M Beacons",		    true,
-                                24.931000, 24.939999, "12M All Modes Digital",	true,
+
+                                24.931000, 24.937999, "12M All Modes Digital",	true,
+                                24.938000, 24.938001, "12M DV (Digital Voice)", true,                // ke9ns add    
+                                24.938002, 24.939999, "12M All Modes Digital",  true,
+
                                 24.940000, 25.139999, "12M All Modes",			true,
                             };
 
@@ -1608,11 +2057,38 @@ namespace PowerSDR
                                 50.150000, 50.150000, "6M SSB Calling",         true,
                                 50.150001, 50.249999, "6M CW, SSB & Digital",	true,
                                 50.250000, 50.250000, "6M PSK Calling",         true,
-                                50.250001, 50.499999, "6M CW, SSB & Digital",	true,
+
+                                50.250001, 50.275999, "6M CW, SSB & Digital",  true,
+
+                                50.276000, 50.276000, "6M JT65 DIGU",           true, // ke9ns add 
+                                50.276001, 50.278999, "6M JT65 DIGU",           true, // ke9ns add
+                                50.279000, 50.284999, "6M All Modes",           true,
+                                50.285000, 50.309999, "6M All Modes",           true,
+
+                                50.310000, 50.310000, "6M JT65 DIGU",           true, // ke9ns add 
+                                50.310001, 50.312999, "6M JT65 DIGU",           true, // ke9ns add
+
+                                50.313000, 50.313000, "6M FT8 DIGU",            true, // ke9ns add   ?
+                                50.313001, 50.315999, "6M FT8 DIGU",            true, // ke9ns add
+
+                                50.316000, 50.322999, "6M CW, SSB & Digital",    true,
+
+                                50.323000, 50.323000, "6M DX FT8 DIGU",            true, // ke9ns add   ?
+                                50.323001, 50.325999, "6M DX FT8 DIGU",            true, // ke9ns add
+
+                                50.326000, 50.399999, "6M CW, SSB & Digital", true,
+
+
+                                50.400000, 50.400000, "6M WSPR Beacons",        true,
+                                50.400001, 50.499999, "6M CW, SSB & Digital",   true,
+
                                 50.500000, 50.619999, "6M All Modes",           true,
                                 50.620000, 50.749999, "6M Digital Comms.",      true,
                                 50.750000, 50.999999, "6M All Modes",           true,
                                 51.000000, 51.999999, "6M General RX",	        false,
+
+
+                              
                             };
 
             for (int i = 0; i < data.Length / 4; i++)
@@ -1642,7 +2118,29 @@ namespace PowerSDR
                                 50.150000, 50.150000, "6M SSB Calling",         true,
                                 50.150001, 50.249999, "6M CW, SSB & Digital",	true,
                                 50.250000, 50.250000, "6M PSK Calling",         true,
-                                50.250001, 50.499999, "6M CW, SSB & Digital",	true,
+
+                                50.250001, 50.275999, "6M CW, SSB & Digital",	true,
+
+                                50.276000, 50.276000, "6M JT65 DIGU",           true, // ke9ns add 
+                                50.276001, 50.278999, "6M JT65 DIGU",           true, // ke9ns add
+                                50.279000, 50.309999, "6M All Modes",           true,
+                                50.310000, 50.310000, "6M JT65 DIGU",           true, // ke9ns add 
+                                50.310001, 50.312999, "6M JT65 DIGU",           true, // ke9ns add
+
+                                50.313000, 50.313000, "6M FT8 DIGU",            true, // ke9ns add   ?
+                                50.313001, 50.315999, "6M FT8 DIGU",            true, // ke9ns add
+
+                                50.316000, 50.322999, "6M CW, SSB & Digital",   true,
+
+                                50.323000, 50.323000, "6M DX FT8 DIGU",            true, // ke9ns add   ?
+                                50.323001, 50.325999, "6M DX FT8 DIGU",            true, // ke9ns add
+
+                                50.326000, 50.399999, "6M CW, SSB & Digital", true,
+
+                                50.400000, 50.400000, "6M WSPR Beacons",        true,
+
+                                50.400001, 50.499999, "6M CW, SSB & Digital",    true,
+
                                 50.500000, 50.619999, "6M All Modes",           true,
                                 50.620000, 50.749999, "6M Digital Comms.",      true,
                                 50.750000, 50.999999, "6M All Modes",           true,
@@ -1677,10 +2175,33 @@ namespace PowerSDR
                                 50.150000, 50.150000, "6M SSB Calling",         true,
                                 50.150001, 50.249999, "6M CW, SSB & Digital",	true,
                                 50.250000, 50.250000, "6M PSK Calling",         true,
-                                50.250001, 50.499999, "6M CW, SSB & Digital",	true,
+                                50.250001, 50.275999, "6M CW, SSB & Digital",	true,
+
+                                50.276000, 50.276000, "6M JT65 DIGU",           true, // ke9ns add 
+                                50.276001, 50.278999, "6M JT65 DIGU",           true, // ke9ns add
+                                50.279000, 50.309999, "6M All Modes",           true,
+                                50.310000, 50.310000, "6M JT65 DIGU",           true, // ke9ns add 
+                                50.310001, 50.312999, "6M JT65 DIGU",           true, // ke9ns add
+
+                                50.313000, 50.313000, "6M FT8 DIGU",            true, // ke9ns add   ?
+                                50.313001, 50.315999, "6M FT8 DIGU",            true, // ke9ns add
+
+                                50.316000, 50.322999, "6M CW, SSB & Digital",    true,
+
+                                50.323000, 50.323000, "6M DX FT8 DIGU",            true, // ke9ns add   ?
+                                50.323001, 50.325999, "6M DX FT8 DIGU",            true, // ke9ns add
+
+                                50.326000, 50.399999, "6M CW, SSB & Digital", true,
+
+                                50.400000, 50.400000, "6M WSPR Beacons",        true,
+                                50.400001, 50.499999, "6M CW, SSB & Digital", true,
+
                                 50.500000, 50.619999, "6M All Modes",           true,
                                 50.620000, 50.749999, "6M Digital Comms.",      true,
                                 50.750000, 51.999999, "6M All Modes",           true,
+
+
+
                             };
 
             for (int i = 0; i < data.Length / 4; i++)
@@ -1717,23 +2238,28 @@ namespace PowerSDR
 
         #region IARU2 Region 2 BandText
 
-        private static void AddBandTextTable()  // Default bandtext -  Region 2
+        // ke9ns console.cs bandtextnumber needs to be incremented if you update database.cs file
+      
+
+        private static void AddBandTextTable()  // Default bandtext -  // ke9ns for FRSRegion.US  AddBandTextSWB() is added in this function
         {            
-            ds.Tables.Add("BandText");
+          if (bandtextrefresh == false)  ds.Tables.Add("BandText");
+
             DataTable t = ds.Tables["BandText"];
-
-            Debug.WriteLine("US ==============");
-
-            t.Columns.Add("Low", typeof(double));
-            t.Columns.Add("High", typeof(double));
-            t.Columns.Add("Name", typeof(string));
-            t.Columns.Add("TX", typeof(bool));
-
+          
+            if (bandtextrefresh == false)
+            {
+                t.Columns.Add("Low", typeof(double));
+                t.Columns.Add("High", typeof(double));
+                t.Columns.Add("Name", typeof(string));
+                t.Columns.Add("TX", typeof(bool));
+            }
 
             // FT8 1.84, 3.573, 5.357, 7.074, 10.136, 14.074, 18.1, 21.074, 24.915, 28.074, 50.274? or 50.313
 
             object[] data = {
-								1.800000, 1.809999, "160M CW/Digital Modes",	true,
+				     	 //------------------------------------------------------------------
+                                1.800000, 1.809999, "160M CW/Digital Modes",	true,
 								1.810000, 1.810000, "160M CW QRP",				true,
 								1.810001, 1.837999, "160M CW",					true, // was 1.842999,
 
@@ -1744,54 +2270,87 @@ namespace PowerSDR
                                 1.840001, 1.842500, "160M FT8 DIGU",            true, // ke9ns add
                                 1.842501, 1.842999, "160M FT8 DIGU",            true,
 
-                                1.843000, 1.909999, "160M SSB/SSTV/Wide Band",	true,
-								1.910000, 1.910000, "160M SSB QRP",				true,
-								1.910001, 1.994999, "160M SSB/SSTV/Wide Band",	true,
-								1.995000, 1.999999, "160M Experimental",		true,
+                                1.843000, 1.889999, "160M SSB / Wide Band",	true,
+                                1.890000, 1.890000, "160M SSB SSTV",    true,
+                                1.890001, 1.907499, "160M SSB / Wide Band",    true,
 
+                                1.907500, 1.907999, "160M SSB/Data (Japan Data)",    true, // ke9ns add
+                                1.908000, 1.909999, "160M SSB/Data (Japan FT8)",     true, // ke9ns add
+                                1.910000, 1.910000, "160M SSB QRP (Japan Data/FT8)",             true,
+                                1.910001, 1.912500, "160M SSB QRP (Japan Data/FT8)",             true,
+                              
+                                1.912501, 1.994999, "160M SSB / Wide Band",  true,
+                               
+								1.995000, 1.999998, "160M Experimental",		true,
+                                1.999999, 1.999999, "160M Beacon",              true, // ke9ns add
 
-								3.500000, 3.524999, "80M Extra CW",				true,
+                            //------------------------------------------------------------------
+                                3.500000, 3.524999, "80M Extra CW",				true,
 								3.525000, 3.569999, "80M CW",					true,
 
                                 3.570000, 3.570000, "80M JT65 DIGU",            true, // ke9ns add
                                 3.570001, 3.572999, "80M JT65 DIGU",            true, // ke9ns add
                                
-                                3.573000, 3.573000, "80M FT8 DIGU",            true, // ke9ns add  3.573
-                                3.573001, 3.575500, "80M FT8 DIGU",            true, // ke9ns add
+                                3.573000, 3.573000, "80M FT8 DIGU",             true, // ke9ns add  3.573
+                                3.573001, 3.575500, "80M FT8 DIGU",             true, // ke9ns add
                               
 								3.575501, 3.589999, "80M PSK",					true,
 								3.590000, 3.590000, "80M RTTY DX",				true,
 								3.590001, 3.599999, "80M RTTY",					true,
-								3.600000, 3.699999, "75M Extra SSB",			true,
-								3.700000, 3.789999, "75M Ext/Adv SSB",			true,
-								3.790000, 3.799999, "75M Ext/Adv DX Window",	true,
+
+                                3.600000, 3.623999, "80M Extra SSB",            true,
+                                3.624000, 3.629999, "80M Extra eSSB",            true, // ke9ns  
+                                3.630000, 3.630000, "80M Extra eSSB",            true, // ke9ns 
+                                3.630001, 3.699999, "80M Extra SSB",            true,
+
+                                3.700000, 3.789999, "80M Ext/Adv SSB",			true,
+								3.790000, 3.799999, "80M Ext/Adv DX Window",	true,
+
 								3.800000, 3.844999, "75M SSB",					true,
 								3.845000, 3.845000, "75M SSTV",					true,
 								3.845001, 3.884999, "75M SSB",					true,
 								3.885000, 3.885000, "75M AM Calling Frequency", true,
-								3.885001, 3.999999, "75M SSB",					true,
+								3.885001, 4.000000, "75M SSB",					true,
 
-                                5.167500, 5.167500, "60M Emergency Channel",            true, // ke9ns add
+                             //------------------------------------------------------------------ US
+                           
+                              //  5.167500, 5.167500, "60M Emergency Channel",    true, // ke9ns add
 
                                 5.250000, 5.331999, "60M General",              false,
 								5.332000, 5.332000, "60M Channel 1",			true,
                                 5.332001, 5.347999, "60M General",              false,
-								5.348000, 5.348000, "60M Channel 2",			true,
-                                5.348001, 5.358499, "60M General",              false,
-								5.358500, 5.358500, "60M Channel 3 (IARU 1)",			true,
-                                5.358501, 5.372999, "60M General",              false,
-								5.373000, 5.373000, "60M Channel 4",			true,
+                                5.348000, 5.348000, "60M Channel 2",			true,
+
+                                5.348001, 5.351499, "60M General",              false,
+
+                                5.351500, 5.353999, "60M 200hz NBM IARU1/2 only",  false,
+                                5.354000, 5.358499, "60M USB Voice IARU1/2 only",  false,
+
+                                5.358500, 5.358500, "60M Channel 3 (IARU1/2)",  true,
+
+                                5.358501, 5.365999, "60M USB Voice IARU1/2 only",  false,
+                                5.366000, 5.366500, "60M 20hz NBM IARU1/2 only",  false,
+
+                                5.366501, 5.372999, "60M General",              false,
+
+                                5.373000, 5.373000, "60M Channel 4",			true,
                                 5.373001, 5.404999, "60M General",              false,
 								5.405000, 5.405000, "60M Channel 5",			true,
-                                5.405001, 5.449999, "60M General",              false,
-								
+                                5.405001, 5.450000, "60M General",              false,
+
+    
+                                //------------------------------------------------------------------
+ 								
 								7.000000, 7.024999, "40M Extra CW",				true, // ke9ns mod
 								7.025000, 7.039999, "40M CW",					true,
-
+                               
 								7.040000, 7.042999, "40M PSK",       			true,
-                                7.043000, 7.073999, "40M RTTY",                 true,
+                                7.043000, 7.069999, "40M RTTY",                 true,
+                              
+                                7.070000, 7.070000, "40m PSK",                  true, // ke9ns add
+                                7.070001, 7.073999, "40m PSK",                  true,
 
-                                7.074000, 7.074000, "40M FT8 DIGU",            true, // ke9ns add  7.074
+                                7.074000, 7.074000, "40M FT8 DIGU",             true, // ke9ns add  7.074
                                 7.074001, 7.075999, "40M FT8 DIGU",             true, // ke9ns add
 
                                 7.076000, 7.076000, "40M JT65 DIGU",            true, // ke9ns add
@@ -1801,33 +2360,48 @@ namespace PowerSDR
 								7.100000, 7.124999, "40M CW",					true,
 								7.125000, 7.170999, "40M Ext/Adv SSB",			true,
 								7.171000, 7.171000, "40M SSTV",					true,
-								7.171001, 7.174999, "40M Ext/Adv SSB",			true,
-								7.175000, 7.289999, "40M SSB",					true,
-								7.290000, 7.290000, "40M AM Calling Frequency", true,
-								7.290001, 7.299999, "40M SSB",					true,
+                              
+                                7.171001, 7.174999, "40M Ext/Adv SSB",			true,
+                                7.175000, 7.176999, "40M SSB",                  true,
 
+                                7.177000, 7.177000, "40m FreeDV(usb)",          true,
+                                7.177001, 7.178999, "40m FreeDV(usb)",          true, // ke9ns add 1.25khz, but reserve 2k
+
+                                7.179000, 7.189999, "40M SSB",					true,
+
+                                7.190000, 7.190000, "40m FreeDV(usb)",          true,
+                                7.190001, 7.191999, "40m FreeDV(usb)",          true,
+
+                                7.192000, 7.289999, "40M SSB",                  true,
+
+                                7.290000, 7.290000, "40M AM Calling Frequency", true,
+								7.290001, 7.299999, "40M SSB",					true,
+                            //------------------------------------------------------------------
+ 
 							
 								10.100000, 10.129999, "30M CW",					true,
-								10.130000, 10.139999, "30M RTTY",				true,
+								10.130000, 10.135999, "30M RTTY",				true,
 
-                                10.136000, 10.136000, "30M FT8 DIGU",            true, // ke9ns add
-                                10.136001, 10.137999, "30M PSK/FT8 DIGU",         true, // ke9ns add
+                                10.136000, 10.136000, "30M FT8 DIGU",           true, // ke9ns add
+                                10.136001, 10.137999, "30M FT8 DIGU",       true, // ke9ns add
 
-                                10.138000, 10.138000, "30M JT65 DIGU",            true, // ke9ns add
-                                10.138001, 10.138999, "30M JT65 DIGU",            true, // ke9ns add
-                                10.142000, 10.139999, "30M RTTY",               true,
+                                10.138000, 10.138000, "30M PSK/JT65 DIGU",          true, // ke9ns add
+                                10.138001, 10.138999, "30M PSK/JT65 DIGU",          true, // ke9ns add
+                                10.139000, 10.139999, "30M RTTY",               true,
+                                10.140000, 10.149999, "30M Narrow Band Modes",	true,
+                            //------------------------------------------------------------------
 
                                 14.000000, 14.024999, "20M Extra CW",			true,
 								14.025000, 14.069999, "20M CW",					true,
-								14.070000, 14.073999, "20M PSK/RTTY",			true,
+								14.070000, 14.073999, "20M PSK",	     		true,
 
-                                14.074000, 14.074000, "20M FT8 DIGU",            true, // ke9ns add
-                                14.074001, 14.075999, "20M FT8 DIGU",             true, // ke9ns add
+                                14.074000, 14.074000, "20M FT8 DIGU",           true, // ke9ns add
+                                14.074001, 14.075999, "20M FT8 DIGU",           true, // ke9ns add
 
-                                14.076000, 14.076000, "20M JT65 DIGU",            true, // ke9ns add
-                                14.076001, 14.078999, "20M JT65 DIGU",            true, // ke9ns add
-
-                                14.079000, 14.094999, "20M RTTY",                true,
+                                14.076000, 14.076000, "20M JT65 DIGU",          true, // ke9ns add
+                                14.076001, 14.078999, "20M JT65 DIGU",          true, // ke9ns add
+                                
+                                14.079000, 14.094999, "20M RTTY",               true,
 
                                 14.095000, 14.099499, "20M Packet",				true,
 								14.099500, 14.099999, "20M CW",					true,
@@ -1838,35 +2412,64 @@ namespace PowerSDR
 								14.150000, 14.174999, "20M Extra SSB",			true,
 								14.175000, 14.224999, "20M Ext/Adv SSB",		true,
 								14.225000, 14.229999, "20M SSB",				true,
-								14.230000, 14.230000, "20M SSTV",				true,
-								14.230001, 14.285999, "20M SSB",				true,
-								14.286000, 14.286000, "20M AM Calling Frequency", true,
-								14.286001, 14.349999, "20M SSB",				true,
+                               
+                                14.230000, 14.230000, "20M SSTV",               true,
+                                14.230001, 14.232999, "20M SSTV",               true,
+
+                                14.233000, 14.233000, "20M EasyPal",            true, // ke9ns add
+                                14.233001, 14.235999, "20M EasyPal",            true,
+
+                                14.236000, 14.236000, "20m FreeDV",             true,
+                                14.236001, 14.238000, "20m FreeDV",             true,
+
+                                14.238001, 14.239999, "20M SSB",               true,
+
+                                14.240000, 14.240000, "20m FreeDV",             true,
+                                14.240001, 14.242000, "20m FreeDV",             true,
+
+                                14.242001, 14.282999, "20M SSB",				true,
+
+                                14.283000, 14.285999, "20M AM ",                true,
+                                14.286000, 14.286000, "20M AM Calling Freq",    true,
+                                14.286001, 14.288999, "20M AM ",                true,
+
+                                14.289000, 14.339999, "20M SSB",				true,
+                                14.340000, 14.340001, "20M DV (Digital Voice)", true,                // ke9ns add   
+                                14.340002, 14.349999, "20M SSB",                true,
+ 
+                            //------------------------------------------------------------------
 								
 	
 								18.068000, 18.099999, "17M CW",					true,
-								18.100000, 18.101999, "17M RTTY",				true,
-
-                                18.100000, 18.100000, "17M FT8 DIGU",            true, // ke9ns add
-                                18.100001, 18.102999, "17M FT8 DIGU",             true, // ke9ns add
-
-                                18.102000, 18.102000, "17M JT65 DIGU",            true, // ke9ns add
-                                18.102001, 18.104999, "17M JT65 DIGU",            true, // ke9ns add
-                              
-                                18.108000, 18.109999, "17M PSK",				true,
-								18.110000, 18.110000, "17M NCDXF Beacons",	    true,
-								18.110001, 18.167999, "17M SSB",				true,
 								
+                                18.100000, 18.100000, "17M FT8 DIGU",           true, // ke9ns add
+                                18.100001, 18.101999, "17M FT8 DIGU",           true, // ke9ns add
+
+                                18.102000, 18.102000, "17M JT65 DIGU",          true, // ke9ns add
+                                18.102001, 18.103999, "17M JT65 DIGU",          true, // ke9ns add
+                                18.104000, 18.107999, "17M RTTY",				true,
+
+                                18.108000, 18.109999, "17M PSK / Packet",		true,
+								18.110000, 18.110000, "17M NCDXF Beacons",	    true,
+
+								18.110001, 18.147999, "17M SSB",				true,
+                                18.148000, 18.148001, "17M DV (Digital Voice)", true,                // ke9ns add   
+								18.148002, 18.167999, "17M SSB",                true,
+
+
+
+
+                            //------------------------------------------------------------------
 
 								21.000000, 21.024999, "15M Extra CW",			true,
 								21.025000, 21.069999, "15M CW",					true,
 								21.070000, 21.073999, "15M RTTY",				true,
 
-                                21.074000, 21.074000, "15M FT8 DIGU",            true, // ke9ns add 
-                                21.074001, 21.075999, "15M FT8 DIGU",             true, // ke9ns add
+                                21.074000, 21.074000, "15M FT8 DIGU",           true, // ke9ns add 
+                                21.074001, 21.075999, "15M FT8 DIGU",           true, // ke9ns add
 
-                                21.076000, 21.076000, "15M JT65 DIGU",            true, // ke9ns add
-                                21.076001, 21.078999, "15M JT65 DIGU",            true, // ke9ns add
+                                21.076000, 21.076000, "15M JT65 DIGU",          true, // ke9ns add
+                                21.076001, 21.078999, "15M JT65 DIGU",          true, // ke9ns add
                                 21.079000, 21.099999, "15M RTTY",               true,
 
                                 21.100000, 21.109999, "15M Packet",				true,
@@ -1877,27 +2480,40 @@ namespace PowerSDR
 								21.225000, 21.274999, "15M Ext/Adv SSB",		true,
 								21.275000, 21.339999, "15M SSB",				true,
 								21.340000, 21.340000, "15M SSTV",				true,
-								21.340001, 21.449999, "15M SSB",				true,
+
+								21.340001, 21.379999, "15M SSB",				true,
+                                21.380000, 21.380001, "15M DV (Digital Voice)", true,                // ke9ns add    
+                                21.380002, 21.450000, "15M SSB",                true,
+
+                            //------------------------------------------------------------------
 							   
 								24.890000, 24.914999, "12M CW",					true, 
-                                24.915000, 24.915000, "12M FT8 DIGU",            true, // ke9ns add 
-                                24.915001, 24.916999, "12M FT8 DIGU",             true, // ke9ns add
+                                24.915000, 24.915000, "12M FT8 DIGU",           true, // ke9ns add 
+                                24.915001, 24.916999, "12M FT8 DIGU",           true, // ke9ns add
 
-                                24.917000, 24.917000, "12M JT65 DIGU",            true, // ke9ns add 
-                                24.917001, 24.919999, "12M JT65 DIGU",             true, // ke9ns add
+                                24.917000, 24.917000, "12M JT65 DIGU",          true, // ke9ns add 
+                                24.917001, 24.919999, "12M JT65 DIGU",          true, // ke9ns add
 
 
                                 24.920000, 24.924999, "12M RTTY",				true,
 								24.925000, 24.929999, "12M Packet",				true,
 								24.930000, 24.930000, "12M NCDXF Beacons",	    true,
-								24.930001, 24.989999, "12M SSB",				true,
-								
+
+               
+                                24.930001, 24.937999, "12M SSB",   true,
+                                24.938000, 24.938001, "12M DV (Digital Voice)", true,                // ke9ns add    
+                                24.938002, 24.989999, "12M SSB",  true,
+                         
+                                
+                                
+                                //------------------------------------------------------------------
+							
 								28.000000, 28.073999, "10M CW",					true,
 
-                                28.074000, 28.074000, "10M FT8 DIGU",            true, // ke9ns add 
-                                28.074001, 28.075999, "10M FT8 DIGU",             true, // ke9ns add
-                                28.076000, 28.076000, "10M JT65 DIGU",            true, // ke9ns add 
-                                28.076001, 28.078999, "10M JT65 DIGU",             true, // ke9ns add
+                                28.074000, 28.074000, "10M FT8 DIGU",           true, // ke9ns add 
+                                28.074001, 28.075999, "10M FT8 DIGU",           true, // ke9ns add
+                                28.076000, 28.076000, "10M JT65 DIGU",          true, // ke9ns add 
+                                28.076001, 28.078999, "10M JT65 DIGU",          true, // ke9ns add
 
 
 								28.079000, 28.149999, "10M RTTY",				true,
@@ -1916,6 +2532,7 @@ namespace PowerSDR
 								29.600000, 29.600000, "10M FM Simplex",			true,
 								29.600001, 29.609999, "10M Deadband",			true,
 								29.610000, 29.699999, "10M Repeater Outputs",	true,
+                            //------------------------------------------------------------------
 								
 								50.000000, 50.059999, "6M CW",					true,
 								50.060000, 50.079999, "6M Beacon Sub-Band",		true,
@@ -1925,18 +2542,26 @@ namespace PowerSDR
 								50.125000, 50.125000, "6M Calling Frequency",	true, // calling freq
 
 								50.125001, 50.273999, "6M SSB",					true,
-
-                                50.276000, 50.276000, "6M JT65 DIGU",            true, // ke9ns add 
-                                50.276001, 50.278999, "6M JT65 DIGU",             true, // ke9ns add
-                                50.279000, 50.309999, "6M All Modes",          true,
-                                50.310000, 50.310000, "6M JT65 DIGU",            true, // ke9ns add 
-                                50.310001, 50.312999, "6M JT65 DIGU",             true, // ke9ns add
+                                50.274000, 50.275999, "6M All Modes",          true,
+                                50.276000, 50.276000, "6M JT65 DIGU",           true, // ke9ns add 
+                                50.276001, 50.278999, "6M JT65 DIGU",           true, // ke9ns add
+                                50.279000, 50.309999, "6M All Modes",           true,
+                                50.310000, 50.310000, "6M JT65 DIGU",           true, // ke9ns add 
+                                50.310001, 50.312999, "6M JT65 DIGU",           true, // ke9ns add
 
                                 50.313000, 50.313000, "6M FT8 DIGU",            true, // ke9ns add   ?
-                                50.313001, 50.315999, "6M FT8 DIGU",             true, // ke9ns add
+                                50.313001, 50.315999, "6M FT8 DIGU",            true, // ke9ns add
 
-                                50.316000, 50.599999, "6M All Modes",			true,
-								50.600000, 50.619999, "6M Non Voice",			true,
+                                50.316000, 50.322999, "6M CW, SSB & Digital",   true,
+
+                                50.323000, 50.323000, "6M DX FT8 DIGU",            true, // ke9ns add   ?
+                                50.323001, 50.325999, "6M DX FT8 DIGU",            true, // ke9ns add
+
+                                50.326000, 50.399999, "6M CW, SSB & Digital", true,
+
+                                50.400000, 50.400000, "6M WSPR Beacons",        true, // ke9ns add
+                                50.400001, 50.599999, "6M All Modes",          true,
+                                50.600000, 50.619999, "6M Non Voice",			true,
 								50.620000, 50.620000, "6M Digital Packet",      true,
 								50.620001, 50.799999, "6M Non Voice",			true,
 								50.800000, 50.999999, "6M RC",					true,
@@ -2131,61 +2756,109 @@ namespace PowerSDR
 
             AddBandTextSWB(); // ke9ns add CB
           
-        } // AddBandTextTable() Region2
+        } // AddBandTextTable() US REgion
 
         private static void AddBand2TextTable()  // IARU2 ham bandtext (because 60m is like IARU1)
         {
-            ds.Tables.Add("BandText");
+            if (bandtextrefresh == false) ds.Tables.Add("BandText");
+
             DataTable t = ds.Tables["BandText"];
 
-            Debug.WriteLine("IARU2==============");
+            if (bandtextrefresh == false)
+            {
+                t.Columns.Add("Low", typeof(double));
+                t.Columns.Add("High", typeof(double));
+                t.Columns.Add("Name", typeof(string));
+                t.Columns.Add("TX", typeof(bool));
+            }
 
-            t.Columns.Add("Low", typeof(double));
-            t.Columns.Add("High", typeof(double));
-            t.Columns.Add("Name", typeof(string));
-            t.Columns.Add("TX", typeof(bool));
 
             object[] data = {
                                 1.800000, 1.809999, "160M CW/Digital Modes",    true,
                                 1.810000, 1.810000, "160M CW QRP",              true,
-                                1.810001, 1.842999, "160M CW",                  true,
+                                1.810001, 1.837999, "160M CW",                  true, // was 1.842999,
+
+                                1.838000, 1.838000, "160M PSK/JT65 DIGU",       true, // ke9ns add
+                                1.838001, 1.839999, "160M PSK/JT65 DIGU",       true, // ke9ns add
+
+                                1.840000, 1.840000, "160M FT8 DIGU",            true, // ke9ns add  1.84
+                                1.840001, 1.842500, "160M FT8 DIGU",            true, // ke9ns add
+                                1.842501, 1.842999, "160M FT8 DIGU",            true,
+
                                 1.843000, 1.909999, "160M SSB/SSTV/Wide Band",  true,
                                 1.910000, 1.910000, "160M SSB QRP",             true,
                                 1.910001, 1.994999, "160M SSB/SSTV/Wide Band",  true,
                                 1.995000, 1.999999, "160M Experimental",        true,
 
+
                                 3.500000, 3.524999, "80M Extra CW",             true,
-                                3.525000, 3.579999, "80M CW",                   true,
-                                3.580000, 3.589999, "80M RTTY",                 true,
+                                3.525000, 3.569999, "80M CW",                   true,
+
+                                3.570000, 3.570000, "80M JT65 DIGU",            true, // ke9ns add
+                                3.570001, 3.572999, "80M JT65 DIGU",            true, // ke9ns add
+                               
+                                3.573000, 3.573000, "80M FT8 DIGU",             true, // ke9ns add  3.573
+                                3.573001, 3.575500, "80M FT8 DIGU",             true, // ke9ns add
+                              
+								3.575501, 3.589999, "80M PSK",                  true,
                                 3.590000, 3.590000, "80M RTTY DX",              true,
                                 3.590001, 3.599999, "80M RTTY",                 true,
-                                3.600000, 3.699999, "75M Extra SSB",            true,
-                                3.700000, 3.789999, "75M Ext/Adv SSB",          true,
-                                3.790000, 3.799999, "75M Ext/Adv DX Window",    true,
+
+                                3.600000, 3.629999, "80M Extra SSB",            true,
+                                3.630000, 3.630000, "80M Extra eSSB",            true, // ke9ns
+                                3.630001, 3.699999, "80M Extra SSB",            true,
+
+
+                                3.700000, 3.789999, "80M Ext/Adv SSB",          true,
+                                3.790000, 3.799999, "80M Ext/Adv DX Window",    true,
                                 3.800000, 3.844999, "75M SSB",                  true,
                                 3.845000, 3.845000, "75M SSTV",                 true,
                                 3.845001, 3.884999, "75M SSB",                  true,
                                 3.885000, 3.885000, "75M AM Calling Frequency", true,
-                                3.885001, 3.999999, "75M SSB",                  true,
+                                3.885001, 4.000000, "75M SSB",                  true,
 
-                           /*     5.167500, 5.167500, "60M Emergency Channel",            true, // ke9ns add
-
+                                //===================================================================== IARU 2
+                              
                                 5.250000, 5.331999, "60M General",              false,
                                 5.332000, 5.332000, "60M Channel 1",            true,
                                 5.332001, 5.347999, "60M General",              false,
                                 5.348000, 5.348000, "60M Channel 2",            true,
-                                5.348001, 5.358499, "60M General",              false,
-                                5.358500, 5.358500, "60M Channel 3 (IARU 1)",           true,
-                                5.358501, 5.372999, "60M General",              false,
+
+                                5.348001, 5.351499, "60M General",              false,
+
+                                5.351500, 5.353999, "60M 200hz NBM (IARU1/2)",  true,
+                                5.354000, 5.358499, "60M USB Voice (IARU1/2)",  true,
+
+                                5.358500, 5.358500, "60M Channel 3 (IARU1/2)",  true,
+
+                                5.358501, 5.365999, "60M USB Voice (IARU1/2)",  true,
+                                5.366000, 5.366500, "60M 20hz  NBM (IARU1/2)",  true,
+
+                                5.366501, 5.372999, "60M General",              false,
+
                                 5.373000, 5.373000, "60M Channel 4",            true,
                                 5.373001, 5.404999, "60M General",              false,
                                 5.405000, 5.405000, "60M Channel 5",            true,
-                                5.405001, 5.449999, "60M General",              false,
-                            */
+                                5.405001, 5.450000, "60M General",              false,
+
+
+                                //==========================================================================
                                 7.000000, 7.024999, "40M Extra CW",             true, // ke9ns mod
 								7.025000, 7.039999, "40M CW",                   true,
-                                7.040000, 7.040000, "40M RTTY DX",              true,
-                                7.040001, 7.099999, "40M RTTY",                 true,
+
+                                7.040000, 7.042999, "40M PSK",                  true,
+                                7.043000, 7.069999, "40M RTTY",                 true,
+                           
+                                7.070000, 7.070000, "40m PSK",                  true,            // ke9ns add
+                                7.070001, 7.073999, "40m PSK",                  true,
+
+                                7.074000, 7.074000, "40M FT8 DIGU",             true, // ke9ns add  7.074
+                                7.074001, 7.075999, "40M FT8 DIGU",             true, // ke9ns add
+
+                                7.076000, 7.076000, "40M JT65 DIGU",            true, // ke9ns add
+                                7.076001, 7.078999, "40M JT65 DIGU",            true, // ke9ns add
+                              
+								7.079000, 7.099999, "40M RTTY",                 true,
                                 7.100000, 7.124999, "40M CW",                   true,
                                 7.125000, 7.170999, "40M Ext/Adv SSB",          true,
                                 7.171000, 7.171000, "40M SSTV",                 true,
@@ -2194,13 +2867,30 @@ namespace PowerSDR
                                 7.290000, 7.290000, "40M AM Calling Frequency", true,
                                 7.290001, 7.299999, "40M SSB",                  true,
 
+
                                 10.100000, 10.129999, "30M CW",                 true,
-                                10.130000, 10.139999, "30M RTTY",               true,
-                                10.140000, 10.149999, "30M Packet",             true,
+                                10.130000, 10.135999, "30M RTTY",               true,
+
+                                10.136000, 10.136000, "30M FT8 DIGU",           true, // ke9ns add
+                                10.136001, 10.137999, "30M FT8 DIGU",       true, // ke9ns add
+
+                                10.138000, 10.138000, "30M PSK/JT65 DIGU",          true, // ke9ns add
+                                10.138001, 10.138999, "30M PSK/JT65 DIGU",          true, // ke9ns add
+                                10.139000, 10.139999, "30M RTTY",               true,
+                                10.140000, 10.149999, "30M Narrow Band Modes",  true,
 
                                 14.000000, 14.024999, "20M Extra CW",           true,
                                 14.025000, 14.069999, "20M CW",                 true,
-                                14.070000, 14.094999, "20M RTTY",               true,
+                                14.070000, 14.073999, "20M PSK",                true,
+
+                                14.074000, 14.074000, "20M FT8 DIGU",           true, // ke9ns add
+                                14.074001, 14.075999, "20M FT8 DIGU",           true, // ke9ns add
+
+                                14.076000, 14.076000, "20M JT65 DIGU",          true, // ke9ns add
+                                14.076001, 14.078999, "20M JT65 DIGU",          true, // ke9ns add
+
+                                14.079000, 14.094999, "20M RTTY",               true,
+
                                 14.095000, 14.099499, "20M Packet",             true,
                                 14.099500, 14.099999, "20M CW",                 true,
                                 14.100000, 14.100000, "20M NCDXF Beacons",      true,
@@ -2210,20 +2900,51 @@ namespace PowerSDR
                                 14.150000, 14.174999, "20M Extra SSB",          true,
                                 14.175000, 14.224999, "20M Ext/Adv SSB",        true,
                                 14.225000, 14.229999, "20M SSB",                true,
-                                14.230000, 14.230000, "20M SSTV",               true,
-                                14.230001, 14.285999, "20M SSB",                true,
-                                14.286000, 14.286000, "20M AM Calling Frequency", true,
-                                14.286001, 14.349999, "20M SSB",                true,
+
+                                14.230000, 14.230000, "20M SSTV",          true,
+                                14.230001, 14.232999, "20M SSTV",               true,
+
+                                14.233000, 14.233000, "20M EasyPal",        true,
+                                14.233001, 14.235999, "20M EasyPal",        true,
+
+                                14.236000, 14.282999, "20M SSB",                true,
+                                14.283000, 14.285999, "20M AM ", true,
+                                14.286000, 14.286000, "20M AM Calling Freq", true,
+                                14.286001, 14.288999, "20M AM ", true,
+
+                                14.289000, 14.339999, "20M SSB",                true,
+                                14.340000, 14.340001, "20M DV (Digital Voice)", true,                // ke9ns add   
+                                14.340002, 14.349999, "20M SSB",          true,
+
+
+
 
                                 18.068000, 18.099999, "17M CW",                 true,
-                                18.100000, 18.104999, "17M RTTY",               true,
-                                18.105000, 18.109999, "17M Packet",             true,
+                                18.100000, 18.100000, "17M FT8 DIGU",           true, // ke9ns add
+                                18.100001, 18.101999, "17M FT8 DIGU",           true, // ke9ns add
+
+                                18.102000, 18.102000, "17M JT65 DIGU",          true, // ke9ns add
+                                18.102001, 18.103999, "17M JT65 DIGU",          true, // ke9ns add
+                                18.104000, 18.107999, "17M RTTY",               true,
+                                18.108000, 18.109999, "17M PSK / Packet",               true,
+                            
                                 18.110000, 18.110000, "17M NCDXF Beacons",      true,
-                                18.110001, 18.167999, "17M SSB",                true,
+                              
+                                18.110001, 18.147999, "17M SSB",                true,
+                                18.148000, 18.148001, "17M DV (Digital Voice)", true,                // ke9ns add   
+								18.148002, 18.167999, "17M SSB",                true,
 
                                 21.000000, 21.024999, "15M Extra CW",           true,
                                 21.025000, 21.069999, "15M CW",                 true,
-                                21.070000, 21.099999, "15M RTTY",               true,
+                                21.070000, 21.073999, "15M RTTY",               true,
+
+                                21.074000, 21.074000, "15M FT8 DIGU",           true, // ke9ns add 
+                                21.074001, 21.075999, "15M FT8 DIGU",           true, // ke9ns add
+
+                                21.076000, 21.076000, "15M JT65 DIGU",          true, // ke9ns add
+                                21.076001, 21.078999, "15M JT65 DIGU",          true, // ke9ns add
+                                21.079000, 21.099999, "15M RTTY",               true,
+
                                 21.100000, 21.109999, "15M Packet",             true,
                                 21.110000, 21.149999, "15M CW",                 true,
                                 21.150000, 21.150000, "15M NCDXF Beacons",      true,
@@ -2232,20 +2953,46 @@ namespace PowerSDR
                                 21.225000, 21.274999, "15M Ext/Adv SSB",        true,
                                 21.275000, 21.339999, "15M SSB",                true,
                                 21.340000, 21.340000, "15M SSTV",               true,
-                                21.340001, 21.449999, "15M SSB",                true,
+                             
+                                21.340001, 21.379999, "15M SSB",                true,
+                                21.380000, 21.380001, "15M DV (Digital Voice)", true,                // ke9ns add    
+                                21.380002, 21.450000, "15M SSB",                true,
 
-                                24.890000, 24.919999, "12M CW",                 true,
+
+                                24.890000, 24.914999, "12M CW",                 true,
+                                24.915000, 24.915000, "12M FT8 DIGU",           true, // ke9ns add 
+                                24.915001, 24.916999, "12M FT8 DIGU",           true, // ke9ns add
+
+                                24.917000, 24.917000, "12M JT65 DIGU",          true, // ke9ns add 
+                                24.917001, 24.919999, "12M JT65 DIGU",          true, // ke9ns add
+
+
                                 24.920000, 24.924999, "12M RTTY",               true,
                                 24.925000, 24.929999, "12M Packet",             true,
                                 24.930000, 24.930000, "12M NCDXF Beacons",      true,
-                                24.930001, 24.989999, "12M SSB",                true,
 
-                                28.000000, 28.069999, "10M CW",                 true,
-                                28.070000, 28.149999, "10M RTTY",               true,
+                                24.930001, 24.987999, "12M SSB",                true,
+                                24.938000, 24.938001, "12M DV (Digital Voice)", true,                // ke9ns add 
+                                24.938002, 24.989999, "12M SSB",                true,
+
+
+                                28.000000, 28.073999, "10M CW",                 true,
+
+                                28.074000, 28.074000, "10M FT8 DIGU",           true, // ke9ns add 
+                                28.074001, 28.075999, "10M FT8 DIGU",           true, // ke9ns add
+                                28.076000, 28.076000, "10M JT65 DIGU",          true, // ke9ns add 
+                                28.076001, 28.078999, "10M JT65 DIGU",          true, // ke9ns add
+
+
+								28.079000, 28.149999, "10M RTTY",               true,
                                 28.150000, 28.199999, "10M CW",                 true,
                                 28.200000, 28.200000, "10M NCDXF Beacons",      true,
                                 28.200001, 28.299999, "10M Beacons",            true,
-                                28.300000, 28.679999, "10M SSB",                true,
+
+                                28.300000, 28.399999, "10M SSB",                true,
+                                28.400000, 28.400001, "10M DV (Digital Voice)", true,                // ke9ns add
+                                28.400002, 28.679999, "10M SSB",                true,
+
                                 28.680000, 28.680000, "10M SSTV",               true,
                                 28.680001, 28.999999, "10M SSB",                true,
                                 29.000000, 29.199999, "10M AM",                 true,
@@ -2262,9 +3009,29 @@ namespace PowerSDR
                                 50.060000, 50.079999, "6M Beacon Sub-Band",     true,
                                 50.080000, 50.099999, "6M CW",                  true,
                                 50.100000, 50.124999, "6M DX Window",           true,
-                                50.125000, 50.125000, "6M Calling Frequency",   true,
-                                50.125001, 50.299999, "6M SSB",                 true,
-                                50.300000, 50.599999, "6M All Modes",           true,
+
+                                50.125000, 50.125000, "6M Calling Frequency",   true, // calling freq
+
+								50.125001, 50.209999, "6M SSB",                 true,
+                                50.210000, 50.210001, "6M DV (Digital Voice)",  true,                // ke9ns add
+                                50.210002, 50.273999, "6M SSB",                 true,
+
+                                50.276000, 50.276000, "6M JT65 DIGU",           true, // ke9ns add 
+                                50.276001, 50.278999, "6M JT65 DIGU",           true, // ke9ns add
+                                50.279000, 50.309999, "6M All Modes",           true,
+                                50.310000, 50.310000, "6M JT65 DIGU",           true, // ke9ns add 
+                                50.310001, 50.312999, "6M JT65 DIGU",           true, // ke9ns add
+
+                                50.313000, 50.313000, "6M FT8 DIGU",            true, // ke9ns add   ?
+                                50.313001, 50.315999, "6M FT8 DIGU",            true, // ke9ns add
+
+                                50.316000, 50.322999, "6M All Modes",           true,
+
+                                50.323000, 50.323000, "6M DX FT8 DIGU",            true, // ke9ns add   ?
+                                50.323001, 50.325999, "6M DX FT8 DIGU",            true, // ke9ns add
+
+                                50.326000, 50.599999, "6M All Modes", true,
+
                                 50.600000, 50.619999, "6M Non Voice",           true,
                                 50.620000, 50.620000, "6M Digital Packet",      true,
                                 50.620001, 50.799999, "6M Non Voice",           true,
@@ -2465,44 +3232,82 @@ namespace PowerSDR
 
         private static void AddBandAusTextTable()  // ke9ns add Australia
         {
-            ds.Tables.Add("BandText");
+            if (bandtextrefresh == false) ds.Tables.Add("BandText");
+
             DataTable t = ds.Tables["BandText"];
 
-            Debug.WriteLine("Australia==============");
+            if (bandtextrefresh == false)
+            {
+                t.Columns.Add("Low", typeof(double));
+                t.Columns.Add("High", typeof(double));
+                t.Columns.Add("Name", typeof(string));
+                t.Columns.Add("TX", typeof(bool));
+            }
 
-            t.Columns.Add("Low", typeof(double));
-            t.Columns.Add("High", typeof(double));
-            t.Columns.Add("Name", typeof(string));
-            t.Columns.Add("TX", typeof(bool));
 
             object[] data = {
                                 1.800000, 1.809999, "160M CW/Digital Modes",    true,
                                 1.810000, 1.810000, "160M CW QRP",              true,
-                                1.810001, 1.842999, "160M CW",                  true,
+                                1.810001, 1.837999, "160M CW",                  true,
+
+                                1.838000, 1.838000, "160M PSK/JT65 DIGU",       true, // ke9ns add
+                                1.838001, 1.839999, "160M PSK/JT65 DIGU",       true, // ke9ns add
+
+                                1.840000, 1.840000, "160M FT8 DIGU",            true, // ke9ns add  1.84
+                                1.840001, 1.842500, "160M FT8 DIGU",            true, // ke9ns add
+                                1.842501, 1.842999, "160M FT8 DIGU",            true,
+
                                 1.843000, 1.909999, "160M SSB/SSTV/Wide Band",  true,
+
                                 1.910000, 1.910000, "160M SSB QRP",             true,
                                 1.910001, 1.994999, "160M SSB/SSTV/Wide Band",  true,
                                 1.995000, 1.999999, "160M Experimental",        true,
 
                                 3.500000, 3.524999, "80M Extra CW",             true,
-                                3.525000, 3.579999, "80M CW",                   true,
+                                3.525000, 3.569999, "80M CW",                   true,
+
+                                3.570000, 3.570000, "80M JT65 DIGU",            true, // ke9ns add
+                                3.570001, 3.572999, "80M JT65 DIGU",            true, // ke9ns add
+                               
+                                3.573000, 3.573000, "80M FT8 DIGU",             true, // ke9ns add  3.573
+                                3.573001, 3.575500, "80M FT8 DIGU",             true, // ke9ns add
+
+                                3.575501, 3.579999, "80M PSK",                  true,
+
                                 3.580000, 3.589999, "80M RTTY",                 true,
                                 3.590000, 3.590000, "80M RTTY DX",              true,
                                 3.590001, 3.599999, "80M RTTY",                 true,
-                                3.600000, 3.699999, "75M Extra SSB",            true,
-                                3.700000, 3.789999, "75M Ext/Adv SSB",          true,
-                                3.790000, 3.799999, "75M Ext/Adv DX Window",    true,
+
+                                3.600000, 3.629999, "80M Extra SSB",            true,
+                                3.630000, 3.630000, "80M Extra eSSB",            true, // ke9ns
+                                3.630001, 3.699999, "80M Extra SSB",            true,
+
+
+                                3.700000, 3.789999, "80M Ext/Adv SSB",          true,
+                                3.790000, 3.799999, "80M Ext/Adv DX Window",    true,
                                 3.800000, 3.844999, "75M SSB",                  true,
                                 3.845000, 3.845000, "75M SSTV",                 true,
                                 3.845001, 3.884999, "75M SSB",                  true,
                                 3.885000, 3.885000, "75M AM Calling Frequency", true,
-                                3.885001, 3.999999, "75M SSB",                  true,
+                                3.885001, 4.000000, "75M SSB",                  true,
 
                            
                                 7.000000, 7.024999, "40M Extra CW",             true, // ke9ns mod
 								7.025000, 7.039999, "40M CW",                   true,
+
                                 7.040000, 7.040000, "40M RTTY DX",              true,
-                                7.040001, 7.099999, "40M RTTY",                 true,
+                                7.040001, 7.069999, "40M RTTY",                 true,
+                                
+                                7.070000, 7.070000, "40m PSK",                  true,            // ke9ns add
+                                7.070001, 7.073999, "40m PSK",                  true,
+
+                                7.074000, 7.074000, "40M FT8 DIGU",             true, // ke9ns add  7.074
+                                7.074001, 7.075999, "40M FT8 DIGU",             true, // ke9ns add
+
+                                7.076000, 7.076000, "40M JT65 DIGU",            true, // ke9ns add
+                                7.076001, 7.078999, "40M JT65 DIGU",            true, // ke9ns add
+
+	                            7.079000, 7.099999, "40M RTTY",                 true,
                                 7.100000, 7.124999, "40M CW",                   true,
                                 7.125000, 7.170999, "40M Ext/Adv SSB",          true,
                                 7.171000, 7.171000, "40M SSTV",                 true,
@@ -2512,12 +3317,28 @@ namespace PowerSDR
                                 7.290001, 7.299999, "40M SSB",                  true,
 
                                 10.100000, 10.129999, "30M CW",                 true,
-                                10.130000, 10.139999, "30M RTTY",               true,
-                                10.140000, 10.149999, "30M Packet",             true,
+                                10.130000, 10.135999, "30M RTTY",               true,
+
+                                10.136000, 10.136000, "30M FT8 DIGU",           true, // ke9ns add
+                                10.136001, 10.137999, "30M FT8 DIGU",       true, // ke9ns add
+
+                                10.138000, 10.138000, "30M PSK/JT65 DIGU",          true, // ke9ns add
+                                10.138001, 10.138999, "30M PSK/JT65 DIGU",          true, // ke9ns add
+                                10.139000, 10.139999, "30M RTTY",               true,
+                                10.140000, 10.149999, "30M Narrow Band Modes",  true,
 
                                 14.000000, 14.024999, "20M Extra CW",           true,
                                 14.025000, 14.069999, "20M CW",                 true,
-                                14.070000, 14.094999, "20M RTTY",               true,
+                                14.070000, 14.073999, "20M RTTY",               true,
+
+                                14.074000, 14.074000, "20M FT8 DIGU",           true, // ke9ns add
+                                14.074001, 14.075999, "20M FT8 DIGU",           true, // ke9ns add
+
+                                14.076000, 14.076000, "20M JT65 DIGU",          true, // ke9ns add
+                                14.076001, 14.078999, "20M JT65 DIGU",          true, // ke9ns add
+
+                                14.079000, 14.094999, "20M RTTY",               true,
+
                                 14.095000, 14.099499, "20M Packet",             true,
                                 14.099500, 14.099999, "20M CW",                 true,
                                 14.100000, 14.100000, "20M NCDXF Beacons",      true,
@@ -2527,20 +3348,54 @@ namespace PowerSDR
                                 14.150000, 14.174999, "20M Extra SSB",          true,
                                 14.175000, 14.224999, "20M Ext/Adv SSB",        true,
                                 14.225000, 14.229999, "20M SSB",                true,
-                                14.230000, 14.230000, "20M SSTV",               true,
-                                14.230001, 14.285999, "20M SSB",                true,
-                                14.286000, 14.286000, "20M AM Calling Frequency", true,
-                                14.286001, 14.349999, "20M SSB",                true,
+
+
+                                14.230000, 14.230000, "20M SSTV",          true,
+                                14.230001, 14.232999, "20M SSTV",               true,
+
+                                14.233000, 14.233000, "20M EasyPal",        true,
+                                14.233001, 14.235999, "20M EasyPal",        true,
+
+                                14.236000, 14.282999, "20M SSB",                true,
+                                14.283000, 14.285999, "20M AM ", true,
+                                14.286000, 14.286000, "20M AM Calling Freq", true,
+                                14.286001, 14.288999, "20M AM ", true,
+                               
+                                14.289000, 14.339999, "20M SSB",                true,
+                                14.340000, 14.340001, "20M DV (Digital Voice)", true,                // ke9ns add   
+                                14.340002, 14.349999, "20M SSB",          true,
+
 
                                 18.068000, 18.099999, "17M CW",                 true,
-                                18.100000, 18.104999, "17M RTTY",               true,
-                                18.105000, 18.109999, "17M Packet",             true,
+                                18.100000, 18.100000, "17M FT8 DIGU",           true, // ke9ns add
+                                18.100001, 18.101999, "17M FT8 DIGU",           true, // ke9ns add
+
+                                18.102000, 18.102000, "17M JT65 DIGU",          true, // ke9ns add
+                                18.102001, 18.103999, "17M JT65 DIGU",          true, // ke9ns add
+
+                                18.104000, 18.107999, "17M RTTY",                true,
+
+                                18.108000, 18.108999, "17M PSK",                true,
+                                18.109000, 18.109999, "17M Packet",             true,
                                 18.110000, 18.110000, "17M NCDXF Beacons",      true,
-                                18.110001, 18.167999, "17M SSB",                true,
+                              
+                                18.110001, 18.147999, "17M SSB",                true,
+                                18.148000, 18.148001, "17M DV (Digital Voice)", true,                // ke9ns add   
+								18.148002, 18.167999, "17M SSB",                true,
+
+
 
                                 21.000000, 21.024999, "15M Extra CW",           true,
                                 21.025000, 21.069999, "15M CW",                 true,
-                                21.070000, 21.099999, "15M RTTY",               true,
+                                21.070000, 21.073999, "15M RTTY",               true,
+
+                                21.074000, 21.074000, "15M FT8 DIGU",           true, // ke9ns add 
+                                21.074001, 21.075999, "15M FT8 DIGU",           true, // ke9ns add
+
+                                21.076000, 21.076000, "15M JT65 DIGU",          true, // ke9ns add
+                                21.076001, 21.078999, "15M JT65 DIGU",          true, // ke9ns add
+                                21.079000, 21.099999, "15M RTTY",               true,
+
                                 21.100000, 21.109999, "15M Packet",             true,
                                 21.110000, 21.149999, "15M CW",                 true,
                                 21.150000, 21.150000, "15M NCDXF Beacons",      true,
@@ -2549,20 +3404,52 @@ namespace PowerSDR
                                 21.225000, 21.274999, "15M Ext/Adv SSB",        true,
                                 21.275000, 21.339999, "15M SSB",                true,
                                 21.340000, 21.340000, "15M SSTV",               true,
-                                21.340001, 21.449999, "15M SSB",                true,
 
-                                24.890000, 24.919999, "12M CW",                 true,
-                                24.920000, 24.924999, "12M RTTY",               true,
+                                21.340001, 21.379999, "15M SSB",                true,
+                                21.380000, 21.380001, "15M DV (Digital Voice)", true,                // ke9ns add    
+                                21.380002, 21.450000, "15M SSB",                true,
+
+
+
+                                24.890000, 24.914999, "12M CW",                 true,
+                               
+                                24.915000, 24.915000, "12M FT8 DIGU",           true, // ke9ns add 
+                                24.915001, 24.916999, "12M FT8 DIGU",           true, // ke9ns add
+
+                                24.917000, 24.917000, "12M JT65 DIGU",          true, // ke9ns add
+                                24.917001, 24.919999, "12M JT65 DIGU",          true, // ke9ns add
+                                24.920000, 24.924999, "12M RTTY",             true,
+
                                 24.925000, 24.929999, "12M Packet",             true,
                                 24.930000, 24.930000, "12M NCDXF Beacons",      true,
-                                24.930001, 24.989999, "12M SSB",                true,
+
+                                24.930001, 24.987999, "12M SSB",                true,
+                                24.938000, 24.938001, "12M DV (Digital Voice)", true,                // ke9ns add 
+                                24.938002, 24.989999, "12M SSB",                true,
+
+
+
+
 
                                 28.000000, 28.069999, "10M CW",                 true,
-                                28.070000, 28.149999, "10M RTTY",               true,
+                                28.070000, 28.073999, "10M RTTY",               true,
+
+                                28.074000, 28.074000, "10M FT8 DIGU",           true, // ke9ns add 
+                                28.074001, 28.075999, "10M FT8 DIGU",           true, // ke9ns add
+                                28.076000, 28.076000, "10M JT65 DIGU",          true, // ke9ns add 
+                                28.076001, 28.078999, "10M JT65 DIGU",          true, // ke9ns add
+
+                                28.079000, 28.149999, "10M RTTY",               true,
+
+
                                 28.150000, 28.199999, "10M CW",                 true,
                                 28.200000, 28.200000, "10M NCDXF Beacons",      true,
                                 28.200001, 28.299999, "10M Beacons",            true,
-                                28.300000, 28.679999, "10M SSB",                true,
+
+                                28.300000, 28.399999, "10M SSB",                true,
+                                28.400000, 28.400001, "10M DV (Digital Voice)", true,                // ke9ns add
+                                28.400002, 28.679999, "10M SSB",                true,
+
                                 28.680000, 28.680000, "10M SSTV",               true,
                                 28.680001, 28.999999, "10M SSB",                true,
                                 29.000000, 29.199999, "10M AM",                 true,
@@ -2580,8 +3467,28 @@ namespace PowerSDR
                                 50.080000, 50.099999, "6M CW",                  true,
                                 50.100000, 50.124999, "6M DX Window",           true,
                                 50.125000, 50.125000, "6M Calling Frequency",   true,
-                                50.125001, 50.299999, "6M SSB",                 true,
-                                50.300000, 50.599999, "6M All Modes",           true,
+
+               
+                                50.125001, 50.209999, "6M SSB",                 true,
+                                50.210000, 50.210001, "6M DV (Digital Voice)",  true,                // ke9ns add
+                                50.210002, 50.275999, "6M SSB",                 true,
+
+                                50.276000, 50.276000, "6M JT65 DIGU",           true, // ke9ns add 
+                                50.276001, 50.278999, "6M JT65 DIGU",           true, // ke9ns add
+                                50.279000, 50.309999, "6M All Modes",           true,
+                                50.310000, 50.310000, "6M JT65 DIGU",           true, // ke9ns add 
+                                50.310001, 50.312999, "6M JT65 DIGU",           true, // ke9ns add
+
+                                50.313000, 50.313000, "6M FT8 DIGU",            true, // ke9ns add   ?
+                                50.313001, 50.315999, "6M FT8 DIGU",            true, // ke9ns add
+
+                                50.316000, 50.322999, "6M All Modes",           true,
+
+                                50.323000, 50.323000, "6M DX FT8 DIGU",            true, // ke9ns add   ?
+                                50.323001, 50.325999, "6M DX FT8 DIGU",            true, // ke9ns add
+
+                                50.326000, 50.599999, "6M All Modes", true,
+
                                 50.600000, 50.619999, "6M Non Voice",           true,
                                 50.620000, 50.620000, "6M Digital Packet",      true,
                                 50.620001, 50.799999, "6M Non Voice",           true,
@@ -2786,8 +3693,16 @@ namespace PowerSDR
             object[] data = {
 								1.800000, 1.829999, "160M CW",	                true,
                                 1.830000, 1.833999, "160M CW & NB Digital",     true,
-                                1.834000, 1.839999, "160M CW",	                true,
-								1.840000, 1.999999, "160M CW & Phone",	        true,
+                                1.834000, 1.837999, "160M CW",	                true,
+
+                                1.838000, 1.838000, "160M PSK/JT65 DIGU",       true, // ke9ns add
+                                1.838001, 1.839999, "160M PSK/JT65 DIGU",       true, // ke9ns add
+
+                                1.840000, 1.840000, "160M FT8 DIGU",            true, // ke9ns add  1.84
+                                1.840001, 1.842500, "160M FT8 DIGU",            true, // ke9ns add
+                                1.842501, 1.842999, "160M FT8 DIGU",            true,
+
+                                1.843000, 1.999999, "160M CW & Phone",	        true,
                             };
 
             for (int i = 0; i < data.Length / 4; i++)
@@ -2807,11 +3722,26 @@ namespace PowerSDR
             object[] data = {
 								3.500000, 3.509999, "80M CW DX",	  			true,
                                 3.510000, 3.534999, "80M CW",	    	    	true,
-                                3.535000, 3.599999, "80M Phone & CW",	    	true,
+                                3.535000, 3.569999, "80M Phone & CW",	    	true,
+
+                                3.570000, 3.570000, "80M JT65 DIGU",            true, // ke9ns add
+                                3.570001, 3.572999, "80M JT65 DIGU",            true, // ke9ns add
+                               
+                                3.573000, 3.573000, "80M FT8 DIGU",             true, // ke9ns add  3.573
+                                3.573001, 3.575500, "80M FT8 DIGU",             true, // ke9ns add
+
+                                3.575501, 3.599999, "80M Phone & CW",          true,
+
                                 3.600000, 3.600000, "80M IARU Emergency",       true,
-                                3.600001, 3.774999, "80M Phone & CW",	    	true,
+
+                                3.600001, 3.629999, "80M Phone & CW",            true,
+                                3.630000, 3.630000, "80M eSSB",                  true, //ke9ns add
+                                3.630001, 3.699999, "80M Phone & CW",            true,
+
+                                3.700000, 3.774999, "80M Phone & CW",	    	true,
 								3.775000, 3.799999, "80M DX Phone & CW",	    true,
 								3.800000, 3.899999, "80M Phone & CW",			true,
+
                             };
 
             for (int i = 0; i < data.Length / 4; i++)
@@ -2832,16 +3762,16 @@ namespace PowerSDR
             object[] data = {
 
 
-                                5.250000, 5.351499, "60M RX Only",              false,
+                                5.250000, 5.351499, "60M RX Only",                     false,
 
-                                5.351500, 5.335999, "60M 200hz RX Narrow Band Modes",    false,
+                                5.351500, 5.335999, "60M 200hz RX Narrow Band Modes",  false,
                                 5.354000, 5.356999, "60M RX USB (UK CH 7)",            false,
-                                5.357000, 5.359999, "60M RX USB (US CH 3)",  false,
-                                5.360000, 5.362999, "60M RX USB",            false,
+                                5.357000, 5.359999, "60M RX USB (US CH 3)",            false,
+                                5.360000, 5.362999, "60M RX USB",                      false,
                                 5.363000, 5.365999, "60M RX USB (UK CH 8)",            false,
-                                5.366000, 5.366500, "60M 20hz RX Narrow Band Modes",    false,
+                                5.366000, 5.366500, "60M 20hz RX Narrow Band Modes",   false,
 
-                                5.366501, 5.450000, "60M RX Only",              false,
+                                5.366501, 5.450000, "60M RX Only",                    false,
 
                             };
 
@@ -2863,7 +3793,22 @@ namespace PowerSDR
 								7.000000, 7.024999, "40M CW",			    	true,
                                 7.025000, 7.029999, "40M CW & NB Digital",		true,
                                 7.030000, 7.039999, "40M All Modes",	        true,
-								7.040000, 7.109999, "40M Phone & CW",       	true,
+                          
+                                7.035000, 7.035000, "40m PSK",                  true,            // ke9ns add
+                                7.035001, 7.039999, "40m PSK",                  true,
+
+                                7.040000, 7.042999, "40M Phone & CW",       	true,
+
+                                7.043000, 7.073999, "40M RTTY",                 true,
+
+                                7.074000, 7.074000, "40M FT8 DIGU",             true, // ke9ns add  7.074
+                                7.074001, 7.075999, "40M FT8 DIGU",             true, // ke9ns add
+
+                                7.076000, 7.076000, "40M JT65 DIGU",            true, // ke9ns add
+                                7.076001, 7.078999, "40M JT65 DIGU",            true, // ke9ns add
+
+                                7.079000, 7.109999, "40M Phone & CW",           true,
+
                                 7.110000, 7.110000, "40M IARU Emergency",       true,
                                 7.110001, 7.299999, "40M Phone & CW",			true,
                             };
@@ -2883,7 +3828,14 @@ namespace PowerSDR
         {
             DataTable t = ds.Tables["BandText"];
             object[] data = {
-								10.100000, 10.139999, "30M CW",					true,
+								10.100000, 10.135999, "30M CW",					true,
+
+                                10.136000, 10.136000, "30M FT8 DIGU",           true, // ke9ns add
+                                10.136001, 10.137999, "30M FT8 DIGU",       true, // ke9ns add
+
+                                10.138000, 10.138000, "30M PSK/JT65 DIGU",          true, // ke9ns add
+                                10.138001, 10.138999, "30M PSK/JT65 DIGU",          true, // ke9ns add
+                                10.139000, 10.139999, "30M RTTY",               true,
                                 10.140000, 10.149999, "30M CW & NB Digital",	true,
                             };
 
@@ -2903,17 +3855,42 @@ namespace PowerSDR
             DataTable t = ds.Tables["BandText"];
             object[] data = {
 								14.000000, 14.069999, "20M CW",		        	true,
-								14.070000, 14.094999, "20M CW & NB Digital",	true,
+								14.070000, 14.073999, "20M CW & NB Digital",	true,
+
+                                14.074000, 14.074000, "20M FT8 DIGU",           true, // ke9ns add
+                                14.074001, 14.075999, "20M FT8 DIGU",           true, // ke9ns add
+
+                                14.076000, 14.076000, "20M JT65 DIGU",          true, // ke9ns add
+                                14.076001, 14.078999, "20M JT65 DIGU",          true, // ke9ns add
+
+                                14.079000, 14.094999, "20M RTTY",               true,
+
                                 14.095000, 14.099499, "20M Data & Packet",      true,
 								14.099500, 14.099999, "20M Beacons",		    true,
                                 14.100000, 14.100000, "20M NCDXF Beacons",  	true,
                                 14.100001, 14.100499, "20M Beacons",		    true,
                                 14.100500, 14.111999, "20M Data & Packet",      true,
                                 14.112000, 14.229999, "20M Phone & CW",         true,
-                                14.230000, 14.230000, "20M SSTV",				true,
-                                14.230001, 14.299999, "20M Phone & CW",         true,
+
+                                14.230000, 14.230000, "20M SSTV",          true,
+                                14.230001, 14.232999, "20M SSTV",               true,
+
+                                14.233000, 14.233000, "20M EasyPal",        true,
+                                14.233001, 14.235999, "20M EasyPal",        true,
+
+                                14.236000, 14.282999, "20M SSB",                true,
+                                14.283000, 14.285999, "20M AM ", true,
+                                14.286000, 14.286000, "20M AM Calling Freq", true,
+                                14.286001, 14.288999, "20M AM ", true,
+                              
+                                14.289000, 14.299999, "20M Phone & CW",         true,
                                 14.300000, 14.300000, "20M IARU Emergency",     true,
-                                14.300001, 14.349999, "20M All Modes",          true,
+
+                                14.300001, 14.339999, "20M All Modes",          true,
+                                14.340000, 14.340001, "20M DV (Digital Voice)", true,                // ke9ns add   
+                                14.340002, 14.349999, "20M All Modes",          true,
+
+
                             };
 
             for (int i = 0; i < data.Length / 4; i++)
@@ -2932,14 +3909,26 @@ namespace PowerSDR
             DataTable t = ds.Tables["BandText"];
             object[] data = {
 								18.068000, 18.099999, "17M CW",					true,
-								18.100000, 18.109499, "17M CW & NB Digital",	true,
-								18.109500, 18.109999, "17M Beacons",		    true,
+                                18.100000, 18.100000, "17M FT8 DIGU",           true, // ke9ns add
+                                18.100001, 18.101999, "17M FT8 DIGU",           true, // ke9ns add
+
+                                18.102000, 18.102000, "17M JT65 DIGU",          true, // ke9ns add
+                                18.102001, 18.103999, "17M JT65 DIGU",          true, // ke9ns add
+
+                                18.104000, 18.107999, "17M RTTY",                true,
+
+                                18.108000, 18.109499, "17M PSK",                true,
+                                18.109500, 18.109999, "17M Beacons",		    true,
                                 18.110000, 18.110000, "17M NCDXF Beacons",	    true,
                                 18.110001, 18.110499, "17M Beacons",		    true,
 								18.110500, 18.159999, "17M Phone & CW",			true,
                                 18.160000, 18.160000, "17M IARU Emergency",		true,
-                                18.160001, 18.167999, "17M All Modes",	        true,
-                            };
+                               
+                                18.160001, 18.147999, "17M All Modes",                true,
+                                18.148000, 18.148001, "17M DV (Digital Voice)", true,                // ke9ns add   
+								18.148002, 18.167999, "17M All Modes",                true,
+
+            };
 
             for (int i = 0; i < data.Length / 4; i++)
             {
@@ -2957,8 +3946,18 @@ namespace PowerSDR
             DataTable t = ds.Tables["BandText"];
             object[] data = {
 								21.000000, 21.069999, "15M CW",			        true,
-								21.070000, 21.124999, "15M CW & NB Digital",	true,
-								21.125000, 21.149499, "15M Phone & CW",	        true,
+								21.070000, 21.073999, "15M CW & NB Digital",	true,
+
+                                21.074000, 21.074000, "15M FT8 DIGU",           true, // ke9ns add 
+                                21.074001, 21.075999, "15M FT8 DIGU",           true, // ke9ns add
+
+                                21.076000, 21.076000, "15M JT65 DIGU",          true, // ke9ns add
+                                21.076001, 21.078999, "15M JT65 DIGU",          true, // ke9ns add
+                                21.079000, 21.099999, "15M RTTY",               true,
+
+                                21.100000, 21.109999, "15M PSK / Packet",                true,
+                                21.110000, 21.124999, "15M CW",                 true,
+                                21.125000, 21.149499, "15M Phone & CW",	        true,
                                 21.149500, 21.149999, "15M Beacons",		    true,
                                 21.150000, 21.150000, "15M NCDXF Beacons",	    true,
                                 21.150001, 21.150499, "15M Beacons",		    true,
@@ -2966,7 +3965,7 @@ namespace PowerSDR
                                 21.340000, 21.340000, "15M SSTV",		        true,
                                 21.340001, 21.359999, "15M Phone & CW",			true,
                                 21.360000, 21.360000, "15M Emergency",	    	true,
-                                21.360001, 21.449999, "15M All Modes",			true,
+                                21.360001, 21.450000, "15M All Modes",			true,
                             };
 
             for (int i = 0; i < data.Length / 4; i++)
@@ -2985,12 +3984,26 @@ namespace PowerSDR
             DataTable t = ds.Tables["BandText"];
             object[] data = {
 								24.890000, 24.919999, "12M CW",					true,
-                                24.920000, 24.929499, "12M CW & NB Digital",	true,
-								24.929500, 24.929999, "12M Beacons",		    true,
+                                24.920000, 24.914999, "12M CW & NB Digital",	true,
+
+                                24.915000, 24.915000, "12M FT8 DIGU",           true, // ke9ns add
+                                24.915001, 24.916999, "12M FT8 DIGU",           true, // ke9ns add
+
+                                24.917000, 24.917000, "12M JT65 DIGU",          true, // ke9ns add
+                                24.917001, 24.919999, "12M JT65 DIGU",          true, // ke9ns add
+
+                                24.920000, 24.929499, "12M CW & NB Digital",   true,
+
+                                24.929500, 24.929999, "12M Beacons",		    true,
                                 24.930000, 24.930000, "12M NCDXF Beacons",	    true,
                                 24.930001, 24.930499, "12M Beacons",		    true,
-                                24.930500, 24.989999, "12M All Modes",			true,
-                            };
+                               
+                                24.930500, 24.987999, "12M All Modes",                true,
+                                24.938000, 24.938001, "12M DV (Digital Voice)", true,                // ke9ns add 
+                                24.938002, 24.989999, "12M All Modes",                true,
+
+
+            };
 
             for (int i = 0; i < data.Length / 4; i++)
             {
@@ -3008,7 +4021,15 @@ namespace PowerSDR
             DataTable t = ds.Tables["BandText"];
             object[] data = {
 								28.000000, 28.049999, "10M CW",					true,
-                                28.050000, 28.149999, "10M CW & NB Digital",	true,
+                                28.050000, 28.073999, "10M CW & NB Digital",	true,
+
+                                28.074000, 28.074000, "10M FT8 DIGU",           true, // ke9ns add
+                                28.074001, 28.075999, "10M FT8 DIGU",           true, // ke9ns add
+                                28.076000, 28.076000, "10M JT65 DIGU",          true, // ke9ns add 
+                                28.076001, 28.078999, "10M JT65 DIGU",          true, // ke9ns add
+
+                                28.079000, 28.149999, "10M CW & NB Digital",   true,
+
                                 28.150000, 28.189999, "10M CW",					true,
 								28.190000, 28.199999, "10M Beacons",	        true,
                                 28.200000, 28.200000, "10M NCDXF Beacons",      true,
@@ -3035,9 +4056,25 @@ namespace PowerSDR
         {
             DataTable t = ds.Tables["BandText"];
             object[] data = {
-								50.000000, 50.099999, "6M CW & Beacons",		    true,
-                                50.100000, 50.499999, "6M Phone/NB Digital/CW",	    true,
-                                50.500000, 53.999999, "6M Wide Band Modes & CW",    true,
+								50.000000, 50.099999, "6M CW & Beacons",		true,
+                                50.100000, 50.124999, "6M Phone/NB Digital/CW",	true,
+                                50.125000, 50.125000, "6M Calling Frequency",   true, // calling freq
+                                50.125001, 50.275999, "6M Phone/NB Digital/CW", true,
+                                50.276000, 50.276000, "6M JT65 DIGU",           true, // ke9ns add 
+                                50.276001, 50.278999, "6M JT65 DIGU",           true, // ke9ns add
+                                50.279000, 50.309999, "6M All Modes",           true,
+                                50.310000, 50.310000, "6M JT65 DIGU",           true, // ke9ns add 
+                                50.310001, 50.312999, "6M JT65 DIGU",           true, // ke9ns add
+
+                                50.313000, 50.313000, "6M FT8 DIGU",            true, // ke9ns add   ?
+                                50.313001, 50.315999, "6M FT8 DIGU",            true, // ke9ns add
+
+                                50.316000, 50.322999, "6M Wide Band Modes & CW",           true,
+
+                                50.323000, 50.323000, "6M DX FT8 DIGU",            true, // ke9ns add   ?
+                                50.323001, 50.325999, "6M DX FT8 DIGU",            true, // ke9ns add
+                              
+                                50.326000, 53.999999, "6M Wide Band Modes & CW", true,
                             };
 
             for (int i = 0; i < data.Length / 4; i++)
@@ -3175,8 +4212,11 @@ namespace PowerSDR
             object[] data = {
 								1.800000, 1.809999, "160M Band RX",             false,
                                 1.810000, 1.824999, "160M CW",	                true,
+
+
+
                                 1.825000, 1.907499, "160M Band RX",             false,
-                                1.907500, 1.912499, "160M CW & NB Digital",     true,
+                                1.907500, 1.912499, "160M CW & NB Digital (FT8)",     true,
                                 1.912500, 1.999999, "160M Band RX",             false,
                             };
 
@@ -3199,7 +4239,14 @@ namespace PowerSDR
                                 3.520000, 3.524999, "80M CW & NB Digital",	    true,
                                 3.525000, 3.525000, "80M Emergency",            true,                                
                                 3.525001, 3.529999, "80M Phone/CW/NB Digital",	true,
-                                3.530000, 3.574999, "80M Phone/CW/Digital",     true,
+                                3.530000, 3.569999, "80M Phone/CW/Digital",     true,
+
+                                3.570000, 3.570000, "80M JT65 DIGU",            true, // ke9ns add
+                                3.570001, 3.572999, "80M JT65 DIGU",            true, // ke9ns add
+                               
+                                3.573000, 3.573000, "80M FT8 DIGU",             true, // ke9ns add  3.573
+                                3.573001, 3.574999, "80M FT8 DIGU",             true, // ke9ns add
+                             
                                 3.575000, 3.598999, "80M Band RX",              false,
                                 3.599000, 3.611999, "80M Phone/CW/Digital",     true,
                                 3.612000, 3.679999, "80M Band RX",              false,
@@ -3233,7 +4280,16 @@ namespace PowerSDR
                                 7.030000, 7.030000, "40M Emergency",            true,
                                 7.030001, 7.039999, "40M CW & NB Digital",      true,
                                 7.040000, 7.044999, "40M DX NB Digital/CW",	    true,
-                                7.045000, 7.099999, "40M CW/Phone/Image",       true,
+                                7.045000, 7.073999, "40M CW/Phone/Image",       true,
+
+                                7.074000, 7.074000, "40M FT8 DIGU",             true, // ke9ns add  7.074
+                                7.074001, 7.075999, "40M FT8 DIGU",             true, // ke9ns add
+
+                                7.076000, 7.076000, "40M JT65 DIGU",            true, // ke9ns add
+                                7.076001, 7.078999, "40M JT65 DIGU",            true, // ke9ns add
+                              
+                                7.079000, 7.099999, "40M CW/Phone/Image",       true,
+
                                 7.100000, 7.199999, "40M All Modes",            true,
                                 7.200000, 7.299999, "40M RX Only",              false,
                             };
@@ -3254,7 +4310,15 @@ namespace PowerSDR
             DataTable t = ds.Tables["BandText"];
             object[] data = {
 								28.000000, 28.069999, "10M CW",					true,
-                                28.070000, 28.149999, "10M CW & NB Digital",	true,
+                                28.070000, 28.073999, "10M CW & NB Digital",	true,
+
+                                28.074000, 28.074000, "10M FT8 DIGU",           true, // ke9ns add
+                                28.074001, 28.075999, "10M FT8 DIGU",           true, // ke9ns add
+                                28.076000, 28.076000, "10M JT65 DIGU",          true, // ke9ns add 
+                                28.076001, 28.078999, "10M JT65 DIGU",          true, // ke9ns add
+
+                                28.079000, 28.149999, "10M CW & NB Digital",    true,
+
                                 28.150000, 28.199499, "10M CW",					true,
 								28.199500, 28.199999, "10M Beacons",		    true,
                                 28.200000, 28.200000, "10M NCDXF Beacons",	    true,
@@ -3283,7 +4347,26 @@ namespace PowerSDR
             DataTable t = ds.Tables["BandText"];
             object[] data = {
 								50.000000, 50.099999, "6M DX CW/EME/Beacons",	true,
-                                50.100000, 50.899999, "6M Phone/CW/Image",	    true,
+                                50.100000, 50.275999, "6M Phone/CW/Image",	    true,
+
+                                50.276000, 50.276000, "6M JT65 DIGU",           true, // ke9ns add 
+                                50.276001, 50.278999, "6M JT65 DIGU",           true, // ke9ns add
+                                50.279000, 50.309999, "6M All Modes",           true,
+                                50.310000, 50.310000, "6M JT65 DIGU",           true, // ke9ns add 
+                                50.310001, 50.312999, "6M JT65 DIGU",           true, // ke9ns add
+
+                                50.313000, 50.899999, "6M Phone/CW/Image",     true,
+
+                                50.313000, 50.313000, "6M FT8 DIGU",            true, // ke9ns add   ?
+                                50.313001, 50.315999, "6M FT8 DIGU",            true, // ke9ns add
+
+                                50.316000, 50.322999, "6M Phone/CW/NB Digital",           true,
+
+                                50.323000, 50.323000, "6M DX FT8 DIGU",            true, // ke9ns add   ?
+                                50.323001, 50.325999, "6M DX FT8 DIGU",            true, // ke9ns add
+
+                                50.326000, 50.899999, "6M Phone/CW/NB Digital",           true,
+
                                 50.900000, 50.999999, "6M Phone/CW/NB Digital", true,
                                 51.100000, 51.999999, "6M Wide Phone/Image/CW", true,
                                 52.000000, 52.499999, "6M Phone/CW/NB Digital", true,
@@ -3324,17 +4407,20 @@ namespace PowerSDR
 
         #region IARU Regions 1-3 Bandstack
         
-        private static void AddBandStackTable()
-		{
-			ds.Tables.Add("BandStack");
-			DataTable t = ds.Tables["BandStack"];
+        private static void AddBandStackTable() // default // ke9ns for FRSRegion.US
+        {
+            if (bandtextrefresh == false)  ds.Tables.Add("BandStack");
 
-			t.Columns.Add("BandName", typeof(string));
-			t.Columns.Add("Mode", typeof(string));
-			t.Columns.Add("Filter", typeof(string));
-			t.Columns.Add("Freq", typeof(double));
+            DataTable t = ds.Tables["BandStack"];
 
+            if (bandtextrefresh == false)
+            {
+                t.Columns.Add("BandName", typeof(string));
+                t.Columns.Add("Mode", typeof(string));
+                t.Columns.Add("Filter", typeof(string));
+                t.Columns.Add("Freq", typeof(double));
 
+            }
            
             // FT8 1.84, 3.573, 5.357, 7.074, 10.136, 14.074, 18.1, 21.074, 24.915, 28.074, 50.274? or 50.313
 
@@ -3705,30 +4791,39 @@ namespace PowerSDR
                                 "40M", "CWL", "F1", 7.010000,
                                 "40M", "DIGU", "F1", 7.045000,
                                 "40M", "LSB", "F6", 7.10000,
+
                                 "30M", "CWU", "F1", 10.110000,
                                 "30M", "CWU", "F1", 10.120000,
                                 "30M", "DIGU", "F1", 10.140000,
+
                                 "20M", "CWU", "F1", 14.010000,
                                 "20M", "DIGU", "F1", 14.085000,
                                 "20M", "USB", "F6", 14.225000,
+
                                 "17M", "CWU", "F1", 18.078000,
                                 "17M", "DIGU", "F1", 18.100000,
                                 "17M", "USB", "F6", 18.140000,
+
                                 "15M", "CWU", "F1", 21.010000,
                                 "15M", "DIGU", "F1", 21.090000,
                                 "15M", "USB", "F6", 21.300000,
+
                                 "12M", "CWU", "F1", 24.900000,
                                 "12M", "DIGU", "F1", 24.920000,
                                 "12M", "USB", "F6", 24.940000,
+
                                 "10M", "CWU", "F1", 28.010000,
                                 "10M", "DIGU", "F1", 28.120000,
                                 "10M", "USB", "F6", 28.400000,
+
                                 "6M", "CWU", "F1", 50.090000,
                                 "6M", "USB", "F6", 50.150000,
                                 "6M", "DIGU", "F1", 50.250000,
+
                                 "2M", "CWU", "F1", 144.050000,
                                 "2M", "DIGU", "F1", 144.138000,
                                 "2M", "USB", "F6", 144.300000,
+
                                 "WWV", "SAM", "F5", 2.500000,
                                 "WWV", "SAM", "F5", 5.000000,
                                 "WWV", "SAM", "F5", 10.000000,
@@ -4040,7 +5135,7 @@ namespace PowerSDR
 
 			string[] vals = { "AM", "FM", "SSB", "SSTV", "CW", "PSK", "RTTY" };
 			
-			for(int i= 0; i<vals.Length; i++)
+			for(int i= 0; i < vals.Length; i++)
 			{
 				DataRow dr = t.NewRow();
 				dr[0] = i;
@@ -4048,6 +5143,66 @@ namespace PowerSDR
 				t.Rows.Add(dr);
 			}
 		}
+
+
+        //=============================================================
+        // ke9ns
+        private static void AddTXProfileTable1()
+        {
+            ds.Tables.Add("TXProfile");
+            DataTable t = ds.Tables["TXProfile"];
+
+
+            t.Columns.Add("TXEQ11", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ12", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ13", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ14", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ15", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ16", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ17", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ18", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ19", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ20", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ21", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ22", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ23", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ24", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ25", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ26", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ27", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ28", typeof(int)); // ke9ns add
+
+
+            DataRow dr = t.NewRow();
+
+            dr["Name"] = "Default";
+          
+
+            dr["TXEQ11"] = 0; // ke9ns add
+            dr["TXEQ12"] = 0; // ke9ns add
+            dr["TXEQ13"] = 0; // ke9ns add
+            dr["TXEQ14"] = 0; // ke9ns add
+            dr["TXEQ15"] = 0; // ke9ns add
+            dr["TXEQ16"] = 0; // ke9ns add
+            dr["TXEQ17"] = 0; // ke9ns add
+            dr["TXEQ18"] = 0; // ke9ns add
+            dr["TXEQ19"] = 0; // ke9ns add
+            dr["TXEQ20"] = 0; // ke9ns add
+            dr["TXEQ21"] = 0; // ke9ns add
+            dr["TXEQ22"] = 0; // ke9ns add
+            dr["TXEQ23"] = 0; // ke9ns add
+            dr["TXEQ24"] = 0; // ke9ns add
+            dr["TXEQ25"] = 0; // ke9ns add
+            dr["TXEQ26"] = 0; // ke9ns add
+            dr["TXEQ27"] = 0; // ke9ns add
+            dr["TXEQ28"] = 0; // ke9ns add
+
+
+
+
+        } // AddTXProfileTable1()
+
+
 
         private static void AddTXProfileTable(Model model)
 		{
@@ -4070,7 +5225,27 @@ namespace PowerSDR
 			t.Columns.Add("TXEQ8", typeof(int));
 			t.Columns.Add("TXEQ9", typeof(int));
 			t.Columns.Add("TXEQ10", typeof(int));
-			t.Columns.Add("DXOn", typeof(bool));
+
+            t.Columns.Add("TXEQ11", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ12", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ13", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ14", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ15", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ16", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ17", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ18", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ19", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ20", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ21", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ22", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ23", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ24", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ25", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ26", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ27", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ28", typeof(int)); // ke9ns add
+
+            t.Columns.Add("DXOn", typeof(bool));
 			t.Columns.Add("DXLevel", typeof(int));
 			t.Columns.Add("CompanderOn", typeof(bool));
 			t.Columns.Add("CompanderLevel", typeof(int));
@@ -4163,7 +5338,29 @@ namespace PowerSDR
 			dr["TXEQ8"] = 0;
 			dr["TXEQ9"] = 0;
 			dr["TXEQ10"] = 0;
-			dr["DXOn"] = false;
+
+            dr["TXEQ11"] = 0; // ke9ns add
+            dr["TXEQ12"] = 0; // ke9ns add
+            dr["TXEQ13"] = 0; // ke9ns add
+            dr["TXEQ14"] = 0; // ke9ns add
+            dr["TXEQ15"] = 0; // ke9ns add
+            dr["TXEQ16"] = 0; // ke9ns add
+            dr["TXEQ17"] = 0; // ke9ns add
+            dr["TXEQ18"] = 0; // ke9ns add
+            dr["TXEQ19"] = 0; // ke9ns add
+            dr["TXEQ20"] = 0; // ke9ns add
+            dr["TXEQ21"] = 0; // ke9ns add
+            dr["TXEQ22"] = 0; // ke9ns add
+            dr["TXEQ23"] = 0; // ke9ns add
+            dr["TXEQ24"] = 0; // ke9ns add
+            dr["TXEQ25"] = 0; // ke9ns add
+            dr["TXEQ26"] = 0; // ke9ns add
+            dr["TXEQ27"] = 0; // ke9ns add
+            dr["TXEQ28"] = 0; // ke9ns add
+
+
+
+            dr["DXOn"] = false;
 			dr["DXLevel"] = 3;
 			dr["CompanderOn"] = true;
 			dr["CompanderLevel"] = 2;
@@ -4260,7 +5457,7 @@ namespace PowerSDR
                     dr["FlexWire_Input_On"] = "0";
                     dr["FlexWire_Input_Level"] = 0;
                     break;
-            }
+            } // switch
 
 			t.Rows.Add(dr);
 
@@ -4285,7 +5482,27 @@ namespace PowerSDR
 			dr["TXEQ8"] = 0;
 			dr["TXEQ9"] = 0;
 			dr["TXEQ10"] = 0;
-			dr["DXOn"] = true;
+
+            dr["TXEQ11"] = 0; // ke9ns add
+            dr["TXEQ12"] = 0; // ke9ns add
+            dr["TXEQ13"] = 0; // ke9ns add
+            dr["TXEQ14"] = 0; // ke9ns add
+            dr["TXEQ15"] = 0; // ke9ns add
+            dr["TXEQ16"] = 0; // ke9ns add
+            dr["TXEQ17"] = 0; // ke9ns add
+            dr["TXEQ18"] = 0; // ke9ns add
+            dr["TXEQ19"] = 0; // ke9ns add
+            dr["TXEQ20"] = 0; // ke9ns add
+            dr["TXEQ21"] = 0; // ke9ns add
+            dr["TXEQ22"] = 0; // ke9ns add
+            dr["TXEQ23"] = 0; // ke9ns add
+            dr["TXEQ24"] = 0; // ke9ns add
+            dr["TXEQ25"] = 0; // ke9ns add
+            dr["TXEQ26"] = 0; // ke9ns add
+            dr["TXEQ27"] = 0; // ke9ns add
+            dr["TXEQ28"] = 0; // ke9ns add
+
+            dr["DXOn"] = true;
 			dr["DXLevel"] = 5;
 			dr["CompanderOn"] = false;
 			dr["CompanderLevel"] = 2;
@@ -4407,6 +5624,26 @@ namespace PowerSDR
             dr["TXEQ8"] = 3;
             dr["TXEQ9"] = 0;
             dr["TXEQ10"] = -6;
+
+            dr["TXEQ11"] = 0; // ke9ns add
+            dr["TXEQ12"] = 0; // ke9ns add
+            dr["TXEQ13"] = 0; // ke9ns add
+            dr["TXEQ14"] = 0; // ke9ns add
+            dr["TXEQ15"] = 0; // ke9ns add
+            dr["TXEQ16"] = 0; // ke9ns add
+            dr["TXEQ17"] = 0; // ke9ns add
+            dr["TXEQ18"] = 0; // ke9ns add
+            dr["TXEQ19"] = 0; // ke9ns add
+            dr["TXEQ20"] = 0; // ke9ns add
+            dr["TXEQ21"] = 0; // ke9ns add
+            dr["TXEQ22"] = 0; // ke9ns add
+            dr["TXEQ23"] = 0; // ke9ns add
+            dr["TXEQ24"] = 0; // ke9ns add
+            dr["TXEQ25"] = 0; // ke9ns add
+            dr["TXEQ26"] = 0; // ke9ns add
+            dr["TXEQ27"] = 0; // ke9ns add
+            dr["TXEQ28"] = 0; // ke9ns add
+
             dr["DXOn"] = false;
             dr["DXLevel"] = 3;
             dr["CompanderOn"] = true;
@@ -4529,6 +5766,26 @@ namespace PowerSDR
             dr["TXEQ8"] = 3;
             dr["TXEQ9"] = 0;
             dr["TXEQ10"] = -6;
+
+            dr["TXEQ11"] = 0; // ke9ns add
+            dr["TXEQ12"] = 0; // ke9ns add
+            dr["TXEQ13"] = 0; // ke9ns add
+            dr["TXEQ14"] = 0; // ke9ns add
+            dr["TXEQ15"] = 0; // ke9ns add
+            dr["TXEQ16"] = 0; // ke9ns add
+            dr["TXEQ17"] = 0; // ke9ns add
+            dr["TXEQ18"] = 0; // ke9ns add
+            dr["TXEQ19"] = 0; // ke9ns add
+            dr["TXEQ20"] = 0; // ke9ns add
+            dr["TXEQ21"] = 0; // ke9ns add
+            dr["TXEQ22"] = 0; // ke9ns add
+            dr["TXEQ23"] = 0; // ke9ns add
+            dr["TXEQ24"] = 0; // ke9ns add
+            dr["TXEQ25"] = 0; // ke9ns add
+            dr["TXEQ26"] = 0; // ke9ns add
+            dr["TXEQ27"] = 0; // ke9ns add
+            dr["TXEQ28"] = 0; // ke9ns add
+
             dr["DXOn"] = true;
             dr["DXLevel"] = 5;
             dr["CompanderOn"] = false;
@@ -4631,7 +5888,8 @@ namespace PowerSDR
             t.Rows.Add(dr);
 
             #endregion
-        }
+
+        } //  AddTXProfileTable(Model model)
 
         #region TX Profile Management
 
@@ -4656,7 +5914,28 @@ namespace PowerSDR
 			t.Columns.Add("TXEQ8", typeof(int));
 			t.Columns.Add("TXEQ9", typeof(int));
 			t.Columns.Add("TXEQ10", typeof(int));
-			t.Columns.Add("DXOn", typeof(bool));
+
+            t.Columns.Add("TXEQ11", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ12", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ13", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ14", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ15", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ16", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ17", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ18", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ19", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ20", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ21", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ22", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ23", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ24", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ25", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ26", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ27", typeof(int)); // ke9ns add
+            t.Columns.Add("TXEQ28", typeof(int)); // ke9ns add
+
+
+            t.Columns.Add("DXOn", typeof(bool));
 			t.Columns.Add("DXLevel", typeof(int));
 			t.Columns.Add("CompanderOn", typeof(bool));
 			t.Columns.Add("CompanderLevel", typeof(int));
@@ -4748,7 +6027,27 @@ namespace PowerSDR
 			dr["TXEQ8"] = 0;
 			dr["TXEQ9"] = 0;
 			dr["TXEQ10"] = 0;
-			dr["DXOn"] = false;
+
+            dr["TXEQ11"] = 0; // ke9ns add
+            dr["TXEQ12"] = 0; // ke9ns add
+            dr["TXEQ13"] = 0; // ke9ns add
+            dr["TXEQ14"] = 0; // ke9ns add
+            dr["TXEQ15"] = 0; // ke9ns add
+            dr["TXEQ16"] = 0; // ke9ns add
+            dr["TXEQ17"] = 0; // ke9ns add
+            dr["TXEQ18"] = 0; // ke9ns add
+            dr["TXEQ19"] = 0; // ke9ns add
+            dr["TXEQ20"] = 0; // ke9ns add
+            dr["TXEQ21"] = 0; // ke9ns add
+            dr["TXEQ22"] = 0; // ke9ns add
+            dr["TXEQ23"] = 0; // ke9ns add
+            dr["TXEQ24"] = 0; // ke9ns add
+            dr["TXEQ25"] = 0; // ke9ns add
+            dr["TXEQ26"] = 0; // ke9ns add
+            dr["TXEQ27"] = 0; // ke9ns add
+            dr["TXEQ28"] = 0; // ke9ns add
+
+            dr["DXOn"] = false;
 			dr["DXLevel"] = 3;
 			dr["CompanderOn"] = true;
 			dr["CompanderLevel"] = 2;
@@ -4870,7 +6169,27 @@ namespace PowerSDR
 			dr["TXEQ8"] = 0;
 			dr["TXEQ9"] = 0;
 			dr["TXEQ10"] = 0;
-			dr["DXOn"] = true;
+
+            dr["TXEQ11"] = 0; // ke9ns add
+            dr["TXEQ12"] = 0; // ke9ns add
+            dr["TXEQ13"] = 0; // ke9ns add
+            dr["TXEQ14"] = 0; // ke9ns add
+            dr["TXEQ15"] = 0; // ke9ns add
+            dr["TXEQ16"] = 0; // ke9ns add
+            dr["TXEQ17"] = 0; // ke9ns add
+            dr["TXEQ18"] = 0; // ke9ns add
+            dr["TXEQ19"] = 0; // ke9ns add
+            dr["TXEQ20"] = 0; // ke9ns add
+            dr["TXEQ21"] = 0; // ke9ns add
+            dr["TXEQ22"] = 0; // ke9ns add
+            dr["TXEQ23"] = 0; // ke9ns add
+            dr["TXEQ24"] = 0; // ke9ns add
+            dr["TXEQ25"] = 0; // ke9ns add
+            dr["TXEQ26"] = 0; // ke9ns add
+            dr["TXEQ27"] = 0; // ke9ns add
+            dr["TXEQ28"] = 0; // ke9ns add
+
+            dr["DXOn"] = true;
 			dr["DXLevel"] = 5;
 			dr["CompanderOn"] = false;
 			dr["CompanderLevel"] = 2;
@@ -4992,6 +6311,25 @@ namespace PowerSDR
             dr["TXEQ8"] = 3;
             dr["TXEQ9"] = 0;
             dr["TXEQ10"] = -6;
+            dr["TXEQ11"] = 0; // ke9ns add
+            dr["TXEQ12"] = 0; // ke9ns add
+            dr["TXEQ13"] = 0; // ke9ns add
+            dr["TXEQ14"] = 0; // ke9ns add
+            dr["TXEQ15"] = 0; // ke9ns add
+            dr["TXEQ16"] = 0; // ke9ns add
+            dr["TXEQ17"] = 0; // ke9ns add
+            dr["TXEQ18"] = 0; // ke9ns add
+            dr["TXEQ19"] = 0; // ke9ns add
+            dr["TXEQ20"] = 0; // ke9ns add
+            dr["TXEQ21"] = 0; // ke9ns add
+            dr["TXEQ22"] = 0; // ke9ns add
+            dr["TXEQ23"] = 0; // ke9ns add
+            dr["TXEQ24"] = 0; // ke9ns add
+            dr["TXEQ25"] = 0; // ke9ns add
+            dr["TXEQ26"] = 0; // ke9ns add
+            dr["TXEQ27"] = 0; // ke9ns add
+            dr["TXEQ28"] = 0; // ke9ns add
+
             dr["DXOn"] = false;
             dr["DXLevel"] = 3;
             dr["CompanderOn"] = true;
@@ -5114,6 +6452,26 @@ namespace PowerSDR
             dr["TXEQ8"] = 3;
             dr["TXEQ9"] = 0;
             dr["TXEQ10"] = -6;
+
+            dr["TXEQ11"] = 0; // ke9ns add
+            dr["TXEQ12"] = 0; // ke9ns add
+            dr["TXEQ13"] = 0; // ke9ns add
+            dr["TXEQ14"] = 0; // ke9ns add
+            dr["TXEQ15"] = 0; // ke9ns add
+            dr["TXEQ16"] = 0; // ke9ns add
+            dr["TXEQ17"] = 0; // ke9ns add
+            dr["TXEQ18"] = 0; // ke9ns add
+            dr["TXEQ19"] = 0; // ke9ns add
+            dr["TXEQ20"] = 0; // ke9ns add
+            dr["TXEQ21"] = 0; // ke9ns add
+            dr["TXEQ22"] = 0; // ke9ns add
+            dr["TXEQ23"] = 0; // ke9ns add
+            dr["TXEQ24"] = 0; // ke9ns add
+            dr["TXEQ25"] = 0; // ke9ns add
+            dr["TXEQ26"] = 0; // ke9ns add
+            dr["TXEQ27"] = 0; // ke9ns add
+            dr["TXEQ28"] = 0; // ke9ns add
+
             dr["DXOn"] = true;
             dr["DXLevel"] = 5;
             dr["CompanderOn"] = false;
@@ -5236,6 +6594,26 @@ namespace PowerSDR
             dr["TXEQ8"] = 0;
             dr["TXEQ9"] = 0;
             dr["TXEQ10"] = 0;
+
+            dr["TXEQ11"] = 0; // ke9ns add
+            dr["TXEQ12"] = 0; // ke9ns add
+            dr["TXEQ13"] = 0; // ke9ns add
+            dr["TXEQ14"] = 0; // ke9ns add
+            dr["TXEQ15"] = 0; // ke9ns add
+            dr["TXEQ16"] = 0; // ke9ns add
+            dr["TXEQ17"] = 0; // ke9ns add
+            dr["TXEQ18"] = 0; // ke9ns add
+            dr["TXEQ19"] = 0; // ke9ns add
+            dr["TXEQ20"] = 0; // ke9ns add
+            dr["TXEQ21"] = 0; // ke9ns add
+            dr["TXEQ22"] = 0; // ke9ns add
+            dr["TXEQ23"] = 0; // ke9ns add
+            dr["TXEQ24"] = 0; // ke9ns add
+            dr["TXEQ25"] = 0; // ke9ns add
+            dr["TXEQ26"] = 0; // ke9ns add
+            dr["TXEQ27"] = 0; // ke9ns add
+            dr["TXEQ28"] = 0; // ke9ns add
+
             dr["DXOn"] = false;
             dr["DXLevel"] = 0;
             dr["CompanderOn"] = false;
@@ -5358,6 +6736,26 @@ namespace PowerSDR
             dr["TXEQ8"] = 0;
             dr["TXEQ9"] = 0;
             dr["TXEQ10"] = 0;
+
+            dr["TXEQ11"] = 0; // ke9ns add
+            dr["TXEQ12"] = 0; // ke9ns add
+            dr["TXEQ13"] = 0; // ke9ns add
+            dr["TXEQ14"] = 0; // ke9ns add
+            dr["TXEQ15"] = 0; // ke9ns add
+            dr["TXEQ16"] = 0; // ke9ns add
+            dr["TXEQ17"] = 0; // ke9ns add
+            dr["TXEQ18"] = 0; // ke9ns add
+            dr["TXEQ19"] = 0; // ke9ns add
+            dr["TXEQ20"] = 0; // ke9ns add
+            dr["TXEQ21"] = 0; // ke9ns add
+            dr["TXEQ22"] = 0; // ke9ns add
+            dr["TXEQ23"] = 0; // ke9ns add
+            dr["TXEQ24"] = 0; // ke9ns add
+            dr["TXEQ25"] = 0; // ke9ns add
+            dr["TXEQ26"] = 0; // ke9ns add
+            dr["TXEQ27"] = 0; // ke9ns add
+            dr["TXEQ28"] = 0; // ke9ns add
+
             dr["DXOn"] = false;
             dr["DXLevel"] = 0;
             dr["CompanderOn"] = false;
@@ -5480,7 +6878,28 @@ namespace PowerSDR
 			dr["TXEQ8"] = 0;
 			dr["TXEQ9"] = 0;
 			dr["TXEQ10"] = 0;
-			dr["DXOn"] = false;
+
+            dr["TXEQ11"] = 0; // ke9ns add
+            dr["TXEQ12"] = 0; // ke9ns add
+            dr["TXEQ13"] = 0; // ke9ns add
+            dr["TXEQ14"] = 0; // ke9ns add
+            dr["TXEQ15"] = 0; // ke9ns add
+            dr["TXEQ16"] = 0; // ke9ns add
+            dr["TXEQ17"] = 0; // ke9ns add
+            dr["TXEQ18"] = 0; // ke9ns add
+            dr["TXEQ19"] = 0; // ke9ns add
+            dr["TXEQ20"] = 0; // ke9ns add
+            dr["TXEQ21"] = 0; // ke9ns add
+            dr["TXEQ22"] = 0; // ke9ns add
+            dr["TXEQ23"] = 0; // ke9ns add
+            dr["TXEQ24"] = 0; // ke9ns add
+            dr["TXEQ25"] = 0; // ke9ns add
+            dr["TXEQ26"] = 0; // ke9ns add
+            dr["TXEQ27"] = 0; // ke9ns add
+            dr["TXEQ28"] = 0; // ke9ns add
+
+
+            dr["DXOn"] = false;
 			dr["DXLevel"] = 3;
 			dr["CompanderOn"] = false;
 			dr["CompanderLevel"] = 3;
@@ -5602,7 +7021,27 @@ namespace PowerSDR
 			dr["TXEQ8"] = 0;
 			dr["TXEQ9"] = 0;
 			dr["TXEQ10"] = 0;
-			dr["DXOn"] = false;
+
+            dr["TXEQ11"] = 0; // ke9ns add
+            dr["TXEQ12"] = 0; // ke9ns add
+            dr["TXEQ13"] = 0; // ke9ns add
+            dr["TXEQ14"] = 0; // ke9ns add
+            dr["TXEQ15"] = 0; // ke9ns add
+            dr["TXEQ16"] = 0; // ke9ns add
+            dr["TXEQ17"] = 0; // ke9ns add
+            dr["TXEQ18"] = 0; // ke9ns add
+            dr["TXEQ19"] = 0; // ke9ns add
+            dr["TXEQ20"] = 0; // ke9ns add
+            dr["TXEQ21"] = 0; // ke9ns add
+            dr["TXEQ22"] = 0; // ke9ns add
+            dr["TXEQ23"] = 0; // ke9ns add
+            dr["TXEQ24"] = 0; // ke9ns add
+            dr["TXEQ25"] = 0; // ke9ns add
+            dr["TXEQ26"] = 0; // ke9ns add
+            dr["TXEQ27"] = 0; // ke9ns add
+            dr["TXEQ28"] = 0; // ke9ns add
+
+            dr["DXOn"] = false;
 			dr["DXLevel"] = 3;
 			dr["CompanderOn"] = false;
 			dr["CompanderLevel"] = 3;
@@ -5724,7 +7163,27 @@ namespace PowerSDR
 			dr["TXEQ8"] = 0;
 			dr["TXEQ9"] = 0;
 			dr["TXEQ10"] = 0;
-			dr["DXOn"] = false;
+
+            dr["TXEQ11"] = 0; // ke9ns add
+            dr["TXEQ12"] = 0; // ke9ns add
+            dr["TXEQ13"] = 0; // ke9ns add
+            dr["TXEQ14"] = 0; // ke9ns add
+            dr["TXEQ15"] = 0; // ke9ns add
+            dr["TXEQ16"] = 0; // ke9ns add
+            dr["TXEQ17"] = 0; // ke9ns add
+            dr["TXEQ18"] = 0; // ke9ns add
+            dr["TXEQ19"] = 0; // ke9ns add
+            dr["TXEQ20"] = 0; // ke9ns add
+            dr["TXEQ21"] = 0; // ke9ns add
+            dr["TXEQ22"] = 0; // ke9ns add
+            dr["TXEQ23"] = 0; // ke9ns add
+            dr["TXEQ24"] = 0; // ke9ns add
+            dr["TXEQ25"] = 0; // ke9ns add
+            dr["TXEQ26"] = 0; // ke9ns add
+            dr["TXEQ27"] = 0; // ke9ns add
+            dr["TXEQ28"] = 0; // ke9ns add
+
+            dr["DXOn"] = false;
 			dr["DXLevel"] = 3;
 			dr["CompanderOn"] = false;
 			dr["CompanderLevel"] = 5;
@@ -5846,7 +7305,27 @@ namespace PowerSDR
 			dr["TXEQ8"] = 0;
 			dr["TXEQ9"] = 0;
 			dr["TXEQ10"] = 0;
-			dr["DXOn"] = false;
+
+            dr["TXEQ11"] = 0; // ke9ns add
+            dr["TXEQ12"] = 0; // ke9ns add
+            dr["TXEQ13"] = 0; // ke9ns add
+            dr["TXEQ14"] = 0; // ke9ns add
+            dr["TXEQ15"] = 0; // ke9ns add
+            dr["TXEQ16"] = 0; // ke9ns add
+            dr["TXEQ17"] = 0; // ke9ns add
+            dr["TXEQ18"] = 0; // ke9ns add
+            dr["TXEQ19"] = 0; // ke9ns add
+            dr["TXEQ20"] = 0; // ke9ns add
+            dr["TXEQ21"] = 0; // ke9ns add
+            dr["TXEQ22"] = 0; // ke9ns add
+            dr["TXEQ23"] = 0; // ke9ns add
+            dr["TXEQ24"] = 0; // ke9ns add
+            dr["TXEQ25"] = 0; // ke9ns add
+            dr["TXEQ26"] = 0; // ke9ns add
+            dr["TXEQ27"] = 0; // ke9ns add
+            dr["TXEQ28"] = 0; // ke9ns add
+
+            dr["DXOn"] = false;
 			dr["DXLevel"] = 3;
 			dr["CompanderOn"] = true;
 			dr["CompanderLevel"] = 5;
@@ -5968,7 +7447,27 @@ namespace PowerSDR
 			dr["TXEQ8"] = 0;
 			dr["TXEQ9"] = 0;
 			dr["TXEQ10"] = 0;
-			dr["DXOn"] = false;
+
+            dr["TXEQ11"] = 0; // ke9ns add
+            dr["TXEQ12"] = 0; // ke9ns add
+            dr["TXEQ13"] = 0; // ke9ns add
+            dr["TXEQ14"] = 0; // ke9ns add
+            dr["TXEQ15"] = 0; // ke9ns add
+            dr["TXEQ16"] = 0; // ke9ns add
+            dr["TXEQ17"] = 0; // ke9ns add
+            dr["TXEQ18"] = 0; // ke9ns add
+            dr["TXEQ19"] = 0; // ke9ns add
+            dr["TXEQ20"] = 0; // ke9ns add
+            dr["TXEQ21"] = 0; // ke9ns add
+            dr["TXEQ22"] = 0; // ke9ns add
+            dr["TXEQ23"] = 0; // ke9ns add
+            dr["TXEQ24"] = 0; // ke9ns add
+            dr["TXEQ25"] = 0; // ke9ns add
+            dr["TXEQ26"] = 0; // ke9ns add
+            dr["TXEQ27"] = 0; // ke9ns add
+            dr["TXEQ28"] = 0; // ke9ns add
+
+            dr["DXOn"] = false;
 			dr["DXLevel"] = 3;
 			dr["CompanderOn"] = false;
 			dr["CompanderLevel"] = 5;
@@ -6090,7 +7589,27 @@ namespace PowerSDR
 			dr["TXEQ8"] = 0;
 			dr["TXEQ9"] = 0;
 			dr["TXEQ10"] = 0;
-			dr["DXOn"] = true;
+
+            dr["TXEQ11"] = 0; // ke9ns add
+            dr["TXEQ12"] = 0; // ke9ns add
+            dr["TXEQ13"] = 0; // ke9ns add
+            dr["TXEQ14"] = 0; // ke9ns add
+            dr["TXEQ15"] = 0; // ke9ns add
+            dr["TXEQ16"] = 0; // ke9ns add
+            dr["TXEQ17"] = 0; // ke9ns add
+            dr["TXEQ18"] = 0; // ke9ns add
+            dr["TXEQ19"] = 0; // ke9ns add
+            dr["TXEQ20"] = 0; // ke9ns add
+            dr["TXEQ21"] = 0; // ke9ns add
+            dr["TXEQ22"] = 0; // ke9ns add
+            dr["TXEQ23"] = 0; // ke9ns add
+            dr["TXEQ24"] = 0; // ke9ns add
+            dr["TXEQ25"] = 0; // ke9ns add
+            dr["TXEQ26"] = 0; // ke9ns add
+            dr["TXEQ27"] = 0; // ke9ns add
+            dr["TXEQ28"] = 0; // ke9ns add
+
+            dr["DXOn"] = true;
 			dr["DXLevel"] = 5;
 			dr["CompanderOn"] = false;
 			dr["CompanderLevel"] = 3;
@@ -6212,7 +7731,27 @@ namespace PowerSDR
 			dr["TXEQ8"] = 0;
 			dr["TXEQ9"] = 0;
 			dr["TXEQ10"] = 0;
-			dr["DXOn"] = false;
+
+            dr["TXEQ11"] = 0; // ke9ns add
+            dr["TXEQ12"] = 0; // ke9ns add
+            dr["TXEQ13"] = 0; // ke9ns add
+            dr["TXEQ14"] = 0; // ke9ns add
+            dr["TXEQ15"] = 0; // ke9ns add
+            dr["TXEQ16"] = 0; // ke9ns add
+            dr["TXEQ17"] = 0; // ke9ns add
+            dr["TXEQ18"] = 0; // ke9ns add
+            dr["TXEQ19"] = 0; // ke9ns add
+            dr["TXEQ20"] = 0; // ke9ns add
+            dr["TXEQ21"] = 0; // ke9ns add
+            dr["TXEQ22"] = 0; // ke9ns add
+            dr["TXEQ23"] = 0; // ke9ns add
+            dr["TXEQ24"] = 0; // ke9ns add
+            dr["TXEQ25"] = 0; // ke9ns add
+            dr["TXEQ26"] = 0; // ke9ns add
+            dr["TXEQ27"] = 0; // ke9ns add
+            dr["TXEQ28"] = 0; // ke9ns add
+
+            dr["DXOn"] = false;
 			dr["DXLevel"] = 3;
 			dr["CompanderOn"] = true;
 			dr["CompanderLevel"] = 3;
@@ -6334,7 +7873,27 @@ namespace PowerSDR
 			dr["TXEQ8"] = 0;
 			dr["TXEQ9"] = 0;
 			dr["TXEQ10"] = 0;
-			dr["DXOn"] = false;
+
+            dr["TXEQ11"] = 0; // ke9ns add
+            dr["TXEQ12"] = 0; // ke9ns add
+            dr["TXEQ13"] = 0; // ke9ns add
+            dr["TXEQ14"] = 0; // ke9ns add
+            dr["TXEQ15"] = 0; // ke9ns add
+            dr["TXEQ16"] = 0; // ke9ns add
+            dr["TXEQ17"] = 0; // ke9ns add
+            dr["TXEQ18"] = 0; // ke9ns add
+            dr["TXEQ19"] = 0; // ke9ns add
+            dr["TXEQ20"] = 0; // ke9ns add
+            dr["TXEQ21"] = 0; // ke9ns add
+            dr["TXEQ22"] = 0; // ke9ns add
+            dr["TXEQ23"] = 0; // ke9ns add
+            dr["TXEQ24"] = 0; // ke9ns add
+            dr["TXEQ25"] = 0; // ke9ns add
+            dr["TXEQ26"] = 0; // ke9ns add
+            dr["TXEQ27"] = 0; // ke9ns add
+            dr["TXEQ28"] = 0; // ke9ns add
+
+            dr["DXOn"] = false;
 			dr["DXLevel"] = 3;
 			dr["CompanderOn"] = false;
 			dr["CompanderLevel"] = 5;
@@ -6456,7 +8015,27 @@ namespace PowerSDR
 			dr["TXEQ8"] = 0;
 			dr["TXEQ9"] = 0;
 			dr["TXEQ10"] = 0;
-			dr["DXOn"] = false;
+
+            dr["TXEQ11"] = 0; // ke9ns add
+            dr["TXEQ12"] = 0; // ke9ns add
+            dr["TXEQ13"] = 0; // ke9ns add
+            dr["TXEQ14"] = 0; // ke9ns add
+            dr["TXEQ15"] = 0; // ke9ns add
+            dr["TXEQ16"] = 0; // ke9ns add
+            dr["TXEQ17"] = 0; // ke9ns add
+            dr["TXEQ18"] = 0; // ke9ns add
+            dr["TXEQ19"] = 0; // ke9ns add
+            dr["TXEQ20"] = 0; // ke9ns add
+            dr["TXEQ21"] = 0; // ke9ns add
+            dr["TXEQ22"] = 0; // ke9ns add
+            dr["TXEQ23"] = 0; // ke9ns add
+            dr["TXEQ24"] = 0; // ke9ns add
+            dr["TXEQ25"] = 0; // ke9ns add
+            dr["TXEQ26"] = 0; // ke9ns add
+            dr["TXEQ27"] = 0; // ke9ns add
+            dr["TXEQ28"] = 0; // ke9ns add
+
+            dr["DXOn"] = false;
 			dr["DXLevel"] = 3;
 			dr["CompanderOn"] = true;
 			dr["CompanderLevel"] = 5;
@@ -6578,7 +8157,27 @@ namespace PowerSDR
 			dr["TXEQ8"] = 0;
 			dr["TXEQ9"] = 0;
 			dr["TXEQ10"] = 0;
-			dr["DXOn"] = false;
+
+            dr["TXEQ11"] = 0; // ke9ns add
+            dr["TXEQ12"] = 0; // ke9ns add
+            dr["TXEQ13"] = 0; // ke9ns add
+            dr["TXEQ14"] = 0; // ke9ns add
+            dr["TXEQ15"] = 0; // ke9ns add
+            dr["TXEQ16"] = 0; // ke9ns add
+            dr["TXEQ17"] = 0; // ke9ns add
+            dr["TXEQ18"] = 0; // ke9ns add
+            dr["TXEQ19"] = 0; // ke9ns add
+            dr["TXEQ20"] = 0; // ke9ns add
+            dr["TXEQ21"] = 0; // ke9ns add
+            dr["TXEQ22"] = 0; // ke9ns add
+            dr["TXEQ23"] = 0; // ke9ns add
+            dr["TXEQ24"] = 0; // ke9ns add
+            dr["TXEQ25"] = 0; // ke9ns add
+            dr["TXEQ26"] = 0; // ke9ns add
+            dr["TXEQ27"] = 0; // ke9ns add
+            dr["TXEQ28"] = 0; // ke9ns add
+
+            dr["DXOn"] = false;
 			dr["DXLevel"] = 3;
 			dr["CompanderOn"] = false;
 			dr["CompanderLevel"] = 3;
@@ -6700,7 +8299,27 @@ namespace PowerSDR
 			dr["TXEQ8"] = 0;
 			dr["TXEQ9"] = 0;
 			dr["TXEQ10"] = 0;
-			dr["DXOn"] = false;
+
+            dr["TXEQ11"] = 0; // ke9ns add
+            dr["TXEQ12"] = 0; // ke9ns add
+            dr["TXEQ13"] = 0; // ke9ns add
+            dr["TXEQ14"] = 0; // ke9ns add
+            dr["TXEQ15"] = 0; // ke9ns add
+            dr["TXEQ16"] = 0; // ke9ns add
+            dr["TXEQ17"] = 0; // ke9ns add
+            dr["TXEQ18"] = 0; // ke9ns add
+            dr["TXEQ19"] = 0; // ke9ns add
+            dr["TXEQ20"] = 0; // ke9ns add
+            dr["TXEQ21"] = 0; // ke9ns add
+            dr["TXEQ22"] = 0; // ke9ns add
+            dr["TXEQ23"] = 0; // ke9ns add
+            dr["TXEQ24"] = 0; // ke9ns add
+            dr["TXEQ25"] = 0; // ke9ns add
+            dr["TXEQ26"] = 0; // ke9ns add
+            dr["TXEQ27"] = 0; // ke9ns add
+            dr["TXEQ28"] = 0; // ke9ns add
+
+            dr["DXOn"] = false;
 			dr["DXLevel"] = 3;
 			dr["CompanderOn"] = true;
 			dr["CompanderLevel"] = 3;
@@ -6822,7 +8441,27 @@ namespace PowerSDR
 			dr["TXEQ8"] = 0;
 			dr["TXEQ9"] = 0;
 			dr["TXEQ10"] = 0;
-			dr["DXOn"] = false;
+
+            dr["TXEQ11"] = 0; // ke9ns add
+            dr["TXEQ12"] = 0; // ke9ns add
+            dr["TXEQ13"] = 0; // ke9ns add
+            dr["TXEQ14"] = 0; // ke9ns add
+            dr["TXEQ15"] = 0; // ke9ns add
+            dr["TXEQ16"] = 0; // ke9ns add
+            dr["TXEQ17"] = 0; // ke9ns add
+            dr["TXEQ18"] = 0; // ke9ns add
+            dr["TXEQ19"] = 0; // ke9ns add
+            dr["TXEQ20"] = 0; // ke9ns add
+            dr["TXEQ21"] = 0; // ke9ns add
+            dr["TXEQ22"] = 0; // ke9ns add
+            dr["TXEQ23"] = 0; // ke9ns add
+            dr["TXEQ24"] = 0; // ke9ns add
+            dr["TXEQ25"] = 0; // ke9ns add
+            dr["TXEQ26"] = 0; // ke9ns add
+            dr["TXEQ27"] = 0; // ke9ns add
+            dr["TXEQ28"] = 0; // ke9ns add
+
+            dr["DXOn"] = false;
 			dr["DXLevel"] = 3;
 			dr["CompanderOn"] = false;
 			dr["CompanderLevel"] = 3;
@@ -6944,7 +8583,27 @@ namespace PowerSDR
 			dr["TXEQ8"] = 0;
 			dr["TXEQ9"] = 0;
 			dr["TXEQ10"] = 0;
-			dr["DXOn"] = false;
+
+            dr["TXEQ11"] = 0; // ke9ns add
+            dr["TXEQ12"] = 0; // ke9ns add
+            dr["TXEQ13"] = 0; // ke9ns add
+            dr["TXEQ14"] = 0; // ke9ns add
+            dr["TXEQ15"] = 0; // ke9ns add
+            dr["TXEQ16"] = 0; // ke9ns add
+            dr["TXEQ17"] = 0; // ke9ns add
+            dr["TXEQ18"] = 0; // ke9ns add
+            dr["TXEQ19"] = 0; // ke9ns add
+            dr["TXEQ20"] = 0; // ke9ns add
+            dr["TXEQ21"] = 0; // ke9ns add
+            dr["TXEQ22"] = 0; // ke9ns add
+            dr["TXEQ23"] = 0; // ke9ns add
+            dr["TXEQ24"] = 0; // ke9ns add
+            dr["TXEQ25"] = 0; // ke9ns add
+            dr["TXEQ26"] = 0; // ke9ns add
+            dr["TXEQ27"] = 0; // ke9ns add
+            dr["TXEQ28"] = 0; // ke9ns add
+
+            dr["DXOn"] = false;
 			dr["DXLevel"] = 3;
 			dr["CompanderOn"] = true;
 			dr["CompanderLevel"] = 2;
@@ -7045,10 +8704,11 @@ namespace PowerSDR
 
 			t.Rows.Add(dr);
 
-			#endregion
-		}
+            #endregion
 
-		private static void CheckBandTextValid()
+        } // AddTXProfileDefTable(Model model)
+
+        private static void CheckBandTextValid()
 		{
 			ArrayList bad_rows = new ArrayList();
 
@@ -7095,7 +8755,7 @@ namespace PowerSDR
 // Public Member Functions 
 // ======================================================
 
-		public static bool Init(Model model)
+		public static bool Init(Model model) // ke9ns first sets up a default FRSRegion.US, then in console.cs changes it
 		{
 
             
@@ -7679,13 +9339,13 @@ namespace PowerSDR
                 case FRSRegion.Slovakia:
                 case FRSRegion.France:
 
-                   
-                   // if (current_region == FRSRegion.Spain_UK)
-                    //    AddRegion1ABandStack(); // ke9ns mod
-                                                //  else 
-                    AddRegion1BandStack();
 
-                    AddBandStackSWL(); // ke9ns add
+                    // if (current_region == FRSRegion.Spain_UK)
+                    //    AddRegion1ABandStack(); // ke9ns mod
+                    //  else 
+                    if (bandstackrefresh == true) AddRegion1BandStack();
+                    if (bandstackrefresh == true) AddBandStackSWL(); // ke9ns add
+
                     ClearBandText();
                     AddRegion1BandText160m();
                     AddRegion1BandText80m();
@@ -7713,9 +9373,9 @@ namespace PowerSDR
                     break;
 
                 case FRSRegion.Europe: // EU00
-                    AddRegion1ABandStack(); // ke9ns mod 
+                    if (bandstackrefresh == true) AddRegion1ABandStack(); // ke9ns mod 
+                    if (bandstackrefresh == true) AddBandStackSWL(); // ke9ns add
 
-                    AddBandStackSWL(); // ke9ns add
                     ClearBandText();
                     AddRegion1BandText160m();
                     AddRegion1BandText80m();
@@ -7737,12 +9397,12 @@ namespace PowerSDR
 
               //  case FRSRegion.Switerland: // EU12
                 case FRSRegion.ES_CH_FIN: // EU12
-              //  case FRSRegion.Finland: // EU12
+                                          //  case FRSRegion.Finland: // EU12
 
 
-                    AddRegion1ABandStack();
+                    if (bandstackrefresh == true) AddRegion1ABandStack();
+                    if (bandstackrefresh == true) AddBandStackSWL(); // ke9ns add
 
-                    AddBandStackSWL(); // ke9ns add
                     ClearBandText();
                     AddNetherlandsBandText160m();
                     AddRegion1BandText80m();
@@ -7766,10 +9426,10 @@ namespace PowerSDR
                 case FRSRegion.Italy: // EU10
 
 
-                  //  AddRegion1BandStack();
-                    AddRegion1ABandStack(); // ke9ns mod
+                    //  AddRegion1BandStack();
+                    if (bandstackrefresh == true) AddRegion1ABandStack(); // ke9ns mod
+                    if (bandstackrefresh == true) AddBandStackSWL(); // ke9ns add
 
-                    AddBandStackSWL(); // ke9ns add
                     ClearBandText();
                     AddItalyBandText160m();
                     AddRegion1BandText80m();
@@ -7791,9 +9451,9 @@ namespace PowerSDR
                     break;
 
                 case FRSRegion.UK_Plus: // EU02
-                    AddUK_PlusBandStack();
+                    if (bandstackrefresh == true) AddUK_PlusBandStack();
+                    if (bandstackrefresh == true) AddBandStackSWL(); // ke9ns add
 
-                    AddBandStackSWL(); // ke9ns add
                     ClearBandText();
                     AddRegion1BandText160m();
                     AddRegion1BandText80m();
@@ -7816,9 +9476,9 @@ namespace PowerSDR
 
                 case FRSRegion.Norway: // EU03
                 case FRSRegion.Denmark:
-                    AddRegion1BandStack();
+                    if (bandstackrefresh == true) AddRegion1BandStack();
+                    if (bandstackrefresh == true) AddBandStackSWL(); // ke9ns add
 
-                    AddBandStackSWL(); // ke9ns add
                     ClearBandText();
                     AddRegion1BandText160m();
                     AddRegion1BandText80m();
@@ -7840,10 +9500,10 @@ namespace PowerSDR
 
                 case FRSRegion.Latvia:// EU08
 
-                  //  AddRegion1BandStack();
-                    AddRegion1ABandStack();
+                    //  AddRegion1BandStack();
+                    if (bandstackrefresh == true) AddRegion1ABandStack();
+                    if (bandstackrefresh == true) AddBandStackSWL(); // ke9ns add
 
-                    AddBandStackSWL(); // ke9ns add
                     ClearBandText();
                     AddRegion1BandText160m();
                     AddRegion1BandText80m();
@@ -7865,10 +9525,10 @@ namespace PowerSDR
                     break;
 
                 case FRSRegion.Bulgaria: // EU07
-                   // AddRegion1BandStack();
-                    AddRegion1ABandStack();
+                                         // AddRegion1BandStack();
+                    if (bandstackrefresh == true) AddRegion1ABandStack();
+                    if (bandstackrefresh == true) AddBandStackSWL(); // ke9ns add
 
-                    AddBandStackSWL(); // ke9ns add
                     ClearBandText();
                     AddBulgariaBandText160m();
                     AddRegion1BandText80m();
@@ -7890,10 +9550,10 @@ namespace PowerSDR
                     break;
 
                 case FRSRegion.Greece: // EU09
-                  //  AddRegion1BandStack();
-                    AddRegion1BandStack();
+                                       //  AddRegion1BandStack();
+                    if (bandstackrefresh == true) AddRegion1BandStack();
+                    if (bandstackrefresh == true) AddBandStackSWL(); // ke9ns add
 
-                    AddBandStackSWL(); // ke9ns add
                     ClearBandText();
                     AddBulgariaBandText160m();
                     AddRegion1BandText80m();
@@ -7914,10 +9574,10 @@ namespace PowerSDR
                     break;
 
                 case FRSRegion.Hungary: // EU05
-                   // AddRegion1BandStack();
-                    AddRegion1ABandStack();
+                                        // AddRegion1BandStack();
+                    if (bandstackrefresh == true) AddRegion1ABandStack();
+                    if (bandstackrefresh == true) AddBandStackSWL(); // ke9ns add
 
-                    AddBandStackSWL(); // ke9ns add
                     ClearBandText();
                     AddRegion1BandText160m();
                     AddRegion1BandText80m();
@@ -7939,14 +9599,15 @@ namespace PowerSDR
 
                 case FRSRegion.Netherlands: // EU13
 
-                    AddRegion1BandStack();
+                    if (bandstackrefresh == true) AddRegion1BandStack();
+                    if (bandstackrefresh == true) AddBandStackSWL(); // ke9ns add
 
-                    AddBandStackSWL(); // ke9ns add
                     ClearBandText();
                     AddNetherlandsBandText160m();
                     AddRegion1BandText80m();
 
-                    AddRegion1BBandText60m(); // ke9ns add 5.35 to 5.45 TX
+                    //   AddRegion1BBandText60m(); // ke9ns add 5.35 to 5.45 TX
+                    AddRegion1ABandText60m(); // KE9NS add transmit
 
                     AddRegion1BandText40m();
                     AddRegion1BandText30m();
@@ -7964,9 +9625,9 @@ namespace PowerSDR
                 case FRSRegion.Russia: // RUSS
                     Debug.WriteLine("RUSSIA===============");
 
-                  //  AddRegion1BandStack();
-                    AddRegion1ABandStack(); // 60m bandstack
-                    AddBandStackSWL(); // ke9ns add
+                    //  AddRegion1BandStack();
+                    if (bandstackrefresh == true) AddRegion1ABandStack(); // 60m bandstack
+                    if (bandstackrefresh == true) AddBandStackSWL(); // ke9ns add
 
                     ClearBandText();
                     AddRegion1BandText160m();
@@ -7992,9 +9653,9 @@ namespace PowerSDR
                     break;
 
                 case FRSRegion.Sweden: // EU06
-                    AddSwedenBandStack();
+                    if (bandstackrefresh == true) AddSwedenBandStack();
+                    if (bandstackrefresh == true) AddBandStackSWL(); // ke9ns add
 
-                    AddBandStackSWL(); // ke9ns add
                     ClearBandText();
                     AddRegion1BandText160m();
                     AddRegion1BandText80m();
@@ -8020,8 +9681,8 @@ namespace PowerSDR
                 case FRSRegion.Australia: // ke9ns add new
 
 
-                    AddBandAusStackTable(); // Ham bandstack (60m is same as IARU1)
-                    AddBandStackSWL(); // ke9ns add
+                    if (bandstackrefresh == true) AddBandAusStackTable(); // Ham bandstack (60m is same as IARU1)
+                    if (bandstackrefresh == true) AddBandStackSWL(); // ke9ns add
 
                     ClearBandText();
 
@@ -8035,9 +9696,9 @@ namespace PowerSDR
 
                 case FRSRegion.IARU2: // ke9ns add was region_2
 
-                 
-                    AddBand2StackTable(); // Ham bandstack (60m is same as IARU1)
-                    AddBandStackSWL(); // ke9ns add
+
+                    if (bandstackrefresh == true) AddBand2StackTable(); // Ham bandstack (60m is same as IARU1)
+                    if (bandstackrefresh == true) AddBandStackSWL(); // ke9ns add
 
                     ClearBandText();
 
@@ -8045,7 +9706,7 @@ namespace PowerSDR
 
                     AddBandTextSWB(); // short wave text
 
-                    AddRegion1ABandText60m(); // KE9NS add transmit
+                 //   AddRegion1ABandText60m(); // KE9NS add transmit
 
                   
                     break;
@@ -8053,8 +9714,9 @@ namespace PowerSDR
 
                 case FRSRegion.IARU3: // ke9ns mod was region_3
 
-                    AddRegion3BandStack();
-                    AddBandStackSWL(); // ke9ns add
+                    if (bandstackrefresh == true) AddRegion3BandStack();
+                    if (bandstackrefresh == true) AddBandStackSWL(); // ke9ns add
+
                     ClearBandText();
    
                     AddRegion3BandText160m();
@@ -8075,8 +9737,9 @@ namespace PowerSDR
                     break;
 
                 case FRSRegion.Japan:
-                    AddRegion3BandStack();
-                    AddBandStackSWL(); // ke9ns add
+                    if (bandstackrefresh == true) AddRegion3BandStack();
+                    if (bandstackrefresh == true) AddBandStackSWL(); // ke9ns add
+
                     ClearBandText();
                     AddJapanBandText160m();
                     AddJapanBandText80m();
@@ -8099,10 +9762,10 @@ namespace PowerSDR
                     break;
 
                 case FRSRegion.Italy_Plus: // EU11
-                 //   AddRegion1BandStack();
-                    AddRegion1ABandStack();
-                  
-                    AddBandStackSWL(); // ke9ns add
+                                           //   AddRegion1BandStack();
+                    if (bandstackrefresh == true) AddRegion1ABandStack();
+                    if (bandstackrefresh == true) AddBandStackSWL(); // ke9ns add
+
                     ClearBandText();
                     AddItalyBandText160m();
                     AddRegion1BandText80m();

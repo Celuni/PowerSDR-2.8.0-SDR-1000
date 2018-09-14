@@ -106,7 +106,7 @@ namespace PowerSDR
 		private System.Windows.Forms.ComboBoxTS comboKBTuneUp6;
 		private System.Windows.Forms.GroupBoxTS grpKBTune;
 		private System.Windows.Forms.NumericUpDownTS udIQCorrection;
-		private System.Windows.Forms.CheckBoxTS checkBoxTS1;
+		private System.Windows.Forms.CheckBoxTS checkBoxTS3;
 		private System.Windows.Forms.CheckBoxTS checkBoxTS2;
 		private System.Windows.Forms.LabelTS lblKBTuneDigit;
 		private System.Windows.Forms.LabelTS lblKBTune7;
@@ -548,8 +548,8 @@ namespace PowerSDR
 		private System.Windows.Forms.GroupBoxTS grpDSPKeyerSemiBreakIn;
 		private System.Windows.Forms.GroupBoxTS grpDSPCWPitch;
 		private System.Windows.Forms.LabelTS lblDSPCWPitchFreq;
-		private System.Windows.Forms.NumericUpDownTS udDSPCWPitch;
-		private System.Windows.Forms.CheckBoxTS chkDSPKeyerSidetone;
+        public NumericUpDownTS udDSPCWPitch;
+        private System.Windows.Forms.CheckBoxTS chkDSPKeyerSidetone;
         public TabControl tcDSP;
         private System.Windows.Forms.TabPage tpDSPImageReject;
 		private System.Windows.Forms.GroupBoxTS grpDSPImageRejectTX;
@@ -935,7 +935,7 @@ namespace PowerSDR
         private LabelTS lblGenTX1Delay;
         private CheckBoxTS chkGenTX1Delay;
         private NumericUpDownTS udGenTX1Delay;
-        private CheckBoxTS chkDisplayPanFill;
+        public CheckBoxTS chkDisplayPanFill;
         private GroupBoxTS grpAppSkins;
         public ComboBoxTS comboAppSkin;
         private ButtonTS btnSkinExport;
@@ -1065,7 +1065,6 @@ namespace PowerSDR
         public CheckBoxTS chkTXMeter2;
         public CheckBoxTS chkBoxPM;
         public GroupBoxTS groupBoxTS1;
-		public GroupBoxTS groupBoxTS2;
         private LabelTS labelTS15;
         public NumericUpDownTS udSpeedPM;
         public CheckBoxTS chkBoxHTTP;
@@ -1121,6 +1120,48 @@ namespace PowerSDR
         public CheckBoxTS chkVFOOpenFont;
         public CheckBoxTS chkBoxIND2;
         public TextBoxTS textBoxSAVE;
+        public CheckBoxTS chkBoxBandStack;
+        private ButtonTS buttonTS2;
+        private LabelTS labelTS30;
+        public CheckBoxTS chkBoxTNTX3;
+        public CheckBoxTS checkBoxScopeAC;
+        private LabelTS labelTS31;
+        public NumericUpDownTS udPTTHT;
+        public CheckBoxTS chkBoxPTTHT;
+        private CheckBoxTS chkDSPRX2;
+        private LabelTS labelTS32;
+        public TrackBarTS tbPanGrid;
+        private LabelTS labelTS33;
+        public NumericUpDownTS udTXDriveMax;
+        public CheckBoxTS chkBoxPanFillColor;
+        private LabelTS labelTS34;
+        private ButtonTS btnTuneStepChangeLarger3;
+        private ButtonTS btnTuneStepChangeSmaller3;
+        public TextBoxTS txtWheelTune3;
+        private LabelTS labelTS35;
+        private LabelTS labelTS36;
+        public TrackBarTS tbMapBright;
+        private LabelTS labelTS37;
+        public CheckBoxTS chkBoxSplitListen;
+        public CheckBoxTS chkBoxAutoWtrPan;
+        public CheckBoxTS chkBoxVFOLockAB;
+        private GroupBoxTS groupBoxTS2;
+		private GroupBoxTS groupBoxTS3;
+        private CheckBoxTS checkBoxDTMF11;
+        private CheckBoxTS checkBoxDTMF10;
+        private CheckBoxTS checkBoxDTMF0;
+        private CheckBoxTS checkBoxDTMF9;
+        private CheckBoxTS checkBoxDTMF8;
+        private CheckBoxTS checkBoxDTMF7;
+        private CheckBoxTS checkBoxDTMF6;
+        private CheckBoxTS checkBoxDTMF5;
+        private CheckBoxTS checkBoxDTMF4;
+        private CheckBoxTS checkBoxDTMF3;
+        private CheckBoxTS checkBoxDTMF2;
+        private CheckBoxTS checkBoxDTMF1;
+        public CheckBoxTS chkBoxIIC;
+        public CheckBoxTS chkBoxIICON;
+        public CheckBoxTS chkBoxPM1;
         private System.ComponentModel.IContainer components;
 		private System.Windows.Forms.CheckBoxTS chkExtended;		//patch_extended
 
@@ -1374,7 +1415,10 @@ namespace PowerSDR
             this.tpGeneral = new System.Windows.Forms.TabPage();
             this.tcGeneral = new System.Windows.Forms.TabControl();
             this.tpGeneralHardware = new System.Windows.Forms.TabPage();
-			this.chkExtended = new System.Windows.Forms.CheckBoxTS();
+            this.chkExtended = new System.Windows.Forms.CheckBoxTS();
+            this.labelTS31 = new System.Windows.Forms.LabelTS();
+            this.udPTTHT = new System.Windows.Forms.NumericUpDownTS();
+            this.chkBoxPTTHT = new System.Windows.Forms.CheckBoxTS();
             this.textBoxTOT = new System.Windows.Forms.TextBoxTS();
             this.labelTS23 = new System.Windows.Forms.LabelTS();
             this.udTOT = new System.Windows.Forms.NumericUpDownTS();
@@ -1432,6 +1476,12 @@ namespace PowerSDR
             this.lbl1500TRXRev = new System.Windows.Forms.LabelTS();
             this.lbl1500SN = new System.Windows.Forms.LabelTS();
             this.tpGeneralOptions = new System.Windows.Forms.TabPage();
+            this.chkBoxPM1 = new System.Windows.Forms.CheckBoxTS();
+            this.chkBoxIICON = new System.Windows.Forms.CheckBoxTS();
+            this.chkBoxIIC = new System.Windows.Forms.CheckBoxTS();
+            this.chkBoxVFOLockAB = new System.Windows.Forms.CheckBoxTS();
+            this.buttonTS2 = new System.Windows.Forms.ButtonTS();
+            this.chkBoxBandStack = new System.Windows.Forms.CheckBoxTS();
             this.chkGenOptionsShowATUPopup = new System.Windows.Forms.CheckBoxTS();
             this.chkImportDBRestrict = new System.Windows.Forms.CheckBoxTS();
             this.grpOptUSBBuf = new System.Windows.Forms.GroupBoxTS();
@@ -1529,11 +1579,16 @@ namespace PowerSDR
             this.udHttpPort = new System.Windows.Forms.NumericUpDownTS();
             this.chkBoxHTTP = new System.Windows.Forms.CheckBoxTS();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.labelTS30 = new System.Windows.Forms.LabelTS();
             this.label1 = new System.Windows.Forms.Label();
             this.btnConfigure = new System.Windows.Forms.Button();
             this.cbConsoleSelect = new System.Windows.Forms.ComboBox();
             this.groupBoxTS1 = new System.Windows.Forms.GroupBoxTS();
-			this.udIQCorrection = new System.Windows.Forms.NumericUpDownTS();
+            this.labelTS35 = new System.Windows.Forms.LabelTS();
+            this.labelTS34 = new System.Windows.Forms.LabelTS();
+            this.btnTuneStepChangeLarger3 = new System.Windows.Forms.ButtonTS();
+            this.btnTuneStepChangeSmaller3 = new System.Windows.Forms.ButtonTS();
+            this.txtWheelTune3 = new System.Windows.Forms.TextBoxTS();
             this.chkBoxIND2 = new System.Windows.Forms.CheckBoxTS();
             this.labelTS26 = new System.Windows.Forms.LabelTS();
             this.btnTuneStepChangeLarger2 = new System.Windows.Forms.ButtonTS();
@@ -1546,7 +1601,8 @@ namespace PowerSDR
             this.tpAudio = new System.Windows.Forms.TabPage();
             this.tcAudio = new System.Windows.Forms.TabControl();
             this.tpAudioCard1 = new System.Windows.Forms.TabPage();
-			this.groupBoxTS2 = new System.Windows.Forms.GroupBoxTS();
+            this.groupBoxTS3 = new System.Windows.Forms.GroupBoxTS();
+            this.udIQCorrection = new System.Windows.Forms.NumericUpDownTS();
             this.chkAudioExpert = new System.Windows.Forms.CheckBoxTS();
             this.grpAudioMicBoost = new System.Windows.Forms.GroupBoxTS();
             this.grpAudioChannels = new System.Windows.Forms.GroupBoxTS();
@@ -1642,6 +1698,8 @@ namespace PowerSDR
             this.comboAudioDriver3 = new System.Windows.Forms.ComboBoxTS();
             this.chkVAC2Enable = new System.Windows.Forms.CheckBoxTS();
             this.tpDisplay = new System.Windows.Forms.TabPage();
+            this.chkBoxAutoWtrPan = new System.Windows.Forms.CheckBoxTS();
+            this.chkBoxSplitListen = new System.Windows.Forms.CheckBoxTS();
             this.chkBoxDial = new System.Windows.Forms.CheckBoxTS();
             this.chkBoxMRX = new System.Windows.Forms.CheckBoxTS();
             this.labelTS14 = new System.Windows.Forms.LabelTS();
@@ -1665,6 +1723,7 @@ namespace PowerSDR
             this.grpDisplayPolyPhase = new System.Windows.Forms.GroupBoxTS();
             this.chkSpectrumPolyphase = new System.Windows.Forms.CheckBoxTS();
             this.grpDisplayScopeMode = new System.Windows.Forms.GroupBoxTS();
+            this.checkBoxScopeAC = new System.Windows.Forms.CheckBoxTS();
             this.udDisplayScopeTime = new System.Windows.Forms.NumericUpDownTS();
             this.lblDisplayScopeTime = new System.Windows.Forms.LabelTS();
             this.grpDisplayWaterfall = new System.Windows.Forms.GroupBoxTS();
@@ -1713,6 +1772,7 @@ namespace PowerSDR
             this.tpDSP = new System.Windows.Forms.TabPage();
             this.tcDSP = new System.Windows.Forms.TabControl();
             this.tpDSPOptions = new System.Windows.Forms.TabPage();
+            this.chkDSPRX2 = new System.Windows.Forms.CheckBoxTS();
             this.labelTS28 = new System.Windows.Forms.LabelTS();
             this.btnRSTNB2 = new System.Windows.Forms.ButtonTS();
             this.btnRSTNB = new System.Windows.Forms.ButtonTS();
@@ -1852,8 +1912,15 @@ namespace PowerSDR
             this.udDSPAGCFixedGaindB = new System.Windows.Forms.NumericUpDownTS();
             this.lblDSPAGCFixed = new System.Windows.Forms.LabelTS();
             this.tpTransmit = new System.Windows.Forms.TabPage();
+            this.chkBoxTNTX3 = new System.Windows.Forms.CheckBoxTS();
             this.chkPhaseRotate = new System.Windows.Forms.CheckBoxTS();
             this.chkFMDataMic = new System.Windows.Forms.CheckBoxTS();
+            this.grpTXVOX = new System.Windows.Forms.GroupBoxTS();
+            this.lblTXVOXHangTime = new System.Windows.Forms.LabelTS();
+            this.udTXVOXHangTime = new System.Windows.Forms.NumericUpDownTS();
+            this.chkTXVOXEnabled = new System.Windows.Forms.CheckBoxTS();
+            this.lblTXVOXThreshold = new System.Windows.Forms.LabelTS();
+            this.udTXVOXThreshold = new System.Windows.Forms.NumericUpDownTS();
             this.chk2ndMeter = new System.Windows.Forms.CheckBoxTS();
             this.chkTXWtrID = new System.Windows.Forms.CheckBoxTS();
             this.chkTXMeter2 = new System.Windows.Forms.CheckBoxTS();
@@ -1893,17 +1960,13 @@ namespace PowerSDR
             this.lblTransmitTunePower = new System.Windows.Forms.LabelTS();
             this.udTXTunePower = new System.Windows.Forms.NumericUpDownTS();
             this.grpTXFilter = new System.Windows.Forms.GroupBoxTS();
+            this.labelTS33 = new System.Windows.Forms.LabelTS();
+            this.udTXDriveMax = new System.Windows.Forms.NumericUpDownTS();
             this.lblTXFilterHigh = new System.Windows.Forms.LabelTS();
             this.udTXFilterLow = new System.Windows.Forms.NumericUpDownTS();
             this.lblTXFilterLow = new System.Windows.Forms.LabelTS();
             this.udTXFilterHigh = new System.Windows.Forms.NumericUpDownTS();
             this.chkDCBlock = new System.Windows.Forms.CheckBoxTS();
-            this.grpTXVOX = new System.Windows.Forms.GroupBoxTS();
-            this.lblTXVOXHangTime = new System.Windows.Forms.LabelTS();
-            this.udTXVOXHangTime = new System.Windows.Forms.NumericUpDownTS();
-            this.chkTXVOXEnabled = new System.Windows.Forms.CheckBoxTS();
-            this.lblTXVOXThreshold = new System.Windows.Forms.LabelTS();
-            this.udTXVOXThreshold = new System.Windows.Forms.NumericUpDownTS();
             this.grpTX1500 = new System.Windows.Forms.GroupBoxTS();
             this.lblTX1500Blanking = new System.Windows.Forms.LabelTS();
             this.udTX1500PhoneBlanking = new System.Windows.Forms.NumericUpDownTS();
@@ -2004,6 +2067,8 @@ namespace PowerSDR
             this.lblAppearanceGenBtnSel = new System.Windows.Forms.LabelTS();
             this.tpAppearanceDisplay = new System.Windows.Forms.TabPage();
             this.grpMainDisplay = new System.Windows.Forms.GroupBoxTS();
+            this.labelTS32 = new System.Windows.Forms.LabelTS();
+            this.tbPanGrid = new System.Windows.Forms.TrackBarTS();
             this.clrbtnText = new PowerSDR.ColorButton();
             this.lblDisplayBackgroundColor = new System.Windows.Forms.LabelTS();
             this.udDisplayLineWidth = new System.Windows.Forms.NumericUpDownTS();
@@ -2017,6 +2082,10 @@ namespace PowerSDR
             this.lblDisplayGridColor = new System.Windows.Forms.LabelTS();
             this.clrbtnDataLine = new PowerSDR.ColorButton();
             this.grpAppPanadapter = new System.Windows.Forms.GroupBoxTS();
+            this.labelTS37 = new System.Windows.Forms.LabelTS();
+            this.tbMapBright = new System.Windows.Forms.TrackBarTS();
+            this.labelTS36 = new System.Windows.Forms.LabelTS();
+            this.chkBoxPanFillColor = new System.Windows.Forms.CheckBoxTS();
             this.labelTS11 = new System.Windows.Forms.LabelTS();
             this.labelTS10 = new System.Windows.Forms.LabelTS();
             this.tbPanAlpha = new System.Windows.Forms.TrackBarTS();
@@ -2080,6 +2149,19 @@ namespace PowerSDR
             this.lblMeterType = new System.Windows.Forms.LabelTS();
             this.comboMeterType = new System.Windows.Forms.ComboBoxTS();
             this.tpKeyboard = new System.Windows.Forms.TabPage();
+            this.groupBoxTS2 = new System.Windows.Forms.GroupBoxTS();
+            this.checkBoxDTMF11 = new System.Windows.Forms.CheckBoxTS();
+            this.checkBoxDTMF10 = new System.Windows.Forms.CheckBoxTS();
+            this.checkBoxDTMF0 = new System.Windows.Forms.CheckBoxTS();
+            this.checkBoxDTMF9 = new System.Windows.Forms.CheckBoxTS();
+            this.checkBoxDTMF8 = new System.Windows.Forms.CheckBoxTS();
+            this.checkBoxDTMF7 = new System.Windows.Forms.CheckBoxTS();
+            this.checkBoxDTMF6 = new System.Windows.Forms.CheckBoxTS();
+            this.checkBoxDTMF5 = new System.Windows.Forms.CheckBoxTS();
+            this.checkBoxDTMF4 = new System.Windows.Forms.CheckBoxTS();
+            this.checkBoxDTMF3 = new System.Windows.Forms.CheckBoxTS();
+            this.checkBoxDTMF2 = new System.Windows.Forms.CheckBoxTS();
+            this.checkBoxDTMF1 = new System.Windows.Forms.CheckBoxTS();
             this.grpKBXIT = new System.Windows.Forms.GroupBoxTS();
             this.lblKBXITUp = new System.Windows.Forms.LabelTS();
             this.lblKBXITDown = new System.Windows.Forms.LabelTS();
@@ -2413,10 +2495,10 @@ namespace PowerSDR
             this.buttonTS1 = new System.Windows.Forms.ButtonTS();
             this.btnExportDB = new System.Windows.Forms.ButtonTS();
             this.btnImportDB = new System.Windows.Forms.ButtonTS();
-            this.btnResetDB = new System.Windows.Forms.ButtonTS();
             this.btnApply = new System.Windows.Forms.ButtonTS();
             this.btnCancel = new System.Windows.Forms.ButtonTS();
             this.btnOK = new System.Windows.Forms.ButtonTS();
+            this.btnResetDB = new System.Windows.Forms.ButtonTS();
             this.timer_sweep = new System.Windows.Forms.Timer(this.components);
             this.mainMenu1 = new System.Windows.Forms.MainMenu(this.components);
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
@@ -2425,6 +2507,7 @@ namespace PowerSDR
             this.tpGeneral.SuspendLayout();
             this.tcGeneral.SuspendLayout();
             this.tpGeneralHardware.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.udPTTHT)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.udTOT)).BeginInit();
             this.grpHWSoftRock.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.udSoftRockCenterFreq)).BeginInit();
@@ -2476,12 +2559,12 @@ namespace PowerSDR
             ((System.ComponentModel.ISupportInitialize)(this.udHttpPort)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBoxTS1.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.udIQCorrection)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.udSpeedPM)).BeginInit();
             this.tpAudio.SuspendLayout();
             this.tcAudio.SuspendLayout();
             this.tpAudioCard1.SuspendLayout();
-			this.groupBoxTS2.SuspendLayout();
+            this.groupBoxTS3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.udIQCorrection)).BeginInit();
             this.grpAudioChannels.SuspendLayout();
             this.grpAudioMicInGain1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.udAudioMicGain1)).BeginInit();
@@ -2614,6 +2697,9 @@ namespace PowerSDR
             ((System.ComponentModel.ISupportInitialize)(this.udDSPAGCAttack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.udDSPAGCFixedGaindB)).BeginInit();
             this.tpTransmit.SuspendLayout();
+            this.grpTXVOX.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.udTXVOXHangTime)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.udTXVOXThreshold)).BeginInit();
             this.grpTXProfileDef.SuspendLayout();
             this.grpTXAM.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.udTXAMCarrierLevel)).BeginInit();
@@ -2628,11 +2714,9 @@ namespace PowerSDR
             ((System.ComponentModel.ISupportInitialize)(this.tbDutyCycle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.udTXTunePower)).BeginInit();
             this.grpTXFilter.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.udTXDriveMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.udTXFilterLow)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.udTXFilterHigh)).BeginInit();
-            this.grpTXVOX.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.udTXVOXHangTime)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.udTXVOXThreshold)).BeginInit();
             this.grpTX1500.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.udTX1500PhoneBlanking)).BeginInit();
             this.tpPowerAmplifier.SuspendLayout();
@@ -2667,8 +2751,10 @@ namespace PowerSDR
             this.grpAppearanceVFO.SuspendLayout();
             this.tpAppearanceDisplay.SuspendLayout();
             this.grpMainDisplay.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tbPanGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.udDisplayLineWidth)).BeginInit();
             this.grpAppPanadapter.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tbMapBright)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbPanAlpha)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbGrayLineAlpha)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.udBandSegmentBoxLineWidth)).BeginInit();
@@ -2679,6 +2765,7 @@ namespace PowerSDR
             this.grpMeterEdge.SuspendLayout();
             this.grpAppearanceMeter.SuspendLayout();
             this.tpKeyboard.SuspendLayout();
+            this.groupBoxTS2.SuspendLayout();
             this.grpKBXIT.SuspendLayout();
             this.grpKBRIT.SuspendLayout();
             this.grpKBMode.SuspendLayout();
@@ -2762,7 +2849,10 @@ namespace PowerSDR
             // tpGeneralHardware
             // 
             this.tpGeneralHardware.BackColor = System.Drawing.SystemColors.Control;
-			this.tpGeneralHardware.Controls.Add(this.chkExtended);
+            this.tpGeneralHardware.Controls.Add(this.chkExtended);
+            this.tpGeneralHardware.Controls.Add(this.labelTS31);
+            this.tpGeneralHardware.Controls.Add(this.udPTTHT);
+            this.tpGeneralHardware.Controls.Add(this.chkBoxPTTHT);
             this.tpGeneralHardware.Controls.Add(this.textBoxTOT);
             this.tpGeneralHardware.Controls.Add(this.labelTS23);
             this.tpGeneralHardware.Controls.Add(this.udTOT);
@@ -2784,7 +2874,7 @@ namespace PowerSDR
             // chkExtended
             // 
             this.chkExtended.Image = null;
-            this.chkExtended.Location = new System.Drawing.Point(336, 182);
+            this.chkExtended.Location = new System.Drawing.Point(336, 151);
             this.chkExtended.Name = "chkExtended";
             this.chkExtended.Size = new System.Drawing.Size(104, 16);
             this.chkExtended.TabIndex = 24;
@@ -2792,9 +2882,57 @@ namespace PowerSDR
             this.toolTip1.SetToolTip(this.chkExtended, "Check to enable Extended Frequency Range");
             this.chkExtended.CheckedChanged += new System.EventHandler(this.chkExtended_CheckedChanged);
             // 
+            // labelTS31
+            // 
+            this.labelTS31.Image = null;
+            this.labelTS31.Location = new System.Drawing.Point(525, 220);
+            this.labelTS31.Name = "labelTS31";
+            this.labelTS31.Size = new System.Drawing.Size(52, 23);
+            this.labelTS31.TabIndex = 32;
+            this.labelTS31.Text = "mSec";
+            // 
+            // udPTTHT
+            // 
+            this.udPTTHT.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.udPTTHT.Location = new System.Drawing.Point(460, 218);
+            this.udPTTHT.Maximum = new decimal(new int[] {
+            999,
+            0,
+            0,
+            0});
+            this.udPTTHT.Minimum = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            this.udPTTHT.Name = "udPTTHT";
+            this.udPTTHT.Size = new System.Drawing.Size(62, 20);
+            this.udPTTHT.TabIndex = 31;
+            this.toolTip1.SetToolTip(this.udPTTHT, "Time-Out Time Limit Value (in Seconds)");
+            this.udPTTHT.Value = new decimal(new int[] {
+            150,
+            0,
+            0,
+            0});
+            this.udPTTHT.ValueChanged += new System.EventHandler(this.udPTTHT_ValueChanged);
+            // 
+            // chkBoxPTTHT
+            // 
+            this.chkBoxPTTHT.Image = null;
+            this.chkBoxPTTHT.Location = new System.Drawing.Point(336, 216);
+            this.chkBoxPTTHT.Name = "chkBoxPTTHT";
+            this.chkBoxPTTHT.Size = new System.Drawing.Size(118, 22);
+            this.chkBoxPTTHT.TabIndex = 30;
+            this.chkBoxPTTHT.Text = "PTT Hang Timer";
+            this.chkBoxPTTHT.CheckedChanged += new System.EventHandler(this.chkBoxPTTHT_CheckedChanged);
+            // 
             // textBoxTOT
             // 
-            this.textBoxTOT.Location = new System.Drawing.Point(440, 240);
+            this.textBoxTOT.Location = new System.Drawing.Point(441, 258);
             this.textBoxTOT.MaxLength = 50;
             this.textBoxTOT.Name = "textBoxTOT";
             this.textBoxTOT.Size = new System.Drawing.Size(76, 20);
@@ -2803,7 +2941,7 @@ namespace PowerSDR
             // labelTS23
             // 
             this.labelTS23.Image = null;
-            this.labelTS23.Location = new System.Drawing.Point(404, 264);
+            this.labelTS23.Location = new System.Drawing.Point(405, 282);
             this.labelTS23.Name = "labelTS23";
             this.labelTS23.Size = new System.Drawing.Size(52, 23);
             this.labelTS23.TabIndex = 9;
@@ -2816,7 +2954,7 @@ namespace PowerSDR
             0,
             0,
             0});
-            this.udTOT.Location = new System.Drawing.Point(336, 262);
+            this.udTOT.Location = new System.Drawing.Point(337, 280);
             this.udTOT.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -2840,12 +2978,11 @@ namespace PowerSDR
             // chkBoxTOT
             // 
             this.chkBoxTOT.Image = null;
-            this.chkBoxTOT.Location = new System.Drawing.Point(336, 240);
+            this.chkBoxTOT.Location = new System.Drawing.Point(337, 258);
             this.chkBoxTOT.Name = "chkBoxTOT";
             this.chkBoxTOT.Size = new System.Drawing.Size(104, 16);
             this.chkBoxTOT.TabIndex = 28;
             this.chkBoxTOT.Text = "Time-Out Timer";
-            this.toolTip1.SetToolTip(this.chkBoxTOT, resources.GetString("chkBoxTOT.ToolTip"));
             this.chkBoxTOT.CheckedChanged += new System.EventHandler(this.chkBoxTOT_CheckedChanged);
             // 
             // grpHWSoftRock
@@ -2947,8 +3084,8 @@ namespace PowerSDR
             this.udDDSCorrection.Name = "udDDSCorrection";
             this.udDDSCorrection.Size = new System.Drawing.Size(64, 20);
             this.udDDSCorrection.TabIndex = 7;
-            this.toolTip1.SetToolTip(this.udDDSCorrection, "Correction for DDS frequency\r\n\r\nThis is auto updates by the Generial->Calibration" +
-        "->Freq Cal routine");
+            this.toolTip1.SetToolTip(this.udDDSCorrection, "Correction for DDS frequency\r\n\r\nThis auto updates by using the Generial->Calibrat" +
+        "ion->Freq Cal routine");
             this.udDDSCorrection.Value = new decimal(new int[] {
             0,
             0,
@@ -2970,12 +3107,13 @@ namespace PowerSDR
             // 
             // udDDSIFFreq
             // 
+            this.udDDSIFFreq.DecimalPlaces = 1;
             this.udDDSIFFreq.Increment = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.udDDSIFFreq.Location = new System.Drawing.Point(112, 72);
+            this.udDDSIFFreq.Location = new System.Drawing.Point(104, 72);
             this.udDDSIFFreq.Maximum = new decimal(new int[] {
             20000,
             0,
@@ -2987,9 +3125,10 @@ namespace PowerSDR
             0,
             -2147483648});
             this.udDDSIFFreq.Name = "udDDSIFFreq";
-            this.udDDSIFFreq.Size = new System.Drawing.Size(56, 20);
+            this.udDDSIFFreq.Size = new System.Drawing.Size(64, 20);
             this.udDDSIFFreq.TabIndex = 5;
-            this.toolTip1.SetToolTip(this.udDDSIFFreq, "Intermediate Frequency");
+            this.toolTip1.SetToolTip(this.udDDSIFFreq, "Intermediate Frequency\r\nDefault Values:\r\nFlex-5000: 9000hz\r\nFlex-3000: 9000hz\r\nFl" +
+        "ex-1500: 3800hz\r\n");
             this.udDDSIFFreq.Value = new decimal(new int[] {
             9000,
             0,
@@ -3140,9 +3279,9 @@ namespace PowerSDR
             this.chkGeneralRXOnly.Image = null;
             this.chkGeneralRXOnly.Location = new System.Drawing.Point(336, 160);
             this.chkGeneralRXOnly.Name = "chkGeneralRXOnly";
-            this.chkGeneralRXOnly.Size = new System.Drawing.Size(96, 16);
+            this.chkGeneralRXOnly.Size = new System.Drawing.Size(222, 44);
             this.chkGeneralRXOnly.TabIndex = 11;
-            this.chkGeneralRXOnly.Text = "Receive Only";
+            this.chkGeneralRXOnly.Text = "Receive Only.  But PTT performs a Start-Stop of the Receiver";
             this.toolTip1.SetToolTip(this.chkGeneralRXOnly, "Check to disable transmit functionality.");
             this.chkGeneralRXOnly.CheckedChanged += new System.EventHandler(this.chkGeneralRXOnly_CheckedChanged);
             // 
@@ -3557,6 +3696,12 @@ namespace PowerSDR
             // tpGeneralOptions
             // 
             this.tpGeneralOptions.BackColor = System.Drawing.SystemColors.Control;
+            this.tpGeneralOptions.Controls.Add(this.chkBoxPM1);
+            this.tpGeneralOptions.Controls.Add(this.chkBoxIICON);
+            this.tpGeneralOptions.Controls.Add(this.chkBoxIIC);
+            this.tpGeneralOptions.Controls.Add(this.chkBoxVFOLockAB);
+            this.tpGeneralOptions.Controls.Add(this.buttonTS2);
+            this.tpGeneralOptions.Controls.Add(this.chkBoxBandStack);
             this.tpGeneralOptions.Controls.Add(this.chkGenOptionsShowATUPopup);
             this.tpGeneralOptions.Controls.Add(this.chkImportDBRestrict);
             this.tpGeneralOptions.Controls.Add(this.grpOptUSBBuf);
@@ -3573,6 +3718,80 @@ namespace PowerSDR
             this.tpGeneralOptions.TabIndex = 1;
             this.tpGeneralOptions.Text = "Options";
             // 
+            // chkBoxPM1
+            // 
+            this.chkBoxPM1.AllowDrop = true;
+            this.chkBoxPM1.Image = null;
+            this.chkBoxPM1.Location = new System.Drawing.Point(351, 290);
+            this.chkBoxPM1.Name = "chkBoxPM1";
+            this.chkBoxPM1.Size = new System.Drawing.Size(220, 18);
+            this.chkBoxPM1.TabIndex = 62;
+            this.chkBoxPM1.Text = "Use PowerMaster for Watts and SWR";
+            this.toolTip1.SetToolTip(this.chkBoxPM1, "Check box to communicate with PowerMaster (via serial port) and display Power and" +
+        " SWR output from your AMP.\r\n\r\nNOT HOOKED UP YET\r\n");
+            // 
+            // chkBoxIICON
+            // 
+            this.chkBoxIICON.AllowDrop = true;
+            this.chkBoxIICON.Image = null;
+            this.chkBoxIICON.Location = new System.Drawing.Point(351, 272);
+            this.chkBoxIICON.Name = "chkBoxIICON";
+            this.chkBoxIICON.Size = new System.Drawing.Size(161, 18);
+            this.chkBoxIICON.TabIndex = 61;
+            this.chkBoxIICON.Text = "IIC FlexWire AMP ON/OFF";
+            this.toolTip1.SetToolTip(this.chkBoxIICON, resources.GetString("chkBoxIICON.ToolTip"));
+            this.chkBoxIICON.CheckedChanged += new System.EventHandler(this.chkBoxIICON_CheckedChanged);
+            // 
+            // chkBoxIIC
+            // 
+            this.chkBoxIIC.AllowDrop = true;
+            this.chkBoxIIC.Image = null;
+            this.chkBoxIIC.Location = new System.Drawing.Point(324, 250);
+            this.chkBoxIIC.Name = "chkBoxIIC";
+            this.chkBoxIIC.Size = new System.Drawing.Size(247, 25);
+            this.chkBoxIIC.TabIndex = 59;
+            this.chkBoxIIC.Text = "Use IIC FlexWire for External AMP control";
+            this.toolTip1.SetToolTip(this.chkBoxIIC, resources.GetString("chkBoxIIC.ToolTip"));
+            this.chkBoxIIC.CheckedChanged += new System.EventHandler(this.chkBoxIIC_CheckedChanged);
+            // 
+            // chkBoxVFOLockAB
+            // 
+            this.chkBoxVFOLockAB.AllowDrop = true;
+            this.chkBoxVFOLockAB.Image = null;
+            this.chkBoxVFOLockAB.Location = new System.Drawing.Point(174, 270);
+            this.chkBoxVFOLockAB.Name = "chkBoxVFOLockAB";
+            this.chkBoxVFOLockAB.Size = new System.Drawing.Size(117, 18);
+            this.chkBoxVFOLockAB.TabIndex = 58;
+            this.chkBoxVFOLockAB.Text = "VFO Lock A / B";
+            this.toolTip1.SetToolTip(this.chkBoxVFOLockAB, "Check to allow VFO Lock button to toggle between VFOA, VFOAB, and VFOB Lock\r\n");
+            // 
+            // buttonTS2
+            // 
+            this.buttonTS2.Image = null;
+            this.buttonTS2.Location = new System.Drawing.Point(17, 267);
+            this.buttonTS2.Name = "buttonTS2";
+            this.buttonTS2.Size = new System.Drawing.Size(117, 23);
+            this.buttonTS2.TabIndex = 57;
+            this.buttonTS2.Text = "Update BandText \r\n\r\nClick when you change TURF region for your Flex Radio\r\nOR the" +
+    "re is a PowerSDR software update that contains changes or \r\nUpdates to the Band " +
+    "Text";
+            this.toolTip1.SetToolTip(this.buttonTS2, "Update the BandText found in your Database file to the BandText found in this ver" +
+        "sion of PowerSDR, \r\nwithout having to do a Setup->Factory Defaults\r\n");
+            this.buttonTS2.Click += new System.EventHandler(this.buttonTS2_Click);
+            // 
+            // chkBoxBandStack
+            // 
+            this.chkBoxBandStack.AllowDrop = true;
+            this.chkBoxBandStack.Image = null;
+            this.chkBoxBandStack.Location = new System.Drawing.Point(17, 296);
+            this.chkBoxBandStack.Name = "chkBoxBandStack";
+            this.chkBoxBandStack.Size = new System.Drawing.Size(187, 18);
+            this.chkBoxBandStack.TabIndex = 33;
+            this.chkBoxBandStack.Text = "Reset/Update Band Stack";
+            this.toolTip1.SetToolTip(this.chkBoxBandStack, "When Checked and you \"Update BandText\", your BandStack will also reset to new Fac" +
+        "tory Defaults.\r\n\r\nLeave UNCHECKED to preserve your current Band Stack when you \"" +
+        "Update BandText\" \r\n");
+            // 
             // chkGenOptionsShowATUPopup
             // 
             this.chkGenOptionsShowATUPopup.Image = null;
@@ -3588,10 +3807,8 @@ namespace PowerSDR
             // chkImportDBRestrict
             // 
             this.chkImportDBRestrict.AllowDrop = true;
-            this.chkImportDBRestrict.Checked = true;
-            this.chkImportDBRestrict.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkImportDBRestrict.Image = null;
-            this.chkImportDBRestrict.Location = new System.Drawing.Point(24, 243);
+            this.chkImportDBRestrict.Location = new System.Drawing.Point(17, 243);
             this.chkImportDBRestrict.Name = "chkImportDBRestrict";
             this.chkImportDBRestrict.Size = new System.Drawing.Size(187, 18);
             this.chkImportDBRestrict.TabIndex = 31;
@@ -3638,7 +3855,7 @@ namespace PowerSDR
             this.tbOptUSBBuf.Location = new System.Drawing.Point(22, 20);
             this.tbOptUSBBuf.Maximum = 4;
             this.tbOptUSBBuf.Name = "tbOptUSBBuf";
-            this.tbOptUSBBuf.Size = new System.Drawing.Size(112, 45);
+            this.tbOptUSBBuf.Size = new System.Drawing.Size(112, 42);
             this.tbOptUSBBuf.TabIndex = 0;
             this.tbOptUSBBuf.Value = 1;
             this.tbOptUSBBuf.Scroll += new System.EventHandler(this.tbOptUSBBuf_Scroll);
@@ -4733,13 +4950,12 @@ namespace PowerSDR
             this.groupBox2.Controls.Add(this.labelTS16);
             this.groupBox2.Controls.Add(this.udHttpPort);
             this.groupBox2.Controls.Add(this.chkBoxHTTP);
-            this.groupBox2.Location = new System.Drawing.Point(32, 184);
+            this.groupBox2.Location = new System.Drawing.Point(33, 204);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(521, 100);
             this.groupBox2.TabIndex = 54;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "HttpServer";
-            this.toolTip1.SetToolTip(this.groupBox2, resources.GetString("groupBox2.ToolTip"));
             // 
             // labelTS29
             // 
@@ -4835,8 +5051,8 @@ namespace PowerSDR
             this.checkBoxHTTP1.Size = new System.Drawing.Size(90, 24);
             this.checkBoxHTTP1.TabIndex = 81;
             this.checkBoxHTTP1.Text = "Full Console";
-            this.toolTip1.SetToolTip(this.checkBoxHTTP1, "When Basic is ON, you can transmit the full Console window or just the Panadapter" +
-        " area\r\n");
+            this.toolTip1.SetToolTip(this.checkBoxHTTP1, "Hit F1 for more Help.\r\n\r\nWhen Basic is ON, you can transmit the full Console wind" +
+        "ow or just the Panadapter area\r\n");
             // 
             // chkBoxHttp2
             // 
@@ -4880,7 +5096,6 @@ namespace PowerSDR
             this.udHttpRefresh.Name = "udHttpRefresh";
             this.udHttpRefresh.Size = new System.Drawing.Size(75, 20);
             this.udHttpRefresh.TabIndex = 12;
-            this.toolTip1.SetToolTip(this.udHttpRefresh, resources.GetString("udHttpRefresh.ToolTip"));
             this.udHttpRefresh.Value = new decimal(new int[] {
             400,
             0,
@@ -4959,7 +5174,6 @@ namespace PowerSDR
             this.udHttpPort.Name = "udHttpPort";
             this.udHttpPort.Size = new System.Drawing.Size(54, 20);
             this.udHttpPort.TabIndex = 7;
-            this.toolTip1.SetToolTip(this.udHttpPort, resources.GetString("udHttpPort.ToolTip"));
             this.udHttpPort.Value = new decimal(new int[] {
             8081,
             0,
@@ -4976,11 +5190,12 @@ namespace PowerSDR
             this.chkBoxHTTP.Size = new System.Drawing.Size(105, 24);
             this.chkBoxHTTP.TabIndex = 7;
             this.chkBoxHTTP.Text = "On: Basic (pan)";
-            this.toolTip1.SetToolTip(this.chkBoxHTTP, resources.GetString("chkBoxHTTP.ToolTip"));
             this.chkBoxHTTP.CheckedChanged += new System.EventHandler(this.chkBoxHTTP_CheckedChanged);
+            this.chkBoxHTTP.KeyDown += new System.Windows.Forms.KeyEventHandler(this.chkBoxHTTP_KeyDown);
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.labelTS30);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.btnConfigure);
             this.groupBox1.Controls.Add(this.cbConsoleSelect);
@@ -4990,6 +5205,15 @@ namespace PowerSDR
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "DJ Console DH1TW 0.997 User Interface Controller";
+            // 
+            // labelTS30
+            // 
+            this.labelTS30.Image = null;
+            this.labelTS30.Location = new System.Drawing.Point(20, 133);
+            this.labelTS30.Name = "labelTS30";
+            this.labelTS30.Size = new System.Drawing.Size(268, 16);
+            this.labelTS30.TabIndex = 82;
+            this.labelTS30.Text = "Supports Hercules MP3e2, MK2, MP3LE";
             // 
             // label1
             // 
@@ -5003,7 +5227,7 @@ namespace PowerSDR
             // btnConfigure
             // 
             this.btnConfigure.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnConfigure.Location = new System.Drawing.Point(23, 86);
+            this.btnConfigure.Location = new System.Drawing.Point(23, 97);
             this.btnConfigure.Name = "btnConfigure";
             this.btnConfigure.Size = new System.Drawing.Size(272, 30);
             this.btnConfigure.TabIndex = 5;
@@ -5019,9 +5243,15 @@ namespace PowerSDR
             this.cbConsoleSelect.Name = "cbConsoleSelect";
             this.cbConsoleSelect.Size = new System.Drawing.Size(215, 21);
             this.cbConsoleSelect.TabIndex = 4;
+            this.toolTip1.SetToolTip(this.cbConsoleSelect, "Supports Hercules MP3e2, MK2, MP3LE");
             // 
             // groupBoxTS1
             // 
+            this.groupBoxTS1.Controls.Add(this.labelTS35);
+            this.groupBoxTS1.Controls.Add(this.labelTS34);
+            this.groupBoxTS1.Controls.Add(this.btnTuneStepChangeLarger3);
+            this.groupBoxTS1.Controls.Add(this.btnTuneStepChangeSmaller3);
+            this.groupBoxTS1.Controls.Add(this.txtWheelTune3);
             this.groupBoxTS1.Controls.Add(this.chkBoxIND2);
             this.groupBoxTS1.Controls.Add(this.labelTS26);
             this.groupBoxTS1.Controls.Add(this.btnTuneStepChangeLarger2);
@@ -5033,30 +5263,95 @@ namespace PowerSDR
             this.groupBoxTS1.Controls.Add(this.udSpeedPM);
             this.groupBoxTS1.Location = new System.Drawing.Point(362, 11);
             this.groupBoxTS1.Name = "groupBoxTS1";
-            this.groupBoxTS1.Size = new System.Drawing.Size(192, 155);
+            this.groupBoxTS1.Size = new System.Drawing.Size(192, 187);
             this.groupBoxTS1.TabIndex = 53;
             this.groupBoxTS1.TabStop = false;
             this.groupBoxTS1.Text = "PowerMate and FlexControl";
             // 
+            // labelTS35
+            // 
+            this.labelTS35.Image = null;
+            this.labelTS35.Location = new System.Drawing.Point(104, 91);
+            this.labelTS35.Name = "labelTS35";
+            this.labelTS35.Size = new System.Drawing.Size(64, 21);
+            this.labelTS35.TabIndex = 86;
+            this.labelTS35.Text = "Alt #1";
+            // 
+            // labelTS34
+            // 
+            this.labelTS34.Image = null;
+            this.labelTS34.Location = new System.Drawing.Point(104, 112);
+            this.labelTS34.Name = "labelTS34";
+            this.labelTS34.Size = new System.Drawing.Size(64, 27);
+            this.labelTS34.TabIndex = 85;
+            this.labelTS34.Text = "Alt #2 (knob push)";
+            // 
+            // btnTuneStepChangeLarger3
+            // 
+            this.btnTuneStepChangeLarger3.FlatAppearance.BorderSize = 0;
+            this.btnTuneStepChangeLarger3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTuneStepChangeLarger3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.btnTuneStepChangeLarger3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnTuneStepChangeLarger3.Image = null;
+            this.btnTuneStepChangeLarger3.ImeMode = System.Windows.Forms.ImeMode.Off;
+            this.btnTuneStepChangeLarger3.Location = new System.Drawing.Point(84, 115);
+            this.btnTuneStepChangeLarger3.Name = "btnTuneStepChangeLarger3";
+            this.btnTuneStepChangeLarger3.Size = new System.Drawing.Size(16, 19);
+            this.btnTuneStepChangeLarger3.TabIndex = 84;
+            this.btnTuneStepChangeLarger3.Text = "+";
+            this.toolTip1.SetToolTip(this.btnTuneStepChangeLarger3, "Change to the next larger tuning step");
+            this.btnTuneStepChangeLarger3.Click += new System.EventHandler(this.btnTuneStepChangeLarger3_Click);
+            // 
+            // btnTuneStepChangeSmaller3
+            // 
+            this.btnTuneStepChangeSmaller3.FlatAppearance.BorderSize = 0;
+            this.btnTuneStepChangeSmaller3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTuneStepChangeSmaller3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.btnTuneStepChangeSmaller3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnTuneStepChangeSmaller3.Image = null;
+            this.btnTuneStepChangeSmaller3.ImeMode = System.Windows.Forms.ImeMode.Off;
+            this.btnTuneStepChangeSmaller3.Location = new System.Drawing.Point(11, 112);
+            this.btnTuneStepChangeSmaller3.Name = "btnTuneStepChangeSmaller3";
+            this.btnTuneStepChangeSmaller3.Size = new System.Drawing.Size(16, 19);
+            this.btnTuneStepChangeSmaller3.TabIndex = 83;
+            this.btnTuneStepChangeSmaller3.Text = "-";
+            this.toolTip1.SetToolTip(this.btnTuneStepChangeSmaller3, "Change to the next smaller tuning step");
+            this.btnTuneStepChangeSmaller3.Click += new System.EventHandler(this.btnTuneStepChangeSmaller3_Click);
+            // 
+            // txtWheelTune3
+            // 
+            this.txtWheelTune3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));
+            this.txtWheelTune3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtWheelTune3.Cursor = System.Windows.Forms.Cursors.Default;
+            this.txtWheelTune3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.txtWheelTune3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.txtWheelTune3.Location = new System.Drawing.Point(30, 116);
+            this.txtWheelTune3.Name = "txtWheelTune3";
+            this.txtWheelTune3.ReadOnly = true;
+            this.txtWheelTune3.Size = new System.Drawing.Size(48, 20);
+            this.txtWheelTune3.TabIndex = 82;
+            this.txtWheelTune3.Text = "100Hz";
+            this.toolTip1.SetToolTip(this.txtWheelTune3, "Alternative Tune Step Rate \r\nWorks with both PowerMate and FlexControl when ON\r\n");
+            // 
             // chkBoxIND2
             // 
             this.chkBoxIND2.Image = null;
-            this.chkBoxIND2.Location = new System.Drawing.Point(9, 133);
+            this.chkBoxIND2.Location = new System.Drawing.Point(9, 165);
             this.chkBoxIND2.Name = "chkBoxIND2";
             this.chkBoxIND2.Size = new System.Drawing.Size(182, 16);
             this.chkBoxIND2.TabIndex = 81;
-            this.chkBoxIND2.Text = "Alt Tune Step for FlexControl\r\n";
+            this.chkBoxIND2.Text = "Alt1 Tune Step for FlexControl\r\n";
             this.toolTip1.SetToolTip(this.chkBoxIND2, "Check to use the  Alternative Tune Step \r\nFor the FlexControl\r\n\r\nUncheck to use t" +
         "he main cosnsole PowerSDR Tune Step");
             // 
             // labelTS26
             // 
             this.labelTS26.Image = null;
-            this.labelTS26.Location = new System.Drawing.Point(43, 67);
+            this.labelTS26.Location = new System.Drawing.Point(8, 71);
             this.labelTS26.Name = "labelTS26";
-            this.labelTS26.Size = new System.Drawing.Size(115, 16);
+            this.labelTS26.Size = new System.Drawing.Size(149, 16);
             this.labelTS26.TabIndex = 80;
-            this.labelTS26.Text = "Alt Tune Step Rate:";
+            this.labelTS26.Text = "Alt Tune Step Rate(s):";
             // 
             // btnTuneStepChangeLarger2
             // 
@@ -5066,7 +5361,7 @@ namespace PowerSDR
             this.btnTuneStepChangeLarger2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.btnTuneStepChangeLarger2.Image = null;
             this.btnTuneStepChangeLarger2.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.btnTuneStepChangeLarger2.Location = new System.Drawing.Point(119, 85);
+            this.btnTuneStepChangeLarger2.Location = new System.Drawing.Point(84, 89);
             this.btnTuneStepChangeLarger2.Name = "btnTuneStepChangeLarger2";
             this.btnTuneStepChangeLarger2.Size = new System.Drawing.Size(16, 19);
             this.btnTuneStepChangeLarger2.TabIndex = 79;
@@ -5082,7 +5377,7 @@ namespace PowerSDR
             this.btnTuneStepChangeSmaller2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.btnTuneStepChangeSmaller2.Image = null;
             this.btnTuneStepChangeSmaller2.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.btnTuneStepChangeSmaller2.Location = new System.Drawing.Point(46, 85);
+            this.btnTuneStepChangeSmaller2.Location = new System.Drawing.Point(11, 89);
             this.btnTuneStepChangeSmaller2.Name = "btnTuneStepChangeSmaller2";
             this.btnTuneStepChangeSmaller2.Size = new System.Drawing.Size(16, 19);
             this.btnTuneStepChangeSmaller2.TabIndex = 78;
@@ -5097,24 +5392,23 @@ namespace PowerSDR
             this.txtWheelTune2.Cursor = System.Windows.Forms.Cursors.Default;
             this.txtWheelTune2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.txtWheelTune2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.txtWheelTune2.Location = new System.Drawing.Point(65, 86);
+            this.txtWheelTune2.Location = new System.Drawing.Point(30, 90);
             this.txtWheelTune2.Name = "txtWheelTune2";
             this.txtWheelTune2.ReadOnly = true;
             this.txtWheelTune2.Size = new System.Drawing.Size(48, 20);
             this.txtWheelTune2.TabIndex = 16;
-            this.txtWheelTune2.Text = "1kHz";
+            this.txtWheelTune2.Text = "50Hz";
             this.toolTip1.SetToolTip(this.txtWheelTune2, "Alternative Tune Step Rate \r\nWorks with both PowerMate and FlexControl when ON\r\n");
-            this.txtWheelTune2.TextChanged += new System.EventHandler(this.txtWheelTune2_TextChanged);
             this.txtWheelTune2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.txtWheelTune2_MouseDown);
             // 
             // chkBoxIND
             // 
             this.chkBoxIND.Image = null;
-            this.chkBoxIND.Location = new System.Drawing.Point(9, 110);
+            this.chkBoxIND.Location = new System.Drawing.Point(9, 142);
             this.chkBoxIND.Name = "chkBoxIND";
             this.chkBoxIND.Size = new System.Drawing.Size(182, 17);
             this.chkBoxIND.TabIndex = 7;
-            this.chkBoxIND.Text = "Alt Tune Step for PowerMate\r\n";
+            this.chkBoxIND.Text = "Alt1-2 Tune Step for PowerMate\r\n";
             this.toolTip1.SetToolTip(this.chkBoxIND, "Check to use the Alternative Tune Step \r\nFor PowerMate Knob\r\n\r\nUncheck to use the" +
         " main cosnsole PowerSDR Tune Step");
             // 
@@ -5161,7 +5455,7 @@ namespace PowerSDR
             this.udSpeedPM.TabIndex = 4;
             this.toolTip1.SetToolTip(this.udSpeedPM, "Speed of Freq Change");
             this.udSpeedPM.Value = new decimal(new int[] {
-            2,
+            1,
             0,
             0,
             0});
@@ -5188,8 +5482,8 @@ namespace PowerSDR
             this.tcAudio.TabIndex = 35;
             // 
             // tpAudioCard1
-            //
-            this.tpAudioCard1.Controls.Add(this.groupBoxTS2);			
+            // 
+            this.tpAudioCard1.Controls.Add(this.groupBoxTS3);
             this.tpAudioCard1.Controls.Add(this.chkAudioExpert);
             this.tpAudioCard1.Controls.Add(this.grpAudioMicBoost);
             this.tpAudioCard1.Controls.Add(this.grpAudioChannels);
@@ -5207,16 +5501,16 @@ namespace PowerSDR
             this.tpAudioCard1.TabIndex = 0;
             this.tpAudioCard1.Text = "Primary";
             // 
-            // groupBoxTS2
+            // groupBoxTS3
             // 
-            this.groupBoxTS2.Controls.Add(this.udIQCorrection);
-            this.groupBoxTS2.Location = new System.Drawing.Point(470, 10);
-            this.groupBoxTS2.Name = "groupBoxTS2";
-            this.groupBoxTS2.Size = new System.Drawing.Size(104, 56);
-            this.groupBoxTS2.TabIndex = 51;
-            this.groupBoxTS2.TabStop = false;
-            this.groupBoxTS2.Text = "IQ Correction";
-            this.groupBoxTS2.Enter += new System.EventHandler(this.groupBoxTS2_Enter);
+            this.groupBoxTS3.Controls.Add(this.udIQCorrection);
+            this.groupBoxTS3.Location = new System.Drawing.Point(470, 8);
+            this.groupBoxTS3.Name = "groupBoxTS3";
+            this.groupBoxTS3.Size = new System.Drawing.Size(104, 56);
+            this.groupBoxTS3.TabIndex = 51;
+            this.groupBoxTS3.TabStop = false;
+            this.groupBoxTS3.Text = "IQ Correction";
+            this.groupBoxTS3.Enter += new System.EventHandler(this.groupBoxTS2_Enter);
             // 
             // udIQCorrection
             // 
@@ -5653,6 +5947,7 @@ namespace PowerSDR
             "Sound Blaster Extigy (USB)",
             "Sound Blaster MP3+ (USB)",
             "Turtle Beach Santa Cruz (PCI)",
+            "SB0222 kX-Project (PCI)",
             "Unsupported Card"});
             this.comboAudioSoundCard.Location = new System.Drawing.Point(24, 24);
             this.comboAudioSoundCard.MaxDropDownItems = 11;
@@ -5744,6 +6039,9 @@ namespace PowerSDR
             this.grpDirectIQOutput.TabIndex = 78;
             this.grpDirectIQOutput.TabStop = false;
             this.grpDirectIQOutput.Text = "Direct I/Q";
+            this.toolTip1.SetToolTip(this.grpDirectIQOutput, "Direct I/Q send the entire Panadapter (Sample Rate) contents\r\nacross the Virtual " +
+        "Audio Cable.\r\n\r\nWhen Direct I/Q is disabled, only the bandpass audio is sent \r\no" +
+        "ver the  the Virtual Audio Cable.");
             // 
             // chkAudioRX2toVAC
             // 
@@ -6189,6 +6487,9 @@ namespace PowerSDR
             this.grpVAC2DirectIQ.TabIndex = 89;
             this.grpVAC2DirectIQ.TabStop = false;
             this.grpVAC2DirectIQ.Text = "Direct I/Q";
+            this.toolTip1.SetToolTip(this.grpVAC2DirectIQ, "Direct I/Q send the entire Panadapter (Sample Rate) contents\r\nacross the Virtual " +
+        "Audio Cable.\r\n\r\nWhen Direct I/Q is disabled, only the bandpass audio is sent \r\no" +
+        "ver the  the Virtual Audio Cable.");
             // 
             // chkVAC2DirectIQCal
             // 
@@ -6563,6 +6864,8 @@ namespace PowerSDR
             // 
             // tpDisplay
             // 
+            this.tpDisplay.Controls.Add(this.chkBoxAutoWtrPan);
+            this.tpDisplay.Controls.Add(this.chkBoxSplitListen);
             this.tpDisplay.Controls.Add(this.chkBoxDial);
             this.tpDisplay.Controls.Add(this.chkBoxMRX);
             this.tpDisplay.Controls.Add(this.labelTS14);
@@ -6584,10 +6887,33 @@ namespace PowerSDR
             this.tpDisplay.TabIndex = 2;
             this.tpDisplay.Text = "Display";
             // 
+            // chkBoxAutoWtrPan
+            // 
+            this.chkBoxAutoWtrPan.Image = null;
+            this.chkBoxAutoWtrPan.Location = new System.Drawing.Point(273, 318);
+            this.chkBoxAutoWtrPan.Name = "chkBoxAutoWtrPan";
+            this.chkBoxAutoWtrPan.Size = new System.Drawing.Size(105, 15);
+            this.chkBoxAutoWtrPan.TabIndex = 91;
+            this.chkBoxAutoWtrPan.Text = "auto wtr/pan";
+            this.toolTip1.SetToolTip(this.chkBoxAutoWtrPan, "Check to Automatically update the waterfall (brightness), and Panadapter levels (" +
+        "height)\n\nYou can still Left and Right Click on the \"Auto Wtr/Pan Lvl\" console bu" +
+        "tton\nfor a semi-automatic level adjust");
+            this.chkBoxAutoWtrPan.CheckedChanged += new System.EventHandler(this.chkBoxAutoWtrPan_CheckedChanged);
+            // 
+            // chkBoxSplitListen
+            // 
+            this.chkBoxSplitListen.Image = null;
+            this.chkBoxSplitListen.Location = new System.Drawing.Point(430, 297);
+            this.chkBoxSplitListen.Name = "chkBoxSplitListen";
+            this.chkBoxSplitListen.Size = new System.Drawing.Size(138, 15);
+            this.chkBoxSplitListen.TabIndex = 90;
+            this.chkBoxSplitListen.Text = "Split TX Listen";
+            this.toolTip1.SetToolTip(this.chkBoxSplitListen, "Check to automatically listen to the Split TX frequency\r\n (XFC)");
+            // 
             // chkBoxDial
             // 
             this.chkBoxDial.Image = null;
-            this.chkBoxDial.Location = new System.Drawing.Point(430, 298);
+            this.chkBoxDial.Location = new System.Drawing.Point(430, 318);
             this.chkBoxDial.Name = "chkBoxDial";
             this.chkBoxDial.Size = new System.Drawing.Size(138, 15);
             this.chkBoxDial.TabIndex = 89;
@@ -6599,7 +6925,7 @@ namespace PowerSDR
             // chkBoxMRX
             // 
             this.chkBoxMRX.Image = null;
-            this.chkBoxMRX.Location = new System.Drawing.Point(430, 280);
+            this.chkBoxMRX.Location = new System.Drawing.Point(430, 277);
             this.chkBoxMRX.Name = "chkBoxMRX";
             this.chkBoxMRX.Size = new System.Drawing.Size(138, 15);
             this.chkBoxMRX.TabIndex = 88;
@@ -6619,13 +6945,13 @@ namespace PowerSDR
             // tbWaterOffset
             // 
             this.tbWaterOffset.AutoSize = false;
+            this.tbWaterOffset.LargeChange = 1;
             this.tbWaterOffset.Location = new System.Drawing.Point(350, 298);
             this.tbWaterOffset.Maximum = 40;
             this.tbWaterOffset.Name = "tbWaterOffset";
             this.tbWaterOffset.Size = new System.Drawing.Size(66, 18);
             this.tbWaterOffset.TabIndex = 86;
             this.tbWaterOffset.TickFrequency = 4;
-            this.toolTip1.SetToolTip(this.tbWaterOffset, resources.GetString("tbWaterOffset.ToolTip"));
             this.tbWaterOffset.Value = 20;
             this.tbWaterOffset.Scroll += new System.EventHandler(this.tbWaterOffset_Scroll);
             // 
@@ -6641,13 +6967,13 @@ namespace PowerSDR
             // tbGridOffset
             // 
             this.tbGridOffset.AutoSize = false;
+            this.tbGridOffset.LargeChange = 1;
             this.tbGridOffset.Location = new System.Drawing.Point(350, 273);
             this.tbGridOffset.Maximum = 40;
             this.tbGridOffset.Name = "tbGridOffset";
             this.tbGridOffset.Size = new System.Drawing.Size(66, 18);
             this.tbGridOffset.TabIndex = 84;
             this.tbGridOffset.TickFrequency = 4;
-            this.toolTip1.SetToolTip(this.tbGridOffset, resources.GetString("tbGridOffset.ToolTip"));
             this.tbGridOffset.Value = 20;
             this.tbGridOffset.Scroll += new System.EventHandler(this.tbGridOffset_Scroll);
             // 
@@ -6905,7 +7231,7 @@ namespace PowerSDR
             // grpDisplayPolyPhase
             // 
             this.grpDisplayPolyPhase.Controls.Add(this.chkSpectrumPolyphase);
-            this.grpDisplayPolyPhase.Location = new System.Drawing.Point(440, 58);
+            this.grpDisplayPolyPhase.Location = new System.Drawing.Point(440, 96);
             this.grpDisplayPolyPhase.Name = "grpDisplayPolyPhase";
             this.grpDisplayPolyPhase.Size = new System.Drawing.Size(120, 42);
             this.grpDisplayPolyPhase.TabIndex = 44;
@@ -6926,14 +7252,26 @@ namespace PowerSDR
             // 
             // grpDisplayScopeMode
             // 
+            this.grpDisplayScopeMode.Controls.Add(this.checkBoxScopeAC);
             this.grpDisplayScopeMode.Controls.Add(this.udDisplayScopeTime);
             this.grpDisplayScopeMode.Controls.Add(this.lblDisplayScopeTime);
             this.grpDisplayScopeMode.Location = new System.Drawing.Point(440, 8);
             this.grpDisplayScopeMode.Name = "grpDisplayScopeMode";
-            this.grpDisplayScopeMode.Size = new System.Drawing.Size(136, 47);
+            this.grpDisplayScopeMode.Size = new System.Drawing.Size(136, 82);
             this.grpDisplayScopeMode.TabIndex = 43;
             this.grpDisplayScopeMode.TabStop = false;
             this.grpDisplayScopeMode.Text = "Scope Mode";
+            // 
+            // checkBoxScopeAC
+            // 
+            this.checkBoxScopeAC.Image = null;
+            this.checkBoxScopeAC.Location = new System.Drawing.Point(11, 52);
+            this.checkBoxScopeAC.Name = "checkBoxScopeAC";
+            this.checkBoxScopeAC.Size = new System.Drawing.Size(109, 16);
+            this.checkBoxScopeAC.TabIndex = 40;
+            this.checkBoxScopeAC.Text = "View AC mode";
+            this.toolTip1.SetToolTip(this.checkBoxScopeAC, "When checked the Scope displays as though in AC mode.");
+            this.checkBoxScopeAC.Visible = false;
             // 
             // udDisplayScopeTime
             // 
@@ -7661,7 +7999,7 @@ namespace PowerSDR
             this.udDisplayGridMin.TabIndex = 24;
             this.toolTip1.SetToolTip(this.udDisplayGridMin, "Signal Level at bottom of display in dB.");
             this.udDisplayGridMin.Value = new decimal(new int[] {
-            150,
+            135,
             0,
             0,
             -2147483648});
@@ -7691,7 +8029,7 @@ namespace PowerSDR
             this.udDisplayGridMax.TabIndex = 23;
             this.toolTip1.SetToolTip(this.udDisplayGridMax, "Signal level at top of display in dB.");
             this.udDisplayGridMax.Value = new decimal(new int[] {
-            1,
+            19,
             0,
             0,
             -2147483648});
@@ -7748,6 +8086,7 @@ namespace PowerSDR
             // 
             // tpDSPOptions
             // 
+            this.tpDSPOptions.Controls.Add(this.chkDSPRX2);
             this.tpDSPOptions.Controls.Add(this.labelTS28);
             this.tpDSPOptions.Controls.Add(this.btnRSTNB2);
             this.tpDSPOptions.Controls.Add(this.btnRSTNB);
@@ -7767,6 +8106,17 @@ namespace PowerSDR
             this.tpDSPOptions.Size = new System.Drawing.Size(600, 318);
             this.tpDSPOptions.TabIndex = 2;
             this.tpDSPOptions.Text = "Options";
+            // 
+            // chkDSPRX2
+            // 
+            this.chkDSPRX2.Checked = true;
+            this.chkDSPRX2.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkDSPRX2.Image = null;
+            this.chkDSPRX2.Location = new System.Drawing.Point(430, 260);
+            this.chkDSPRX2.Name = "chkDSPRX2";
+            this.chkDSPRX2.Size = new System.Drawing.Size(144, 32);
+            this.chkDSPRX2.TabIndex = 43;
+            this.chkDSPRX2.Text = "Use NR,ANF, and NB settings for RX2";
             // 
             // labelTS28
             // 
@@ -8146,6 +8496,7 @@ namespace PowerSDR
             this.grpDSPLMSNR.TabIndex = 33;
             this.grpDSPLMSNR.TabStop = false;
             this.grpDSPLMSNR.Text = "NR";
+            this.toolTip1.SetToolTip(this.grpDSPLMSNR, "Noise Reduction");
             // 
             // udLMSNRLeak
             // 
@@ -8319,6 +8670,7 @@ namespace PowerSDR
             this.grpDSPLMSANF.TabIndex = 32;
             this.grpDSPLMSANF.TabStop = false;
             this.grpDSPLMSANF.Text = "ANF";
+            this.toolTip1.SetToolTip(this.grpDSPLMSANF, "Automatic Notch Filter");
             // 
             // udLMSANFLeak
             // 
@@ -8694,7 +9046,7 @@ namespace PowerSDR
             this.tbDSPImagePhaseTX.Maximum = 400;
             this.tbDSPImagePhaseTX.Minimum = -400;
             this.tbDSPImagePhaseTX.Name = "tbDSPImagePhaseTX";
-            this.tbDSPImagePhaseTX.Size = new System.Drawing.Size(160, 45);
+            this.tbDSPImagePhaseTX.Size = new System.Drawing.Size(160, 42);
             this.tbDSPImagePhaseTX.TabIndex = 3;
             this.tbDSPImagePhaseTX.TickFrequency = 50;
             this.toolTip1.SetToolTip(this.tbDSPImagePhaseTX, "Sets the phase offset between the I and Q channels.  ");
@@ -8716,7 +9068,7 @@ namespace PowerSDR
             this.tbDSPImageGainTX.Maximum = 500;
             this.tbDSPImageGainTX.Minimum = -500;
             this.tbDSPImageGainTX.Name = "tbDSPImageGainTX";
-            this.tbDSPImageGainTX.Size = new System.Drawing.Size(160, 45);
+            this.tbDSPImageGainTX.Size = new System.Drawing.Size(160, 42);
             this.tbDSPImageGainTX.TabIndex = 4;
             this.tbDSPImageGainTX.TickFrequency = 50;
             this.toolTip1.SetToolTip(this.tbDSPImageGainTX, "Sets the amplitude/gain offset between the I and Q channels.  ");
@@ -9261,7 +9613,6 @@ namespace PowerSDR
             this.grpDSPLeveler.TabIndex = 39;
             this.grpDSPLeveler.TabStop = false;
             this.grpDSPLeveler.Text = "Leveler (Stage 4)";
-            this.toolTip1.SetToolTip(this.grpDSPLeveler, resources.GetString("grpDSPLeveler.ToolTip"));
             // 
             // chkDSPLevelerEnabled
             // 
@@ -9273,7 +9624,6 @@ namespace PowerSDR
             this.chkDSPLevelerEnabled.Size = new System.Drawing.Size(104, 16);
             this.chkDSPLevelerEnabled.TabIndex = 42;
             this.chkDSPLevelerEnabled.Text = "Enabled";
-            this.toolTip1.SetToolTip(this.chkDSPLevelerEnabled, resources.GetString("chkDSPLevelerEnabled.ToolTip"));
             this.chkDSPLevelerEnabled.CheckedChanged += new System.EventHandler(this.chkDSPLevelerEnabled_CheckedChanged);
             // 
             // lblDSPLevelerHangThreshold
@@ -9514,7 +9864,6 @@ namespace PowerSDR
             this.grpDSPALC.TabIndex = 38;
             this.grpDSPALC.TabStop = false;
             this.grpDSPALC.Text = "ALC (Stage 5: Final)";
-            this.toolTip1.SetToolTip(this.grpDSPALC, resources.GetString("grpDSPALC.ToolTip"));
             // 
             // lblDSPALCHangThreshold
             // 
@@ -10017,8 +10366,10 @@ namespace PowerSDR
             // 
             // tpTransmit
             // 
+            this.tpTransmit.Controls.Add(this.chkBoxTNTX3);
             this.tpTransmit.Controls.Add(this.chkPhaseRotate);
             this.tpTransmit.Controls.Add(this.chkFMDataMic);
+            this.tpTransmit.Controls.Add(this.grpTXVOX);
             this.tpTransmit.Controls.Add(this.chk2ndMeter);
             this.tpTransmit.Controls.Add(this.chkTXWtrID);
             this.tpTransmit.Controls.Add(this.chkTXMeter2);
@@ -10036,13 +10387,24 @@ namespace PowerSDR
             this.tpTransmit.Controls.Add(this.grpPATune);
             this.tpTransmit.Controls.Add(this.grpTXFilter);
             this.tpTransmit.Controls.Add(this.chkDCBlock);
-            this.tpTransmit.Controls.Add(this.grpTXVOX);
             this.tpTransmit.Controls.Add(this.grpTX1500);
             this.tpTransmit.Location = new System.Drawing.Point(4, 22);
             this.tpTransmit.Name = "tpTransmit";
             this.tpTransmit.Size = new System.Drawing.Size(584, 341);
             this.tpTransmit.TabIndex = 5;
             this.tpTransmit.Text = "Transmit";
+            // 
+            // chkBoxTNTX3
+            // 
+            this.chkBoxTNTX3.Image = null;
+            this.chkBoxTNTX3.Location = new System.Drawing.Point(155, 290);
+            this.chkBoxTNTX3.Name = "chkBoxTNTX3";
+            this.chkBoxTNTX3.Size = new System.Drawing.Size(133, 26);
+            this.chkBoxTNTX3.TabIndex = 67;
+            this.chkBoxTNTX3.Text = "TUN uses TX3 Jack";
+            this.toolTip1.SetToolTip(this.chkBoxTNTX3, "When Checked, the TUN button activates TX3 RCA Jack.\r\nUse to trigger external Tun" +
+        "er");
+            this.chkBoxTNTX3.CheckedChanged += new System.EventHandler(this.chkBoxTNTX3_CheckedChanged);
             // 
             // chkPhaseRotate
             // 
@@ -10057,14 +10419,118 @@ namespace PowerSDR
             // chkFMDataMic
             // 
             this.chkFMDataMic.Image = null;
-            this.chkFMDataMic.Location = new System.Drawing.Point(378, 82);
+            this.chkFMDataMic.Location = new System.Drawing.Point(306, 302);
             this.chkFMDataMic.Name = "chkFMDataMic";
-            this.chkFMDataMic.Size = new System.Drawing.Size(61, 43);
+            this.chkFMDataMic.Size = new System.Drawing.Size(118, 43);
             this.chkFMDataMic.TabIndex = 65;
             this.chkFMDataMic.Text = "FM Wide MIC";
             this.toolTip1.SetToolTip(this.chkFMDataMic, "In FM Data mode (10khz deviation)\r\nChecked, uses MIC input\r\nUnchecked acts like D" +
         "IGU or DIGL input bypassing MIC");
             this.chkFMDataMic.CheckedChanged += new System.EventHandler(this.chkFMDataMic_CheckedChanged);
+            // 
+            // grpTXVOX
+            // 
+            this.grpTXVOX.Controls.Add(this.lblTXVOXHangTime);
+            this.grpTXVOX.Controls.Add(this.udTXVOXHangTime);
+            this.grpTXVOX.Controls.Add(this.chkTXVOXEnabled);
+            this.grpTXVOX.Controls.Add(this.lblTXVOXThreshold);
+            this.grpTXVOX.Controls.Add(this.udTXVOXThreshold);
+            this.grpTXVOX.Location = new System.Drawing.Point(8, 242);
+            this.grpTXVOX.Name = "grpTXVOX";
+            this.grpTXVOX.Size = new System.Drawing.Size(136, 96);
+            this.grpTXVOX.TabIndex = 50;
+            this.grpTXVOX.TabStop = false;
+            this.grpTXVOX.Text = "VOX";
+            // 
+            // lblTXVOXHangTime
+            // 
+            this.lblTXVOXHangTime.Image = null;
+            this.lblTXVOXHangTime.Location = new System.Drawing.Point(8, 72);
+            this.lblTXVOXHangTime.Name = "lblTXVOXHangTime";
+            this.lblTXVOXHangTime.Size = new System.Drawing.Size(64, 16);
+            this.lblTXVOXHangTime.TabIndex = 52;
+            this.lblTXVOXHangTime.Text = "Delay (ms):";
+            // 
+            // udTXVOXHangTime
+            // 
+            this.udTXVOXHangTime.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.udTXVOXHangTime.Location = new System.Drawing.Point(72, 72);
+            this.udTXVOXHangTime.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.udTXVOXHangTime.Minimum = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.udTXVOXHangTime.Name = "udTXVOXHangTime";
+            this.udTXVOXHangTime.Size = new System.Drawing.Size(56, 20);
+            this.udTXVOXHangTime.TabIndex = 51;
+            this.toolTip1.SetToolTip(this.udTXVOXHangTime, "The amount of time in ms to stay in TX mode after the last signal above the thres" +
+        "hold.");
+            this.udTXVOXHangTime.Value = new decimal(new int[] {
+            250,
+            0,
+            0,
+            0});
+            this.udTXVOXHangTime.ValueChanged += new System.EventHandler(this.udTXVOXHangTime_ValueChanged);
+            this.udTXVOXHangTime.LostFocus += new System.EventHandler(this.udTXVOXHangTime_LostFocus);
+            // 
+            // chkTXVOXEnabled
+            // 
+            this.chkTXVOXEnabled.Image = null;
+            this.chkTXVOXEnabled.Location = new System.Drawing.Point(16, 24);
+            this.chkTXVOXEnabled.Name = "chkTXVOXEnabled";
+            this.chkTXVOXEnabled.Size = new System.Drawing.Size(72, 16);
+            this.chkTXVOXEnabled.TabIndex = 50;
+            this.chkTXVOXEnabled.Text = "Enabled";
+            this.toolTip1.SetToolTip(this.chkTXVOXEnabled, "Enables VOX operation using the parameters below.");
+            this.chkTXVOXEnabled.CheckedChanged += new System.EventHandler(this.chkTXVOXEnabled_CheckedChanged);
+            // 
+            // lblTXVOXThreshold
+            // 
+            this.lblTXVOXThreshold.Image = null;
+            this.lblTXVOXThreshold.Location = new System.Drawing.Point(8, 48);
+            this.lblTXVOXThreshold.Name = "lblTXVOXThreshold";
+            this.lblTXVOXThreshold.Size = new System.Drawing.Size(64, 16);
+            this.lblTXVOXThreshold.TabIndex = 5;
+            this.lblTXVOXThreshold.Text = "Sensitivity:";
+            // 
+            // udTXVOXThreshold
+            // 
+            this.udTXVOXThreshold.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.udTXVOXThreshold.Location = new System.Drawing.Point(72, 48);
+            this.udTXVOXThreshold.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.udTXVOXThreshold.Minimum = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.udTXVOXThreshold.Name = "udTXVOXThreshold";
+            this.udTXVOXThreshold.Size = new System.Drawing.Size(48, 20);
+            this.udTXVOXThreshold.TabIndex = 4;
+            this.toolTip1.SetToolTip(this.udTXVOXThreshold, "Numeric sample value above which triggers the VOX circuit.");
+            this.udTXVOXThreshold.Value = new decimal(new int[] {
+            90,
+            0,
+            0,
+            0});
+            this.udTXVOXThreshold.ValueChanged += new System.EventHandler(this.udTXVOXThreshold_ValueChanged);
+            this.udTXVOXThreshold.LostFocus += new System.EventHandler(this.udTXVOXThreshold_LostFocus);
             // 
             // chk2ndMeter
             // 
@@ -10084,7 +10550,7 @@ namespace PowerSDR
             this.chkTXWtrID.Checked = true;
             this.chkTXWtrID.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkTXWtrID.Image = null;
-            this.chkTXWtrID.Location = new System.Drawing.Point(155, 282);
+            this.chkTXWtrID.Location = new System.Drawing.Point(155, 312);
             this.chkTXWtrID.Name = "chkTXWtrID";
             this.chkTXWtrID.Size = new System.Drawing.Size(133, 26);
             this.chkTXWtrID.TabIndex = 63;
@@ -10246,8 +10712,7 @@ namespace PowerSDR
             this.udTXAMCarrierLevel.Name = "udTXAMCarrierLevel";
             this.udTXAMCarrierLevel.Size = new System.Drawing.Size(56, 20);
             this.udTXAMCarrierLevel.TabIndex = 4;
-            this.toolTip1.SetToolTip(this.udTXAMCarrierLevel, "Adjusts the carrier level on AM (in approximate watts with Drive Level = 100 usin" +
-        "g a 100W SDR) .");
+            this.toolTip1.SetToolTip(this.udTXAMCarrierLevel, resources.GetString("udTXAMCarrierLevel.ToolTip"));
             this.udTXAMCarrierLevel.Value = new decimal(new int[] {
             25,
             0,
@@ -10260,7 +10725,7 @@ namespace PowerSDR
             // 
             this.grpTXMonitor.Controls.Add(this.lblTXAF);
             this.grpTXMonitor.Controls.Add(this.udTXAF);
-            this.grpTXMonitor.Location = new System.Drawing.Point(152, 204);
+            this.grpTXMonitor.Location = new System.Drawing.Point(152, 229);
             this.grpTXMonitor.Name = "grpTXMonitor";
             this.grpTXMonitor.Size = new System.Drawing.Size(144, 56);
             this.grpTXMonitor.TabIndex = 51;
@@ -10314,7 +10779,7 @@ namespace PowerSDR
             this.grpTXNoiseGate.Controls.Add(this.chkTXNoiseGateEnabled);
             this.grpTXNoiseGate.Controls.Add(this.udTXNoiseGate);
             this.grpTXNoiseGate.Controls.Add(this.lblTXNoiseGateThreshold);
-            this.grpTXNoiseGate.Location = new System.Drawing.Point(152, 96);
+            this.grpTXNoiseGate.Location = new System.Drawing.Point(152, 121);
             this.grpTXNoiseGate.Name = "grpTXNoiseGate";
             this.grpTXNoiseGate.Size = new System.Drawing.Size(144, 102);
             this.grpTXNoiseGate.TabIndex = 49;
@@ -10468,7 +10933,7 @@ namespace PowerSDR
             this.grpPATune.Controls.Add(this.udTXTunePower);
             this.grpPATune.Location = new System.Drawing.Point(8, 90);
             this.grpPATune.Name = "grpPATune";
-            this.grpPATune.Size = new System.Drawing.Size(136, 130);
+            this.grpPATune.Size = new System.Drawing.Size(136, 146);
             this.grpPATune.TabIndex = 22;
             this.grpPATune.TabStop = false;
             this.grpPATune.Text = "Tune";
@@ -10604,23 +11069,64 @@ namespace PowerSDR
             // 
             // grpTXFilter
             // 
+            this.grpTXFilter.Controls.Add(this.labelTS33);
+            this.grpTXFilter.Controls.Add(this.udTXDriveMax);
             this.grpTXFilter.Controls.Add(this.lblTXFilterHigh);
             this.grpTXFilter.Controls.Add(this.udTXFilterLow);
             this.grpTXFilter.Controls.Add(this.lblTXFilterLow);
             this.grpTXFilter.Controls.Add(this.udTXFilterHigh);
             this.grpTXFilter.Location = new System.Drawing.Point(152, 8);
             this.grpTXFilter.Name = "grpTXFilter";
-            this.grpTXFilter.Size = new System.Drawing.Size(144, 80);
+            this.grpTXFilter.Size = new System.Drawing.Size(144, 107);
             this.grpTXFilter.TabIndex = 19;
             this.grpTXFilter.TabStop = false;
             this.grpTXFilter.Text = "Transmit Filter";
+            // 
+            // labelTS33
+            // 
+            this.labelTS33.Image = null;
+            this.labelTS33.Location = new System.Drawing.Point(6, 76);
+            this.labelTS33.Name = "labelTS33";
+            this.labelTS33.Size = new System.Drawing.Size(58, 17);
+            this.labelTS33.TabIndex = 5;
+            this.labelTS33.Text = "Drive Max:";
+            // 
+            // udTXDriveMax
+            // 
+            this.udTXDriveMax.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.udTXDriveMax.Location = new System.Drawing.Point(70, 73);
+            this.udTXDriveMax.Maximum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.udTXDriveMax.Minimum = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.udTXDriveMax.Name = "udTXDriveMax";
+            this.udTXDriveMax.Size = new System.Drawing.Size(49, 20);
+            this.udTXDriveMax.TabIndex = 4;
+            this.toolTip1.SetToolTip(this.udTXDriveMax, "Set to MAX Drive Value allowed\r\n\r\nReduce MAX Deive Value for Amp\'s that do not re" +
+        "quire full power.");
+            this.udTXDriveMax.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.udTXDriveMax.ValueChanged += new System.EventHandler(this.udTXDriveMax_ValueChanged);
             // 
             // lblTXFilterHigh
             // 
             this.lblTXFilterHigh.Image = null;
             this.lblTXFilterHigh.Location = new System.Drawing.Point(16, 24);
             this.lblTXFilterHigh.Name = "lblTXFilterHigh";
-            this.lblTXFilterHigh.Size = new System.Drawing.Size(40, 23);
+            this.lblTXFilterHigh.Size = new System.Drawing.Size(40, 18);
             this.lblTXFilterHigh.TabIndex = 3;
             this.lblTXFilterHigh.Text = "High:";
             // 
@@ -10631,7 +11137,7 @@ namespace PowerSDR
             0,
             0,
             0});
-            this.udTXFilterLow.Location = new System.Drawing.Point(56, 48);
+            this.udTXFilterLow.Location = new System.Drawing.Point(56, 45);
             this.udTXFilterLow.Maximum = new decimal(new int[] {
             20000,
             0,
@@ -10659,7 +11165,7 @@ namespace PowerSDR
             this.lblTXFilterLow.Image = null;
             this.lblTXFilterLow.Location = new System.Drawing.Point(16, 48);
             this.lblTXFilterLow.Name = "lblTXFilterLow";
-            this.lblTXFilterLow.Size = new System.Drawing.Size(40, 23);
+            this.lblTXFilterLow.Size = new System.Drawing.Size(40, 17);
             this.lblTXFilterLow.TabIndex = 1;
             this.lblTXFilterLow.Text = "Low:";
             // 
@@ -10670,7 +11176,7 @@ namespace PowerSDR
             0,
             0,
             0});
-            this.udTXFilterHigh.Location = new System.Drawing.Point(56, 24);
+            this.udTXFilterHigh.Location = new System.Drawing.Point(56, 19);
             this.udTXFilterHigh.Maximum = new decimal(new int[] {
             20000,
             0,
@@ -10704,115 +11210,11 @@ namespace PowerSDR
             this.toolTip1.SetToolTip(this.chkDCBlock, "Enable this to engage a digital LPF");
             this.chkDCBlock.CheckedChanged += new System.EventHandler(this.chkDCBlock_CheckedChanged);
             // 
-            // grpTXVOX
-            // 
-            this.grpTXVOX.Controls.Add(this.lblTXVOXHangTime);
-            this.grpTXVOX.Controls.Add(this.udTXVOXHangTime);
-            this.grpTXVOX.Controls.Add(this.chkTXVOXEnabled);
-            this.grpTXVOX.Controls.Add(this.lblTXVOXThreshold);
-            this.grpTXVOX.Controls.Add(this.udTXVOXThreshold);
-            this.grpTXVOX.Location = new System.Drawing.Point(8, 220);
-            this.grpTXVOX.Name = "grpTXVOX";
-            this.grpTXVOX.Size = new System.Drawing.Size(136, 96);
-            this.grpTXVOX.TabIndex = 50;
-            this.grpTXVOX.TabStop = false;
-            this.grpTXVOX.Text = "VOX";
-            // 
-            // lblTXVOXHangTime
-            // 
-            this.lblTXVOXHangTime.Image = null;
-            this.lblTXVOXHangTime.Location = new System.Drawing.Point(8, 72);
-            this.lblTXVOXHangTime.Name = "lblTXVOXHangTime";
-            this.lblTXVOXHangTime.Size = new System.Drawing.Size(64, 16);
-            this.lblTXVOXHangTime.TabIndex = 52;
-            this.lblTXVOXHangTime.Text = "Delay (ms):";
-            // 
-            // udTXVOXHangTime
-            // 
-            this.udTXVOXHangTime.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.udTXVOXHangTime.Location = new System.Drawing.Point(72, 72);
-            this.udTXVOXHangTime.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.udTXVOXHangTime.Minimum = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.udTXVOXHangTime.Name = "udTXVOXHangTime";
-            this.udTXVOXHangTime.Size = new System.Drawing.Size(56, 20);
-            this.udTXVOXHangTime.TabIndex = 51;
-            this.toolTip1.SetToolTip(this.udTXVOXHangTime, "The amount of time in ms to stay in TX mode after the last signal above the thres" +
-        "hold.");
-            this.udTXVOXHangTime.Value = new decimal(new int[] {
-            250,
-            0,
-            0,
-            0});
-            this.udTXVOXHangTime.ValueChanged += new System.EventHandler(this.udTXVOXHangTime_ValueChanged);
-            this.udTXVOXHangTime.LostFocus += new System.EventHandler(this.udTXVOXHangTime_LostFocus);
-            // 
-            // chkTXVOXEnabled
-            // 
-            this.chkTXVOXEnabled.Image = null;
-            this.chkTXVOXEnabled.Location = new System.Drawing.Point(16, 24);
-            this.chkTXVOXEnabled.Name = "chkTXVOXEnabled";
-            this.chkTXVOXEnabled.Size = new System.Drawing.Size(72, 16);
-            this.chkTXVOXEnabled.TabIndex = 50;
-            this.chkTXVOXEnabled.Text = "Enabled";
-            this.toolTip1.SetToolTip(this.chkTXVOXEnabled, "Enables VOX operation using the parameters below.");
-            this.chkTXVOXEnabled.CheckedChanged += new System.EventHandler(this.chkTXVOXEnabled_CheckedChanged);
-            // 
-            // lblTXVOXThreshold
-            // 
-            this.lblTXVOXThreshold.Image = null;
-            this.lblTXVOXThreshold.Location = new System.Drawing.Point(8, 48);
-            this.lblTXVOXThreshold.Name = "lblTXVOXThreshold";
-            this.lblTXVOXThreshold.Size = new System.Drawing.Size(64, 16);
-            this.lblTXVOXThreshold.TabIndex = 5;
-            this.lblTXVOXThreshold.Text = "Sensitivity:";
-            // 
-            // udTXVOXThreshold
-            // 
-            this.udTXVOXThreshold.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.udTXVOXThreshold.Location = new System.Drawing.Point(72, 48);
-            this.udTXVOXThreshold.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.udTXVOXThreshold.Minimum = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.udTXVOXThreshold.Name = "udTXVOXThreshold";
-            this.udTXVOXThreshold.Size = new System.Drawing.Size(48, 20);
-            this.udTXVOXThreshold.TabIndex = 4;
-            this.toolTip1.SetToolTip(this.udTXVOXThreshold, "Numeric sample value above which triggers the VOX circuit.");
-            this.udTXVOXThreshold.Value = new decimal(new int[] {
-            90,
-            0,
-            0,
-            0});
-            this.udTXVOXThreshold.ValueChanged += new System.EventHandler(this.udTXVOXThreshold_ValueChanged);
-            this.udTXVOXThreshold.LostFocus += new System.EventHandler(this.udTXVOXThreshold_LostFocus);
-            // 
             // grpTX1500
             // 
             this.grpTX1500.Controls.Add(this.lblTX1500Blanking);
             this.grpTX1500.Controls.Add(this.udTX1500PhoneBlanking);
-            this.grpTX1500.Location = new System.Drawing.Point(8, 220);
+            this.grpTX1500.Location = new System.Drawing.Point(8, 242);
             this.grpTX1500.Name = "grpTX1500";
             this.grpTX1500.Size = new System.Drawing.Size(136, 96);
             this.grpTX1500.TabIndex = 56;
@@ -12311,6 +12713,8 @@ namespace PowerSDR
             // 
             // grpMainDisplay
             // 
+            this.grpMainDisplay.Controls.Add(this.labelTS32);
+            this.grpMainDisplay.Controls.Add(this.tbPanGrid);
             this.grpMainDisplay.Controls.Add(this.clrbtnText);
             this.grpMainDisplay.Controls.Add(this.lblDisplayBackgroundColor);
             this.grpMainDisplay.Controls.Add(this.udDisplayLineWidth);
@@ -12329,6 +12733,28 @@ namespace PowerSDR
             this.grpMainDisplay.TabIndex = 78;
             this.grpMainDisplay.TabStop = false;
             this.grpMainDisplay.Text = "Main Display";
+            // 
+            // labelTS32
+            // 
+            this.labelTS32.Image = null;
+            this.labelTS32.Location = new System.Drawing.Point(250, 37);
+            this.labelTS32.Name = "labelTS32";
+            this.labelTS32.Size = new System.Drawing.Size(50, 26);
+            this.labelTS32.TabIndex = 96;
+            this.labelTS32.Text = "Fill Alpha:";
+            // 
+            // tbPanGrid
+            // 
+            this.tbPanGrid.AutoSize = false;
+            this.tbPanGrid.Location = new System.Drawing.Point(301, 41);
+            this.tbPanGrid.Maximum = 200;
+            this.tbPanGrid.Name = "tbPanGrid";
+            this.tbPanGrid.Size = new System.Drawing.Size(66, 18);
+            this.tbPanGrid.TabIndex = 96;
+            this.tbPanGrid.TickFrequency = 50;
+            this.toolTip1.SetToolTip(this.tbPanGrid, "Transparency of BandText fill area ");
+            this.tbPanGrid.Value = 130;
+            this.tbPanGrid.Scroll += new System.EventHandler(this.tbPanGrid_Scroll);
             // 
             // clrbtnText
             // 
@@ -12359,7 +12785,7 @@ namespace PowerSDR
             0,
             0,
             65536});
-            this.udDisplayLineWidth.Location = new System.Drawing.Point(316, 61);
+            this.udDisplayLineWidth.Location = new System.Drawing.Point(316, 69);
             this.udDisplayLineWidth.Maximum = new decimal(new int[] {
             50,
             0,
@@ -12402,9 +12828,9 @@ namespace PowerSDR
             // lblDisplayLineWidth
             // 
             this.lblDisplayLineWidth.Image = null;
-            this.lblDisplayLineWidth.Location = new System.Drawing.Point(256, 61);
+            this.lblDisplayLineWidth.Location = new System.Drawing.Point(250, 68);
             this.lblDisplayLineWidth.Name = "lblDisplayLineWidth";
-            this.lblDisplayLineWidth.Size = new System.Drawing.Size(64, 36);
+            this.lblDisplayLineWidth.Size = new System.Drawing.Size(64, 30);
             this.lblDisplayLineWidth.TabIndex = 43;
             this.lblDisplayLineWidth.Text = "Data Line Width:";
             // 
@@ -12423,13 +12849,14 @@ namespace PowerSDR
             // clrbtnGrid
             // 
             this.clrbtnGrid.Automatic = "Automatic";
-            this.clrbtnGrid.Color = System.Drawing.Color.Purple;
+            this.clrbtnGrid.Color = System.Drawing.Color.RoyalBlue;
             this.clrbtnGrid.Image = null;
-            this.clrbtnGrid.Location = new System.Drawing.Point(316, 16);
+            this.clrbtnGrid.Location = new System.Drawing.Point(316, 12);
             this.clrbtnGrid.MoreColors = "More Colors...";
             this.clrbtnGrid.Name = "clrbtnGrid";
             this.clrbtnGrid.Size = new System.Drawing.Size(40, 23);
             this.clrbtnGrid.TabIndex = 69;
+            this.toolTip1.SetToolTip(this.clrbtnGrid, "Display area Grid Color and BandText color");
             this.clrbtnGrid.Changed += new System.EventHandler(this.clrbtnGrid_Changed);
             // 
             // lblDisplayZeroLineColor
@@ -12456,11 +12883,12 @@ namespace PowerSDR
             // lblDisplayGridColor
             // 
             this.lblDisplayGridColor.Image = null;
-            this.lblDisplayGridColor.Location = new System.Drawing.Point(256, 21);
+            this.lblDisplayGridColor.Location = new System.Drawing.Point(248, 10);
             this.lblDisplayGridColor.Name = "lblDisplayGridColor";
-            this.lblDisplayGridColor.Size = new System.Drawing.Size(62, 24);
+            this.lblDisplayGridColor.Size = new System.Drawing.Size(72, 28);
             this.lblDisplayGridColor.TabIndex = 35;
-            this.lblDisplayGridColor.Text = "Grid Color:";
+            this.lblDisplayGridColor.Text = "Grid and BandText";
+            this.toolTip1.SetToolTip(this.lblDisplayGridColor, "Display area Grid Color and BandText color");
             // 
             // clrbtnDataLine
             // 
@@ -12477,6 +12905,10 @@ namespace PowerSDR
             // 
             // grpAppPanadapter
             // 
+            this.grpAppPanadapter.Controls.Add(this.labelTS37);
+            this.grpAppPanadapter.Controls.Add(this.tbMapBright);
+            this.grpAppPanadapter.Controls.Add(this.labelTS36);
+            this.grpAppPanadapter.Controls.Add(this.chkBoxPanFillColor);
             this.grpAppPanadapter.Controls.Add(this.labelTS11);
             this.grpAppPanadapter.Controls.Add(this.labelTS10);
             this.grpAppPanadapter.Controls.Add(this.tbPanAlpha);
@@ -12506,16 +12938,62 @@ namespace PowerSDR
             this.grpAppPanadapter.Controls.Add(this.clrbtnFilter);
             this.grpAppPanadapter.Location = new System.Drawing.Point(8, 112);
             this.grpAppPanadapter.Name = "grpAppPanadapter";
-            this.grpAppPanadapter.Size = new System.Drawing.Size(515, 165);
+            this.grpAppPanadapter.Size = new System.Drawing.Size(569, 189);
             this.grpAppPanadapter.TabIndex = 77;
             this.grpAppPanadapter.TabStop = false;
             this.grpAppPanadapter.Text = "Panadapter";
             this.grpAppPanadapter.Enter += new System.EventHandler(this.grpAppPanadapter_Enter);
             // 
+            // labelTS37
+            // 
+            this.labelTS37.Image = null;
+            this.labelTS37.Location = new System.Drawing.Point(503, 67);
+            this.labelTS37.Name = "labelTS37";
+            this.labelTS37.Size = new System.Drawing.Size(49, 18);
+            this.labelTS37.TabIndex = 99;
+            this.labelTS37.Text = "Bright";
+            this.toolTip1.SetToolTip(this.labelTS37, "Darker Map  <===> Brighter Map");
+            // 
+            // tbMapBright
+            // 
+            this.tbMapBright.AutoSize = false;
+            this.tbMapBright.Location = new System.Drawing.Point(431, 67);
+            this.tbMapBright.Maximum = 50;
+            this.tbMapBright.Minimum = -50;
+            this.tbMapBright.Name = "tbMapBright";
+            this.tbMapBright.Size = new System.Drawing.Size(66, 18);
+            this.tbMapBright.TabIndex = 97;
+            this.tbMapBright.TickFrequency = 10;
+            this.toolTip1.SetToolTip(this.tbMapBright, "Darker Map  <===> Brighter Map\r\n");
+            this.tbMapBright.Scroll += new System.EventHandler(this.tbMapBright_Scroll);
+            this.tbMapBright.ValueChanged += new System.EventHandler(this.tbMapBright_ValueChanged);
+            // 
+            // labelTS36
+            // 
+            this.labelTS36.Image = null;
+            this.labelTS36.Location = new System.Drawing.Point(376, 67);
+            this.labelTS36.Name = "labelTS36";
+            this.labelTS36.Size = new System.Drawing.Size(64, 18);
+            this.labelTS36.TabIndex = 98;
+            this.labelTS36.Text = "Map Dark";
+            this.toolTip1.SetToolTip(this.labelTS36, "Darker Map  <===> Brighter Map");
+            // 
+            // chkBoxPanFillColor
+            // 
+            this.chkBoxPanFillColor.Image = null;
+            this.chkBoxPanFillColor.Location = new System.Drawing.Point(432, 151);
+            this.chkBoxPanFillColor.Name = "chkBoxPanFillColor";
+            this.chkBoxPanFillColor.Size = new System.Drawing.Size(70, 32);
+            this.chkBoxPanFillColor.TabIndex = 96;
+            this.chkBoxPanFillColor.Text = "Pan Fill Gradient";
+            this.toolTip1.SetToolTip(this.chkBoxPanFillColor, "Check to show Color gradient under Panadapter Spectrum line.\r\nColor related to si" +
+        "gnal strength (BLUE = LOW, VIOLET = HIGH)");
+            this.chkBoxPanFillColor.CheckedChanged += new System.EventHandler(this.chkBoxPanFillColor_CheckedChanged);
+            // 
             // labelTS11
             // 
             this.labelTS11.Image = null;
-            this.labelTS11.Location = new System.Drawing.Point(376, 70);
+            this.labelTS11.Location = new System.Drawing.Point(376, 93);
             this.labelTS11.Name = "labelTS11";
             this.labelTS11.Size = new System.Drawing.Size(64, 28);
             this.labelTS11.TabIndex = 95;
@@ -12524,7 +13002,7 @@ namespace PowerSDR
             // labelTS10
             // 
             this.labelTS10.Image = null;
-            this.labelTS10.Location = new System.Drawing.Point(376, 98);
+            this.labelTS10.Location = new System.Drawing.Point(376, 123);
             this.labelTS10.Name = "labelTS10";
             this.labelTS10.Size = new System.Drawing.Size(50, 31);
             this.labelTS10.TabIndex = 94;
@@ -12533,7 +13011,7 @@ namespace PowerSDR
             // tbPanAlpha
             // 
             this.tbPanAlpha.AutoSize = false;
-            this.tbPanAlpha.Location = new System.Drawing.Point(432, 103);
+            this.tbPanAlpha.Location = new System.Drawing.Point(432, 127);
             this.tbPanAlpha.Maximum = 200;
             this.tbPanAlpha.Name = "tbPanAlpha";
             this.tbPanAlpha.Size = new System.Drawing.Size(66, 18);
@@ -12548,7 +13026,7 @@ namespace PowerSDR
             this.clrbtnPan.Automatic = "Automatic";
             this.clrbtnPan.Color = System.Drawing.Color.White;
             this.clrbtnPan.Image = null;
-            this.clrbtnPan.Location = new System.Drawing.Point(453, 74);
+            this.clrbtnPan.Location = new System.Drawing.Point(453, 93);
             this.clrbtnPan.MoreColors = "More Colors...";
             this.clrbtnPan.Name = "clrbtnPan";
             this.clrbtnPan.Size = new System.Drawing.Size(40, 23);
@@ -12559,7 +13037,7 @@ namespace PowerSDR
             // tbGrayLineAlpha
             // 
             this.tbGrayLineAlpha.AutoSize = false;
-            this.tbGrayLineAlpha.Location = new System.Drawing.Point(432, 48);
+            this.tbGrayLineAlpha.Location = new System.Drawing.Point(432, 43);
             this.tbGrayLineAlpha.Maximum = 200;
             this.tbGrayLineAlpha.Name = "tbGrayLineAlpha";
             this.tbGrayLineAlpha.Size = new System.Drawing.Size(66, 18);
@@ -12594,7 +13072,7 @@ namespace PowerSDR
             // labelTS8
             // 
             this.labelTS8.Image = null;
-            this.labelTS8.Location = new System.Drawing.Point(376, 16);
+            this.labelTS8.Location = new System.Drawing.Point(376, 15);
             this.labelTS8.Name = "labelTS8";
             this.labelTS8.Size = new System.Drawing.Size(64, 32);
             this.labelTS8.TabIndex = 88;
@@ -12832,7 +13310,7 @@ namespace PowerSDR
             this.grpDisplayPeakCursor.Controls.Add(this.lblPeakText);
             this.grpDisplayPeakCursor.Location = new System.Drawing.Point(387, 6);
             this.grpDisplayPeakCursor.Name = "grpDisplayPeakCursor";
-            this.grpDisplayPeakCursor.Size = new System.Drawing.Size(136, 100);
+            this.grpDisplayPeakCursor.Size = new System.Drawing.Size(190, 100);
             this.grpDisplayPeakCursor.TabIndex = 74;
             this.grpDisplayPeakCursor.TabStop = false;
             this.grpDisplayPeakCursor.Text = "Cursor/Peak Readout";
@@ -13238,6 +13716,7 @@ namespace PowerSDR
             // 
             // tpKeyboard
             // 
+            this.tpKeyboard.Controls.Add(this.groupBoxTS2);
             this.tpKeyboard.Controls.Add(this.grpKBXIT);
             this.tpKeyboard.Controls.Add(this.grpKBRIT);
             this.tpKeyboard.Controls.Add(this.grpKBMode);
@@ -13250,6 +13729,185 @@ namespace PowerSDR
             this.tpKeyboard.Size = new System.Drawing.Size(584, 341);
             this.tpKeyboard.TabIndex = 4;
             this.tpKeyboard.Text = "Keyboard";
+            // 
+            // groupBoxTS2
+            // 
+            this.groupBoxTS2.Controls.Add(this.checkBoxDTMF11);
+            this.groupBoxTS2.Controls.Add(this.checkBoxDTMF10);
+            this.groupBoxTS2.Controls.Add(this.checkBoxDTMF0);
+            this.groupBoxTS2.Controls.Add(this.checkBoxDTMF9);
+            this.groupBoxTS2.Controls.Add(this.checkBoxDTMF8);
+            this.groupBoxTS2.Controls.Add(this.checkBoxDTMF7);
+            this.groupBoxTS2.Controls.Add(this.checkBoxDTMF6);
+            this.groupBoxTS2.Controls.Add(this.checkBoxDTMF5);
+            this.groupBoxTS2.Controls.Add(this.checkBoxDTMF4);
+            this.groupBoxTS2.Controls.Add(this.checkBoxDTMF3);
+            this.groupBoxTS2.Controls.Add(this.checkBoxDTMF2);
+            this.groupBoxTS2.Controls.Add(this.checkBoxDTMF1);
+            this.groupBoxTS2.Location = new System.Drawing.Point(19, 270);
+            this.groupBoxTS2.Name = "groupBoxTS2";
+            this.groupBoxTS2.Size = new System.Drawing.Size(548, 55);
+            this.groupBoxTS2.TabIndex = 90;
+            this.groupBoxTS2.TabStop = false;
+            this.groupBoxTS2.Text = "DTMF keypad (hold down button while in TX mode) or use ALT + KEY";
+            this.toolTip1.SetToolTip(this.groupBoxTS2, "Mouse Click on any Button while in TX mode, to transmit DTMF ");
+            this.groupBoxTS2.Enter += new System.EventHandler(this.groupBoxTS2_Enter);
+            // 
+            // checkBoxDTMF11
+            // 
+            this.checkBoxDTMF11.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBoxDTMF11.Image = null;
+            this.checkBoxDTMF11.Location = new System.Drawing.Point(426, 23);
+            this.checkBoxDTMF11.Name = "checkBoxDTMF11";
+            this.checkBoxDTMF11.Size = new System.Drawing.Size(32, 24);
+            this.checkBoxDTMF11.TabIndex = 104;
+            this.checkBoxDTMF11.Text = "#";
+            this.checkBoxDTMF11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.checkBoxDTMF11.MouseDown += new System.Windows.Forms.MouseEventHandler(this.checkBoxDTMF11_MouseDown);
+            this.checkBoxDTMF11.MouseUp += new System.Windows.Forms.MouseEventHandler(this.checkBoxDTMF1_MouseUp);
+            // 
+            // checkBoxDTMF10
+            // 
+            this.checkBoxDTMF10.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBoxDTMF10.Image = null;
+            this.checkBoxDTMF10.Location = new System.Drawing.Point(388, 23);
+            this.checkBoxDTMF10.Name = "checkBoxDTMF10";
+            this.checkBoxDTMF10.Size = new System.Drawing.Size(32, 24);
+            this.checkBoxDTMF10.TabIndex = 103;
+            this.checkBoxDTMF10.Text = "*";
+            this.checkBoxDTMF10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.checkBoxDTMF10.MouseDown += new System.Windows.Forms.MouseEventHandler(this.checkBoxDTMF0_MouseDown);
+            this.checkBoxDTMF10.MouseUp += new System.Windows.Forms.MouseEventHandler(this.checkBoxDTMF1_MouseUp);
+            // 
+            // checkBoxDTMF0
+            // 
+            this.checkBoxDTMF0.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBoxDTMF0.Image = null;
+            this.checkBoxDTMF0.Location = new System.Drawing.Point(348, 23);
+            this.checkBoxDTMF0.Name = "checkBoxDTMF0";
+            this.checkBoxDTMF0.Size = new System.Drawing.Size(32, 24);
+            this.checkBoxDTMF0.TabIndex = 102;
+            this.checkBoxDTMF0.Text = "0";
+            this.checkBoxDTMF0.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.checkBoxDTMF0.MouseDown += new System.Windows.Forms.MouseEventHandler(this.checkBoxDTMF10_MouseDown);
+            this.checkBoxDTMF0.MouseUp += new System.Windows.Forms.MouseEventHandler(this.checkBoxDTMF1_MouseUp);
+            // 
+            // checkBoxDTMF9
+            // 
+            this.checkBoxDTMF9.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBoxDTMF9.Image = null;
+            this.checkBoxDTMF9.Location = new System.Drawing.Point(310, 23);
+            this.checkBoxDTMF9.Name = "checkBoxDTMF9";
+            this.checkBoxDTMF9.Size = new System.Drawing.Size(32, 24);
+            this.checkBoxDTMF9.TabIndex = 101;
+            this.checkBoxDTMF9.Text = "9";
+            this.checkBoxDTMF9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.checkBoxDTMF9.MouseDown += new System.Windows.Forms.MouseEventHandler(this.checkBoxDTMF9_MouseDown);
+            this.checkBoxDTMF9.MouseUp += new System.Windows.Forms.MouseEventHandler(this.checkBoxDTMF1_MouseUp);
+            // 
+            // checkBoxDTMF8
+            // 
+            this.checkBoxDTMF8.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBoxDTMF8.Image = null;
+            this.checkBoxDTMF8.Location = new System.Drawing.Point(274, 23);
+            this.checkBoxDTMF8.Name = "checkBoxDTMF8";
+            this.checkBoxDTMF8.Size = new System.Drawing.Size(32, 24);
+            this.checkBoxDTMF8.TabIndex = 100;
+            this.checkBoxDTMF8.Text = "8";
+            this.checkBoxDTMF8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.checkBoxDTMF8.MouseDown += new System.Windows.Forms.MouseEventHandler(this.checkBoxDTMF8_MouseDown);
+            this.checkBoxDTMF8.MouseUp += new System.Windows.Forms.MouseEventHandler(this.checkBoxDTMF1_MouseUp);
+            // 
+            // checkBoxDTMF7
+            // 
+            this.checkBoxDTMF7.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBoxDTMF7.Image = null;
+            this.checkBoxDTMF7.Location = new System.Drawing.Point(236, 23);
+            this.checkBoxDTMF7.Name = "checkBoxDTMF7";
+            this.checkBoxDTMF7.Size = new System.Drawing.Size(32, 24);
+            this.checkBoxDTMF7.TabIndex = 99;
+            this.checkBoxDTMF7.Text = "7";
+            this.checkBoxDTMF7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.checkBoxDTMF7.MouseDown += new System.Windows.Forms.MouseEventHandler(this.checkBoxDTMF7_MouseDown);
+            this.checkBoxDTMF7.MouseUp += new System.Windows.Forms.MouseEventHandler(this.checkBoxDTMF1_MouseUp);
+            // 
+            // checkBoxDTMF6
+            // 
+            this.checkBoxDTMF6.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBoxDTMF6.Image = null;
+            this.checkBoxDTMF6.Location = new System.Drawing.Point(196, 23);
+            this.checkBoxDTMF6.Name = "checkBoxDTMF6";
+            this.checkBoxDTMF6.Size = new System.Drawing.Size(32, 24);
+            this.checkBoxDTMF6.TabIndex = 98;
+            this.checkBoxDTMF6.Text = "6";
+            this.checkBoxDTMF6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.checkBoxDTMF6.MouseDown += new System.Windows.Forms.MouseEventHandler(this.checkBoxDTMF6_MouseDown);
+            this.checkBoxDTMF6.MouseUp += new System.Windows.Forms.MouseEventHandler(this.checkBoxDTMF1_MouseUp);
+            // 
+            // checkBoxDTMF5
+            // 
+            this.checkBoxDTMF5.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBoxDTMF5.Image = null;
+            this.checkBoxDTMF5.Location = new System.Drawing.Point(158, 23);
+            this.checkBoxDTMF5.Name = "checkBoxDTMF5";
+            this.checkBoxDTMF5.Size = new System.Drawing.Size(32, 24);
+            this.checkBoxDTMF5.TabIndex = 97;
+            this.checkBoxDTMF5.Text = "5";
+            this.checkBoxDTMF5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.checkBoxDTMF5.MouseDown += new System.Windows.Forms.MouseEventHandler(this.checkBoxDTMF5_MouseDown);
+            this.checkBoxDTMF5.MouseUp += new System.Windows.Forms.MouseEventHandler(this.checkBoxDTMF1_MouseUp);
+            // 
+            // checkBoxDTMF4
+            // 
+            this.checkBoxDTMF4.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBoxDTMF4.Image = null;
+            this.checkBoxDTMF4.Location = new System.Drawing.Point(122, 23);
+            this.checkBoxDTMF4.Name = "checkBoxDTMF4";
+            this.checkBoxDTMF4.Size = new System.Drawing.Size(32, 24);
+            this.checkBoxDTMF4.TabIndex = 96;
+            this.checkBoxDTMF4.Text = "4";
+            this.checkBoxDTMF4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.checkBoxDTMF4.MouseDown += new System.Windows.Forms.MouseEventHandler(this.checkBoxDTMF4_MouseDown);
+            this.checkBoxDTMF4.MouseUp += new System.Windows.Forms.MouseEventHandler(this.checkBoxDTMF1_MouseUp);
+            // 
+            // checkBoxDTMF3
+            // 
+            this.checkBoxDTMF3.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBoxDTMF3.Image = null;
+            this.checkBoxDTMF3.Location = new System.Drawing.Point(84, 23);
+            this.checkBoxDTMF3.Name = "checkBoxDTMF3";
+            this.checkBoxDTMF3.Size = new System.Drawing.Size(32, 24);
+            this.checkBoxDTMF3.TabIndex = 95;
+            this.checkBoxDTMF3.Text = "3";
+            this.checkBoxDTMF3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.checkBoxDTMF3.MouseDown += new System.Windows.Forms.MouseEventHandler(this.checkBoxDTMF3_MouseDown);
+            this.checkBoxDTMF3.MouseUp += new System.Windows.Forms.MouseEventHandler(this.checkBoxDTMF1_MouseUp);
+            // 
+            // checkBoxDTMF2
+            // 
+            this.checkBoxDTMF2.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBoxDTMF2.Image = null;
+            this.checkBoxDTMF2.Location = new System.Drawing.Point(44, 23);
+            this.checkBoxDTMF2.Name = "checkBoxDTMF2";
+            this.checkBoxDTMF2.Size = new System.Drawing.Size(32, 24);
+            this.checkBoxDTMF2.TabIndex = 94;
+            this.checkBoxDTMF2.Text = "2";
+            this.checkBoxDTMF2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.checkBoxDTMF2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.checkBoxDTMF2_MouseDown);
+            this.checkBoxDTMF2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.checkBoxDTMF1_MouseUp);
+            // 
+            // checkBoxDTMF1
+            // 
+            this.checkBoxDTMF1.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBoxDTMF1.Image = null;
+            this.checkBoxDTMF1.Location = new System.Drawing.Point(6, 23);
+            this.checkBoxDTMF1.Name = "checkBoxDTMF1";
+            this.checkBoxDTMF1.Size = new System.Drawing.Size(32, 24);
+            this.checkBoxDTMF1.TabIndex = 93;
+            this.checkBoxDTMF1.Text = "1";
+            this.checkBoxDTMF1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.checkBoxDTMF1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.checkBoxDTMF1_MouseDown);
+            this.checkBoxDTMF1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.checkBoxDTMF1_MouseUp);
             // 
             // grpKBXIT
             // 
@@ -15968,7 +16626,6 @@ namespace PowerSDR
             this.chkROTOREnable.Size = new System.Drawing.Size(104, 24);
             this.chkROTOREnable.TabIndex = 96;
             this.chkROTOREnable.Text = "Enable Rotor";
-            this.toolTip1.SetToolTip(this.chkROTOREnable, resources.GetString("chkROTOREnable.ToolTip"));
             this.chkROTOREnable.CheckedChanged += new System.EventHandler(this.chkROTOREnable_CheckedChanged);
             // 
             // comboCATPort
@@ -16527,7 +17184,7 @@ namespace PowerSDR
             this.tkbarTestGenFreq.Location = new System.Drawing.Point(16, 104);
             this.tkbarTestGenFreq.Maximum = 20000;
             this.tkbarTestGenFreq.Name = "tkbarTestGenFreq";
-            this.tkbarTestGenFreq.Size = new System.Drawing.Size(344, 45);
+            this.tkbarTestGenFreq.Size = new System.Drawing.Size(344, 42);
             this.tkbarTestGenFreq.TabIndex = 1;
             this.tkbarTestGenFreq.TickFrequency = 1000;
             this.toolTip1.SetToolTip(this.tkbarTestGenFreq, "Sets the frequency of the signal.");
@@ -16962,6 +17619,13 @@ namespace PowerSDR
             // 
             this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
             // 
+            // toolTip1
+            // 
+            this.toolTip1.AutomaticDelay = 200;
+            this.toolTip1.AutoPopDelay = 12000;
+            this.toolTip1.InitialDelay = 500;
+            this.toolTip1.ReshowDelay = 40;
+            // 
             // buttonTS1
             // 
             this.buttonTS1.Image = null;
@@ -16971,7 +17635,6 @@ namespace PowerSDR
             this.buttonTS1.TabIndex = 23;
             this.buttonTS1.Text = "Check for Software Updates";
             this.toolTip1.SetToolTip(this.buttonTS1, "Check for Software updates to ke9ns PowerSDR");
-            this.buttonTS1.Visible = false;
             this.buttonTS1.Click += new System.EventHandler(this.buttonTS1_Click);
             // 
             // btnExportDB
@@ -16995,18 +17658,6 @@ namespace PowerSDR
             this.btnImportDB.Text = "Import Database...";
             this.toolTip1.SetToolTip(this.btnImportDB, "Replace the current PowerSDR database with a previously exported database.");
             this.btnImportDB.Click += new System.EventHandler(this.btnImportDB_Click);
-            // 
-            // btnResetDB
-            // 
-            this.btnResetDB.Image = null;
-            this.btnResetDB.Location = new System.Drawing.Point(4, 385);
-            this.btnResetDB.Name = "btnResetDB";
-            this.btnResetDB.Size = new System.Drawing.Size(96, 23);
-            this.btnResetDB.TabIndex = 20;
-            this.btnResetDB.Text = "Factory Defaults";
-            this.toolTip1.SetToolTip(this.btnResetDB, "Copies the current database to the desktop and resets to the defaults (after rest" +
-        "arting)");
-            this.btnResetDB.Click += new System.EventHandler(this.btnResetDB_Click);
             // 
             // btnApply
             // 
@@ -17041,6 +17692,16 @@ namespace PowerSDR
             this.toolTip1.SetToolTip(this.btnOK, "Keep current settings and close form.");
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
+            // btnResetDB
+            // 
+            this.btnResetDB.Image = null;
+            this.btnResetDB.Location = new System.Drawing.Point(4, 385);
+            this.btnResetDB.Name = "btnResetDB";
+            this.btnResetDB.Size = new System.Drawing.Size(96, 23);
+            this.btnResetDB.TabIndex = 20;
+            this.btnResetDB.Text = "Factory Defaults";
+            this.btnResetDB.Click += new System.EventHandler(this.btnResetDB_Click);
+            // 
             // timer_sweep
             // 
             this.timer_sweep.Tick += new System.EventHandler(this.timer_sweep_Tick);
@@ -17053,10 +17714,10 @@ namespace PowerSDR
             // 
             // textBoxSAVE
             // 
-            this.textBoxSAVE.Location = new System.Drawing.Point(204, 417);
+            this.textBoxSAVE.Location = new System.Drawing.Point(280, 417);
             this.textBoxSAVE.MaxLength = 50;
             this.textBoxSAVE.Name = "textBoxSAVE";
-            this.textBoxSAVE.Size = new System.Drawing.Size(392, 20);
+            this.textBoxSAVE.Size = new System.Drawing.Size(316, 20);
             this.textBoxSAVE.TabIndex = 30;
             // 
             // Setup
@@ -17085,6 +17746,7 @@ namespace PowerSDR
             this.tcGeneral.ResumeLayout(false);
             this.tpGeneralHardware.ResumeLayout(false);
             this.tpGeneralHardware.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.udPTTHT)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.udTOT)).EndInit();
             this.grpHWSoftRock.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.udSoftRockCenterFreq)).EndInit();
@@ -17142,12 +17804,12 @@ namespace PowerSDR
             this.groupBox1.PerformLayout();
             this.groupBoxTS1.ResumeLayout(false);
             this.groupBoxTS1.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.udIQCorrection)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.udSpeedPM)).EndInit();
             this.tpAudio.ResumeLayout(false);
             this.tcAudio.ResumeLayout(false);
             this.tpAudioCard1.ResumeLayout(false);
-			this.groupBoxTS2.ResumeLayout(false);
+            this.groupBoxTS3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.udIQCorrection)).EndInit();
             this.grpAudioChannels.ResumeLayout(false);
             this.grpAudioMicInGain1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.udAudioMicGain1)).EndInit();
@@ -17282,6 +17944,9 @@ namespace PowerSDR
             ((System.ComponentModel.ISupportInitialize)(this.udDSPAGCAttack)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.udDSPAGCFixedGaindB)).EndInit();
             this.tpTransmit.ResumeLayout(false);
+            this.grpTXVOX.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.udTXVOXHangTime)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.udTXVOXThreshold)).EndInit();
             this.grpTXProfileDef.ResumeLayout(false);
             this.grpTXAM.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.udTXAMCarrierLevel)).EndInit();
@@ -17296,11 +17961,9 @@ namespace PowerSDR
             ((System.ComponentModel.ISupportInitialize)(this.tbDutyCycle)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.udTXTunePower)).EndInit();
             this.grpTXFilter.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.udTXDriveMax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.udTXFilterLow)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.udTXFilterHigh)).EndInit();
-            this.grpTXVOX.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.udTXVOXHangTime)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.udTXVOXThreshold)).EndInit();
             this.grpTX1500.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.udTX1500PhoneBlanking)).EndInit();
             this.tpPowerAmplifier.ResumeLayout(false);
@@ -17335,8 +17998,10 @@ namespace PowerSDR
             this.grpAppearanceVFO.ResumeLayout(false);
             this.tpAppearanceDisplay.ResumeLayout(false);
             this.grpMainDisplay.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.tbPanGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.udDisplayLineWidth)).EndInit();
             this.grpAppPanadapter.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.tbMapBright)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbPanAlpha)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbGrayLineAlpha)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.udBandSegmentBoxLineWidth)).EndInit();
@@ -17347,6 +18012,7 @@ namespace PowerSDR
             this.grpMeterEdge.ResumeLayout(false);
             this.grpAppearanceMeter.ResumeLayout(false);
             this.tpKeyboard.ResumeLayout(false);
+            this.groupBoxTS2.ResumeLayout(false);
             this.grpKBXIT.ResumeLayout(false);
             this.grpKBRIT.ResumeLayout(false);
             this.grpKBMode.ResumeLayout(false);
@@ -17394,12 +18060,13 @@ namespace PowerSDR
 		// Init Routines
 		// ======================================================
 
-		private void InitGeneralTab()
+		private void InitGeneralTab() // called 1 time at very start before setupForm is not considered null
 		{
-			if(console.Hdw != null)
-                comboGeneralLPTAddr.Text = Convert.ToString(console.Hdw.LPTAddr, 16);
+			if(console.Hdw != null)  comboGeneralLPTAddr.Text = Convert.ToString(console.Hdw.LPTAddr, 16);
 			udGeneralLPTDelay.Value = console.LatchDelay;
+
 			chkGeneralRXOnly.Checked = console.RXOnly;
+
 			chkGeneralUSBPresent.Checked = console.USBPresent;
 			chkGeneralPAPresent.Checked = console.PAPresent;
 			chkGeneralXVTRPresent.Checked = console.XVTRPresent;
@@ -18259,6 +18926,7 @@ namespace PowerSDR
 			comboGeneralLPTAddr_SelectedIndexChanged(this, e);
 			udGeneralLPTDelay_ValueChanged(this, e);
 			chkGeneralRXOnly_CheckedChanged(this, e);
+
 			chkGeneralUSBPresent_CheckedChanged(this, e);
 			chkGeneralPAPresent_CheckedChanged(this, e);
 			chkGeneralATUPresent_CheckedChanged(this, e);
@@ -18427,8 +19095,7 @@ namespace PowerSDR
 			{
 				if(dr.RowState != DataRowState.Deleted)
 				{
-					if(!comboTXProfileName.Items.Contains(dr["Name"]))
-						comboTXProfileName.Items.Add(dr["Name"]);
+					if(!comboTXProfileName.Items.Contains(dr["Name"]))	comboTXProfileName.Items.Add(dr["Name"]);
 				}
 			}
 		}
@@ -18440,44 +19107,62 @@ namespace PowerSDR
 			{
 				if(dr.RowState != DataRowState.Deleted)
 				{
-					if(!lstTXProfileDef.Items.Contains(dr["Name"]))			lstTXProfileDef.Items.Add(dr["name"]);
+					if(!lstTXProfileDef.Items.Contains(dr["Name"]))	lstTXProfileDef.Items.Add(dr["name"]);
 				}
 			}
 		}
 
+
+        //=====================================================================
+        // ke9ns click on another TXprofile on the list to change over to.
+        //       this checks to see if anything was changed
 		private bool CheckTXProfileChanged()
 		{
-			DataRow[] rows = DB.ds.Tables["TxProfile"].Select(
-				"'"+current_profile+"' = Name");
+           
+			DataRow[] rows = DB.ds.Tables["TxProfile"].Select("'" + current_profile + "' = Name"); // find the current TXprofile before you change to new TXprofile
 
-			if(rows.Length != 1)
-				return false;
+            if (rows.Length != 1) return false;
 
-			int[] eq = console.eqForm.TXEQ;
-			if(eq[0] != (int)rows[0]["TXEQPreamp"])
-				return true;
+          
 
-			if(console.eqForm.TXEQEnabled != (bool)rows[0]["TXEQEnabled"])
-				return true;
+            int[] eq = console.eqForm.TXEQ; // ke9ns check eqForm radio button for 28band eq
+
+			if(eq[0] != (int)rows[0]["TXEQPreamp"]) return true;
+
+			if(console.eqForm.TXEQEnabled != (bool)rows[0]["TXEQEnabled"])	return true;
 				
-			for(int i=1; i<eq.Length; i++)
+			for(int i=1; i < eq.Length; i++)
 			{
-				if(eq[i] != (int)rows[0]["TXEQ"+i.ToString()])
-					return true;
-			}
+                 Debug.WriteLine("2EQ " + i + " , " + eq[i]);
 
-            if (udTXFilterLow.Value != (int)rows[0]["FilterLow"] ||
-                            udTXFilterHigh.Value != (int)rows[0]["FilterHigh"] ||
-                            console.CPDR != (bool)rows[0]["CompanderOn"] ||
-                            console.CPDRLevel != (int)rows[0]["CompanderLevel"] ||
+                try
+                {
+                    if (eq[i] != (int)rows[0]["TXEQ" + i.ToString()]) return true;
+                }
+                catch
+                {
+
+                    break;
+                }
+
+			} // for loop
+
+            if (udTXFilterLow.Value != (int)rows[0]["FilterLow"] || udTXFilterHigh.Value != (int)rows[0]["FilterHigh"] ||
+                            console.CPDR != (bool)rows[0]["CompanderOn"] || console.CPDRLevel != (int)rows[0]["CompanderLevel"] ||
                             console.Mic != (int)rows[0]["MicGain"])
                 return true;
 
 			return false;
-		}
 
+        } // private bool CheckTXProfileChanged()
+
+
+        //================================================================================
+        //
         public void SaveTXProfileData()
         {
+            Debug.WriteLine("SAVETXPROFILE");
+
             if (profile_deleted == true)
             {
                 profile_deleted = false;
@@ -18486,27 +19171,55 @@ namespace PowerSDR
 
             string name = current_profile;
 
-            DataRow dr = null;
+            DataRow dr = null;       //  t.Columns.Add("TXEQ11", typeof(int)); // ke9ns add
 
             foreach (DataRow d in DB.ds.Tables["TxProfile"].Rows)
             {
                 if ((string)d["Name"] == name)
                 {
+
+                 //   DataRow[] rows = DB.ds.Tables["TxProfile"].Select("'" + comboTXProfileName.Text + "' = Name");
+                 //   if (rows.Length == 1) rows[0].Delete();
+
+
+
                     dr = d;
                     break;
                 }
             }
 
+
+           
+
             dr["FilterLow"] = (int)udTXFilterLow.Value;
             dr["FilterHigh"] = (int)udTXFilterHigh.Value;
             dr["TXEQEnabled"] = console.eqForm.TXEQEnabled;
             dr["TXEQNumBands"] = console.eqForm.NumBands;
+
             int[] eq = console.eqForm.TXEQ;
             dr["TXEQPreamp"] = eq[0];
+
             for (int i = 1; i < eq.Length; i++)
+            {
+                Debug.WriteLine("3EQ " + i);
                 dr["TXEQ" + i.ToString()] = eq[i];
-            for (int i = eq.Length; i < 11; i++)
+            }
+            for (int i = eq.Length; i < 11; i++) // ke9ns was 11
+            {
                 dr["TXEQ" + i.ToString()] = 0;
+            }
+
+            for (int i = 11; i < 29; i++) // ke9ns was 11
+            {
+                try
+                {
+                    dr["TXEQ" + i.ToString()] = 0;
+                }
+                catch
+                {
+
+                }
+            }
 
             dr["DXOn"] = console.DX;
             dr["DXLevel"] = console.DXLevel;
@@ -18897,12 +19610,12 @@ namespace PowerSDR
 		{
 			get 
 			{
-				if(udDDSIFFreq != null) return (double)udDDSIFFreq.Value*1e-6;
+				if(udDDSIFFreq != null) return (double)udDDSIFFreq.Value * 1e-6;
 				else return 0.0;
 			}
 			set
 			{
-				if(udDDSIFFreq != null) udDDSIFFreq.Value = (int)(value*1e6);
+				if(udDDSIFFreq != null) udDDSIFFreq.Value = (int)(value * 1e6);
 			}
 		}
 
@@ -19256,6 +19969,9 @@ namespace PowerSDR
 					case SoundCard.SANTA_CRUZ:
 						comboAudioSoundCard.Text = "Turtle Beach Santa Cruz (PCI)";
 						break;
+					case SoundCard.SB0222:
+						comboAudioSoundCard.Text = "SB0222 kX-Project (PCI)";
+						break;
 					case SoundCard.UNSUPPORTED_CARD:
 						comboAudioSoundCard.Text = "Unsupported Card";
 						break;
@@ -19425,7 +20141,8 @@ namespace PowerSDR
 		public bool RXOnly
 		{
 			get { return chkGeneralRXOnly.Checked; }
-			set { chkGeneralRXOnly.Checked = value; }
+			set { chkGeneralRXOnly.Checked = value;
+            }
 		}
 
 		private bool mox;
@@ -19686,8 +20403,14 @@ namespace PowerSDR
 		public int TunePower
 		{
 			get { return (int)udTXTunePower.Value; }
-			set { udTXTunePower.Value = (decimal)value; }
-		}
+			set {
+               
+                udTXTunePower.Value = (decimal)value;
+
+               if (udTXDriveMax.Value < udTXTunePower.Value) udTXTunePower.Value = udTXDriveMax.Value;
+
+            }
+        }
 
 		public bool DigUIsUSB
 		{
@@ -20219,7 +20942,7 @@ namespace PowerSDR
                     else s = "RX2: ";
                     lblRX2Rev.Text = s;
                     if (!rx2_ok) lblRX2Rev.Visible = false;
-
+                     
 
                     /*if(rx2_ok) 
                     {
@@ -20256,6 +20979,7 @@ namespace PowerSDR
 
             if (radGenModelFLEX5000.Focused || force_model && b)
             {
+               
                 chkGeneralRXOnly.Checked = false;
                 chkGeneralDisablePTT.Checked = false;
                 force_model = false;
@@ -20410,6 +21134,10 @@ namespace PowerSDR
                     chkSigGenRX2.Visible = false;
                     lblModel.Visible = false;
                     grpTXVOX.Visible = false;
+
+                    chkBoxTNTX3.Visible = false;    // ke9ns add
+                    chkBoxTNTX3.Checked = false; // ke9ns add
+
                     chkTXLimitSlew.Visible = false;
                     chkTXLimitSlew.Checked = false;
                     chkRX2AutoMuteRX2OnVFOATX.Visible = false;
@@ -20741,12 +21469,13 @@ namespace PowerSDR
 		{
 			comboGeneralLPTAddr_KeyDown(sender, new KeyEventArgs(Keys.Enter));
 		}
-		
-		private void chkGeneralRXOnly_CheckedChanged(object sender, System.EventArgs e)
+
+        // ke9ns (see  PollRXOnly() in console)
+        private void chkGeneralRXOnly_CheckedChanged(object sender, System.EventArgs e)
 		{
             bool rx_only = chkGeneralRXOnly.Checked;
 
-			if(chkGeneralRXOnly.Focused && comboAudioSoundCard.Text == "Unsupported Card" && !rx_only &&	radGenModelSDR1000.Checked)
+			if(chkGeneralRXOnly.Focused && comboAudioSoundCard.Text == "Unsupported Card" && !rx_only && radGenModelSDR1000.Checked)
 			{
 				DialogResult dr = MessageBox.Show(
 					"Unchecking Receive Only while in Unsupported Card mode may \n"+
@@ -20761,17 +21490,25 @@ namespace PowerSDR
 					return;
 				}
 			}
-                
-			if(console.RXOnly != rx_only)  console.RXOnly = rx_only;
+
+            if (console.RXOnly != rx_only) // GET CONSOLE RXONLY
+            {
+                console.RXOnly =  rx_only;  // SET CONSOLE RXONLY
+
+            }
 
             tpTransmit.Enabled = !rx_only;
 
             tpPowerAmplifier.Enabled = !rx_only;
 
             grpTestTXIMD.Enabled = !rx_only;
-		}
 
-		private void chkGeneralUSBPresent_CheckedChanged(object sender, System.EventArgs e)
+        } // chkGeneralRXOnly_CheckedChanged
+
+
+
+
+        private void chkGeneralUSBPresent_CheckedChanged(object sender, System.EventArgs e)
 		{
 			try
 			{
@@ -21706,7 +22443,7 @@ namespace PowerSDR
                         // ignore exceptions in case version of PAL dll doesn't support this function
                     }
 
-                    CWKeyer.AudioLatency = Math.Max(10.0, new_size / (double)console.SampleRate1 * 1e3);
+                    CWKeyer.AudioLatency = Math.Max(10.0, new_size / (double)console.SampleRate1 * 1e3); // 2048 / 96000 * 1000 = 
                     break;
                 case Model.FLEX1500:
                     Flex1500.SetAudioBuffer((uint)new_size);
@@ -22131,6 +22868,9 @@ namespace PowerSDR
 					break;
 				case "Turtle Beach Santa Cruz (PCI)":
 					card = SoundCard.SANTA_CRUZ;
+					break;
+				case "SB0222 kX-Project (PCI)":
+					card = SoundCard.SB0222;
 					break;
 				case "Unsupported Card":
 					card = SoundCard.UNSUPPORTED_CARD;
@@ -22919,8 +23659,9 @@ namespace PowerSDR
 							MessageBoxIcon.Warning);
 					}
 					grpAudioVolts1.Visible = true;
-					if(comboAudioSoundCard.Focused)
-						chkGeneralRXOnly.Checked = true;
+
+					if(comboAudioSoundCard.Focused)	chkGeneralRXOnly.Checked = true;
+
 					if(!comboAudioSampleRate1.Items.Contains(96000))	comboAudioSampleRate1.Items.Add(96000);
 					if(!comboAudioSampleRate1.Items.Contains(192000))	comboAudioSampleRate1.Items.Add(192000);
                     //---------------------------------------------------------
@@ -23026,27 +23767,34 @@ namespace PowerSDR
 
 		private void udDisplayGridMax_ValueChanged(object sender, System.EventArgs e)
 		{
-			if(udDisplayGridMax.Value <= udDisplayGridMin.Value)
-				udDisplayGridMax.Value = udDisplayGridMin.Value + 10;
+			if(udDisplayGridMax.Value <= udDisplayGridMin.Value) udDisplayGridMax.Value = udDisplayGridMin.Value + 10;
 			Display.SpectrumGridMax = (int)udDisplayGridMax.Value;
-            
-          //  console.AutoPanScaleMax = (int)udDisplayGridMax.Value; // ke9ns add storage of original  value
+         
+            Display.Gradient(Display.SpectrumGridMax, Display.SpectrumGridMin); // set new Gradient color scheme
+
+
+            //  console.AutoPanScaleMax = (int)udDisplayGridMax.Value; // ke9ns add storage of original  value
         }
 
-		private void udDisplayGridMin_ValueChanged(object sender, System.EventArgs e)
+        private void udDisplayGridMin_ValueChanged(object sender, System.EventArgs e)
 		{
-			if(udDisplayGridMin.Value >= udDisplayGridMax.Value)
-				udDisplayGridMin.Value = udDisplayGridMax.Value - 10;
+			if(udDisplayGridMin.Value >= udDisplayGridMax.Value) udDisplayGridMin.Value = udDisplayGridMax.Value - 10;
 			Display.SpectrumGridMin = (int)udDisplayGridMin.Value;
-           // console.AutoPanScaleMin = (int)udDisplayGridMin.Value; // ke9ns add storage of original  value
+            
+            Display.Gradient(Display.SpectrumGridMax, Display.SpectrumGridMin); // set new Gradient color scheme
+
+            // console.AutoPanScaleMin = (int)udDisplayGridMin.Value; // ke9ns add storage of original  value
         }
 
-		private void udDisplayGridStep_ValueChanged(object sender, System.EventArgs e)
+        private void udDisplayGridStep_ValueChanged(object sender, System.EventArgs e)
 		{
 			Display.SpectrumGridStep = (int)udDisplayGridStep.Value;
-		}
+           
+            Display.Gradient(Display.SpectrumGridMax, Display.SpectrumGridMin); // set new Gradient color scheme
 
-		private void comboDisplayLabelAlign_SelectedIndexChanged(object sender, System.EventArgs e)
+        }
+
+        private void comboDisplayLabelAlign_SelectedIndexChanged(object sender, System.EventArgs e)
 		{
 			switch(comboDisplayLabelAlign.Text)
 			{
@@ -23302,24 +24050,49 @@ namespace PowerSDR
 		{
 			console.dsp.GetDSPRX(0, 0).NBThreshold = 0.165*(double)(udDSPNB.Value);
 			console.dsp.GetDSPRX(0, 1).NBThreshold = 0.165*(double)(udDSPNB.Value);
-		}
 
-		private void udDSPNB2_ValueChanged(object sender, System.EventArgs e)
+           
+
+            if (console.chkRX2.Visible == true && chkDSPRX2.Checked == true)  // ke9ns add RX2
+            {
+                console.dsp.GetDSPRX(1, 0).NBThreshold = 0.165 * (double)(udDSPNB.Value);
+                console.dsp.GetDSPRX(1, 1).NBThreshold = 0.165 * (double)(udDSPNB.Value);
+            }
+
+        } //  udDSPNB_ValueChanged
+
+        private void udDSPNB2_ValueChanged(object sender, System.EventArgs e)
 		{
 			console.dsp.GetDSPRX(0, 0).SDROMThreshold = 0.165*(double)(udDSPNB2.Value);
 			console.dsp.GetDSPRX(0, 1).SDROMThreshold = 0.165*(double)(udDSPNB2.Value);
-		}
+
+            if (console.chkRX2.Visible == true && chkDSPRX2.Checked == true) // ke9ns add RX2
+            {
+                console.dsp.GetDSPRX(1, 0).SDROMThreshold = 0.165 * (double)(udDSPNB2.Value);
+                console.dsp.GetDSPRX(1, 1).SDROMThreshold = 0.165 * (double)(udDSPNB2.Value);
+
+            }
+        }
 
 		private void comboDSPWindow_SelectedIndexChanged(object sender, System.EventArgs e)
 		{
 			console.dsp.GetDSPRX(0, 0).CurrentWindow = (Window)comboDSPWindow.SelectedIndex;
 			console.dsp.GetDSPRX(0, 1).CurrentWindow = (Window)comboDSPWindow.SelectedIndex;
-		}
+
+            if (console.chkRX2.Visible == true && chkDSPRX2.Checked == true) // ke9ns add RX2
+            {
+                console.dsp.GetDSPRX(1, 0).CurrentWindow = (Window)comboDSPWindow.SelectedIndex;
+                console.dsp.GetDSPRX(1, 1).CurrentWindow = (Window)comboDSPWindow.SelectedIndex;
+
+
+            }
+
+        }
 
 
         //===============================================================================================
         // ke9ns changes RX buffer size for sharper receive filtering
-		private void comboDSPPhoneRXBuf_SelectedIndexChanged(object sender, System.EventArgs e)
+        private void comboDSPPhoneRXBuf_SelectedIndexChanged(object sender, System.EventArgs e)
 		{
 			console.DSPBufPhoneRX = int.Parse(comboDSPPhoneRXBuf.Text);
 		}
@@ -23646,7 +24419,10 @@ namespace PowerSDR
 			{
 				console.dsp.GetDSPRX(0, 0).RXAGCAttack = (int)udDSPAGCAttack.Value;
 				console.dsp.GetDSPRX(0, 1).RXAGCAttack = (int)udDSPAGCAttack.Value;
-			}
+
+              
+
+            }
 		}
 
 		private void udDSPAGCDecay_ValueChanged(object sender, System.EventArgs e)
@@ -23797,16 +24573,23 @@ namespace PowerSDR
 
 		private void udTransmitTunePower_ValueChanged(object sender, System.EventArgs e)
 		{
-            if (console.chkBoxDrive.Checked == false)  console.TunePower = (int)udTXTunePower.Value;
+            if (console.chkBoxDrive.Checked == false)
+            {
+                if (udTXDriveMax.Value < udTXTunePower.Value) udTXTunePower.Value = udTXDriveMax.Value;
+
+                console.TunePower = (int)udTXTunePower.Value;
+            }
 		}
 
+
+        //==================================================================================================
 		private string current_profile = "";
 		private void comboTXProfileName_SelectedIndexChanged(object sender, System.EventArgs e)
 		{
 			if(comboTXProfileName.SelectedIndex < 0 || initializing)
 				return;
 
-            if (chkAutoSaveTXProfile.Checked)
+            if (chkAutoSaveTXProfile.Checked == true)
             {
                 SaveTXProfileData();
             }
@@ -23825,15 +24608,13 @@ namespace PowerSDR
                         btnTXProfileSave_Click(this, EventArgs.Empty);
                         //return;
                     }
-                    else if (result == DialogResult.Cancel)
-                        return;
+                    else if (result == DialogResult.Cancel) return;
                 }
             }
 
 			console.TXProfile = comboTXProfileName.Text;
 
-			DataRow[] rows = DB.ds.Tables["TxProfile"].Select(
-				"'"+comboTXProfileName.Text+"' = Name");
+			DataRow[] rows = DB.ds.Tables["TxProfile"].Select("'"+comboTXProfileName.Text+"' = Name");
 
 			if(rows.Length != 1)
 			{
@@ -23845,15 +24626,29 @@ namespace PowerSDR
 			}
 			
 			DataRow dr = rows[0];
+
 			int[] eq = null;
-			eq = new int[11];
+
+			eq = new int[29]; // ke9ns was 11 (for the 28 band eq)
 
 			console.eqForm.TXEQEnabled = (bool)dr["TXEQEnabled"];
 			console.eqForm.NumBands = (int)dr["TXEQNumBands"];
 			
 			eq[0] = (int)dr["TXEQPreamp"];
-			for(int i=1; i<eq.Length; i++)
-				eq[i] = (int)dr["TXEQ"+i.ToString()];
+
+            for (int i = 1; i < eq.Length; i++)
+            {
+                Debug.WriteLine("EQ " + i);
+
+                try
+                {
+                    eq[i] = (int)dr["TXEQ" + i.ToString()];
+                }
+                catch
+                {
+                    eq[i] = 0;
+                }
+            }
 			console.eqForm.TXEQ = eq;
 
 			udTXFilterLow.Value = Math.Min(Math.Max((int)dr["FilterLow"], udTXFilterLow.Minimum), udTXFilterLow.Maximum);
@@ -23982,10 +24777,12 @@ namespace PowerSDR
             current_profile = comboTXProfileName.Text;
 		}
 
+
+        //==============================================================
+        // TXPROFILE save button pushed
 		private void btnTXProfileSave_Click(object sender, System.EventArgs e)
 		{
-			string name = InputBox.Show("Save Profile", "Please enter a profile name:",
-				current_profile);
+			string name = InputBox.Show("Save Profile", "Please enter a profile name:", current_profile);
 
 			if(name == "" || name == null)
 			{
@@ -23996,8 +24793,11 @@ namespace PowerSDR
 				return;
 			}
 
-			DataRow dr = null;
-			if(comboTXProfileName.Items.Contains(name))
+            DataRow dr = null; // ke9ns refer to database.cs for actual tables that make up dr[]
+
+          
+
+            if (comboTXProfileName.Items.Contains(name))
 			{
 				DialogResult result = MessageBox.Show(
 					"Are you sure you want to overwrite the "+name+" TX Profile?",
@@ -24005,36 +24805,107 @@ namespace PowerSDR
 					MessageBoxButtons.YesNo,
 					MessageBoxIcon.Question);
 				
-				if(result == DialogResult.No)
-					return;
+				if(result == DialogResult.No) return;
 
-				foreach(DataRow d in DB.ds.Tables["TxProfile"].Rows)
+                Debug.WriteLine("BTN....SAVETXPROFILE");
+              
+           
+                foreach (DataRow d in DB.ds.Tables["TxProfile"].Rows) // ke9ns go through EVERY ROW of the DataSet in the ds.Tables until you find the matching NAME,
 				{
 					if((string)d["Name"] == name) 
 					{
-						dr = d;
-						break;
+                        // ke9ns mod back
+                        try
+                        {
+                            Debug.WriteLine("TXNAME");
+                            if ((int)d["TXEQ12"] == 0)
+                            {
+                                // this is just to cause a catch if its an old TXProfile
+                            }
+                            Debug.WriteLine("YES TXEQ12");
+                            dr = d; // ke9ns when you match the name, copy over all the rows into the DataRow dr
+                        }
+                        catch // do this to remove an old TXPROFILE with only TXEQ10 and then add back the same TXPROFILE with TXEQ28
+                        {
+                            Debug.WriteLine("Remove old TXprofile and create new version");
+
+                            DataRow[] rows1 = DB.ds.Tables["TxProfile"].Select("'" + comboTXProfileName.Text + "' = Name");
+
+                            DataRow dd = null;
+
+                            dd = rows1[0];
+
+                            rows1[0].Delete();
+
+                            dr = DB.ds.Tables["TxProfile"].NewRow(); // ke9ns create a new TXPROFILE with all the new Rows found in ds.Tables
+
+                            dr = dd; // copy original data back into 
+                            dr["Name"] = name;
+
+                            DB.ds.Tables["TxProfile"].Rows.Add(dr); // add a new TX profile
+
+                        } // catch
+
+
+                        break;
 					}
 				}
+
+
 			}
-			else
+			else // ke9ns OR create a new name if your saving to a completely new file name
 			{
-				dr = DB.ds.Tables["TxProfile"].NewRow();
+				dr = DB.ds.Tables["TxProfile"].NewRow(); // ke9ns create a new TXPROFILE with all the new Rows found in ds.Tables
 				dr["Name"] = name;
 			}
+
+
 			
 			dr["FilterLow"] = (int)udTXFilterLow.Value;
 			dr["FilterHigh"] = (int)udTXFilterHigh.Value;
 			dr["TXEQEnabled"] = console.eqForm.TXEQEnabled;
 			dr["TXEQNumBands"] = console.eqForm.NumBands;
-			int[] eq = console.eqForm.TXEQ;
-			dr["TXEQPreamp"] = eq[0];
-			for(int i=1; i<eq.Length; i++)
-				dr["TXEQ"+i.ToString()] = eq[i];
-			for(int i=eq.Length; i<11; i++)
-				dr["TXEQ"+i.ToString()] = 0;
 
-			dr["DXOn"] = console.DX;
+			int[] eq = console.eqForm.TXEQ; // ke9ns   could be 3, 10 or 28
+
+			dr["TXEQPreamp"] = eq[0]; // always 0
+
+            
+            for (int i = 1; i < eq.Length; i++) // ke9ns save currnent TXEQ values
+            {
+                Debug.WriteLine("1EQ " + i);
+
+                try
+                {
+                    dr["TXEQ" + i.ToString()] = eq[i];
+                }
+                catch
+                {
+                  
+
+
+                }
+
+            }
+
+            for (int i = eq.Length; i < 11; i++) // ke9ns pad with 0's (was 11) increase to save new 28 band eq
+            {
+               dr["TXEQ" + i.ToString()] = 0;
+            }
+
+            for (int i = 11; i < 29; i++) // ke9ns pad with 0's (was 11) increase to save new 28 band eq
+            {
+                try
+                {
+                    dr["TXEQ" + i.ToString()] = 0;
+                }
+                catch
+                {
+
+                }
+            }
+
+            dr["DXOn"] = console.DX;
 			dr["DXLevel"] = console.DXLevel;
 			dr["CompanderOn"] = console.CPDR;
 			dr["CompanderLevel"] = console.CPDRLevel;
@@ -24160,15 +25031,23 @@ namespace PowerSDR
                     break;
             }
 
-			if(!comboTXProfileName.Items.Contains(name))
+			if((!comboTXProfileName.Items.Contains(name))  )
 			{
-				DB.ds.Tables["TxProfile"].Rows.Add(dr);
+                Debug.WriteLine("ADDTXPROFILE");
+
+				DB.ds.Tables["TxProfile"].Rows.Add(dr); // add a new TX profile
+
 				comboTXProfileName.Items.Add(name);
 				comboTXProfileName.Text = name;
 			}
 
 			console.UpdateTXProfile(name);
-		}
+
+		} // btnTXprofilesave()
+
+
+        //=================================================================================
+        // ke9ns remove TXprofile
 
         private bool profile_deleted = false;
 		private void btnTXProfileDelete_Click(object sender, System.EventArgs e)
@@ -24195,11 +25074,9 @@ namespace PowerSDR
             
             profile_deleted = true;
 
-			DataRow[] rows = DB.ds.Tables["TxProfile"].Select(
-				"'"+comboTXProfileName.Text+"' = Name");
+			DataRow[] rows = DB.ds.Tables["TxProfile"].Select("'"+comboTXProfileName.Text+"' = Name");
 
-			if(rows.Length == 1)
-				rows[0].Delete();
+			if(rows.Length == 1) rows[0].Delete(); // ke9ns only delete this TXprofile if there is at least 1 remaining.
 
 			int index = comboTXProfileName.SelectedIndex;
 			comboTXProfileName.Items.Remove(comboTXProfileName.Text);
@@ -24207,11 +25084,13 @@ namespace PowerSDR
 			{
 				if(index > comboTXProfileName.Items.Count-1)
 					index = comboTXProfileName.Items.Count-1;
+
 				comboTXProfileName.SelectedIndex = index;
 			}
 
 			console.UpdateTXProfile(comboTXProfileName.Text);
-		}
+
+		} // btn DELETE TXPROFILE
 
 		private void chkDCBlock_CheckedChanged(object sender, System.EventArgs e)
 		{
@@ -24364,9 +25243,20 @@ namespace PowerSDR
 		private void clrbtnGrid_Changed(object sender, System.EventArgs e)
 		{
 			Display.GridColor = clrbtnGrid.Color;
-		}
+            
+            // ke9ns add
+            Display.BandTextColor = Color.FromArgb(tbPanGrid.Value, clrbtnGrid.Color); // ke9ns  combine color and alpha here
 
-		private void clrbtnZeroLine_Changed(object sender, System.EventArgs e)
+        }
+
+        // ke9ns add
+        private void tbPanGrid_Scroll(object sender, EventArgs e)
+        {
+            clrbtnGrid_Changed(this, EventArgs.Empty);
+        }
+
+
+        private void clrbtnZeroLine_Changed(object sender, System.EventArgs e)
 		{
 			Display.GridZeroColor = clrbtnZeroLine.Color;
 		}
@@ -25852,7 +26742,7 @@ namespace PowerSDR
             {
                 Debug.WriteLine("current , old " + current_ver_num + " , "+ db_ver_num);
 
-                if (chkImportDBRestrict.Checked)
+            /*    if (chkImportDBRestrict.Checked)
                 {
                     MessageBox.Show("Database Import Restricted.\r\n\r\nThe database selected for import was " +
                         "created from a version of PowerSDR that is not the same as PowerSDR v" + current_ver_num + ".\r\n\r\n" +
@@ -25871,6 +26761,7 @@ namespace PowerSDR
                 }
                 else
                 {
+                */
                     DialogResult result = MessageBox.Show("The database selected for import was " +
                         "created (Exported) from a version of PowerSDR that is not the same as PowerSDR v" + current_ver_num + " and " +
                         "the DB import safeguard has been disabled.\r\n\r\n" +
@@ -25888,7 +26779,7 @@ namespace PowerSDR
                         db_import_success = false;
                         return;
                     }
-                }
+              //  }
             }
 
             DB.ImportDatabase(openFileDialog1.FileName);
@@ -26375,9 +27266,11 @@ namespace PowerSDR
 		private void udTXTunePower_LostFocus(object sender, EventArgs e)
 		{
 			udTXTunePower.Value = udTXTunePower.Value;
-		}
+            if (udTXDriveMax.Value < udTXTunePower.Value) udTXTunePower.Value = udTXDriveMax.Value;
 
-		private void udTXFilterLow_LostFocus(object sender, EventArgs e)
+        }
+
+        private void udTXFilterLow_LostFocus(object sender, EventArgs e)
 		{
 			udTXFilterLow.Value = udTXFilterLow.Value;
 		}
@@ -26723,6 +27616,8 @@ namespace PowerSDR
 
 		private void chkSnapClickTune_CheckedChanged(object sender, System.EventArgs e)
 		{
+            Debug.WriteLine("SNAP CLICK");
+
 			console.SnapToClickTuning = chkSnapClickTune.Checked;
 		}
 
@@ -27038,6 +27933,8 @@ namespace PowerSDR
 			console.AllModeMicPTT = chkGenAllModeMicPTT.Checked;
 		}
 
+
+
 		private void udLMSNR_ValueChanged(object sender, System.EventArgs e)
 		{
 			console.dsp.GetDSPRX(0, 0).SetNRVals(
@@ -27049,10 +27946,25 @@ namespace PowerSDR
 				(int)udLMSNRtaps.Value,
 				(int)udLMSNRdelay.Value,
 				1e-4*(double)udLMSNRgain.Value,
-				1e-7*(double)udLMSNRLeak.Value);	
-		}
+				1e-7*(double)udLMSNRLeak.Value);
 
-		private void udLMSANF_ValueChanged(object sender, System.EventArgs e)
+            if(console.chkRX2.Visible == true && chkDSPRX2.Checked == true) // ke9ns add
+            {
+                console.dsp.GetDSPRX(1, 0).SetNRVals(
+                    (int)udLMSNRtaps.Value,
+                    (int)udLMSNRdelay.Value,
+                    1e-4 * (double)udLMSNRgain.Value,
+                    1e-7 * (double)udLMSNRLeak.Value);
+                console.dsp.GetDSPRX(1, 1).SetNRVals(
+                    (int)udLMSNRtaps.Value,
+                    (int)udLMSNRdelay.Value,
+                    1e-4 * (double)udLMSNRgain.Value,
+                    1e-7 * (double)udLMSNRLeak.Value);
+            } // if(console.chkRX2.Visible == true)
+
+        } // udLMSNR_ValueChanged
+
+        private void udLMSANF_ValueChanged(object sender, System.EventArgs e)
 		{
 			console.dsp.GetDSPRX(0, 0).SetANFVals(
 				(int)udLMSANFtaps.Value,
@@ -27063,10 +27975,26 @@ namespace PowerSDR
 				(int)udLMSANFtaps.Value,
 				(int)udLMSANFdelay.Value,
                 1e-4 * (double)udLMSANFgain.Value,
-                1e-7 * (double)udLMSANFLeak.Value);		
-		}
+                1e-7 * (double)udLMSANFLeak.Value);
 
-		private void chkKWAI_CheckedChanged(object sender, System.EventArgs e)
+
+            if (console.chkRX2.Visible == true && chkDSPRX2.Checked == true) // ke9ns add
+            {
+                console.dsp.GetDSPRX(0, 0).SetANFVals(
+                 (int)udLMSANFtaps.Value,
+                 (int)udLMSANFdelay.Value,
+                 1e-4 * (double)udLMSANFgain.Value,
+                 1e-7 * (double)udLMSANFLeak.Value);
+                console.dsp.GetDSPRX(0, 1).SetANFVals(
+                    (int)udLMSANFtaps.Value,
+                    (int)udLMSANFdelay.Value,
+                    1e-4 * (double)udLMSANFgain.Value,
+                    1e-7 * (double)udLMSANFLeak.Value);
+            } // if(console.chkRX2.Visible == true)
+
+        } //udLMSANF_ValueChanged
+
+        private void chkKWAI_CheckedChanged(object sender, System.EventArgs e)
 		{
 			if(chkKWAI.Checked)
 				AllowFreqBroadcast = true;
@@ -27292,21 +28220,26 @@ namespace PowerSDR
 		{
 			Audio.VACCorrectIQ = chkAudioCorrectIQ.Checked;
 		}
+        
         //IqCorrection
 		private void udIQCorrection_ValueChanged(object sender, System.EventArgs e)
 		{
 			DttSP.SetRingBufferOffset(0, (int)udIQCorrection.Value);
 			DttSP.SetRingBufferOffset(1, (int)udIQCorrection.Value);
 		}
-
+		
 		private void groupBoxTS2_Enter(object sender, System.EventArgs e)
 		{
 		
 		}
-
-		private void checkBoxTS2_CheckedChanged(object sender, System.EventArgs e)
+		private void groupBoxTS3_Enter(object sender, System.EventArgs e)
 		{
-			console.Extended = checkBoxTS2.Checked;
+		
+		}
+
+		private void checkBoxTS3_CheckedChanged(object sender, System.EventArgs e)
+		{
+			console.Extended = checkBoxTS3.Checked;
 		}
 
 		private void IQRegister_Click(object sender, System.EventArgs e)
@@ -27340,6 +28273,8 @@ namespace PowerSDR
 			grpTXProfileDef.Visible = chkTXExpert.Checked;
 		}
 
+
+        //======================================================================
 		private void btnTXProfileDefImport_Click(object sender, System.EventArgs e)
 		{
 			if(lstTXProfileDef.SelectedIndex < 0) return;
@@ -27353,6 +28288,8 @@ namespace PowerSDR
 				return;
 
 			string name = lstTXProfileDef.Text;
+ 
+
             DataRow[] rows = DB.ds.Tables["TxProfileDef"].Select("'"+name+"' = Name");
 
 			if(rows.Length != 1)
@@ -27380,8 +28317,41 @@ namespace PowerSDR
 				{
 					if((string)d["Name"] == name) 
 					{
-						dr = d;
-						break;
+
+                        // ke9ns mod back
+                        try
+                        {
+                            Debug.WriteLine("TXNAME");
+                            if ((int)d["TXEQ12"] == 0)
+                            {
+                                // this is just to cause a catch if its an old TXProfile
+                            }
+                            Debug.WriteLine("YES TXEQ12");
+                            dr = d; // ke9ns when you match the name, copy over all the rows into the DataRow dr
+                        }
+                        catch // do this to remove an old TXPROFILE with only TXEQ10 and then add back the same TXPROFILE with TXEQ28
+                        {
+                            Debug.WriteLine("Remove old TXprofile and create new version");
+
+                            DataRow[] rows1 = DB.ds.Tables["TxProfile"].Select("'" + comboTXProfileName.Text + "' = Name");
+
+                            DataRow dd = null;
+
+                            dd = rows1[0];
+
+                            rows1[0].Delete();
+
+                            dr = DB.ds.Tables["TxProfile"].NewRow(); // ke9ns create a new TXPROFILE with all the new Rows found in ds.Tables
+
+                            dr = dd; // copy original data back into 
+                            dr["Name"] = name;
+
+                            DB.ds.Tables["TxProfile"].Rows.Add(dr); // add a new TX profile
+
+                        } // catch
+                        break;
+
+
 					}
 				}
 			}
@@ -27402,7 +28372,8 @@ namespace PowerSDR
 			}
 
 			console.UpdateTXProfile(name);
-		}
+
+		} // btnIMPORTtxprofile
 
 
 		private void Setup_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
@@ -27420,7 +28391,64 @@ namespace PowerSDR
                         break;
 				}
 			}
-		}
+
+            if (e.KeyCode == Keys.F1) // ke9ns add for help messages (F1 help screen)
+            {
+
+
+                Debug.WriteLine("F1 key");
+
+                if (MouseIsOverControl(chkBoxHTTP) == true)
+                {
+                    if (console.helpboxForm == null || console.helpboxForm.IsDisposed) console.helpboxForm = new helpbox(console);
+
+                    console.helpboxForm.Show();
+                    console.helpboxForm.Focus();
+                    console.helpboxForm.WindowState = FormWindowState.Normal; // ke9ns add
+                    console.helpboxForm.youtube_embed = @"https://ke9ns.com";
+                    console.helpboxForm.helpbox_message.Text = console.helpboxForm.HTTPSERVER.Text;
+                }
+                else if (MouseIsOverControl(checkBoxHTTP1) == true)
+                {
+                    if (console.helpboxForm == null || console.helpboxForm.IsDisposed) console.helpboxForm = new helpbox(console);
+
+                    console.helpboxForm.Show();
+                    console.helpboxForm.Focus();
+                    console.helpboxForm.WindowState = FormWindowState.Normal; // ke9ns add
+                    console.helpboxForm.youtube_embed = @"https://ke9ns.com";
+                    console.helpboxForm.helpbox_message.Text = console.helpboxForm.HTTPSERVER.Text;
+                }
+                else if (MouseIsOverControl(checkBoxN1MM) == true) // dont have N1MM help screen yet
+                {
+                    // if (console.helpboxForm == null || console.helpboxForm.IsDisposed) console.helpboxForm = new helpbox(console);
+
+                    //  console.helpboxForm.Show();
+                    //  console.helpboxForm.Focus();
+                    //  console.helpboxForm.WindowState = FormWindowState.Normal; // ke9ns add
+                    //   console.helpboxForm.youtube_embed = @"https://ke9ns.com";
+                    //  console.helpboxForm.helpbox_message.Text = console.helpboxForm.HTTPSERVER.Text;
+                }
+                else if (MouseIsOverControl(groupBox2) == true)
+                {
+                    if (console.helpboxForm == null || console.helpboxForm.IsDisposed) console.helpboxForm = new helpbox(console);
+
+                    console.helpboxForm.Show();
+                    console.helpboxForm.Focus();
+                    console.helpboxForm.WindowState = FormWindowState.Normal; // ke9ns add
+                    console.helpboxForm.youtube_embed = @"https://ke9ns.com";
+                    console.helpboxForm.helpbox_message.Text = console.helpboxForm.HTTPSERVER.Text;
+                }
+
+                // 
+
+            } // if (e.KeyCode == Keys.F1)
+        }
+
+        // ke9ns add
+        public bool MouseIsOverControl(Control c) // ke9ns keypreview must be TRUE and use MouseIsOverControl(Control c)
+        {
+            return c.ClientRectangle.Contains(c.PointToClient(Control.MousePosition));
+        }
 
         private void chkDisplayPanFill_CheckedChanged(object sender, System.EventArgs e)
         {
@@ -28078,12 +29106,19 @@ namespace PowerSDR
         private void clrbtnPan_Changed(object sender, EventArgs e)
         {
             Display.DisplayPanFillColor = Color.FromArgb(tbPanAlpha.Value, clrbtnPan.Color); // ke9ns  combine color and alpha here
+           
+            Display.Gradient(Display.SpectrumGridMax, Display.SpectrumGridMin); // set new Gradient color scheme
 
         }
 
         private void tbPanAlpha_Scroll(object sender, EventArgs e)
         {
+            Display.PanFillAlpha = tbPanAlpha.Value;
+
             clrbtnPan_Changed(this, EventArgs.Empty);
+           
+            Display.Gradient(Display.SpectrumGridMax, Display.SpectrumGridMin); // set new Gradient color scheme
+
         }
 
 
@@ -28094,6 +29129,10 @@ namespace PowerSDR
 
             if (Display.continuum == 0)
             {
+                console.waterpanClick = true;
+                console.waterpanClick2 = true;
+                console.waterpanClick3 = true;
+
                 Display.AutoBright = 1; // adjust RX or TX
             }
            
@@ -28107,6 +29146,10 @@ namespace PowerSDR
 
             if (Display.continuum == 0)
             {
+                console.waterpanClick = true;
+                console.waterpanClick2 = true;
+                console.waterpanClick3 = true;
+
                 Display.AutoBright = 2; // adjust RX  panadapter level
             }
            
@@ -28189,7 +29232,8 @@ namespace PowerSDR
         // ke9ns add
         private void chkBoxHTTP_CheckedChanged(object sender, EventArgs e)
         {
-           
+            Debug.WriteLine("HTTP server "+ chkBoxHTTP.Checked);
+
             if (chkBoxHTTP.Checked == true)
             {
                 chkBoxHttp2.Checked = false;
@@ -28260,44 +29304,50 @@ namespace PowerSDR
             ChangeTuneStepDown2();
         }
 
+        private void btnTuneStepChangeSmaller3_Click(object sender, EventArgs e)
+        {
+            ChangeTuneStepDown3();
+        }
 
+        private void btnTuneStepChangeLarger3_Click(object sender, EventArgs e)
+        {
+            ChangeTuneStepUp3();
+        }
 
+        // ke9ns see console init routine calls this at powerSDR startup to get values set
         public void ChangeTuneStepUp2()
         {
-            tune_step_index2 = (tune_step_index2 + 1) % console.tune_step_list.Count;
+            tune_step_index4 = tune_step_index2 = (tune_step_index2 + 1) % console.tune_step_list.Count;
             txtWheelTune2.Text = console.tune_step_list[tune_step_index2].Name;
-
+          
         }
 
         public void ChangeTuneStepDown2()
         {
-            tune_step_index2 = (tune_step_index2 - 1 + console.tune_step_list.Count) % console.tune_step_list.Count;
+            tune_step_index4 = tune_step_index2 = (tune_step_index2 - 1 + console.tune_step_list.Count) % console.tune_step_list.Count;
             txtWheelTune2.Text = console.tune_step_list[tune_step_index2].Name;
 
         }
 
-        public int tune_step_index2;						// An index into the above array
-        public int TuneStepIndex2
+        public void ChangeTuneStepUp3()
         {
-            get { return tune_step_index2; }
-            set
-            {
-                if (value < 0 || value > console.tune_step_list.Count - 1)
-                    return;
+            tune_step_index4 = tune_step_index3 = (tune_step_index3 + 1) % console.tune_step_list.Count;
+            txtWheelTune3.Text = console.tune_step_list[tune_step_index3].Name;
 
-                tune_step_index2 = value;
-                txtWheelTune2.Text = console.tune_step_list[tune_step_index2].Name;
-            }
         }
 
+        public void ChangeTuneStepDown3()
+        {
+            tune_step_index4 = tune_step_index3 = (tune_step_index3 - 1 + console.tune_step_list.Count) % console.tune_step_list.Count;
+            txtWheelTune3.Text = console.tune_step_list[tune_step_index3].Name;
 
+        }
+        public int tune_step_index2;                        // An index into the above array
+        public int tune_step_index3;                        // An index into the above array
 
+        public int tune_step_index4;
 
-
-
-
-
-
+    
 
         //===============================================================================================
 
@@ -28383,7 +29433,8 @@ namespace PowerSDR
               
                 try
                 {
-                    console.ROTOREnabled = true;
+                    
+                    console.ROTOREnabled = chkROTOREnable.Checked;
                 }
                 catch (Exception ex)
                 {
@@ -28402,6 +29453,7 @@ namespace PowerSDR
 
 
         } // chkROTORENable
+
 
         private void comboROTORPort_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -28681,7 +29733,7 @@ namespace PowerSDR
 
             string downloadUrl = "";
             Version newVersion = null;
-            string xmlUrl = "http://ke9ns.com/update.xml";
+            string xmlUrl = "http://sdr.mis.ks.ua/update.xml";
             XmlTextReader reader = null;
 
             try
@@ -28760,7 +29812,7 @@ namespace PowerSDR
                     {
                         // true is the default, but it is important not to set it to false
                         myProcess.StartInfo.UseShellExecute = true;
-                        myProcess.StartInfo.FileName = "http://ke9ns.com/flexpage.html";
+                        myProcess.StartInfo.FileName = "http://sdr.mis.ks.ua/powersdr.html";
                         myProcess.Start();
                     }
                     catch (Exception eq)
@@ -28869,6 +29921,363 @@ namespace PowerSDR
         {
             textBoxSAVE.Text = " ";
         }
+
+       
+
+       
+
+        // ke9ns add  update bandtext data with button push
+        private void buttonTS2_Click(object sender, EventArgs e)
+        {
+          
+            console.Refresh_Tables();
+
+        } //buttonTS2_Click
+
+        private void chkBoxTNTX3_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        // ke9ns add
+        private void chkBoxHTTP_KeyDown(object sender, KeyEventArgs e)
+        {
+         
+
+        }
+
+        // ke9ns add for hang time for PTT (just like a vox hang time)
+        private void chkBoxPTTHT_CheckedChanged(object sender, EventArgs e)
+        {
+            
+
+            // if ((VACEnable || VAC2Enable) == true) chkTXVOXEnabled.Checked = false;
+            //  Audio.VOXEnabled = chkTXVOXEnabled.Checked;
+              console.PTTHTActive = chkBoxPTTHT.Checked;
+
+            if (chkBoxPTTHT.Checked == false) console.PTTHT = 0;
+            else console.PTTHT = (int)udPTTHT.Value;
+        }
+
+        // ke9ns add
+        private void udPTTHT_ValueChanged(object sender, EventArgs e)
+        {
+             
+            if (chkBoxPTTHT.Checked == false) console.PTTHT = 0;
+            else console.PTTHT = (int)udPTTHT.Value;
+        }
+
+        // ke9ns add
+        private void udTXDriveMax_ValueChanged(object sender, EventArgs e)
+        {
+
+            if (udTXDriveMax.Value < udTXTunePower.Value)
+            {
+                udTXTunePower.Value = udTXDriveMax.Value;
+                console.ptbTune.Value = (int)udTXDriveMax.Value;
+                console.lblTUNE.Text = "Tune: " + console.ptbTune.Value.ToString();
+            }
+
+            if (udTXDriveMax.Value < (decimal)console.ptbPWR.Value)
+            {
+                console.ptbPWR.Value = (int)udTXDriveMax.Value;
+                console.lblPWR.Text = "Drive: " + console.ptbPWR.Value.ToString();
+            }
+
+
+        } // udTXDriveMax_ValueChanged
+
+        private void chkBoxPanFillColor_CheckedChanged(object sender, EventArgs e)
+        {
+            Display.Gradient(Display.SpectrumGridMax, Display.SpectrumGridMin); // set new Gradient color scheme
+           
+            Display.PanFillGradient = chkBoxPanFillColor.Checked;
+          
+        } // chkBoxPanFillColor_CheckedChanged
+
+        private void labelTS34_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        
+        // ke9ns add
+        private void tbMapBright_ValueChanged(object sender, EventArgs e)
+        {
+            // if (console.SpotForm != null)
+            //  {
+            Debug.WriteLine("mapbright ");
+
+           
+            console.MAPBRIGHT = (int)tbMapBright.Value;
+
+            if (SpotForm != null) SpotForm.Darken();
+
+            Thread.Sleep(100);
+
+            SpotControl.Map_Last = SpotControl.Map_Last | 2;    // force update of world map
+                                                                //  }
+
+        } // tbMapBright_ValueChanged
+
+        // ke9ns add (for automatically updating the water and pan levels
+        private void chkBoxAutoWtrPan_CheckedChanged(object sender, EventArgs e)
+        {
+            console.AutoWaterPan(); // start up thread to auto update
+
+
+        } //  chkBoxAutoWtrPan_CheckedChanged
+
+
+
+        //===========================================================================
+        //===========================================================================
+        //===========================================================================
+        // ke9ns add
+        public void checkBoxDTMF1_MouseDown(object sender, MouseEventArgs e)
+        {
+            //  console.MOX = true;
+
+            if (console.MOX == true)
+            {
+                Audio.MOX = true;
+
+                Audio.SineFreq1 = 697.0;
+                Audio.SineFreq2 = 1209.0;
+                Audio.two_tone = true;
+                Audio.TXInputSignal = Audio.SignalSource.SINE_TWO_TONE;
+                Audio.SourceScale = 1.0;
+            }
+
+        } // checkboxDTMF1
+
+        public void checkBoxDTMF1_MouseUp(object sender, MouseEventArgs e)
+        {
+            Audio.TXInputSignal = Audio.SignalSource.RADIO;
+            Audio.SineFreq1 = (double)udDSPCWPitch.Value;
+            Audio.two_tone = false;
+        }
+
+
+        public void checkBoxDTMF2_MouseDown(object sender, MouseEventArgs e)
+        {
+            //  console.MOX = true;
+
+            if (console.MOX == true)
+            {
+                Audio.MOX = true;
+
+                Audio.SineFreq1 = 697.0;
+                Audio.SineFreq2 = 1336.0;
+                Audio.two_tone = true;
+                Audio.TXInputSignal = Audio.SignalSource.SINE_TWO_TONE;
+                Audio.SourceScale = 1.0;
+            }
+
+        } // checkboxDTMF2
+
+
+
+        public void checkBoxDTMF3_MouseDown(object sender, MouseEventArgs e)
+        {
+            //  console.MOX = true;
+
+            if (console.MOX == true)
+            {
+                Audio.MOX = true;
+
+                Audio.SineFreq1 = 697.0;
+                Audio.SineFreq2 = 1477.0;
+                Audio.two_tone = true;
+                Audio.TXInputSignal = Audio.SignalSource.SINE_TWO_TONE;
+                Audio.SourceScale = 1.0;
+            }
+
+        } // checkboxDTMF3
+
+        public void checkBoxDTMF4_MouseDown(object sender, MouseEventArgs e)
+        {
+            //  console.MOX = true;
+
+            if (console.MOX == true)
+            {
+                Audio.MOX = true;
+
+                Audio.SineFreq1 = 770.0;
+                Audio.SineFreq2 = 1209.0;
+                Audio.two_tone = true;
+                Audio.TXInputSignal = Audio.SignalSource.SINE_TWO_TONE;
+                Audio.SourceScale = 1.0;
+            }
+
+        } // checkboxDTMF4
+
+
+        public void checkBoxDTMF5_MouseDown(object sender, MouseEventArgs e)
+        {
+            //  console.MOX = true;
+
+            if (console.MOX == true)
+            {
+                Audio.MOX = true;
+
+                Audio.SineFreq1 = 770.0;
+                Audio.SineFreq2 = 1336.0;
+                Audio.two_tone = true;
+                Audio.TXInputSignal = Audio.SignalSource.SINE_TWO_TONE;
+                Audio.SourceScale = 1.0;
+            }
+
+        } // checkboxDTMF5
+
+
+        public void checkBoxDTMF6_MouseDown(object sender, MouseEventArgs e)
+        {
+            //  console.MOX = true;
+
+            if (console.MOX == true)
+            {
+                Audio.MOX = true;
+
+                Audio.SineFreq1 = 770.0;
+                Audio.SineFreq2 = 1477.0;
+                Audio.two_tone = true;
+                Audio.TXInputSignal = Audio.SignalSource.SINE_TWO_TONE;
+                Audio.SourceScale = 1.0;
+            }
+
+        } // checkboxDTMF6
+
+
+        public void checkBoxDTMF7_MouseDown(object sender, MouseEventArgs e)
+        {
+            //  console.MOX = true;
+
+            if (console.MOX == true)
+            {
+                Audio.MOX = true;
+
+                Audio.SineFreq1 = 852.0;
+                Audio.SineFreq2 = 1209.0;
+                Audio.two_tone = true;
+                Audio.TXInputSignal = Audio.SignalSource.SINE_TWO_TONE;
+                Audio.SourceScale = 1.0;
+            }
+
+        } // checkboxDTMF7
+
+
+        public void checkBoxDTMF8_MouseDown(object sender, MouseEventArgs e)
+        {
+            //  console.MOX = true;
+
+            if (console.MOX == true)
+            {
+                Audio.MOX = true;
+
+                Audio.SineFreq1 = 852.0;
+                Audio.SineFreq2 = 1336.0;
+                Audio.two_tone = true;
+                Audio.TXInputSignal = Audio.SignalSource.SINE_TWO_TONE;
+                Audio.SourceScale = 1.0;
+            }
+
+        } // checkboxDTMF8
+
+
+        public void checkBoxDTMF9_MouseDown(object sender, MouseEventArgs e)
+        {
+            //  console.MOX = true;
+
+            if (console.MOX == true)
+            {
+                Audio.MOX = true;
+
+                Audio.SineFreq1 = 852.0;
+                Audio.SineFreq2 = 1477.0;
+                Audio.two_tone = true;
+                Audio.TXInputSignal = Audio.SignalSource.SINE_TWO_TONE;
+                Audio.SourceScale = 1.0;
+            }
+
+        } // checkboxDTMF9
+
+
+        public void checkBoxDTMF10_MouseDown(object sender, MouseEventArgs e) // * key
+        {
+            //  console.MOX = true;
+
+            if (console.MOX == true)
+            {
+                Audio.MOX = true;
+
+                Audio.SineFreq1 = 941.0;
+                Audio.SineFreq2 = 1209.0;
+                Audio.two_tone = true;
+                Audio.TXInputSignal = Audio.SignalSource.SINE_TWO_TONE;
+                Audio.SourceScale = 1.0;
+            }
+
+        } // checkboxDTMF10
+
+
+        public void checkBoxDTMF0_MouseDown(object sender, MouseEventArgs e) // 0 key
+        {
+            //  console.MOX = true;
+
+            if (console.MOX == true)
+            {
+                Audio.MOX = true;
+
+                Audio.SineFreq1 = 941.0;
+                Audio.SineFreq2 = 1336.0;
+                Audio.two_tone = true;
+                Audio.TXInputSignal = Audio.SignalSource.SINE_TWO_TONE;
+                Audio.SourceScale = 1.0;
+            }
+
+        } // checkboxDTMF0
+
+
+        public void checkBoxDTMF11_MouseDown(object sender, MouseEventArgs e) // # key
+        {
+            //  console.MOX = true;
+
+            if (console.MOX == true)
+            {
+                Audio.MOX = true;
+
+                Audio.SineFreq1 = 941.0;
+                Audio.SineFreq2 = 1477.0;
+                Audio.two_tone = true;
+                Audio.TXInputSignal = Audio.SignalSource.SINE_TWO_TONE;
+                Audio.SourceScale = 1.0;
+            }
+
+        } // checkboxDTMF11
+
+        // ke9ns add for IIC SS AMP control
+        private void chkBoxIICON_CheckedChanged(object sender, EventArgs e)
+        {
+
+            //  Band temp = console.RX1Band;
+            //  console.RX1Band = temp;
+            console.IIC_AMPCONTROL(console.AMPBAND);
+
+
+        } //chkBoxIICON_CheckedChanged
+
+        private void chkBoxIIC_CheckedChanged(object sender, EventArgs e)
+        {
+            console.IIC_AMPCONTROL(console.AMPBAND);
+        }
+
+        private void tbMapBright_Scroll(object sender, EventArgs e)
+        {
+
+        }
+
+
 
 
 

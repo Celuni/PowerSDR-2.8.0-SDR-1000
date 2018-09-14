@@ -397,6 +397,7 @@ namespace PowerSDR
             "Sound Blaster Extigy (USB)",
             "Sound Blaster MP3+ (USB)",
             "Turtle Beach Santa Cruz (PCI)",
+			"SB0222 kX-Project (PCI)",
             "Unsupported Card"});
             this.comboBox3.Location = new System.Drawing.Point(264, 104);
             this.comboBox3.MaxDropDownItems = 10;
@@ -1452,6 +1453,9 @@ namespace PowerSDR
 								break;
 							case "Turtle Beach Santa Cruz (PCI)":
 								card = SoundCard.SANTA_CRUZ;
+								break;
+							case "SB0222 kX-Project (PCI)":
+								card = SoundCard.SB0222;
 								break;
 							case "Unsupported Card":
 								card = SoundCard.UNSUPPORTED_CARD;

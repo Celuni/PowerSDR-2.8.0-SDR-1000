@@ -51,7 +51,7 @@ using Flex.TNF;
 
 namespace PowerSDR
 {
-    class Display
+    sealed class Display
     {
 
         #region Variable Declaration
@@ -60,6 +60,7 @@ namespace PowerSDR
         public Setup setupForm;                        // ke9ns communications with setupform  (i.e. allow combometertype.text update from inside console.cs) 
 
         public static SpotControl SpotForm;                     // ke9ns add  communications with spot.cs and dx spotter
+        public static SpotDecoder spotDecoder;
         public ScanControl ScanForm;                            // ke9ns add freq Scanner function
 
         //private static Mutex background_image_mutex;			// used to lock the base display image
@@ -108,65 +109,8 @@ namespace PowerSDR
         }
 
 
-        public static int[] band_edge_list_r77 =
-                  {          26965000,26965100,  26975000,26975100,   26985000,26985100,  // channels 1-3
-                             27005000,27005100,  27015000,27015100,   27025000,27025100,  // channels 4-6
-                             27035000,27035100,  27055000,27055100,   27065000,27065100,  // channels 7-9
-                             27075000,27075100,  27085000,27085100,   27105000,27105100,  // channels 10-12
-                             27115000,27115100,  27125000,27125100,   27135000,27135100,  // channels 13-15
-                             27155000,27155100,  27165000,27165100,   27175000,27175100,  // channels 16-18
-                             27185000,27185100,  27205000,27205100,   27215000,27215100,  // channels 19-21
-                             27225000,27225100,  27255000,27255100,   27235000,27235100,  // channels 22-24
-                             27245000,27245100,  27265000,27265100,   27275000,27275100,  // channels 25-27
-                             27285000,27285100,  27295000,27295100,   27305000,27305100,  // channels 28-30
-                             27315000,27315100,  27325000,27325100,   27335000,27335100,  // channels 31-33
-                             27345000,27345100,  27355000,27355100,   27365000,27365100,  // channels 34-36
-                             27375000,27375100,  27385000,27385100,   27395000,27395100,  // channels 37-39
-                             27405000,27405100,   // channel 40
-
-                             27415000,27415100,  27425000,27425100,  27435000,27435100,  // channel 41-43
-                             27445000,27445100,  27455000,27455100,  27465000,27465100,  // channel 44-46
-                             27475000,27475100,  27485000,27485100,  27495000,27495100, // channel 47-49
-                             27505000,27505100,  27515000,27515100,  27525000,27525100, // channel 50-52
-                             27535000,27535100,  27545000,27545100,  27555000,27555100, // channel 53-55
-                             27565000,27565100,  27575000,27575100,  27585000,27585100, // channel 56-58
-                             27595000,27595100,  27605000,27605100,  27615000,27615100, // channel 59-61
-                             27625000,27625100,  27635000,27635100,  27645000,27645100, // channel 62-64
-                             27655000,27655100,  27665000,27665100,  27675000,27675100, // channel 65-67
-                             27685000,27685100,  27695000,27695100,  27705000,27705100, // channel 68-70
-                             27715000,27715100,  27725000,27725100,  27735000,27735100, // channel 71-73
-                          
-                             27745000,27745100,  27755000,27755100,  27765000,27765100, // channel 74-76
-                             27775000,27775100,  27785000,27785100,  27795000,27795100, // channel 77-79
-                             27805000,27805100
-
-
-
-                    };
-        /*
-                public static int[] band_edge_list_r77 =
-                                {          26962200,26965000,26965000,26967800,   26972200, 26975000, 26975000, 26977800,   26982200, 26985000, 26985000, 26987800, // channels 1-3
-                                     27002200,27005000,27005000,27007800,  27012200,27015000,27015000,27017800,   27022200,27025000,27025000,27027800,  // channels 4-6
-                                     27032200,27035000,27035000,27037800,  27052200,27055000,27055000,27057800,   27062200,27065000,27065000,27067800,  // channels 7-9
-                                     27072200,27075000,27075000,27077800,  27082200,27085000,27085000,27087800,   27102200,27105000,27105000,27107800,  // channels 10-12
-                                     27112200,27115000,27115000,27117800,  27122200,27125000,27125000,27127800,   27132200,27135000,27135000,27137800,  // channels 13-15
-                                     27152200,27155000,27155000,27157800,  27162200,27165000,27165000,27167800,   27172200,27175000,27175000,27177800,  // channels 16-18
-                                     27182200,27185000,27185000,27187800,  27202200,27205000,27205000,27207800,   27212200,27215000,27215000,27217800,  // channels 19-21
-                                     27222200,27225000,27225000,27227800, 27252200,27255000,27255000,27257800,   27232200,27235000,27235000,27237800,  // channels 22-24
-                                     27242200,27245000,27245000,27247800,  27262200,27265000,27265000,27267800,   27272200,27275000,27275000,27277800,  // channels 25-27
-                                     27282200,27285000,27285000,27287800,  27292200,27295000,27295000,27297800,   27302200,27305000,27305000,27307800,  // channels 28-30
-                                     27312200,27315000,27315000,27317800,  27322200,27325000,27325000,27327800,   27332200,27335000,27335000,27337800,  // channels 31-33
-                                     27342200,27345000,27345000,27347800,  27352200,27355000,27355000,27357800,   27362200,27365000,27365000,27367800,  // channels 34-36
-                                     27372200,27375000,27375000,27377800,  27382200,27385000,27385000,27387800,   27392200,27395000,27395000,27397800,  // channels 37-39
-                                     27402200,27405000,27405000,27407800,   // channel 40
-
-                                     27412200,27415000,27415000,27417800,  27422200,27425000,27425000,27427800,  27432200,27435000,27435000,27437800,  // channel 41-43
-                                     27442200,27445000,27445000,27447800,  27452200,27455000,27455000,27457800,  27462200,27465000,27465000,27467800  // channel 44-46
-
-
-                            };
-
-                    */
+      
+      
         private static bool tnf_zoom = false;
         public static bool TNFZoom
         {
@@ -803,6 +747,7 @@ namespace PowerSDR
             set { max_x = value; }
         }
 
+        static int MaxYLast = 0; // ke9ns add for continuum mode
         private static float max_y;                             // y-coord of maxmimum over one display pass
         public static float MaxY
         {
@@ -968,6 +913,18 @@ namespace PowerSDR
             }
         }
 
+
+        private static Color BT_color = Color.Purple;
+        public static Color BandTextColor
+        {
+            get { return BT_color; }
+            set
+            {
+                BT_color = value;
+               
+            }
+        }
+
         private static Pen data_line_pen = new Pen(new SolidBrush(Color.White), display_line_width);
         private static Pen IDENT_pen = new Pen(new SolidBrush(Color.PaleGreen), 1); // ke9ns add
         private static Pen IDENT_pen2 = new Pen(new SolidBrush(Color.PaleGoldenrod), 1); // ke9ns add
@@ -1010,6 +967,35 @@ namespace PowerSDR
                 DrawBackground();
             }
         }
+
+        // ke9ns add for panadapter fill color and alpha
+        private static int panfillalpha = 150;
+
+        public static int PanFillAlpha
+        {
+            get { return panfillalpha; }
+            set
+            {
+                panfillalpha = value;
+               
+            }
+        }
+
+        //  Display.DisplayPanFillColor = Color.FromArgb(tbPanAlpha.Value, clrbtnPan.Color); // ke9ns  combine color and alpha here
+
+        // ke9ns add for Pan Fill Gradient color (instead of just 1 color)
+        private static bool panfillgradient = false;
+        public static bool PanFillGradient
+        {
+            get { return panfillgradient; }
+            set
+            {
+                panfillgradient = value;
+
+            }
+        }
+
+
 
         // ke9ns add  autobright                        helper to keep thread safe
         private static int wateroffset = 20;
@@ -1183,7 +1169,6 @@ namespace PowerSDR
                     autobright3 = 0;
 
 
-
                     if ((console.chkPower.Checked) && ((current_display_mode == DisplayMode.PANADAPTER) || (current_display_mode == DisplayMode.PANAFALL)))// PANADAPTER
                     {
                         if (value == 2)
@@ -1204,7 +1189,7 @@ namespace PowerSDR
                             autobright7 = value; // RX1 adjust standard signal scale
                             return;
                         }
-                        else
+                        else // = 1
                         {
                             autobright7 = 0;
                             autobright6 = 0;
@@ -1213,18 +1198,20 @@ namespace PowerSDR
 
                     if ((console.chkPower.Checked) && ((current_display_mode == DisplayMode.WATERFALL) || (current_display_mode == DisplayMode.PANAFALL)))
                     {
+                       
                         autobright = value; // RX1 adjust
                     }
                     else autobright = 0;
 
                     if ((console.chkRX2.Checked) && ((current_display_mode_bottom == DisplayMode.WATERFALL) || (current_display_mode_bottom == DisplayMode.PANAFALL)))
                     {
+                       
                         autobright2 = value;   // RX2 adjust
                     }
                     else autobright2 = 0;
 
 
-                }
+                } // RX mode above
 
                 //   Debug.WriteLine("hereasdfadsf===========");
 
@@ -1444,7 +1431,7 @@ namespace PowerSDR
 
                 case FRSRegion.US:
 
-                    // list center of channel (stupid)
+
                     channels_60m.Add(new Channel(5.1690, 2800)); // ke9ns emergency only   5.1675
 
                     channels_60m.Add(new Channel(5.3320, 2800)); // channel 1   5.3305
@@ -1452,7 +1439,6 @@ namespace PowerSDR
                     channels_60m.Add(new Channel(5.3585, 2800)); // channel 3   5.3570 
                     channels_60m.Add(new Channel(5.3730, 2800)); // channel 4   5.3715
                     channels_60m.Add(new Channel(5.4050, 2800)); // channel 5   5.4035
-
 
 
 
@@ -1468,8 +1454,60 @@ namespace PowerSDR
                     channels_60m.Add(new Channel(5.4050, 2800));
                      */
                     break;
-            }
+            } //  switch (console.CurrentRegion)
 
+
+
+            // draw channels for all regions for common are
+            
+            channels_60m.Add(new Channel(26.9650, 6000)); // channel 1 cb  AM +/- 3khz
+            channels_60m.Add(new Channel(26.9750, 6000)); // channel 2 cb
+            channels_60m.Add(new Channel(26.9850, 6000)); // channel 3 cb
+            channels_60m.Add(new Channel(27.0050, 6000)); // channel 4 cb
+            channels_60m.Add(new Channel(27.0150, 6000)); // channel 5 cb
+            channels_60m.Add(new Channel(27.0250, 6000)); // channel 6 cb
+            channels_60m.Add(new Channel(27.0350, 6000)); // channel 7 cb
+            channels_60m.Add(new Channel(27.0550, 6000)); // channel 8 cb
+            channels_60m.Add(new Channel(27.0650, 6000)); // channel 9 cb
+
+            channels_60m.Add(new Channel(27.0750, 6000)); // channel 10 cb
+            channels_60m.Add(new Channel(27.0850, 6000)); // channel 11 cb
+            channels_60m.Add(new Channel(27.1050, 6000)); // channel 12 cb
+            channels_60m.Add(new Channel(27.1150, 6000)); // channel 13 cb
+            channels_60m.Add(new Channel(27.1250, 6000)); // channel 14 cb
+            channels_60m.Add(new Channel(27.1350, 6000)); // channel 15 cb
+
+            channels_60m.Add(new Channel(27.1550, 6000)); // channel 16 cb
+            channels_60m.Add(new Channel(27.1650, 6000)); // channel 17 cb
+            channels_60m.Add(new Channel(27.1750, 6000)); // channel 18 cb
+            channels_60m.Add(new Channel(27.1850, 6000)); // channel 19 cb
+            channels_60m.Add(new Channel(27.2050, 6000)); // channel 20 cb
+            channels_60m.Add(new Channel(27.2150, 6000)); // channel 21 cb
+
+            channels_60m.Add(new Channel(27.2250, 6000)); // channel 22 cb
+           
+            channels_60m.Add(new Channel(27.2350, 6000)); // channel 24 cb
+            channels_60m.Add(new Channel(27.2450, 6000)); // channel 25 cb
+
+            channels_60m.Add(new Channel(27.2550, 6000)); // channel 23 cb
+
+            channels_60m.Add(new Channel(27.2650, 6000)); // channel 26 cb
+            channels_60m.Add(new Channel(27.2750, 6000)); // channel 27 cb
+
+            channels_60m.Add(new Channel(27.2850, 6000)); // channel 28 cb
+            channels_60m.Add(new Channel(27.2950, 6000)); // channel 29 cb
+            channels_60m.Add(new Channel(27.3050, 6000)); // channel 30 cb
+            channels_60m.Add(new Channel(27.3150, 6000)); // channel 31 cb
+            channels_60m.Add(new Channel(27.3250, 6000)); // channel 32 cb
+            channels_60m.Add(new Channel(27.3350, 6000)); // channel 33 cb
+
+            channels_60m.Add(new Channel(27.3450, 6000)); // channel 34 cb
+            channels_60m.Add(new Channel(27.3550, 6000)); // channel 35 cb
+            channels_60m.Add(new Channel(27.3650, 6000)); // channel 36 cb
+            channels_60m.Add(new Channel(27.3750, 6000)); // channel 37 cb
+            channels_60m.Add(new Channel(27.3850, 6000)); // channel 38 cb
+            channels_60m.Add(new Channel(27.3950, 6000)); // channel 39 cb
+            channels_60m.Add(new Channel(27.4050, 6000)); // channel 40 cb
 
 
         } // init()
@@ -1697,7 +1735,7 @@ namespace PowerSDR
         /// <param name="off">color for notch off</param>
         /// <param name="highlight">highlight color to draw highlights on bar</param>
         /// <param name="active">true if notches are turned on</param>
-        static void drawChannelBar(Graphics g, Channel chan, int left, int right, int top, int height, Color c, Color h)
+        static void drawChannelBar(Graphics g, Channel chan, int left, int right, int center, int top, int height, Color c, Color h)
         {
             int width = right - left;
 
@@ -1713,6 +1751,9 @@ namespace PowerSDR
                 //g.DrawLine(p, left - 1, top, left - 1, top + height - 1);
                 g.DrawLine(p, left, top, left, top + height - 1);
                 g.DrawLine(p, right, top, right, top + height - 1);
+
+                if (center > 0) g.DrawLine(p, center, top, center, top + (height/4) - 1);
+
                 //g.DrawLine(p, right+1, top, right+1, top + height - 1);
             }
         }
@@ -2663,6 +2704,12 @@ namespace PowerSDR
         static int SWR_Count = 1; //
         static int SWR_C = 1; //
 
+        static decimal freqlast1 = 0; // ke9ns add for bandtext
+        static string[] bandtext = new string[2000]; // ke9ns add for bandtext
+        static  decimal[] bandfreq = new decimal[2000]; // ke9ns add for bandtext
+        static bool[] bandhere = new bool[2000]; // ke9ns add for bandtext
+        static int bandtext_counter = 0; // ke9ns add for bandtext
+
         private static void DrawPanadapterGrid(ref Graphics g, int W, int H, int rx, bool bottom)
         {
 
@@ -2940,6 +2987,7 @@ namespace PowerSDR
                 {
                     g.FillRectangle(new SolidBrush(sub_rx_filter_color),    // draw filter overlay
                         filter_left_x, top, filter_right_x - filter_left_x, H - top);
+                   
                 }
 
 
@@ -3233,7 +3281,7 @@ namespace PowerSDR
 
 
             //===============================================================
-            // draw 60m channels if in view
+            // draw 60m channels if in view (for any FRSregion, channels are only added if the region warrents it)
             //===============================================================
 
             foreach (Channel c in channels_60m)
@@ -3298,9 +3346,14 @@ namespace PowerSDR
 
                     int chan_left_x = (int)((float)(c.Freq * 1e6 - rf_freq - c.BW / 2 - Low - rit) / (High - Low) * W);
                     int chan_right_x = (int)((float)(c.Freq * 1e6 - rf_freq + c.BW / 2 - Low - rit) / (High - Low) * W);
+                          
+                    int chan_center_x = ((chan_right_x - chan_left_x) / 2) + chan_left_x; // ke9ns add
 
-                    if (chan_right_x == chan_left_x)
-                        chan_right_x = chan_left_x + 1;
+                    if (rf_freq < 25000000) chan_center_x = 0; // 25mhz check
+
+                    if (chan_right_x == chan_left_x) chan_right_x = chan_left_x + 1;
+
+                 
 
                     // decide colors to draw notch
                     c1 = channel_background_off;
@@ -3312,9 +3365,9 @@ namespace PowerSDR
                     }
 
                     if (bottom)
-                        drawChannelBar(g, c, chan_left_x, chan_right_x, H + top, H - top, c1, c2);
+                        drawChannelBar(g, c, chan_left_x, chan_right_x, chan_center_x, H + top, H - top, c1, c2); // draw box and lines on RX2
                     else
-                        drawChannelBar(g, c, chan_left_x, chan_right_x, top, H - top, c1, c2);
+                        drawChannelBar(g, c, chan_left_x, chan_right_x, chan_center_x, top, H - top, c1, c2);// draw box and lines on RX1
 
                     //if (bottom)
                     //    drawNotchStatus(g, n, (notch_left_x + notch_right_x) / 2, H + top + 75, W, H);
@@ -3599,6 +3652,7 @@ namespace PowerSDR
                 //============================================================================================================
                 //============================================================================================================
                 case FRSRegion.US: // 
+
                     for (int i = 0; i < f_steps + 1; i++)
                     {
                         string label;
@@ -3942,13 +3996,19 @@ namespace PowerSDR
 
                     } // for (int i = 0; i < f_steps + 1; i++)
 
-#if (!NO_KE9NS)
-                    // ke9ns add CB 11m band channels 1 - 40
+                    //---------------------------------------------------------------------------------------------------
+                    //---------------------------------------------------------------------------------------------------
+                    // 60m edges (NOT FOR US), BUT FOR CANADA
 
-                    for (int i = 0; i < band_edge_list_r77.Length; i++)
+                    int[] band_edge_list_r14 = { 5351500, 5353999, 5354000, 5365999, 5366000, 5366500 }; //  5351.5 - 5366.5 kHz  
+
+                    bool onetime = false;
+                    bool onetime1 = false;
+
+                    for (int i = 0; i < band_edge_list_r14.Length; i++)
                     {
-                        double band_edge_offset = band_edge_list_r77[i] - vfo;
-
+                       
+                        double band_edge_offset = band_edge_list_r14[i] - vfo;
                         if (bottom)
                         {
                             if (is_first)
@@ -3956,6 +4016,13 @@ namespace PowerSDR
                                 _x = (int)((double)(band_edge_offset - Low) / (High - Low) * W);
                                 _y = H + top;
                                 is_first = false;
+
+                                StringFormat SF = new StringFormat();
+                                SF.Alignment = StringAlignment.Near;
+                                SF.FormatFlags = StringFormatFlags.DirectionVertical;
+
+                               if (onetime == false) g.DrawString("IARU1/2 only", font1, grid_text_brush, _x, _y+10, SF); // draw bandtext vertically
+                                onetime = true;
                             }
                             else
                             {
@@ -3972,6 +4039,13 @@ namespace PowerSDR
                                 _x = (int)((double)(band_edge_offset - Low) / (High - Low) * W);
                                 _y = top;
                                 is_first = false;
+
+                                StringFormat SF1 = new StringFormat();
+                                SF1.Alignment = StringAlignment.Near;
+                                SF1.FormatFlags = StringFormatFlags.DirectionVertical;
+
+                                if (onetime1 == false) g.DrawString("IARU1/2 only", font1, grid_text_brush, _x, _y+10, SF1); // draw bandtext vertically
+                                onetime1 = true;
                             }
                             else
                             {
@@ -3980,10 +4054,13 @@ namespace PowerSDR
                                 g.DrawRectangle(new Pen(band_box_color, band_box_width), new Rectangle(_x, _y, _width, _height));
                                 is_first = true;
                             }
+
                         }
-                    } // for loop for 11m
-                   
-#endif
+
+
+                    } // 60m europe
+
+
                     break; // case FRSRegion.US:
 
                 //============================================================================================================
@@ -3991,6 +4068,7 @@ namespace PowerSDR
                 //============================================================================================================
                 //===============================================
                 case FRSRegion.UK_Plus:
+
                     for (int i = 0; i < f_steps + 1; i++)
                     {
                         string label;
@@ -4014,7 +4092,7 @@ namespace PowerSDR
                                 actual_fgrid == 24.89 || actual_fgrid == 24.99 ||
                                 actual_fgrid == 28.0 || actual_fgrid == 29.7 ||
                                 actual_fgrid == 50.0 || actual_fgrid == 52.0 || // ke9ns fix from 50.08
-                                actual_fgrid == 144.0 || actual_fgrid == 146.0)
+                                actual_fgrid == 144.0  || actual_fgrid == 147.0) // 147 is an experimental portion of 2m
                             {
 
                                 // BEGIN of FRSRegion common block
@@ -4319,7 +4397,7 @@ namespace PowerSDR
                     // draw band edge markers for bands not 60m
                     int[] band_edge_list_r3 = { 18068000, 18168000, 1810000, 2000000, 3500000, 3800000, 5250000,5450000,
                                                 7000000, 7200000, 10100000, 10150000, 14000000, 14350000, 21000000, 21450000,
-                                                24890000, 24990000, 28000000, 29700000, 50000000, 52000000, 144000000, 146000000 }; // ke9ns fix 50080000
+                                                24890000, 24990000, 28000000, 29700000, 50000000, 52000000, 144000000, 147000000 }; // ke9ns fix 50080000
 
                     for (int i = 0; i < band_edge_list_r3.Length; i++)
                     {
@@ -4373,45 +4451,7 @@ namespace PowerSDR
                             }
                         }
                     } //  for (int i = 0; i < band_edge_list_r4.Length; i++)
-#if (!NO_KE9NS)
-                   // ke9ns add CB 11m band channels 1 - 40
-                    for (int i = 0; i < band_edge_list_r77.Length; i++)
-                    {
-                        double band_edge_offset = band_edge_list_r77[i] - vfo;
-                        if (bottom)
-                        {
-                            if (is_first)
-                            {
-                                _x = (int)((double)(band_edge_offset - Low) / (High - Low) * W);
-                                _y = H + top;
-                                is_first = false;
-                            }
-                            else
-                            {
-                                _width = ((int)((double)(band_edge_offset - Low) / (High - Low) * W)) - _x;
-                                _height = (H + H) - _y;
-                                g.DrawRectangle(new Pen(band_box_color, band_box_width), new Rectangle(_x, _y, _width, _height));
-                                is_first = true;
-                            }
-                        }
-                        else
-                        {
-                            if (is_first)
-                            {
-                                _x = (int)((double)(band_edge_offset - Low) / (High - Low) * W);
-                                _y = top;
-                                is_first = false;
-                            }
-                            else
-                            {
-                                _width = ((int)((double)(band_edge_offset - Low) / (High - Low) * W)) - _x;
-                                _height = H - _y;
-                                g.DrawRectangle(new Pen(band_box_color, band_box_width), new Rectangle(_x, _y, _width, _height));
-                                is_first = true;
-                            }
-                        }
-                    } // for loop for 11m
-#endif                 
+
                     break; //   case FRSRegion.UK_Plus:
 
 
@@ -4771,13 +4811,13 @@ namespace PowerSDR
 
                     //---------------------------------------------------------------------------------------------------
                     //---------------------------------------------------------------------------------------------------
-                    // 60m edges
+                    // 60m edges for europe
 
-                    int[] band_edge_list_r14 = { 5351500, 5353999, 5354000, 5365999, 5366000, 5366500 };
+                    int[] band_edge_list_r19 = { 5351500, 5353999, 5354000, 5365999, 5366000, 5366500 }; //  5351.5 - 5366.5 kHz
 
-                    for (int i = 0; i < band_edge_list_r14.Length; i++)
+                    for (int i = 0; i < band_edge_list_r19.Length; i++)
                     {
-                        double band_edge_offset = band_edge_list_r14[i] - vfo;
+                        double band_edge_offset = band_edge_list_r19[i] - vfo;
                         if (bottom)
                         {
                             if (is_first)
@@ -4813,45 +4853,7 @@ namespace PowerSDR
 
 
                     } // 60m europe
-#if (!NO_KE9NS)
-                    // ke9ns add CB 11m band channels 1 - 40
-                    for (int i = 0; i < band_edge_list_r77.Length; i++)
-                    {
-                        double band_edge_offset = band_edge_list_r77[i] - vfo;
-                        if (bottom)
-                        {
-                            if (is_first)
-                            {
-                                _x = (int)((double)(band_edge_offset - Low) / (High - Low) * W);
-                                _y = H + top;
-                                is_first = false;
-                            }
-                            else
-                            {
-                                _width = ((int)((double)(band_edge_offset - Low) / (High - Low) * W)) - _x;
-                                _height = (H + H) - _y;
-                                g.DrawRectangle(new Pen(band_box_color, band_box_width), new Rectangle(_x, _y, _width, _height));
-                                is_first = true;
-                            }
-                        }
-                        else
-                        {
-                            if (is_first)
-                            {
-                                _x = (int)((double)(band_edge_offset - Low) / (High - Low) * W);
-                                _y = top;
-                                is_first = false;
-                            }
-                            else
-                            {
-                                _width = ((int)((double)(band_edge_offset - Low) / (High - Low) * W)) - _x;
-                                _height = H - _y;
-                                g.DrawRectangle(new Pen(band_box_color, band_box_width), new Rectangle(_x, _y, _width, _height));
-                                is_first = true;
-                            }
-                        }
-                    } // for loop for 11m
-#endif                 
+
                     break; // EU00
 
 
@@ -5214,7 +5216,7 @@ namespace PowerSDR
 
                     //---------------------------------------------------------------------------------------------------
                     //---------------------------------------------------------------------------------------------------
-                    // 60m edges  
+                    // 60m edges  for UK, france, slovakia and es_ch_fin
 
                     int[] band_edge_list_r14a = { 5351500, 5353999, 5354000, 5365999, 5366000, 5366500 };
 
@@ -5256,45 +5258,7 @@ namespace PowerSDR
 
 
                     } // 60m uk 
-#if (!NO_KE9NS)
-                    // ke9ns add CB 11m band channels 1 - 40
-                    for (int i = 0; i < band_edge_list_r77.Length; i++)
-                    {
-                        double band_edge_offset = band_edge_list_r77[i] - vfo;
-                        if (bottom)
-                        {
-                            if (is_first)
-                            {
-                                _x = (int)((double)(band_edge_offset - Low) / (High - Low) * W);
-                                _y = H + top;
-                                is_first = false;
-                            }
-                            else
-                            {
-                                _width = ((int)((double)(band_edge_offset - Low) / (High - Low) * W)) - _x;
-                                _height = (H + H) - _y;
-                                g.DrawRectangle(new Pen(band_box_color, band_box_width), new Rectangle(_x, _y, _width, _height));
-                                is_first = true;
-                            }
-                        }
-                        else
-                        {
-                            if (is_first)
-                            {
-                                _x = (int)((double)(band_edge_offset - Low) / (High - Low) * W);
-                                _y = top;
-                                is_first = false;
-                            }
-                            else
-                            {
-                                _width = ((int)((double)(band_edge_offset - Low) / (High - Low) * W)) - _x;
-                                _height = H - _y;
-                                g.DrawRectangle(new Pen(band_box_color, band_box_width), new Rectangle(_x, _y, _width, _height));
-                                is_first = true;
-                            }
-                        }
-                    } // for loop for 11m
-#endif
+
                     break; // EU01, EU12
 
 
@@ -5653,7 +5617,7 @@ namespace PowerSDR
 
                     //---------------------------------------------------------------------------------------------------
                     //---------------------------------------------------------------------------------------------------
-                    // 60m edges  
+                    // 60m edges  for norway denmark, eu_travel
 
                     int[] band_edge_list_r14aa = { 5351500, 5353999, 5354000, 5365999, 5366000, 5366500 };
 
@@ -5695,45 +5659,7 @@ namespace PowerSDR
 
 
                     } // 60m uk 
-#if (!NO_KE9NS)
-                    // ke9ns add CB 11m band channels 1 - 40
-                    for (int i = 0; i < band_edge_list_r77.Length; i++)
-                    {
-                        double band_edge_offset = band_edge_list_r77[i] - vfo;
-                        if (bottom)
-                        {
-                            if (is_first)
-                            {
-                                _x = (int)((double)(band_edge_offset - Low) / (High - Low) * W);
-                                _y = H + top;
-                                is_first = false;
-                            }
-                            else
-                            {
-                                _width = ((int)((double)(band_edge_offset - Low) / (High - Low) * W)) - _x;
-                                _height = (H + H) - _y;
-                                g.DrawRectangle(new Pen(band_box_color, band_box_width), new Rectangle(_x, _y, _width, _height));
-                                is_first = true;
-                            }
-                        }
-                        else
-                        {
-                            if (is_first)
-                            {
-                                _x = (int)((double)(band_edge_offset - Low) / (High - Low) * W);
-                                _y = top;
-                                is_first = false;
-                            }
-                            else
-                            {
-                                _width = ((int)((double)(band_edge_offset - Low) / (High - Low) * W)) - _x;
-                                _height = H - _y;
-                                g.DrawRectangle(new Pen(band_box_color, band_box_width), new Rectangle(_x, _y, _width, _height));
-                                is_first = true;
-                            }
-                        }
-                    } // for loop for 11m
-#endif
+
                     break; // EU03, EU14
 
 
@@ -6072,7 +5998,7 @@ namespace PowerSDR
 
                     //---------------------------------------------------------------------------------------------------EU04
                     //---------------------------------------------------------------------------------------------------
-                    int[] band_edge_list_r1c = { 1810000, 1880000,  3500000, 3800000, 5250000, 5450000,
+                    int[] band_edge_list_r1c = { 1810000, 2000000,  3500000, 3800000, 5250000, 5450000,
                                                 7000000, 7200000, 10100000, 10150000, 14000000, 14350000, 18068000, 18168000, 21000000, 21450000,
                                                 24890000, 24990000, 28000000, 29700000, 50000000, 52000000, 144000000, 146000000 };
 
@@ -6090,7 +6016,7 @@ namespace PowerSDR
 
                     //---------------------------------------------------------------------------------------------------
                     //---------------------------------------------------------------------------------------------------
-                    // 60m edges  
+                    // 60m edges  belgium
 
                     int[] band_edge_list_r14c = { 5351500, 5353999, 5354000, 5365999, 5366000, 5366500 };
 
@@ -6132,45 +6058,7 @@ namespace PowerSDR
 
 
                     } // 60m  
-#if (!NO_KE9NS)
-                    // ke9ns add CB 11m band channels 1 - 40
-                    for (int i = 0; i < band_edge_list_r77.Length; i++)
-                    {
-                        double band_edge_offset = band_edge_list_r77[i] - vfo;
-                        if (bottom)
-                        {
-                            if (is_first)
-                            {
-                                _x = (int)((double)(band_edge_offset - Low) / (High - Low) * W);
-                                _y = H + top;
-                                is_first = false;
-                            }
-                            else
-                            {
-                                _width = ((int)((double)(band_edge_offset - Low) / (High - Low) * W)) - _x;
-                                _height = (H + H) - _y;
-                                g.DrawRectangle(new Pen(band_box_color, band_box_width), new Rectangle(_x, _y, _width, _height));
-                                is_first = true;
-                            }
-                        }
-                        else
-                        {
-                            if (is_first)
-                            {
-                                _x = (int)((double)(band_edge_offset - Low) / (High - Low) * W);
-                                _y = top;
-                                is_first = false;
-                            }
-                            else
-                            {
-                                _width = ((int)((double)(band_edge_offset - Low) / (High - Low) * W)) - _x;
-                                _height = H - _y;
-                                g.DrawRectangle(new Pen(band_box_color, band_box_width), new Rectangle(_x, _y, _width, _height));
-                                is_first = true;
-                            }
-                        }
-                    } // for loop for 11m
-#endif
+
                     break; // EU04
 
 
@@ -6527,7 +6415,7 @@ namespace PowerSDR
 
                     //---------------------------------------------------------------------------------------------------
                     //---------------------------------------------------------------------------------------------------
-                    // 60m edges  
+                    // 60m edges  hungary (no 60m)
 
                     int[] band_edge_list_r14d = { 5351500, 5353999, 5354000, 5365999, 5366000, 5366500 };
 
@@ -6569,45 +6457,7 @@ namespace PowerSDR
 
 
                     } // 60m  
-#if (!NO_KE9NS)
-                    // ke9ns add CB 11m band channels 1 - 40
-                    for (int i = 0; i < band_edge_list_r77.Length; i++)
-                    {
-                        double band_edge_offset = band_edge_list_r77[i] - vfo;
-                        if (bottom)
-                        {
-                            if (is_first)
-                            {
-                                _x = (int)((double)(band_edge_offset - Low) / (High - Low) * W);
-                                _y = H + top;
-                                is_first = false;
-                            }
-                            else
-                            {
-                                _width = ((int)((double)(band_edge_offset - Low) / (High - Low) * W)) - _x;
-                                _height = (H + H) - _y;
-                                g.DrawRectangle(new Pen(band_box_color, band_box_width), new Rectangle(_x, _y, _width, _height));
-                                is_first = true;
-                            }
-                        }
-                        else
-                        {
-                            if (is_first)
-                            {
-                                _x = (int)((double)(band_edge_offset - Low) / (High - Low) * W);
-                                _y = top;
-                                is_first = false;
-                            }
-                            else
-                            {
-                                _width = ((int)((double)(band_edge_offset - Low) / (High - Low) * W)) - _x;
-                                _height = H - _y;
-                                g.DrawRectangle(new Pen(band_box_color, band_box_width), new Rectangle(_x, _y, _width, _height));
-                                is_first = true;
-                            }
-                        }
-                    } // for loop for 11m
-#endif
+
                     break; // EU05
 
 
@@ -6964,7 +6814,7 @@ namespace PowerSDR
 
                     //---------------------------------------------------------------------------------------------------
                     //---------------------------------------------------------------------------------------------------
-                    // 60m edges  
+                    // 60m edges  sweden
 
                     int[] band_edge_list_r14e = { 5351500, 5353999, 5354000, 5365999, 5366000, 5366500 };
 
@@ -7007,45 +6857,7 @@ namespace PowerSDR
 
                     } // 60m 
 
-#if (!NO_KE9NS)
-                    // ke9ns add CB 11m band channels 1 - 40
-                    for (int i = 0; i < band_edge_list_r77.Length; i++)
-                    {
-                        double band_edge_offset = band_edge_list_r77[i] - vfo;
-                        if (bottom)
-                        {
-                            if (is_first)
-                            {
-                                _x = (int)((double)(band_edge_offset - Low) / (High - Low) * W);
-                                _y = H + top;
-                                is_first = false;
-                            }
-                            else
-                            {
-                                _width = ((int)((double)(band_edge_offset - Low) / (High - Low) * W)) - _x;
-                                _height = (H + H) - _y;
-                                g.DrawRectangle(new Pen(band_box_color, band_box_width), new Rectangle(_x, _y, _width, _height));
-                                is_first = true;
-                            }
-                        }
-                        else
-                        {
-                            if (is_first)
-                            {
-                                _x = (int)((double)(band_edge_offset - Low) / (High - Low) * W);
-                                _y = top;
-                                is_first = false;
-                            }
-                            else
-                            {
-                                _width = ((int)((double)(band_edge_offset - Low) / (High - Low) * W)) - _x;
-                                _height = H - _y;
-                                g.DrawRectangle(new Pen(band_box_color, band_box_width), new Rectangle(_x, _y, _width, _height));
-                                is_first = true;
-                            }
-                        }
-                    } // for loop for 11m
-#endif
+
                     break; // EU06
 
 
@@ -7401,7 +7213,7 @@ namespace PowerSDR
 
                     //---------------------------------------------------------------------------------------------------
                     //---------------------------------------------------------------------------------------------------
-                    // 60m edges  
+                    // 60m edges  bulgaria
 
                     int[] band_edge_list_r14f = { 5351500, 5353999, 5354000, 5365999, 5366000, 5366500 };
 
@@ -7443,45 +7255,7 @@ namespace PowerSDR
 
 
                     } // 60m 
-#if (!NO_KE9NS)
-                    // ke9ns add CB 11m band channels 1 - 40
-                    for (int i = 0; i < band_edge_list_r77.Length; i++)
-                    {
-                        double band_edge_offset = band_edge_list_r77[i] - vfo;
-                        if (bottom)
-                        {
-                            if (is_first)
-                            {
-                                _x = (int)((double)(band_edge_offset - Low) / (High - Low) * W);
-                                _y = H + top;
-                                is_first = false;
-                            }
-                            else
-                            {
-                                _width = ((int)((double)(band_edge_offset - Low) / (High - Low) * W)) - _x;
-                                _height = (H + H) - _y;
-                                g.DrawRectangle(new Pen(band_box_color, band_box_width), new Rectangle(_x, _y, _width, _height));
-                                is_first = true;
-                            }
-                        }
-                        else
-                        {
-                            if (is_first)
-                            {
-                                _x = (int)((double)(band_edge_offset - Low) / (High - Low) * W);
-                                _y = top;
-                                is_first = false;
-                            }
-                            else
-                            {
-                                _width = ((int)((double)(band_edge_offset - Low) / (High - Low) * W)) - _x;
-                                _height = H - _y;
-                                g.DrawRectangle(new Pen(band_box_color, band_box_width), new Rectangle(_x, _y, _width, _height));
-                                is_first = true;
-                            }
-                        }
-                    } // for loop for 11m
-#endif
+
                     break; // EU07
 
 
@@ -7840,7 +7614,7 @@ namespace PowerSDR
 
                     //---------------------------------------------------------------------------------------------------
                     //---------------------------------------------------------------------------------------------------
-                    // 60m edges  
+                    // 60m edges latvia 
 
                     int[] band_edge_list_r14g = { 5351500, 5353999, 5354000, 5365999, 5366000, 5366500 };
 
@@ -7882,45 +7656,7 @@ namespace PowerSDR
 
 
                     } // 60m 
-#if (!NO_KE9NS)
-                    // ke9ns add CB 11m band channels 1 - 40
-                    for (int i = 0; i < band_edge_list_r77.Length; i++)
-                    {
-                        double band_edge_offset = band_edge_list_r77[i] - vfo;
-                        if (bottom)
-                        {
-                            if (is_first)
-                            {
-                                _x = (int)((double)(band_edge_offset - Low) / (High - Low) * W);
-                                _y = H + top;
-                                is_first = false;
-                            }
-                            else
-                            {
-                                _width = ((int)((double)(band_edge_offset - Low) / (High - Low) * W)) - _x;
-                                _height = (H + H) - _y;
-                                g.DrawRectangle(new Pen(band_box_color, band_box_width), new Rectangle(_x, _y, _width, _height));
-                                is_first = true;
-                            }
-                        }
-                        else
-                        {
-                            if (is_first)
-                            {
-                                _x = (int)((double)(band_edge_offset - Low) / (High - Low) * W);
-                                _y = top;
-                                is_first = false;
-                            }
-                            else
-                            {
-                                _width = ((int)((double)(band_edge_offset - Low) / (High - Low) * W)) - _x;
-                                _height = H - _y;
-                                g.DrawRectangle(new Pen(band_box_color, band_box_width), new Rectangle(_x, _y, _width, _height));
-                                is_first = true;
-                            }
-                        }
-                    } // for loop for 11m
-#endif
+
                     break; // EU08
 
 
@@ -8275,7 +8011,7 @@ namespace PowerSDR
 
                     //---------------------------------------------------------------------------------------------------
                     //---------------------------------------------------------------------------------------------------
-                    // 60m edges  
+                    // 60m edges  greece
 
                     int[] band_edge_list_r14h = { 5351500, 5353999, 5354000, 5365999, 5366000, 5366500 };
 
@@ -8317,45 +8053,7 @@ namespace PowerSDR
 
 
                     } // 60m 
-#if (!NO_KE9NS)
-                    // ke9ns add CB 11m band channels 1 - 40
-                    for (int i = 0; i < band_edge_list_r77.Length; i++)
-                    {
-                        double band_edge_offset = band_edge_list_r77[i] - vfo;
-                        if (bottom)
-                        {
-                            if (is_first)
-                            {
-                                _x = (int)((double)(band_edge_offset - Low) / (High - Low) * W);
-                                _y = H + top;
-                                is_first = false;
-                            }
-                            else
-                            {
-                                _width = ((int)((double)(band_edge_offset - Low) / (High - Low) * W)) - _x;
-                                _height = (H + H) - _y;
-                                g.DrawRectangle(new Pen(band_box_color, band_box_width), new Rectangle(_x, _y, _width, _height));
-                                is_first = true;
-                            }
-                        }
-                        else
-                        {
-                            if (is_first)
-                            {
-                                _x = (int)((double)(band_edge_offset - Low) / (High - Low) * W);
-                                _y = top;
-                                is_first = false;
-                            }
-                            else
-                            {
-                                _width = ((int)((double)(band_edge_offset - Low) / (High - Low) * W)) - _x;
-                                _height = H - _y;
-                                g.DrawRectangle(new Pen(band_box_color, band_box_width), new Rectangle(_x, _y, _width, _height));
-                                is_first = true;
-                            }
-                        }
-                    } // for loop for 11m
-#endif
+
                     break; // EU09
 
 
@@ -8707,6 +8405,7 @@ namespace PowerSDR
                     }
 
 
+                    // draw 60m italy
 
                     // draw 60m band segment rectangles - European ( Germany, Belgium, Spain, Switzerland, Finland, Luxembourg)
                     int[] band_edge_list_r7 = { 5351500, 5353999, 5354000, 5365999, 5366000, 5366500 }; // but no TX on 60m
@@ -8747,45 +8446,7 @@ namespace PowerSDR
                             }
                         }
                     } // for loop for 60m
-#if (!NO_KE9NS)
-                    // ke9ns add CB 11m band channels 1 - 40
-                    for (int i = 0; i < band_edge_list_r77.Length; i++)
-                    {
-                        double band_edge_offset = band_edge_list_r77[i] - vfo;
-                        if (bottom)
-                        {
-                            if (is_first)
-                            {
-                                _x = (int)((double)(band_edge_offset - Low) / (High - Low) * W);
-                                _y = H + top;
-                                is_first = false;
-                            }
-                            else
-                            {
-                                _width = ((int)((double)(band_edge_offset - Low) / (High - Low) * W)) - _x;
-                                _height = (H + H) - _y;
-                                g.DrawRectangle(new Pen(band_box_color, band_box_width), new Rectangle(_x, _y, _width, _height));
-                                is_first = true;
-                            }
-                        }
-                        else
-                        {
-                            if (is_first)
-                            {
-                                _x = (int)((double)(band_edge_offset - Low) / (High - Low) * W);
-                                _y = top;
-                                is_first = false;
-                            }
-                            else
-                            {
-                                _width = ((int)((double)(band_edge_offset - Low) / (High - Low) * W)) - _x;
-                                _height = H - _y;
-                                g.DrawRectangle(new Pen(band_box_color, band_box_width), new Rectangle(_x, _y, _width, _height));
-                                is_first = true;
-                            }
-                        }
-                    } // for loop for 11m
-#endif
+
                     break; //EU10
 
 
@@ -9176,45 +8837,7 @@ namespace PowerSDR
                             }
                         }
                     } // for loop for 60m
-#if (!NO_KE9NS)
-                    // ke9ns add CB 11m band channels 1 - 40
-                    for (int i = 0; i < band_edge_list_r77.Length; i++)
-                    {
-                        double band_edge_offset = band_edge_list_r77[i] - vfo;
-                        if (bottom)
-                        {
-                            if (is_first)
-                            {
-                                _x = (int)((double)(band_edge_offset - Low) / (High - Low) * W);
-                                _y = H + top;
-                                is_first = false;
-                            }
-                            else
-                            {
-                                _width = ((int)((double)(band_edge_offset - Low) / (High - Low) * W)) - _x;
-                                _height = (H + H) - _y;
-                                g.DrawRectangle(new Pen(band_box_color, band_box_width), new Rectangle(_x, _y, _width, _height));
-                                is_first = true;
-                            }
-                        }
-                        else
-                        {
-                            if (is_first)
-                            {
-                                _x = (int)((double)(band_edge_offset - Low) / (High - Low) * W);
-                                _y = top;
-                                is_first = false;
-                            }
-                            else
-                            {
-                                _width = ((int)((double)(band_edge_offset - Low) / (High - Low) * W)) - _x;
-                                _height = H - _y;
-                                g.DrawRectangle(new Pen(band_box_color, band_box_width), new Rectangle(_x, _y, _width, _height));
-                                is_first = true;
-                            }
-                        }
-                    } // for loop for 11m
-#endif
+
                     break; //EU11
 
 
@@ -9239,7 +8862,7 @@ namespace PowerSDR
                         {
                             if (actual_fgrid == 1.81 || actual_fgrid == 1.88 ||
                                 actual_fgrid == 3.5 || actual_fgrid == 3.8 ||
-                                actual_fgrid == 5.350 || actual_fgrid == 5.45 ||   // ke9ns add
+                                actual_fgrid == 5.250 || actual_fgrid == 5.45 ||   // ke9ns add
                                 actual_fgrid == 7.0 || actual_fgrid == 7.2 ||
                                 actual_fgrid == 10.1 || actual_fgrid == 10.15 ||
                                 actual_fgrid == 14.0 || actual_fgrid == 14.35 ||
@@ -9553,7 +9176,7 @@ namespace PowerSDR
 
                     //--------------------------------------------------------------------------------------------------- EU13
                     //---------------------------------------------------------------------------------------------------
-                    int[] band_edge_list_r1j = { 1810000, 1880000,  3500000, 3800000, 5350000, 5450000,
+                    int[] band_edge_list_r1j = { 1810000, 1880000,  3500000, 3800000, 5250000, 5450000,
                                                 7000000, 7200000, 10100000, 10150000, 14000000, 14350000, 18068000, 18168000, 21000000, 21450000,
                                                 24890000, 24990000, 28000000, 29700000, 50000000, 52000000, 144000000, 146000000 };
 
@@ -9568,12 +9191,15 @@ namespace PowerSDR
                         }
                     }
 
+                    //---------------------------------------------------------------------------------------------------
+                    //---------------------------------------------------------------------------------------------------
+                    // 60m edges for europe
 
-#if (!NO_KE9NS)
-                    // ke9ns add CB 11m band channels 1 - 40
-                    for (int i = 0; i < band_edge_list_r77.Length; i++)
+                    int[] band_edge_list_r19a = { 5351500, 5353999, 5354000, 5365999, 5366000, 5366500 }; //  5351.5 - 5366.5 kHz
+
+                    for (int i = 0; i < band_edge_list_r19a.Length; i++)
                     {
-                        double band_edge_offset = band_edge_list_r77[i] - vfo;
+                        double band_edge_offset = band_edge_list_r19a[i] - vfo;
                         if (bottom)
                         {
                             if (is_first)
@@ -9606,8 +9232,11 @@ namespace PowerSDR
                                 is_first = true;
                             }
                         }
-                    } // for loop for 11m
-#endif
+
+
+                    } // 60m europe
+
+
                     break; // EU13
 
 
@@ -9963,8 +9592,7 @@ namespace PowerSDR
 
 
 
-                    //---------------------------------------------------------------------------------------------------EU15
-                    //---------------------------------------------------------------------------------------------------
+                   // 60m luxumbourg
 
                     int[] band_edge_list_r14l = { 5351500, 5353999, 5354000, 5365999, 5366000, 5366500 };
 
@@ -10005,45 +9633,7 @@ namespace PowerSDR
                         }
                     } // for loop for 60m
 
-#if (!NO_KE9NS)
-                    // ke9ns add CB 11m band channels 1 - 40
-                    for (int i = 0; i < band_edge_list_r77.Length; i++)
-                    {
-                        double band_edge_offset = band_edge_list_r77[i] - vfo;
-                        if (bottom)
-                        {
-                            if (is_first)
-                            {
-                                _x = (int)((double)(band_edge_offset - Low) / (High - Low) * W);
-                                _y = H + top;
-                                is_first = false;
-                            }
-                            else
-                            {
-                                _width = ((int)((double)(band_edge_offset - Low) / (High - Low) * W)) - _x;
-                                _height = (H + H) - _y;
-                                g.DrawRectangle(new Pen(band_box_color, band_box_width), new Rectangle(_x, _y, _width, _height));
-                                is_first = true;
-                            }
-                        }
-                        else
-                        {
-                            if (is_first)
-                            {
-                                _x = (int)((double)(band_edge_offset - Low) / (High - Low) * W);
-                                _y = top;
-                                is_first = false;
-                            }
-                            else
-                            {
-                                _width = ((int)((double)(band_edge_offset - Low) / (High - Low) * W)) - _x;
-                                _height = H - _y;
-                                g.DrawRectangle(new Pen(band_box_color, band_box_width), new Rectangle(_x, _y, _width, _height));
-                                is_first = true;
-                            }
-                        }
-                    } // for loop for 11m
-#endif
+
                     break; //EU15
 
 
@@ -10441,45 +10031,7 @@ namespace PowerSDR
                         }
                     } // for loop for 60m
 
-#if (!NO_KE9NS)
-                    // ke9ns add CB 11m band channels 1 - 40
-                    for (int i = 0; i < band_edge_list_r77.Length; i++)
-                    {
-                        double band_edge_offset = band_edge_list_r77[i] - vfo;
-                        if (bottom)
-                        {
-                            if (is_first)
-                            {
-                                _x = (int)((double)(band_edge_offset - Low) / (High - Low) * W);
-                                _y = H + top;
-                                is_first = false;
-                            }
-                            else
-                            {
-                                _width = ((int)((double)(band_edge_offset - Low) / (High - Low) * W)) - _x;
-                                _height = (H + H) - _y;
-                                g.DrawRectangle(new Pen(band_box_color, band_box_width), new Rectangle(_x, _y, _width, _height));
-                                is_first = true;
-                            }
-                        }
-                        else
-                        {
-                            if (is_first)
-                            {
-                                _x = (int)((double)(band_edge_offset - Low) / (High - Low) * W);
-                                _y = top;
-                                is_first = false;
-                            }
-                            else
-                            {
-                                _width = ((int)((double)(band_edge_offset - Low) / (High - Low) * W)) - _x;
-                                _height = H - _y;
-                                g.DrawRectangle(new Pen(band_box_color, band_box_width), new Rectangle(_x, _y, _width, _height));
-                                is_first = true;
-                            }
-                        }
-                    } // for loop for 11m
-#endif
+
                     break; // IARU 2
 
                 //============================================================================================================
@@ -10874,45 +10426,7 @@ namespace PowerSDR
                         }
                     } // for loop for 60m
 
-#if (!NO_KE9NS)
-                    // ke9ns add CB 11m band channels 1 - 40
-                    for (int i = 0; i < band_edge_list_r77.Length; i++)
-                    {
-                        double band_edge_offset = band_edge_list_r77[i] - vfo;
-                        if (bottom)
-                        {
-                            if (is_first)
-                            {
-                                _x = (int)((double)(band_edge_offset - Low) / (High - Low) * W);
-                                _y = H + top;
-                                is_first = false;
-                            }
-                            else
-                            {
-                                _width = ((int)((double)(band_edge_offset - Low) / (High - Low) * W)) - _x;
-                                _height = (H + H) - _y;
-                                g.DrawRectangle(new Pen(band_box_color, band_box_width), new Rectangle(_x, _y, _width, _height));
-                                is_first = true;
-                            }
-                        }
-                        else
-                        {
-                            if (is_first)
-                            {
-                                _x = (int)((double)(band_edge_offset - Low) / (High - Low) * W);
-                                _y = top;
-                                is_first = false;
-                            }
-                            else
-                            {
-                                _width = ((int)((double)(band_edge_offset - Low) / (High - Low) * W)) - _x;
-                                _height = H - _y;
-                                g.DrawRectangle(new Pen(band_box_color, band_box_width), new Rectangle(_x, _y, _width, _height));
-                                is_first = true;
-                            }
-                        }
-                    } // for loop for 11m
-#endif
+
                     break; // Australia
 
 
@@ -11313,45 +10827,7 @@ namespace PowerSDR
 
 
                     } // 60m uk 
-#if (!NO_KE9NS)
-                    // ke9ns add CB 11m band channels 1 - 40
-                    for (int i = 0; i < band_edge_list_r77.Length; i++)
-                    {
-                        double band_edge_offset = band_edge_list_r77[i] - vfo;
-                        if (bottom)
-                        {
-                            if (is_first)
-                            {
-                                _x = (int)((double)(band_edge_offset - Low) / (High - Low) * W);
-                                _y = H + top;
-                                is_first = false;
-                            }
-                            else
-                            {
-                                _width = ((int)((double)(band_edge_offset - Low) / (High - Low) * W)) - _x;
-                                _height = (H + H) - _y;
-                                g.DrawRectangle(new Pen(band_box_color, band_box_width), new Rectangle(_x, _y, _width, _height));
-                                is_first = true;
-                            }
-                        }
-                        else
-                        {
-                            if (is_first)
-                            {
-                                _x = (int)((double)(band_edge_offset - Low) / (High - Low) * W);
-                                _y = top;
-                                is_first = false;
-                            }
-                            else
-                            {
-                                _width = ((int)((double)(band_edge_offset - Low) / (High - Low) * W)) - _x;
-                                _height = H - _y;
-                                g.DrawRectangle(new Pen(band_box_color, band_box_width), new Rectangle(_x, _y, _width, _height));
-                                is_first = true;
-                            }
-                        }
-                    } // for loop for 11m
-#endif
+
                     break; //RUSS
 
 
@@ -11827,20 +11303,54 @@ namespace PowerSDR
 
                 if ((console.BeaconSigAvg == true)) // ke9ns add draw blue line to show 0 and 1 threshold for BCD time signal from WWV
                 {
-                    if ((bottom == false) && (SpotForm.WTime == true) && (SpotForm.WWVPitch == false))
+
+
+                    if ((bottom == false))
                     {
-                        int thres = (int)((double)(spectrum_grid_max - SpotForm.WWVThreshold) * H / y_range);
+                        if ((SpotForm.WTime == true) && (SpotForm.WWVPitch == false))
+                        {
+                            int thres = (int)((double)(spectrum_grid_max - SpotForm.WWVThreshold) * H / y_range);
 
-                        g.DrawLine(p3, 100, thres, W - 100, thres);
+                            g.DrawLine(p3, 100, thres, W - 100, thres);
 
-                        string temp = IndexS.ToString(); // SpotForm.IndexS
+                            string temp = IndexS.ToString(); // SpotForm.IndexS
 
-                        g.DrawString(temp, font, grid_text_brush, 600, thres - 15);
+                            g.DrawString(temp, font, grid_text_brush, 600, thres - 15);
 
+                            // g.DrawLine(p3, 100, thres, W - 100, thres);
+                        }
+                       
+                       
+                    } // if bottom = false
 
-                        // g.DrawLine(p3, 100, thres, W - 100, thres);
+                } //  if ((console.BeaconSigAvg == true)) 
+                else if ((console.RTTY == true)) // draw Mark and Space lines for RTTY decoding
+                {
+
+                    // int center_line_x = (int)(-(double)low / (high - low) * W); // ke9ns 885 full screen (shrunk 643) =(97370/(176741))*1607
+                    // g.DrawLine(new Pen(grid_zero_color), center_line_x, top, center_line_x, H); // 0hz line position on screen, Mark = 1000hz Space = 1170hz
+                    // filter_left_x = (int)((float)(tx_filter_low - Low + xit_hz - rit_hz) / (High - Low) * W); //original
+
+                    if ((bottom == false))
+                    {
+
+                        int Mark = (int)((float)(SpotForm.RTTYBASE - Low + xit_hz - rit_hz) / (High - Low) * W); // 
+                        int Space = (int)((float)((SpotForm.RTTYBASE + SpotForm.RTTYSHIFT) - Low + xit_hz - rit_hz) / (High - Low) * W); // 
+
+                        g.DrawLine(new Pen(Color.Orange, 1.0f), Mark, H, Mark, top); // Mark = 1000hz
+                        g.DrawLine(new Pen(Color.Orange, 1.0f), Space, H, Space, top); // Mark = 1000hz
                     }
-                }
+
+                } // RTTY
+                else if ((console.RXCW == true)) // draw Mark and Space lines for RTTY decoding
+                {
+                    if ((bottom == false))
+                    {
+                        int Mark = (int)((float)(SpotForm.CWBase - Low + xit_hz - rit_hz) / (High - Low) * W); // 
+                        g.DrawLine(new Pen(Color.Orange, 1.0f), Mark, H, Mark, top); // Mark = 600hz usually
+                    }
+
+                } // CW
 
                 //   if (bottom) Debug.WriteLine("bottom..H " + H + " hpstep " + h_pixel_step + " hstep "+ h_steps + " top " + top + " num "+num + " gstep "+ grid_step + " Y "+ y + " yrange " + y_range);
                 //   else Debug.WriteLine("top..H " + H + " hpstep " + h_pixel_step + " hstep " + h_steps + " top " + top + " num " + num + " gstep " + grid_step + " Y " + y + " yrange " + y_range);
@@ -11996,245 +11506,692 @@ namespace PowerSDR
             //===============================================================================================================================================================
             //=====================================================================
             //=====================================================================
-            // ke9ns add DRAW MEMORY SPOTS ON PANADAPTER
+            // ke9ns add DRAW BandText ON PANADAPTER
             //=====================================================================
             //=====================================================================
 
-            if ((SpotControl.SP6_Active != 0) && (!mox) && (console.chkPower.Checked == true))// do memory spot if active and not transmitting
+
+            if ((!mox) && (console.chkPower.Checked == true) && (SpotForm.chkBoxBandText.Checked == true))
             {
 
-                int iii = 0;                          // ke9ns add stairstep holder
-
-                int kk = 0;                           // ke9ns add index for holder[] after you draw the vert line, then draw calls (so calls can overlap the vert lines)
-
-                int vfo_hz = (int)vfoa_hz;    // vfo freq in hz
-
-                int H1a = H / 2;            // length of vertical line (based on rx1 and rx2 display window configuration)
-                int H1b = 20;               // starting point of vertical line
-
-                // RX3/RX4 PanF/Pan = 5,2 (K9,K10)(short)  PanF/PanF = 5,5, (short) Pan/Pan 2,2 (long)
-                if (bottom)                 // if your drawing to the bottom 
+                if (!bottom) // RX1
                 {
+                    VFOLow = (int)vfoa_hz + RXDisplayLow; // low freq (left side) in hz
+                    VFOHigh = (int)vfoa_hz + RXDisplayHigh; // high freq (right side) in hz
+                    VFODiff = VFOHigh - VFOLow; // diff in hz
+
+                    decimal VFOLowB = (decimal)((float)VFOLow / 1000000); // freq in mhz
+                    decimal VFOHighB = (decimal)((float)VFOHigh / 1000000); // freq in mhz
+                    decimal VFOC = (decimal)((float)vfoa_hz / 1000000); // freq in mhz
+
+                    int tempL = (int)(VFOLowB * 1000);
+                    int tempH = (int)(VFOHighB * 1000);
+                    int tempC = (int)(VFOC * 1000); // current freq in mhz 7.128 (down to khz only)
+
+                    VFOLowB = (decimal)tempL / 1000;
+                    VFOHighB = (decimal)tempH / 1000; // ke9ns only allow freq in MHZ down to khz 7.123456 becomes 7.123 mhz
+                    VFOC = (decimal)tempC / 1000;
+
+                    float XPOS = (float)W / (float)VFODiff; // generate a conversion factor (pixels per hz) to be able to select the pixel based on the freq
+                    int H1a = H * 2 / 3; // vert line length from top down
+
+                    string bandInfo;
+
+                    //  Debug.WriteLine("START BANDTEXT: " + bandtext_counter + " , " + freqlast1 + ", " + vfoa_hz);
+
+                    //---------------------------------------------------
+                    // ke9ns RX1 determine the bandtext to display for the current pan
+                    if (freqlast1 != VFOC)  // if last freq is not equal to the current VFOA freq
+                    {
+                        bandtext_counter = 0; // reset the bandtext counter
+                        freqlast1 = VFOC;
+
+                        //   Debug.WriteLine("LOOP BANDTEXT2 " + VFOLow + " , " + VFOHigh + " , " + VFOLowB + ", " + VFOHighB + " , " + XPOS + " , " + VFODiff);
+
+                        for (decimal ii = VFOLowB; ii < VFOHighB; ii = ii + 0.0005m) // for loop through each 1khz to find all the bandtext for the current display 0.001m
+                        {
+                            DB.BandText((double)ii, out bandInfo);
+
+                            //   Debug.WriteLine("BANDINFO: " + bandInfo + " , " + ii + " , " + bandtext[bandtext_counter]);
+
+                            if (bandInfo == bandtext[bandtext_counter])
+                            {
+                                bandtext_counter++;
+                                bandtext[bandtext_counter] = bandInfo;
+                                bandfreq[bandtext_counter] = ii;
+                                bandhere[bandtext_counter] = false;
+                            }
+                            else
+                            {
+                                bandtext_counter++;
+                                bandtext[bandtext_counter] = bandInfo;
+                                bandfreq[bandtext_counter] = ii;
+                                bandhere[bandtext_counter] = true;
+                                //  Debug.WriteLine("ADD BANDTEXT " + " , " + ii + " , "+ bandtext_counter + " , " + bandInfo);
+                            }
+
+                        } // for 
+
+                        //  Debug.WriteLine("FINISHED BANDTEXT: " + bandtext_counter + " , " + freqlast1 + ", " + vfoa_hz);
+                        //   Debug.WriteLine("--------------------------");
+
+                    } //  if (console.UpdateBandText == true)
+
+
+                    //----------------------------------------------------------------------
+                    // ke9ns RX1 display the bandtext on the pan XPOS = 0.00701875 , 
+
+                    int temp9 = 0;
+                    int temp10 = 0;
+
+
+                    for (int zz = 0; zz < bandtext_counter; zz++) // scan through all the bandtext that appear
+                    {
+                        int VFO_bandtext = (int)(((XPOS) * (float)((int)(bandfreq[zz] * 1000000) - VFOLow)));
+
+                        if (bandhere[zz] == true) // if your on the exact freq (not just inside the area defined)
+                        {
+                            //  Debug.WriteLine("Display Band text: " + VFO_bandtext + " , " + bandfreq[zz] + " , " + bandtext[zz] + " , " + XPOS + " , " +VFOLow  );
+
+                            temp9 = zz;
+                            temp10 = VFO_bandtext;
+    
+                            g.DrawLine(p2, VFO_bandtext, 20, VFO_bandtext, H1a);   // draw vertical line
+
+                            // draw after the fill rectangle so its easier to see the text
+                            
+                            StringFormat SF = new StringFormat();
+                            SF.Alignment = StringAlignment.Near;
+                            SF.FormatFlags = StringFormatFlags.DirectionVertical;
+
+
+                            g.DrawString(bandtext[zz], font1, grid_text_brush, VFO_bandtext, 20, SF); // draw bandtext vertically
+                           
+                        }
+                        else // draw a transparent box in the area of freq that the bandtext refers to.
+                        {
+                            int zz1 = zz;
+                            int zz4 = 0;
+                            for (; zz1 < bandtext_counter; zz1++)   // find next value bandtext (and how wide the open space is in khz)
+                            {
+                                zz4++;
+                                if (bandhere[zz1] == true) break;
+
+                            } // for loop
+
+                            int zz2 = zz; // save the current ZZ position
+
+                            if (zz != 0) zz2--; // get the position before (as long as your not at the start)
+
+                            int VFO_bandtext2 = 0;
+
+
+                            int VFO_bandtext0 = (int)(((XPOS) * (float)((int)(bandfreq[zz2] * 1000000) - VFOLow)));   // LEFT SIDE X PIXEL POS of Rectangle
+                            int VFO_bandtext1 = (int)(((XPOS) * (float)((int)(bandfreq[zz1 - 1] * 1000000) - VFOLow))); // RIGHT SIDE X PIXEL POS of Rectangle
+                            int VFO_bandtext3 = (int)(((XPOS) * (float)((int)(bandfreq[zz1] * 1000000) - VFOLow))); // RIGHT SIDE X PIXEL POS of Rectangle
+
+                            VFO_bandtext1 = ((VFO_bandtext3 - VFO_bandtext1) * 1 / 2) + VFO_bandtext1; // dont allow shaded area to bump up to the next bandtext (leave a gap) was 3/4
+
+
+                            //  Brush B9 = new SolidBrush(Color.FromArgb(42, grid_color));
+                            Brush B9 = new SolidBrush(BT_color);
+
+                            g.FillRectangle(B9, VFO_bandtext0, 20, VFO_bandtext1 - VFO_bandtext0, H1a / 2); // draw shaded rectangle area 
+  
+                          
+                            StringFormat SF1 = new StringFormat();
+                            SF1.Alignment = StringAlignment.Near;
+                            SF1.FormatFlags = StringFormatFlags.DirectionVertical;
+
+                            g.DrawString(bandtext[temp9], font1, grid_text_brush, temp10, 20, SF1); // draw bandtext vertically
+                         
+
+                            if (((zz1 - 1) > zz2))
+                            {
+                                int zz3 = (int)((decimal)((zz1 - 1) - zz2) / 1.5m) + zz2; // print extra label around 2/3rds of the way to the end
+
+                                VFO_bandtext2 = (int)(((XPOS) * (float)((int)(bandfreq[zz3] * 1000000) - VFOLow))); // x pixel position
+
+                                if (((VFO_bandtext1 - VFO_bandtext0) > 400) && (VFO_bandtext2 > 40) && (VFO_bandtext2 < (W - 40))) // keep away from the left and right vertical dbM and S meter text
+                                {
+
+                                    StringFormat SF = new StringFormat();
+                                    SF.Alignment = StringAlignment.Near;
+                                    SF.FormatFlags = StringFormatFlags.DirectionVertical;
+                                    g.DrawString(bandtext[zz], font1, grid_text_brush, VFO_bandtext2, 20, SF); // draw bandtext vertically
+                                }
+                            }
+
+
+                            zz = zz1 - 1; // jump directly to next bandtext label
+
+                        } // else
+
+                    } // for loop
+
+                    //  Debug.WriteLine("=============================");
+
+
+                } // top RX1 draw bandtext to pan
+                else // bottom rX2
+                {
+
+                    VFOLow = (int)vfob_hz + RXDisplayLow; // low freq (left side) in hz
+                    VFOHigh = (int)vfob_hz + RXDisplayHigh; // high freq (right side) in hz
+                    VFODiff = VFOHigh - VFOLow; // diff in hz
+
+                    decimal VFOLowB = (decimal)((float)VFOLow / 1000000); // freq in mhz
+                    decimal VFOHighB = (decimal)((float)VFOHigh / 1000000); // freq in mhz
+                    decimal VFOC = (decimal)((float)vfob_hz / 1000000); // freq in mhz
+
+                    int tempL = (int)(VFOLowB * 1000);
+                    int tempH = (int)(VFOHighB * 1000);
+                    int tempC = (int)(VFOC * 1000); // current freq in mhz 7.128 (down to khz only)
+
+                    VFOLowB = (decimal)tempL / 1000;
+                    VFOHighB = (decimal)tempH / 1000; // ke9ns only allow freq in MHZ down to khz 7.123456 becomes 7.123 mhz
+                    VFOC = (decimal)tempC / 1000;
+
+                    float XPOS = (float)W / (float)VFODiff; // generate a conversion factor (pixels per hz) to be able to select the pixel based on the freq
+                                                            //  int H1a = H * 2 / 3; // vert line length from top down
+
+
+
+                    // below is for rx2 only
+                    int H1a = H / 2;            // length of vertical line (based on rx1 and rx2 display window configuration)
+                    int H1b = 20;               // starting point of vertical line
+
+                    // RX3/RX4 PanF/Pan = 5,2 (K9,K10)(short)  PanF/PanF = 5,5, (short) Pan/Pan 2,2 (long)
+
                     if ((K9 == 2) && (K10 == 2)) H1a = H + (H / 2); // long
                     else H1a = H + (H / 4); // short
 
                     H1b = H + 20;
 
-                    vfo_hz = (int)vfob_hz;
-                    Console.MMK4 = 0;        // RX4 index to allow call signs to draw after all the vert lines on the screen
 
-                }
-                else
-                {
-                    Console.MMK3 = 0;        // RX3 index to allow call signs to draw after all the vert lines on the screen
+                    string bandInfo;
 
+                    //  Debug.WriteLine("START BANDTEXT: " + bandtext_counter + " , " + freqlast1 + ", " + vfoa_hz);
 
-                }
-
-                VFOLow = vfo_hz + RXDisplayLow;    // low freq (left side) in hz
-                VFOHigh = vfo_hz + RXDisplayHigh; // high freq (right side) in hz
-                VFODiff = VFOHigh - VFOLow;       // diff in hz
-
-                int gg = SpotForm.dataGridView2.Rows.Count;  // get current # of memories we have available
-                                                             //  int gg = console.comboFMMemory.Items.Count;
-
-                //-------------------------------------------------------------------------------------------------
-                //-------------------------------------------------------------------------------------------------
-                // draw MEMORY SPOTS
-                //-------------------------------------------------------------------------------------------------
-                //-------------------------------------------------------------------------------------------------
-
-
-                for (int ii = 0; ii < gg; ii++)     // Index through entire DXspot to find what is on this panadapter (draw vert lines first)
-                {
-
-                    int hh = (int)(Convert.ToDouble(SpotForm.dataGridView2[1, ii].Value) * 1000000);  // MEMORY "RXFREQ"  convert to hz
-
-                    if ((hh >= VFOLow) && (hh <= VFOHigh)) // find MEMORIES that appear on PAN
+                    //---------------------------------------------------
+                    // ke9ns RX2 determine the bandtext to display for the current pan
+                    if (freqlast1 != VFOC)
                     {
+                        bandtext_counter = 0; // reset the bandtext counter
+                        freqlast1 = VFOC;
 
-                        int VFO_DXPos = (int)((((float)W / (float)VFODiff) * (float)(hh - VFOLow))); // determine MEMORY spot line pos on current panadapter screen
+                        //   Debug.WriteLine("LOOP BANDTEXT2 " + VFOLow + " , " + VFOHigh + " , " + VFOLowB + ", " + VFOHighB + " , " + XPOS + " , " + VFODiff);
 
-                        holder2[kk] = ii;                    // ii is the actual MEMORY INDEX pos the the KK holds
-                        holder3[kk] = VFO_DXPos;
+                        for (decimal ii = VFOLowB; ii < VFOHighB; ii = ii + 0.0005m) // for loop through each 1khz to find all the bandtext for the current display
+                        {
+                            DB.BandText((double)ii, out bandInfo);
 
-                        kk++;
+                            //   Debug.WriteLine("BANDINFO: " + bandInfo + " , " + ii + " , " + bandtext[bandtext_counter]);
 
-                        g.DrawLine(p3, VFO_DXPos, H1b, VFO_DXPos, H1a);   // draw vertical line
+                            if (bandInfo == bandtext[bandtext_counter])
+                            {
+                                bandtext_counter++;
+                                bandtext[bandtext_counter] = bandInfo;
+                                bandfreq[bandtext_counter] = ii;
+                                bandhere[bandtext_counter] = false;
+                            }
+                            else
+                            {
+                                bandtext_counter++;
+                                bandtext[bandtext_counter] = bandInfo;
+                                bandfreq[bandtext_counter] = ii;
+                                bandhere[bandtext_counter] = true;
+                                //  Debug.WriteLine("ADD BANDTEXT " + " , " + ii + " , "+ bandtext_counter + " , " + bandInfo);
+                            }
+
+                        } // for 
+
+                        //  Debug.WriteLine("FINISHED BANDTEXT: " + bandtext_counter + " , " + freqlast1 + ", " + vfoa_hz);
+                        //   Debug.WriteLine("--------------------------");
+
+                    } //  if (console.UpdateBandText == true)
+
+
+                    //----------------------------------------------------------------------
+                    // ke9ns RX2 display the bandtext on the pan XPOS = 0.00701875 , 
+
+                    for (int zz = 0; zz < bandtext_counter; zz++) // scan through all the bandtext that appear
+                    {
+                        int VFO_bandtext = (int)(((XPOS) * (float)((int)(bandfreq[zz] * 1000000) - VFOLow)));
+
+                        if (bandhere[zz] == true)
+                        {
+                            //  Debug.WriteLine("Display Band text: " + VFO_bandtext + " , " + bandfreq[zz] + " , " + bandtext[zz] + " , " + XPOS + " , " +VFOLow  );
+
+                            g.DrawLine(p2, VFO_bandtext, H1b, VFO_bandtext, H1a);   // draw vertical line
+
+                            StringFormat SF = new StringFormat();
+                            SF.Alignment = StringAlignment.Near;
+                            SF.FormatFlags = StringFormatFlags.DirectionVertical;
+
+                            g.DrawString(bandtext[zz], font1, grid_text_brush, VFO_bandtext, H1b, SF); // draw bandtext vertically
+
+                        }
+                        else // draw a transparent box in the area of freq that the bandtext refers to.
+                        {
+                            int zz1 = zz;
+                            int zz4 = 0;
+                            for (; zz1 < bandtext_counter; zz1++)   // find next value bandtext (and how wide the open space is in khz)
+                            {
+                                zz4++;
+                                if (bandhere[zz1] == true) break;
+
+                            } // for loop
+
+                            int zz2 = zz; // save the current ZZ position
+
+                            if (zz != 0) zz2--; // get the position before (as long as your not at the start)
+
+                            int VFO_bandtext2 = 0;
+
+
+                            int VFO_bandtext0 = (int)(((XPOS) * (float)((int)(bandfreq[zz2] * 1000000) - VFOLow)));   // LEFT SIDE X PIXEL POS of Rectangle
+                            int VFO_bandtext1 = (int)(((XPOS) * (float)((int)(bandfreq[zz1 - 1] * 1000000) - VFOLow))); // RIGHT SIDE X PIXEL POS of Rectangle
+                            int VFO_bandtext3 = (int)(((XPOS) * (float)((int)(bandfreq[zz1] * 1000000) - VFOLow))); // RIGHT SIDE X PIXEL POS of Rectangle
+
+                            VFO_bandtext1 = ((VFO_bandtext3 - VFO_bandtext1) * 3 / 4) + VFO_bandtext1;
+
+
+                            //   Brush B9 = new SolidBrush(Color.FromArgb(42, grid_color));
+                            Brush B9 = new SolidBrush(BT_color);
+
+                            g.FillRectangle(B9, VFO_bandtext0, H1b, VFO_bandtext1 - (VFO_bandtext0), H1a / 4);
+
+                            if (((zz1 - 1) > zz2))
+                            {
+                                int zz3 = (int)((decimal)((zz1 - 1) - zz2) / 1.5m) + zz2; // print extra label around 2/3rds of the way to the end
+
+                                VFO_bandtext2 = (int)(((XPOS) * (float)((int)(bandfreq[zz3] * 1000000) - VFOLow))); // x pixel position
+
+                                if (((VFO_bandtext1 - VFO_bandtext0) > 400) && (VFO_bandtext2 > 40) && (VFO_bandtext2 < (W - 40))) // keep away from the left and right vertical dbM and S meter text
+                                {
+
+                                    StringFormat SF = new StringFormat();
+                                    SF.Alignment = StringAlignment.Near;
+                                    SF.FormatFlags = StringFormatFlags.DirectionVertical;
+                                    g.DrawString(bandtext[zz], font1, grid_text_brush, VFO_bandtext2, H1b, SF); // draw bandtext vertically
+                                }
+                            }
+
+
+                            zz = zz1 - 1; // jump directly to next bandtext label
+
+                        } // else
+
+                    } // for loop
+
+                    //  Debug.WriteLine("=============================");
+
+
+                } // bottom RX2
+
+
+
+            } //Draw Band text if SpotForm.chkBoxBandText.Checked == true 
+            else
+            {
+
+
+
+                //===============================================================================================================================================================
+                //===============================================================================================================================================================
+                //===============================================================================================================================================================
+                //===============================================================================================================================================================
+                //=====================================================================
+                //=====================================================================
+                // ke9ns add DRAW MEMORY SPOTS ON PANADAPTER
+                //=====================================================================
+                //=====================================================================
+
+                if ((SpotControl.SP6_Active != 0) && (!mox) && (console.chkPower.Checked == true))// do memory spot if active and not transmitting
+                {
+
+                    int iii = 0;                          // ke9ns add stairstep holder
+
+                    int kk = 0;                           // ke9ns add index for holder[] after you draw the vert line, then draw calls (so calls can overlap the vert lines)
+
+                    int vfo_hz = (int)vfoa_hz;    // vfo freq in hz
+
+                    int H1a = H / 2;            // length of vertical line (based on rx1 and rx2 display window configuration)
+                    int H1b = 20;               // starting point of vertical line
+
+                    // RX3/RX4 PanF/Pan = 5,2 (K9,K10)(short)  PanF/PanF = 5,5, (short) Pan/Pan 2,2 (long)
+                    if (bottom)                 // if your drawing to the bottom 
+                    {
+                        if ((K9 == 2) && (K10 == 2)) H1a = H + (H / 2); // long
+                        else H1a = H + (H / 4); // short
+
+                        H1b = H + 20;
+
+                        vfo_hz = (int)vfob_hz;
+                        Console.MMK4 = 0;        // RX4 index to allow call signs to draw after all the vert lines on the screen
+
+                    }
+                    else
+                    {
+                        Console.MMK3 = 0;        // RX3 index to allow call signs to draw after all the vert lines on the screen
+
 
                     }
 
-                } // for loop through MEMORIES
+                    VFOLow = vfo_hz + RXDisplayLow;    // low freq (left side) in hz
+                    VFOHigh = vfo_hz + RXDisplayHigh; // high freq (right side) in hz
+                    VFODiff = VFOHigh - VFOLow;       // diff in hz
+
+                    int gg = SpotForm.dataGridView2.Rows.Count;  // get current # of memories we have available
+                                                                 //  int gg = console.comboFMMemory.Items.Count;
+
+                    //-------------------------------------------------------------------------------------------------
+                    //-------------------------------------------------------------------------------------------------
+                    // draw MEMORY SPOTS
+                    //-------------------------------------------------------------------------------------------------
+                    //-------------------------------------------------------------------------------------------------
 
 
-                if (bottom) Console.MMK4 = kk; // keep a count for the bottom MEMORY 
-                else Console.MMK3 = kk; // count of spots in current panadapter
-
-
-                //--------------------------------------------------------------------------------------------
-                for (int ii = 0; ii < kk; ii++) // draw call signs to screen in order to draw over the vert lines
-                {
-
-                    string ll = (string)SpotForm.dataGridView2[2, holder2[ii]].Value;  // Name of MEMORY
-                    string mm = (string)SpotForm.dataGridView2[0, holder2[ii]].Value;  // GROUP of MEMORY
-                    string cc = (string)SpotForm.dataGridView2[9, holder2[ii]].Value;  // comments for hyperlinking of MEMORY
-
-                    DSPMode nn = (DSPMode)SpotForm.dataGridView2[3, holder2[ii]].Value;  // DSPMODE of MEMORY
-
-                    if ((nn == DSPMode.LSB) || (nn == DSPMode.DIGL) || (nn == DSPMode.CWL)) low = true;
-                    else low = false;
-
-                    // font
-                    if (low) // 1=LSB so draw on left side of line
+                    for (int ii = 0; ii < gg; ii++)     // Index through entire DXspot to find what is on this panadapter (draw vert lines first)
                     {
 
-                        length = g.MeasureString(ll, font1);             //  temp used to determine the size of the string when in LSB and you need to reserve a certain space//  (cl.Width);
-                        length1 = g.MeasureString(mm, font1);             //  length of "GROUP" string from Memory (to create a virtual box around the Memory Name & Group) to click on
+                        int hh = (int)(Convert.ToDouble(SpotForm.dataGridView2[1, ii].Value, CultureInfo.InvariantCulture) * 1000000);  // MEMORY "RXFREQ"  convert to hz
 
-
-                        g.DrawString(ll, font1, grid_text_brush, holder3[ii] - length.Width, H1b + iii);    // Memory Name
-                        g.DrawString(mm, font1, grid_text_brush, holder3[ii] - length1.Width, H1b + iii + 11); // Memory Group
-
-                        if (bottom) rx3 = 50; // allow only 50 spots per Receiver
-                        else rx3 = 0;
-
-                        if (!mox) // only do when not transmitting
+                        if ((hh >= VFOLow) && (hh <= VFOHigh)) // find MEMORIES that appear on PAN
                         {
 
-                            if (length1.Width > length.Width) length.Width = length1.Width; // make virtual box as wide as the widest text
+                            int VFO_DXPos = (int)((((float)W / (float)VFODiff) * (float)(hh - VFOLow))); // determine MEMORY spot line pos on current panadapter screen
 
-                            Console.MMW[ii + rx3] = (int)length.Width;           // Width,Height,X,Y of upper left corner to locate where text actually is 
-                            Console.MMH[ii + rx3] = (int)length.Height * 2;       // * 2 because of 2 lines of text
-                            Console.MMX[ii + rx3] = holder3[ii] - (int)length.Width;
-                            Console.MMY[ii + rx3] = H1b + iii;
-                            Console.MMS[ii + rx3] = ll;
-                            Console.MMC[ii + rx3] = cc; // comments
-                            Console.MMM[ii + rx3] = holder2[ii];
+                            holder2[kk] = ii;                    // ii is the actual MEMORY INDEX pos the the KK holds
+                            holder3[kk] = VFO_DXPos;
+
+                            kk++;
+
+                            g.DrawLine(p3, VFO_DXPos, H1b, VFO_DXPos, H1a);   // draw vertical line
 
                         }
 
+                    } // for loop through MEMORIES
 
-                    } // LSB side
-                    else   // 0=usb so draw on righ side of line (normal)
+
+                    if (bottom) Console.MMK4 = kk; // keep a count for the bottom MEMORY 
+                    else Console.MMK3 = kk; // count of spots in current panadapter
+
+
+                    //--------------------------------------------------------------------------------------------
+                    for (int ii = 0; ii < kk; ii++) // draw call signs to screen in order to draw over the vert lines
                     {
 
-                        length = g.MeasureString(ll, font1); //  not needed here but used for MEMORY NAME
-                        length1 = g.MeasureString(mm, font1); //  length of "GROUP" string from Memory (to create a virtual box around the Memory Name & Group) to click on
+                        string ll = (string)SpotForm.dataGridView2[2, holder2[ii]].Value;  // Name of MEMORY
+                        string mm = (string)SpotForm.dataGridView2[0, holder2[ii]].Value;  // GROUP of MEMORY
+                        string cc = (string)SpotForm.dataGridView2[9, holder2[ii]].Value;  // comments for hyperlinking of MEMORY
 
+                        DSPMode nn = (DSPMode)SpotForm.dataGridView2[3, holder2[ii]].Value;  // DSPMODE of MEMORY
 
-                        g.DrawString(ll, font1, grid_text_brush, holder3[ii], H1b + iii); // Memory Name
-                        g.DrawString(mm, font1, grid_text_brush, holder3[ii], H1b + iii + 11); // Memory Group
+                        if ((nn == DSPMode.LSB) || (nn == DSPMode.DIGL) || (nn == DSPMode.CWL)) low = true;
+                        else low = false;
 
-                        if (bottom) rx3 = 50;
-                        else rx3 = 0;
-
-                        if (!mox) // only do when not transmitting
+                        // font
+                        if (low) // 1=LSB so draw on left side of line
                         {
-                            if (length1.Width > length.Width) length.Width = length1.Width;
 
-                            Console.MMW[ii + rx3] = (int)length.Width;    // Width,Height,X,Y of upper left corner to locate where text actually is 
-                            Console.MMH[ii + rx3] = (int)length.Height * 2;  // H
-                            Console.MMX[ii + rx3] = holder3[ii];         // X
-                            Console.MMY[ii + rx3] = H1b + iii;           // Y
-                            Console.MMS[ii + rx3] = ll;                  // Name of Memory showing up in Pan
-                            Console.MMC[ii + rx3] = cc;                  // comments
-                            Console.MMM[ii + rx3] = holder2[ii];         // index in memory.xml file
-                        }
-
-                    } // USB side
-
-                    iii = iii + 22; // 11
-                    if (iii > 90) iii = 0;
+                            length = g.MeasureString(ll, font1);             //  temp used to determine the size of the string when in LSB and you need to reserve a certain space//  (cl.Width);
+                            length1 = g.MeasureString(mm, font1);             //  length of "GROUP" string from Memory (to create a virtual box around the Memory Name & Group) to click on
 
 
-                }// for loop through MEMORIES
+                            g.DrawString(ll, font1, grid_text_brush, holder3[ii] - length.Width, H1b + iii);    // Memory Name
+                            g.DrawString(mm, font1, grid_text_brush, holder3[ii] - length1.Width, H1b + iii + 11); // Memory Group
 
+                            if (bottom) rx3 = 50; // allow only 50 spots per Receiver
+                            else rx3 = 0;
 
-            } // MEMORY SPOTTING
-
-
-
-
-            //===============================================================================================================================================================
-            //===============================================================================================================================================================
-            //===============================================================================================================================================================
-            //===============================================================================================================================================================
-            //=====================================================================
-            //=====================================================================
-            // ke9ns add DRAW SWL SPOTS ON PANADAPTER
-            //=====================================================================
-            //=====================================================================
-
-            if ((!mox) && (console.chkPower.Checked == true) && (SpotControl.SP1_Active != 0))
-            {
-                DateTime UTCD = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc); // used by both RX1 and RX2 SWL display
-                byte UTCDD = (byte)(1 << ((byte)UTCD.DayOfWeek));   // this is the day. Sun = 0, Mon = 1
-                SpotControl.UTCNEW1 = Convert.ToInt16(UTCD.ToString("HHmm")); // convert 24hr UTC to int
-
-                if ((!bottom) && (vfoa_hz < 30000000))// do SWL spot if active and not transmitting
-                {
-
-                    VFOLow = (int)vfoa_hz + RXDisplayLow; // low freq (left side) in hz
-                    VFOHigh = (int)vfoa_hz + RXDisplayHigh; // high freq (right side) in hz
-                    VFODiff = VFOHigh - VFOLow; // diff in hz
-
-                    byte VFOLowB = (byte)(VFOLow / 1000000); // freq in mhz
-                    byte VFOHighB = (byte)(VFOHigh / 1000000); // freq in mhz
-
-                    int iii = 0; // stairstep the swl stations on the screen
-
-                    int L_index = 0;                                              // 0Mhz in index
-                    if (VFOLowB != 0) L_index = SpotControl.SWL_BandL[VFOLowB - 1]; // Left side  index position corresponding to the Left side Mhz
-                    int H_index = SpotControl.SWL_BandL[VFOHighB];                // Right side index position corresponding to the right side Mhz
-
-                    float XPOS = (float)W / (float)VFODiff;
-
-                    int H1a = H * 2 / 3; // vert line length from top down
-
-                    // DayOfWeek UTCDD = UTCD.DayOfWeek; // day is spelled out: Monday, Tuesday
-
-
-                    if ((VFOHigh != SpotControl.VFOHLast)) // check if moved frequency
-                    {
-
-                        SpotControl.VFOHLast = VFOHigh;
-                        SpotControl.Lindex = 0; // bottom of index to display spots
-                        SpotControl.Hindex = 0; // top of index to display spots
-
-                        Console.SXK = 0;
-
-
-                        for (int ii = L_index; ii < H_index; ii++) // start by checking spots that fall within the mhz range of the panadapter
-                        {
-                            SpotControl.Hindex = ii; // get top index spot
-
-                            if ((SpotControl.SWL_Freq[ii] > VFOHigh))
+                            if (!mox) // only do when not transmitting
                             {
-                                SpotControl.Hindex--; // get top index spot
 
-                                break; // once a SWL spot if found off the right side of screen then DONE
+                                if (length1.Width > length.Width) length.Width = length1.Width; // make virtual box as wide as the widest text
+
+                                Console.MMW[ii + rx3] = (int)length.Width;           // Width,Height,X,Y of upper left corner to locate where text actually is 
+                                Console.MMH[ii + rx3] = (int)length.Height * 2;       // * 2 because of 2 lines of text
+                                Console.MMX[ii + rx3] = holder3[ii] - (int)length.Width;
+                                Console.MMY[ii + rx3] = H1b + iii;
+                                Console.MMS[ii + rx3] = ll;
+                                Console.MMC[ii + rx3] = cc; // comments
+                                Console.MMM[ii + rx3] = holder2[ii];
+
                             }
 
-                            if ((SpotControl.SWL_Freq[ii] >= VFOLow)) // find all swl spot within the screen area
+
+                        } // LSB side
+                        else   // 0=usb so draw on righ side of line (normal)
+                        {
+
+                            length = g.MeasureString(ll, font1); //  not needed here but used for MEMORY NAME
+                            length1 = g.MeasureString(mm, font1); //  length of "GROUP" string from Memory (to create a virtual box around the Memory Name & Group) to click on
+
+
+                            g.DrawString(ll, font1, grid_text_brush, holder3[ii], H1b + iii); // Memory Name
+                            g.DrawString(mm, font1, grid_text_brush, holder3[ii], H1b + iii + 11); // Memory Group
+
+                            if (bottom) rx3 = 50;
+                            else rx3 = 0;
+
+                            if (!mox) // only do when not transmitting
                             {
-                                if (SpotControl.Lindex == 0) SpotControl.Lindex = ii; // capture index of first valid spot on screen
+                                if (length1.Width > length.Width) length.Width = length1.Width;
 
-                                //   Debug.Write(" FREQ-SWL " + ii);
+                                Console.MMW[ii + rx3] = (int)length.Width;    // Width,Height,X,Y of upper left corner to locate where text actually is 
+                                Console.MMH[ii + rx3] = (int)length.Height * 2;  // H
+                                Console.MMX[ii + rx3] = holder3[ii];         // X
+                                Console.MMY[ii + rx3] = H1b + iii;           // Y
+                                Console.MMS[ii + rx3] = ll;                  // Name of Memory showing up in Pan
+                                Console.MMC[ii + rx3] = cc;                  // comments
+                                Console.MMM[ii + rx3] = holder2[ii];         // index in memory.xml file
+                            }
+
+                        } // USB side
+
+                        iii = iii + 22; // 11
+                        if (iii > 90) iii = 0;
 
 
-                                // ke9ns check that the UTC day falls within the stations days listed at ON the air, then check the UTC time
+                    }// for loop through MEMORIES
+
+
+                } // MEMORY SPOTTING
+
+
+
+
+                //===============================================================================================================================================================
+                //===============================================================================================================================================================
+                //===============================================================================================================================================================
+                //===============================================================================================================================================================
+                //=====================================================================
+                //=====================================================================
+                // ke9ns add DRAW SWL SPOTS ON PANADAPTER
+                //=====================================================================
+                //=====================================================================
+
+                if ((!mox) && (console.chkPower.Checked == true) && (SpotControl.SP1_Active != 0))
+                {
+                    DateTime UTCD = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc); // used by both RX1 and RX2 SWL display
+                    byte UTCDD = (byte)(1 << ((byte)UTCD.DayOfWeek));   // this is the day. Sun = 0, Mon = 1
+                    SpotControl.UTCNEW1 = Convert.ToInt16(UTCD.ToString("HHmm"), CultureInfo.InvariantCulture); // convert 24hr UTC to int
+
+                    if ((!bottom) && (vfoa_hz < 54000000))// do SWL spot if active and not transmitting
+                    {
+
+                        VFOLow = (int)vfoa_hz + RXDisplayLow; // low freq (left side) in hz
+                        VFOHigh = (int)vfoa_hz + RXDisplayHigh; // high freq (right side) in hz
+                        VFODiff = VFOHigh - VFOLow; // diff in hz
+
+                        byte VFOLowB = (byte)(VFOLow / 1000000); // freq in mhz
+                        byte VFOHighB = (byte)(VFOHigh / 1000000); // freq in mhz
+
+                      
+                        int iii = 0; // stairstep the swl stations on the screen
+
+                        int L_index = 0;                                              // 0Mhz in index
+                        if (VFOLowB != 0) L_index = SpotControl.SWL_BandL[VFOLowB - 1]; // Left side  index position corresponding to the Left side Mhz
+                        int H_index = SpotControl.SWL_BandL[VFOHighB];                // Right side index position corresponding to the right side Mhz
+
+                     //  Debug.WriteLine("VFOLOW:" + VFOLowB + " , " + VFOHighB + " , " + L_index + " , " + H_index);
+
+
+                        float XPOS = (float)W / (float)VFODiff;
+
+                        int H1a = H * 2 / 3; // vert line length from top down
+
+                        // DayOfWeek UTCDD = UTCD.DayOfWeek; // day is spelled out: Monday, Tuesday
+
+
+                        if ((VFOHigh != SpotControl.VFOHLast)) // check if moved frequency
+                        {
+                         //   Debug.WriteLine("1VFOLOW:" + VFOLowB + " , " + VFOHighB + " , " + L_index + " , " + H_index);
+
+                            
+                            SpotControl.VFOHLast = VFOHigh;
+                            SpotControl.Lindex = 0; // bottom of index to display spots
+                            SpotControl.Hindex = 0; // top of index to display spots
+
+                            Console.SXK = 0;
+
+
+                            for (int ii = L_index; ii <= H_index; ii++) // start by checking spots that fall within the mhz range of the panadapter
+                            {
+                                SpotControl.Hindex = ii; // get top index spot
+
+                                if ((SpotControl.SWL_Freq[ii] > VFOHigh))
+                                {
+                                    SpotControl.Hindex--; // get top index spot
+
+                                    break; // once a SWL spot if found off the right side of screen then DONE
+                                }
+
+                                if ((SpotControl.SWL_Freq[ii] >= VFOLow)) // find all swl spot within the screen area
+                                {
+                                    if (SpotControl.Lindex == 0) SpotControl.Lindex = ii; // capture index of first valid spot on screen
+
+                                    //  Debug.Write(" FREQ-SWL " + ii);
+
+
+                                    // ke9ns check that the UTC day falls within the stations days listed at ON the air, then check the UTC time
+
+                                    if (
+                                    ((SpotControl.SWL_Day1[ii] & SpotControl.UTCDD) > 0) && (((SpotControl.SWL_TimeN[ii] <= SpotControl.UTCNEW1) && (SpotControl.SWL_TimeF[ii] >= SpotControl.UTCNEW1)) ||
+                                    ((SpotControl.SWL_TimeN[ii] >= SpotControl.UTCNEW1) && (SpotControl.SWL_TimeF[ii] >= SpotControl.UTCNEW1) && (SpotControl.SWL_TimeF[ii] < SpotControl.SWL_TimeN[ii])))
+                                     )
+                                    //   if ( ((SpotControl.SWL_Day1[ii] & SpotControl.UTCDD) > 0) && (SpotControl.SWL_TimeN[ii] <= SpotControl.UTCNEW1) && (SpotControl.SWL_TimeF[ii] >= SpotControl.UTCNEW1)) // ke9ns check if stations on the panadapter are on the air (based on time)
+                                    {
+
+
+                                        int VFO_SWLPos = (int)(((XPOS) * (float)(SpotControl.SWL_Freq[ii] - VFOLow)));
+
+                                        g.DrawLine(p2, VFO_SWLPos, 20, VFO_SWLPos, H1a);   // draw vertical line
+
+                                        if ((Console.MMK3 > 0) && (SpotControl.SP6_Active != 0))
+                                        {
+                                            int x2 = VFO_SWLPos;
+                                            int y2 = 20 + iii;
+
+                                            SizeF length = g.MeasureString(SpotControl.SWL_Station[ii], font1); //  used for google lookups of SWL stations
+
+                                            for (int jj = 0; jj < Console.MMK3; jj++)
+                                            {
+
+                                                if (((x2 + length.Width) >= Console.MMX[jj]) && (x2 < (Console.MMX[jj] + Console.MMW[jj])))
+                                                {
+                                                    if (((y2 + length.Height) >= Console.MMY[jj]) && (y2 < (Console.MMY[jj] + Console.MMH[jj])))
+                                                    {
+                                                        iii = iii + 33;
+                                                        break;
+                                                    }
+                                                }
+
+                                            } // for loop to check if DX text will draw over top of Memory text
+
+                                        } //  if ((Console.MMK3 > 0) && (SpotControl.SP6_Active != 0))
+
+                                        g.DrawString(SpotControl.SWL_Station[ii], font1, grid_text_brush, VFO_SWLPos, 20 + iii);
+
+                                        //   Debug.WriteLine(" FINDSWL "+ ii );
+
+                                        if (Console.SXK < 99)
+                                        {
+
+                                            SizeF length = g.MeasureString(SpotControl.SWL_Station[ii], font1); //  used for google lookups of SWL stations
+
+                                            Console.SXW[Console.SXK] = (int)length.Width;
+                                            Console.SXH[Console.SXK] = (int)length.Height;
+                                            Console.SXX[Console.SXK] = VFO_SWLPos;
+                                            Console.SXY[Console.SXK] = 20 + iii;
+                                            Console.SXS[Console.SXK] = SpotControl.SWL_Station[ii];
+                                            Console.SXF[Console.SXK] = SpotControl.SWL_Freq[ii];
+                                            Console.SXM[Console.SXK] = SpotControl.SWL_Mode[ii];
+
+
+                                            Console.SXK++;
+                                        }
+                                        else Debug.Write(" SXK OVERLIMIT ");
+
+
+                                        iii = iii + 11; // stairstep spots
+                                        if (iii > 90) iii = 0;
+
+                                    } // check time
+
+                                } // make sure spot is > then left side of screen
+
+                            } // for loop through SWL_Index
+
+                            //   Debug.WriteLine(" L_index " + SpotControl.Lindex);
+                            //   Debug.WriteLine(" H_index " + SpotControl.Hindex);
+
+                            //   Debug.WriteLine(" VFOLow " + VFOLow);
+                            //   Debug.WriteLine(" VFOHigh " + VFOHigh);
+
+
+                        } //   if ((VFOHigh != SpotControl.VFOHLast))  //if you change vfo freq do above
+                        else // if you dont change freq, then do below
+                        {
+
+                        //   Debug.WriteLine("2VFOLOW:" + VFOLowB + " , " + VFOHighB + " , " + L_index + " , " + H_index);
+                        
+                            for (int ii = SpotControl.Lindex; ii <= SpotControl.Hindex; ii++) // now check only spots that fit exactly on panadapter
+                            {
+                                //  Debug.Write(" drawSWL " + ii);
 
                                 if (
-                            ((SpotControl.SWL_Day1[ii] & SpotControl.UTCDD) > 0) && (((SpotControl.SWL_TimeN[ii] <= SpotControl.UTCNEW1) && (SpotControl.SWL_TimeF[ii] >= SpotControl.UTCNEW1)) ||
-                            ((SpotControl.SWL_TimeN[ii] >= SpotControl.UTCNEW1) && (SpotControl.SWL_TimeF[ii] >= SpotControl.UTCNEW1) && (SpotControl.SWL_TimeF[ii] < SpotControl.SWL_TimeN[ii])))
-                             )
-                                //   if ( ((SpotControl.SWL_Day1[ii] & SpotControl.UTCDD) > 0) && (SpotControl.SWL_TimeN[ii] <= SpotControl.UTCNEW1) && (SpotControl.SWL_TimeF[ii] >= SpotControl.UTCNEW1)) // ke9ns check if stations on the panadapter are on the air (based on time)
+                             ((SpotControl.SWL_Day1[ii] & SpotControl.UTCDD) > 0) && (((SpotControl.SWL_TimeN[ii] <= SpotControl.UTCNEW1) && (SpotControl.SWL_TimeF[ii] >= SpotControl.UTCNEW1)) ||
+                             ((SpotControl.SWL_TimeN[ii] >= SpotControl.UTCNEW1) && (SpotControl.SWL_TimeF[ii] >= SpotControl.UTCNEW1) && (SpotControl.SWL_TimeF[ii] < SpotControl.SWL_TimeN[ii])))
+                              )
+                                //     if (((SpotControl.SWL_Day1[ii] & SpotControl.UTCDD) > 0) && (SpotControl.SWL_TimeN[ii] <= SpotControl.UTCNEW1) && (SpotControl.SWL_TimeF[ii] >= SpotControl.UTCNEW1))
                                 {
-
-
                                     int VFO_SWLPos = (int)(((XPOS) * (float)(SpotControl.SWL_Freq[ii] - VFOLow)));
 
                                     g.DrawLine(p2, VFO_SWLPos, 20, VFO_SWLPos, H1a);   // draw vertical line
+
+                                    iii = iii + 11; // stairstep spots
+                                    if (iii > 90) iii = 0;
+
+                                } // check time
+
+                            } // for loop to display all current swl spots
+                            iii = 0;
+                            for (int ii = SpotControl.Lindex; ii <= SpotControl.Hindex; ii++) // now check only spots that fit exactly on panadapter
+                            {
+                                //   Debug.Write(" drawSWL " + ii);
+
+                                if (
+                                   ((SpotControl.SWL_Day1[ii] & SpotControl.UTCDD) > 0) && (((SpotControl.SWL_TimeN[ii] <= SpotControl.UTCNEW1) && (SpotControl.SWL_TimeF[ii] >= SpotControl.UTCNEW1)) ||
+                                   ((SpotControl.SWL_TimeN[ii] >= SpotControl.UTCNEW1) && (SpotControl.SWL_TimeF[ii] >= SpotControl.UTCNEW1) && (SpotControl.SWL_TimeF[ii] < SpotControl.SWL_TimeN[ii])))
+                                    )
+                                //    if (((SpotControl.SWL_Day1[ii] & SpotControl.UTCDD) > 0) && (SpotControl.SWL_TimeN[ii] <= SpotControl.UTCNEW1) && (SpotControl.SWL_TimeF[ii] >= SpotControl.UTCNEW1))
+                                {
+                                    int VFO_SWLPos = (int)(((XPOS) * (float)(SpotControl.SWL_Freq[ii] - VFOLow)));
+
+                                //   Debug.WriteLine("SWL - MMK3 value " + Console.MMK3);
 
                                     if ((Console.MMK3 > 0) && (SpotControl.SP6_Active != 0))
                                     {
@@ -12256,200 +12213,196 @@ namespace PowerSDR
                                             }
 
                                         } // for loop to check if DX text will draw over top of Memory text
-                                    }
+                                    } //  if ((Console.MMK3 > 0) && (SpotControl.SP6_Active != 0))
 
-                                    g.DrawString(SpotControl.SWL_Station[ii], font1, grid_text_brush, VFO_SWLPos, 20 + iii);
-
-                                    //   Debug.WriteLine(" FINDSWL "+ ii );
-
-                                    if (Console.SXK < 99)
-                                    {
-
-                                        SizeF length = g.MeasureString(SpotControl.SWL_Station[ii], font1); //  used for google lookups of SWL stations
-
-                                        Console.SXW[Console.SXK] = (int)length.Width;
-                                        Console.SXH[Console.SXK] = (int)length.Height;
-                                        Console.SXX[Console.SXK] = VFO_SWLPos;
-                                        Console.SXY[Console.SXK] = 20 + iii;
-                                        Console.SXS[Console.SXK] = SpotControl.SWL_Station[ii];
-                                        Console.SXF[Console.SXK] = SpotControl.SWL_Freq[ii];
-                                        Console.SXM[Console.SXK] = SpotControl.SWL_Mode[ii];
-
-
-                                        Console.SXK++;
-                                    }
-                                    else Debug.Write(" SXK OVERLIMIT ");
-
+                                    g.DrawString(SpotControl.SWL_Station[ii], font1, grid_text_brush, VFO_SWLPos, 20 + iii); // draw station Name
 
                                     iii = iii + 11; // stairstep spots
                                     if (iii > 90) iii = 0;
 
                                 } // check time
 
-                            } // make sure spot is > then left side of screen
-
-                        } // for loop through SWL_Index
-
-                        //   Debug.WriteLine(" L_index " + SpotControl.Lindex);
-                        //   Debug.WriteLine(" H_index " + SpotControl.Hindex);
-
-                        //   Debug.WriteLine(" VFOLow " + VFOLow);
-                        //   Debug.WriteLine(" VFOHigh " + VFOHigh);
+                            } // for loop to display all current swl spots
 
 
-                    } // if you change vfo freq do above
-                    else // if you dont change freq, then do below
+                        } //do this above until you move freq again
+
+
+                    } // DISPLAY RX1 SWL SPots only
+
+
+                    //======================================================
+                    //======================================================
+                    //ke9ns add SWL spots to RX2
+
+                    if ((bottom) && (vfob_hz < 60000000))// do SWL spot if active and not transmitting
                     {
 
+                        VFOLow = (int)vfob_hz + RXDisplayLow; // low freq (left side) in hz
+                        VFOHigh = (int)vfob_hz + RXDisplayHigh; // high freq (right side) in hz
+                        VFODiff = VFOHigh - VFOLow; // diff in hz
+
+                        byte VFOLowB = (byte)(VFOLow / 1000000); // freq in mhz
+                        byte VFOHighB = (byte)(VFOHigh / 1000000); // freq in mhz
+
+                        int iii = 0; // stairstep the swl stations on the screen
+
+                        int L_index = 0;                                              // 0Mhz in index
+                        if (VFOLowB != 0) L_index = SpotControl.SWL_BandL[VFOLowB - 1]; // Left side  index position corresponding to the Left side Mhz
+                        int H_index = SpotControl.SWL_BandL[VFOHighB];                // Right side index position corresponding to the right side Mhz
+
+                        float XPOS = (float)W / (float)VFODiff;
 
 
-                        for (int ii = SpotControl.Lindex; ii <= SpotControl.Hindex; ii++) // now check only spots that fit exactly on panadapter
+                        // below is for rx2 only
+                        int H1a = H / 2;            // length of vertical line (based on rx1 and rx2 display window configuration)
+                        int H1b = 20;               // starting point of vertical line
+
+                        // RX3/RX4 PanF/Pan = 5,2 (K9,K10)(short)  PanF/PanF = 5,5, (short) Pan/Pan 2,2 (long)
+
+                        if ((K9 == 2) && (K10 == 2)) H1a = H + (H / 2); // long
+                        else H1a = H + (H / 4); // short
+
+                        H1b = H + 20;
+
+
+                        if ((VFOHigh != SpotControl.VFOHLast)) // check if moved frequency
                         {
-                            //  Debug.Write(" drawSWL " + ii);
 
-                            if (
-                         ((SpotControl.SWL_Day1[ii] & SpotControl.UTCDD) > 0) && (((SpotControl.SWL_TimeN[ii] <= SpotControl.UTCNEW1) && (SpotControl.SWL_TimeF[ii] >= SpotControl.UTCNEW1)) ||
-                         ((SpotControl.SWL_TimeN[ii] >= SpotControl.UTCNEW1) && (SpotControl.SWL_TimeF[ii] >= SpotControl.UTCNEW1) && (SpotControl.SWL_TimeF[ii] < SpotControl.SWL_TimeN[ii])))
-                          )
-                            //     if (((SpotControl.SWL_Day1[ii] & SpotControl.UTCDD) > 0) && (SpotControl.SWL_TimeN[ii] <= SpotControl.UTCNEW1) && (SpotControl.SWL_TimeF[ii] >= SpotControl.UTCNEW1))
+                            SpotControl.VFOHLast = VFOHigh;
+                            SpotControl.Lindex = 0; // bottom of index to display spots
+                            SpotControl.Hindex = 0; // top of index to display spots
+
+                            Console.SXK2 = 0;
+
+
+                            for (int ii = L_index; ii <= H_index; ii++) // start by checking spots that fall within the mhz range of the panadapter
                             {
-                                int VFO_SWLPos = (int)(((XPOS) * (float)(SpotControl.SWL_Freq[ii] - VFOLow)));
+                                SpotControl.Hindex = ii; // get top index spot
 
-                                g.DrawLine(p2, VFO_SWLPos, 20, VFO_SWLPos, H1a);   // draw vertical line
-
-                                iii = iii + 11; // stairstep spots
-                                if (iii > 90) iii = 0;
-
-                            } // check time
-
-                        } // for loop to display all current swl spots
-                        iii = 0;
-                        for (int ii = SpotControl.Lindex; ii <= SpotControl.Hindex; ii++) // now check only spots that fit exactly on panadapter
-                        {
-                            //  Debug.Write(" drawSWL " + ii);
-
-                            if (
-                       ((SpotControl.SWL_Day1[ii] & SpotControl.UTCDD) > 0) && (((SpotControl.SWL_TimeN[ii] <= SpotControl.UTCNEW1) && (SpotControl.SWL_TimeF[ii] >= SpotControl.UTCNEW1)) ||
-                       ((SpotControl.SWL_TimeN[ii] >= SpotControl.UTCNEW1) && (SpotControl.SWL_TimeF[ii] >= SpotControl.UTCNEW1) && (SpotControl.SWL_TimeF[ii] < SpotControl.SWL_TimeN[ii])))
-                        )
-                            //    if (((SpotControl.SWL_Day1[ii] & SpotControl.UTCDD) > 0) && (SpotControl.SWL_TimeN[ii] <= SpotControl.UTCNEW1) && (SpotControl.SWL_TimeF[ii] >= SpotControl.UTCNEW1))
-                            {
-                                int VFO_SWLPos = (int)(((XPOS) * (float)(SpotControl.SWL_Freq[ii] - VFOLow)));
-
-                                if ((Console.MMK3 > 0) && (SpotControl.SP6_Active != 0))
+                                if ((SpotControl.SWL_Freq[ii] > VFOHigh))
                                 {
-                                    int x2 = VFO_SWLPos;
-                                    int y2 = 20 + iii;
+                                    SpotControl.Hindex--; // get top index spot
 
-                                    SizeF length = g.MeasureString(SpotControl.SWL_Station[ii], font1); //  used for google lookups of SWL stations
-
-                                    for (int jj = 0; jj < Console.MMK3; jj++)
-                                    {
-
-                                        if (((x2 + length.Width) >= Console.MMX[jj]) && (x2 < (Console.MMX[jj] + Console.MMW[jj])))
-                                        {
-                                            if (((y2 + length.Height) >= Console.MMY[jj]) && (y2 < (Console.MMY[jj] + Console.MMH[jj])))
-                                            {
-                                                iii = iii + 33;
-                                                break;
-                                            }
-                                        }
-
-                                    } // for loop to check if DX text will draw over top of Memory text
+                                    break; // once a SWL spot if found off the right side of screen then DONE
                                 }
 
-                                g.DrawString(SpotControl.SWL_Station[ii], font1, grid_text_brush, VFO_SWLPos, 20 + iii); // draw station Name
+                                if ((SpotControl.SWL_Freq[ii] >= VFOLow)) // find all swl spot within the screen area
+                                {
+                                    if (SpotControl.Lindex == 0) SpotControl.Lindex = ii; // capture index of first valid spot on screen
 
-                                iii = iii + 11; // stairstep spots
-                                if (iii > 90) iii = 0;
-
-                            } // check time
-
-                        } // for loop to display all current swl spots
+                                    //   Debug.Write(" FREQ-SWL " + ii);
 
 
-                    } //do this above until you move freq again
+                                    // ke9ns check that the UTC day falls within the stations days listed at ON the air, then check the UTC time
+
+                                    if (
+                                            ((SpotControl.SWL_Day1[ii] & SpotControl.UTCDD) > 0) && (((SpotControl.SWL_TimeN[ii] <= SpotControl.UTCNEW1) && (SpotControl.SWL_TimeF[ii] >= SpotControl.UTCNEW1)) ||
+                                            ((SpotControl.SWL_TimeN[ii] >= SpotControl.UTCNEW1) && (SpotControl.SWL_TimeF[ii] >= SpotControl.UTCNEW1) && (SpotControl.SWL_TimeF[ii] < SpotControl.SWL_TimeN[ii])))
+                                       )
+                                    {
 
 
-                } // DISPLAY RX1 SWL SPots only
+                                        int VFO_SWLPos = (int)(((XPOS) * (float)(SpotControl.SWL_Freq[ii] - VFOLow)));
+
+                                        g.DrawLine(p2, VFO_SWLPos, H1b, VFO_SWLPos, H1a);   // draw RX2 vertical line
 
 
-                //======================================================
-                //======================================================
-                //ke9ns add SWL spots to RX2
+                                        if ((Console.MMK4 > 0) && (SpotControl.SP6_Active != 0))
+                                        {
+                                            int x2 = VFO_SWLPos;
+                                            int y2 = 20 + iii;
 
-                if ((bottom) && (vfob_hz < 30000000))// do SWL spot if active and not transmitting
-                {
+                                            SizeF length = g.MeasureString(SpotControl.SWL_Station[ii], font1); //  used for google lookups of SWL stations
 
-                    VFOLow = (int)vfob_hz + RXDisplayLow; // low freq (left side) in hz
-                    VFOHigh = (int)vfob_hz + RXDisplayHigh; // high freq (right side) in hz
-                    VFODiff = VFOHigh - VFOLow; // diff in hz
+                                            for (int jj = 0; jj < Console.MMK4; jj++)
+                                            {
 
-                    byte VFOLowB = (byte)(VFOLow / 1000000); // freq in mhz
-                    byte VFOHighB = (byte)(VFOHigh / 1000000); // freq in mhz
+                                                if (((x2 + length.Width) >= Console.MMX[jj + rx3]) && (x2 < (Console.MMX[jj + rx3] + Console.MMW[jj + rx3])))
+                                                {
+                                                    if (((y2 + length.Height) >= Console.MMY[jj + rx3]) && (y2 < (Console.MMY[jj + rx3] + Console.MMH[jj + rx3])))
+                                                    {
+                                                        iii = iii + 33;
+                                                        break;
+                                                    }
+                                                }
 
-                    int iii = 0; // stairstep the swl stations on the screen
+                                            } // for loop to check if DX text will draw over top of Memory text
+                                        }
 
-                    int L_index = 0;                                              // 0Mhz in index
-                    if (VFOLowB != 0) L_index = SpotControl.SWL_BandL[VFOLowB - 1]; // Left side  index position corresponding to the Left side Mhz
-                    int H_index = SpotControl.SWL_BandL[VFOHighB];                // Right side index position corresponding to the right side Mhz
+                                        g.DrawString(SpotControl.SWL_Station[ii], font1, grid_text_brush, VFO_SWLPos, H1b + iii); // 20+iii
 
-                    float XPOS = (float)W / (float)VFODiff;
+                                        //   Debug.WriteLine(" FINDSWL "+ ii );
 
+                                        if (Console.SXK2 < 99)
+                                        {
 
-                    // below is for rx2 only
-                    int H1a = H / 2;            // length of vertical line (based on rx1 and rx2 display window configuration)
-                    int H1b = 20;               // starting point of vertical line
+                                            SizeF length = g.MeasureString(SpotControl.SWL_Station[ii], font1); //  used for google lookups of SWL stations
 
-                    // RX3/RX4 PanF/Pan = 5,2 (K9,K10)(short)  PanF/PanF = 5,5, (short) Pan/Pan 2,2 (long)
+                                            Console.SXW[Console.SXK2 + 100] = (int)length.Width;
+                                            Console.SXH[Console.SXK2 + 100] = (int)length.Height;
+                                            Console.SXX[Console.SXK2 + 100] = VFO_SWLPos;
+                                            Console.SXY[Console.SXK2 + 100] = 20 + iii;
+                                            Console.SXS[Console.SXK2 + 100] = SpotControl.SWL_Station[ii];
+                                            Console.SXF[Console.SXK2 + 100] = SpotControl.SWL_Freq[ii];
+                                            Console.SXM[Console.SXK2 + 100] = SpotControl.SWL_Mode[ii];
 
-                    if ((K9 == 2) && (K10 == 2)) H1a = H + (H / 2); // long
-                    else H1a = H + (H / 4); // short
-
-                    H1b = H + 20;
-
-
-                    if ((VFOHigh != SpotControl.VFOHLast)) // check if moved frequency
-                    {
-
-                        SpotControl.VFOHLast = VFOHigh;
-                        SpotControl.Lindex = 0; // bottom of index to display spots
-                        SpotControl.Hindex = 0; // top of index to display spots
-
-                        Console.SXK2 = 0;
+                                            Console.SXK2++;
+                                        }
+                                        else Debug.Write(" SXK2 OVERLIMIT ");
 
 
-                        for (int ii = L_index; ii < H_index; ii++) // start by checking spots that fall within the mhz range of the panadapter
+                                        iii = iii + 11; // stairstep spots
+                                        if (iii > 90) iii = 0;
+
+                                    } // check time
+
+                                } // make sure spot is > then left side of screen
+
+                            } // for loop through SWL_Index
+
+                            //   Debug.WriteLine(" L_index " + SpotControl.Lindex);
+                            //   Debug.WriteLine(" H_index " + SpotControl.Hindex);
+
+                            //   Debug.WriteLine(" VFOLow " + VFOLow);
+                            //   Debug.WriteLine(" VFOHigh " + VFOHigh);
+
+
+                        } // if you change vfo freq do above
+                        else // if you dont change freq, then do below
                         {
-                            SpotControl.Hindex = ii; // get top index spot
 
-                            if ((SpotControl.SWL_Freq[ii] > VFOHigh))
+
+                            for (int ii = SpotControl.Lindex; ii <= SpotControl.Hindex; ii++) // now check only spots that fit exactly on panadapter
                             {
-                                SpotControl.Hindex--; // get top index spot
-
-                                break; // once a SWL spot if found off the right side of screen then DONE
-                            }
-
-                            if ((SpotControl.SWL_Freq[ii] >= VFOLow)) // find all swl spot within the screen area
-                            {
-                                if (SpotControl.Lindex == 0) SpotControl.Lindex = ii; // capture index of first valid spot on screen
-
-                                //   Debug.Write(" FREQ-SWL " + ii);
-
-
-                                // ke9ns check that the UTC day falls within the stations days listed at ON the air, then check the UTC time
+                                //  Debug.Write(" drawSWL " + ii);
 
                                 if (
-                                        ((SpotControl.SWL_Day1[ii] & SpotControl.UTCDD) > 0) && (((SpotControl.SWL_TimeN[ii] <= SpotControl.UTCNEW1) && (SpotControl.SWL_TimeF[ii] >= SpotControl.UTCNEW1)) ||
-                                        ((SpotControl.SWL_TimeN[ii] >= SpotControl.UTCNEW1) && (SpotControl.SWL_TimeF[ii] >= SpotControl.UTCNEW1) && (SpotControl.SWL_TimeF[ii] < SpotControl.SWL_TimeN[ii])))
-                                   )
+                             ((SpotControl.SWL_Day1[ii] & SpotControl.UTCDD) > 0) && (((SpotControl.SWL_TimeN[ii] <= SpotControl.UTCNEW1) && (SpotControl.SWL_TimeF[ii] >= SpotControl.UTCNEW1)) ||
+                             ((SpotControl.SWL_TimeN[ii] >= SpotControl.UTCNEW1) && (SpotControl.SWL_TimeF[ii] >= SpotControl.UTCNEW1) && (SpotControl.SWL_TimeF[ii] < SpotControl.SWL_TimeN[ii])))
+                              )
                                 {
-
-
                                     int VFO_SWLPos = (int)(((XPOS) * (float)(SpotControl.SWL_Freq[ii] - VFOLow)));
 
                                     g.DrawLine(p2, VFO_SWLPos, H1b, VFO_SWLPos, H1a);   // draw RX2 vertical line
 
+                                    iii = iii + 11; // stairstep spots
+                                    if (iii > 90) iii = 0;
+
+                                } // check time
+
+                            } // for loop to display all current swl spots
+                            iii = 0;
+                            for (int ii = SpotControl.Lindex; ii <= SpotControl.Hindex; ii++) // now check only spots that fit exactly on panadapter
+                            {
+                                //  Debug.Write(" drawSWL " + ii);
+
+                                if (
+                           ((SpotControl.SWL_Day1[ii] & SpotControl.UTCDD) > 0) && (((SpotControl.SWL_TimeN[ii] <= SpotControl.UTCNEW1) && (SpotControl.SWL_TimeF[ii] >= SpotControl.UTCNEW1)) ||
+                           ((SpotControl.SWL_TimeN[ii] >= SpotControl.UTCNEW1) && (SpotControl.SWL_TimeF[ii] >= SpotControl.UTCNEW1) && (SpotControl.SWL_TimeF[ii] < SpotControl.SWL_TimeN[ii])))
+                            )
+                                {
+                                    int VFO_SWLPos = (int)(((XPOS) * (float)(SpotControl.SWL_Freq[ii] - VFOLow)));
 
                                     if ((Console.MMK4 > 0) && (SpotControl.SP6_Active != 0))
                                     {
@@ -12473,93 +12426,143 @@ namespace PowerSDR
                                         } // for loop to check if DX text will draw over top of Memory text
                                     }
 
-                                    g.DrawString(SpotControl.SWL_Station[ii], font1, grid_text_brush, VFO_SWLPos, H1b + iii); // 20+iii
-
-                                    //   Debug.WriteLine(" FINDSWL "+ ii );
-
-                                    if (Console.SXK2 < 99)
-                                    {
-
-                                        SizeF length = g.MeasureString(SpotControl.SWL_Station[ii], font1); //  used for google lookups of SWL stations
-
-                                        Console.SXW[Console.SXK2 + 100] = (int)length.Width;
-                                        Console.SXH[Console.SXK2 + 100] = (int)length.Height;
-                                        Console.SXX[Console.SXK2 + 100] = VFO_SWLPos;
-                                        Console.SXY[Console.SXK2 + 100] = 20 + iii;
-                                        Console.SXS[Console.SXK2 + 100] = SpotControl.SWL_Station[ii];
-                                        Console.SXF[Console.SXK2 + 100] = SpotControl.SWL_Freq[ii];
-                                        Console.SXM[Console.SXK2 + 100] = SpotControl.SWL_Mode[ii];
-
-                                        Console.SXK2++;
-                                    }
-                                    else Debug.Write(" SXK2 OVERLIMIT ");
-
+                                    g.DrawString(SpotControl.SWL_Station[ii], font1, grid_text_brush, VFO_SWLPos, H1b + iii); // draw station Name  20+iii
 
                                     iii = iii + 11; // stairstep spots
                                     if (iii > 90) iii = 0;
 
                                 } // check time
 
-                            } // make sure spot is > then left side of screen
-
-                        } // for loop through SWL_Index
-
-                        //   Debug.WriteLine(" L_index " + SpotControl.Lindex);
-                        //   Debug.WriteLine(" H_index " + SpotControl.Hindex);
-
-                        //   Debug.WriteLine(" VFOLow " + VFOLow);
-                        //   Debug.WriteLine(" VFOHigh " + VFOHigh);
+                            } // for loop to display all current swl spots
 
 
-                    } // if you change vfo freq do above
-                    else // if you dont change freq, then do below
+                        } //do this above until you move freq again
+
+
+                    } // DISPLAY RX2 spots 
+
+
+                } // CHECK FOR SWL listing   SP1_Active SWL CLUSTER
+
+
+
+
+                //===============================================================================================================================================================
+                //===============================================================================================================================================================
+                //===============================================================================================================================================================
+                //===============================================================================================================================================================
+                //=====================================================================
+                //=====================================================================
+                // ke9ns add draw DX SPOTS on pandapter
+                //=====================================================================
+                //=====================================================================
+
+
+                if ((SpotControl.SP_Active != 0) && (SpotForm.beacon1 == false)) // make sure DX cluster is running but Beacon chk is OFF so as to not crowd the screen.
+                {
+
+                    int iii = 0;                          // ke9ns add stairstep holder
+
+                    int kk = 0;                           // ke9ns add index for holder[] after you draw the vert line, then draw calls (so calls can overlap the vert lines)
+
+                    int vfo_hz = (int)vfoa_hz;    // vfo freq in hz
+
+                    int H1a = H / 2;            // length of vertical line (based on rx1 and rx2 display window configuration)
+                    int H1b = 20;               // starting point of vertical line
+
+                    // RX1/RX2 PanF/Pan = 5,2 (K9,K10)(short)  PanF/PanF = 5,5, (short) Pan/Pan 2,2 (long)
+                    if (bottom)                 // if your drawing to the bottom 
+                    {
+                        if ((K9 == 2) && (K10 == 2)) H1a = H + (H / 2); // long
+                        else H1a = H + (H / 4); // short
+
+                        H1b = H + 20;
+
+                        vfo_hz = (int)vfob_hz;
+                        Console.DXK2 = 0;        // RX2 index to allow call signs to draw after all the vert lines on the screen
+
+                    }
+                    else
+                    {
+                        Console.DXK = 0;        // RX1 index to allow call signs to draw after all the vert lines on the screen
+                    }
+
+                    VFOLow = vfo_hz + RXDisplayLow;    // low freq (left side) in hz
+                    VFOHigh = vfo_hz + RXDisplayHigh; // high freq (right side) in hz
+                    VFODiff = VFOHigh - VFOLow;       // diff in hz
+
+                    if ((vfo_hz < 5000000) || ((vfo_hz > 6000000) && (vfo_hz < 8000000))) low = true; // LSB
+                    else low = false;     // usb
+
+                    //-------------------------------------------------------------------------------------------------
+                    //-------------------------------------------------------------------------------------------------
+                    // draw DX spots
+                    //-------------------------------------------------------------------------------------------------
+                    //-------------------------------------------------------------------------------------------------
+
+                    /*    frequencies
+                                   (DX_Freq[ii] != 1840000) && (DX_Freq[ii] != 3573000) && (DX_Freq[ii] != 7074000) && (DX_Freq[ii] != 10136000) &&
+                                    (DX_Freq[ii] != 14074000) && (DX_Freq[ii] != 18100000) && (DX_Freq[ii] != 21074000) && (DX_Freq[ii] != 24915000) &&
+                                     (DX_Freq[ii] != 50313000) && (DX_Freq[ii] != 50323000) 
+                     */
+
+
+
+                    for (int ii = 0; ii < SpotControl.DX_Index; ii++)     // Index through entire DXspot to find what is on this panadapter (draw vert lines first)
                     {
 
-
-                        for (int ii = SpotControl.Lindex; ii <= SpotControl.Hindex; ii++) // now check only spots that fit exactly on panadapter
+                        if ((SpotControl.DX_Freq[ii] >= VFOLow) && (SpotControl.DX_Freq[ii] <= VFOHigh))
                         {
-                            //  Debug.Write(" drawSWL " + ii);
+                            int VFO_DXPos = (int)((((float)W / (float)VFODiff) * (float)(SpotControl.DX_Freq[ii] - VFOLow))); // determine DX spot line pos on current panadapter screen
 
-                            if (
-                         ((SpotControl.SWL_Day1[ii] & SpotControl.UTCDD) > 0) && (((SpotControl.SWL_TimeN[ii] <= SpotControl.UTCNEW1) && (SpotControl.SWL_TimeF[ii] >= SpotControl.UTCNEW1)) ||
-                         ((SpotControl.SWL_TimeN[ii] >= SpotControl.UTCNEW1) && (SpotControl.SWL_TimeF[ii] >= SpotControl.UTCNEW1) && (SpotControl.SWL_TimeF[ii] < SpotControl.SWL_TimeN[ii])))
-                          )
-                            {
-                                int VFO_SWLPos = (int)(((XPOS) * (float)(SpotControl.SWL_Freq[ii] - VFOLow)));
+                            holder[kk] = ii;                    // ii is the actual DX_INdex pos the the KK holds
+                            holder1[kk] = VFO_DXPos;
 
-                                g.DrawLine(p2, VFO_SWLPos, H1b, VFO_SWLPos, H1a);   // draw RX2 vertical line
+                            kk++;
 
-                                iii = iii + 11; // stairstep spots
-                                if (iii > 90) iii = 0;
+                            g.DrawLine(p1, VFO_DXPos, H1b, VFO_DXPos, H1a);   // draw vertical line
 
-                            } // check time
+                        }
 
-                        } // for loop to display all current swl spots
-                        iii = 0;
-                        for (int ii = SpotControl.Lindex; ii <= SpotControl.Hindex; ii++) // now check only spots that fit exactly on panadapter
+                    } // for loop through DX_Index
+
+
+                    int bb = 0;
+                    if (bottom)
+                    {
+                        Console.DXK2 = kk; // keep a count for the bottom QRZ hyperlink
+                        bb = Console.MMK4;
+                    }
+                    else
+                    {
+                        Console.DXK = kk; // count of spots in current panadapter
+                        bb = Console.MMK3;
+                    }
+
+
+                    //--------------------------------------------------------------------------------------------
+                    for (int ii = 0; ii < kk; ii++) // draw call signs to screen in order to draw over the vert lines
+                    {
+
+                        // font
+                        if (low) // 1=LSB so draw on left side of line
                         {
-                            //  Debug.Write(" drawSWL " + ii);
 
-                            if (
-                       ((SpotControl.SWL_Day1[ii] & SpotControl.UTCDD) > 0) && (((SpotControl.SWL_TimeN[ii] <= SpotControl.UTCNEW1) && (SpotControl.SWL_TimeF[ii] >= SpotControl.UTCNEW1)) ||
-                       ((SpotControl.SWL_TimeN[ii] >= SpotControl.UTCNEW1) && (SpotControl.SWL_TimeF[ii] >= SpotControl.UTCNEW1) && (SpotControl.SWL_TimeF[ii] < SpotControl.SWL_TimeN[ii])))
-                        )
+                            if (Console.DXR == 0) // display Spotted on Pan
                             {
-                                int VFO_SWLPos = (int)(((XPOS) * (float)(SpotControl.SWL_Freq[ii] - VFOLow)));
+                                length = g.MeasureString(SpotControl.DX_Station[holder[ii]], font1); //  temp used to determine the size of the string when in LSB and you need to reserve a certain space//  (cl.Width);
 
-                                if ((Console.MMK4 > 0) && (SpotControl.SP6_Active != 0))
+                                if ((bb > 0) && (SpotControl.SP6_Active != 0))
                                 {
-                                    int x2 = VFO_SWLPos;
-                                    int y2 = 20 + iii;
+                                    int x2 = holder1[ii] - (int)length.Width;
+                                    int y2 = H1b + iii;
 
-                                    SizeF length = g.MeasureString(SpotControl.SWL_Station[ii], font1); //  used for google lookups of SWL stations
-
-                                    for (int jj = 0; jj < Console.MMK4; jj++)
+                                    for (int jj = 0; jj < bb; jj++)
                                     {
 
-                                        if (((x2 + length.Width) >= Console.MMX[jj + rx3]) && (x2 < (Console.MMX[jj + rx3] + Console.MMW[jj + rx3])))
+                                        if (((x2 + length.Width) >= Console.MMX[jj]) && (x2 < (Console.MMX[jj] + Console.MMW[jj])))
                                         {
-                                            if (((y2 + length.Height) >= Console.MMY[jj + rx3]) && (y2 < (Console.MMY[jj + rx3] + Console.MMH[jj + rx3])))
+                                            if (((y2 + length.Height) >= Console.MMY[jj]) && (y2 < (Console.MMY[jj] + Console.MMH[jj])))
                                             {
                                                 iii = iii + 33;
                                                 break;
@@ -12569,276 +12572,151 @@ namespace PowerSDR
                                     } // for loop to check if DX text will draw over top of Memory text
                                 }
 
-                                g.DrawString(SpotControl.SWL_Station[ii], font1, grid_text_brush, VFO_SWLPos, H1b + iii); // draw station Name  20+iii
+                                g.DrawString(SpotControl.DX_Station[holder[ii]], font1, grid_text_brush, holder1[ii] - (int)length.Width, H1b + iii); // DX call sign to panadapter
 
-                                iii = iii + 11; // stairstep spots
-                                if (iii > 90) iii = 0;
-
-                            } // check time
-
-                        } // for loop to display all current swl spots
-
-
-                    } //do this above until you move freq again
-
-
-                } // DISPLAY RX2 spots 
-
-
-            } // CHECK FOR SWL listing   SP1_Active SWL CLUSTER
-
-
-
-
-            //===============================================================================================================================================================
-            //===============================================================================================================================================================
-            //===============================================================================================================================================================
-            //===============================================================================================================================================================
-            //=====================================================================
-            //=====================================================================
-            // ke9ns add draw DX SPOTS on pandapter
-            //=====================================================================
-            //=====================================================================
-
-
-            if ((SpotControl.SP_Active != 0) && (SpotForm.beacon1 == false)) // make sure DX cluster is running but Beacon chk is OFF so as to not crowd the screen.
-            {
-
-                int iii = 0;                          // ke9ns add stairstep holder
-
-                int kk = 0;                           // ke9ns add index for holder[] after you draw the vert line, then draw calls (so calls can overlap the vert lines)
-
-                int vfo_hz = (int)vfoa_hz;    // vfo freq in hz
-
-                int H1a = H / 2;            // length of vertical line (based on rx1 and rx2 display window configuration)
-                int H1b = 20;               // starting point of vertical line
-
-                // RX1/RX2 PanF/Pan = 5,2 (K9,K10)(short)  PanF/PanF = 5,5, (short) Pan/Pan 2,2 (long)
-                if (bottom)                 // if your drawing to the bottom 
-                {
-                    if ((K9 == 2) && (K10 == 2)) H1a = H + (H / 2); // long
-                    else H1a = H + (H / 4); // short
-
-                    H1b = H + 20;
-
-                    vfo_hz = (int)vfob_hz;
-                    Console.DXK2 = 0;        // RX2 index to allow call signs to draw after all the vert lines on the screen
-
-                }
-                else
-                {
-                    Console.DXK = 0;        // RX1 index to allow call signs to draw after all the vert lines on the screen
-                }
-
-                VFOLow = vfo_hz + RXDisplayLow;    // low freq (left side) in hz
-                VFOHigh = vfo_hz + RXDisplayHigh; // high freq (right side) in hz
-                VFODiff = VFOHigh - VFOLow;       // diff in hz
-
-                if ((vfo_hz < 5000000) || ((vfo_hz > 6000000) && (vfo_hz < 8000000))) low = true; // LSB
-                else low = false;     // usb
-
-                //-------------------------------------------------------------------------------------------------
-                //-------------------------------------------------------------------------------------------------
-                // draw DX spots
-                //-------------------------------------------------------------------------------------------------
-                //-------------------------------------------------------------------------------------------------
-
-                for (int ii = 0; ii < SpotControl.DX_Index; ii++)     // Index through entire DXspot to find what is on this panadapter (draw vert lines first)
-                {
-
-                    if ((SpotControl.DX_Freq[ii] >= VFOLow) && (SpotControl.DX_Freq[ii] <= VFOHigh))
-                    {
-                        int VFO_DXPos = (int)((((float)W / (float)VFODiff) * (float)(SpotControl.DX_Freq[ii] - VFOLow))); // determine DX spot line pos on current panadapter screen
-
-                        holder[kk] = ii;                    // ii is the actual DX_INdex pos the the KK holds
-                        holder1[kk] = VFO_DXPos;
-
-                        kk++;
-
-                        g.DrawLine(p1, VFO_DXPos, H1b, VFO_DXPos, H1a);   // draw vertical line
-
-                    }
-
-                } // for loop through DX_Index
-
-
-                int bb = 0;
-                if (bottom)
-                {
-                    Console.DXK2 = kk; // keep a count for the bottom QRZ hyperlink
-                    bb = Console.MMK4;
-                }
-                else
-                {
-                    Console.DXK = kk; // count of spots in current panadapter
-                    bb = Console.MMK3;
-                }
-
-
-                //--------------------------------------------------------------------------------------------
-                for (int ii = 0; ii < kk; ii++) // draw call signs to screen in order to draw over the vert lines
-                {
-
-                    // font
-                    if (low) // 1=LSB so draw on left side of line
-                    {
-
-                        if (Console.DXR == 0) // display Spotted on Pan
-                        {
-                            length = g.MeasureString(SpotControl.DX_Station[holder[ii]], font1); //  temp used to determine the size of the string when in LSB and you need to reserve a certain space//  (cl.Width);
-
-                            if ((bb > 0) && (SpotControl.SP6_Active != 0))
+                            }
+                            else // display SPOTTER on Pan (not the Spotted)
                             {
-                                int x2 = holder1[ii] - (int)length.Width;
-                                int y2 = H1b + iii;
+                                length = g.MeasureString(SpotControl.DX_Spotter[holder[ii]], font1); //  temp used to determine the size of the string when in LSB and you need to reserve a certain space//  (cl.Width);
 
-                                for (int jj = 0; jj < bb; jj++)
+                                if ((bb > 0) && (SpotControl.SP6_Active != 0))
                                 {
+                                    int x2 = holder1[ii] - (int)length.Width;
+                                    int y2 = H1b + iii;
 
-                                    if (((x2 + length.Width) >= Console.MMX[jj]) && (x2 < (Console.MMX[jj] + Console.MMW[jj])))
+                                    for (int jj = 0; jj < bb; jj++)
                                     {
-                                        if (((y2 + length.Height) >= Console.MMY[jj]) && (y2 < (Console.MMY[jj] + Console.MMH[jj])))
-                                        {
-                                            iii = iii + 33;
-                                            break;
-                                        }
-                                    }
 
-                                } // for loop to check if DX text will draw over top of Memory text
+                                        if (((x2 + length.Width) >= Console.MMX[jj]) && (x2 < (Console.MMX[jj] + Console.MMW[jj])))
+                                        {
+                                            if (((y2 + length.Height) >= Console.MMY[jj]) && (y2 < (Console.MMY[jj] + Console.MMH[jj])))
+                                            {
+                                                iii = iii + 33;
+                                                break;
+                                            }
+                                        }
+
+                                    } // for loop to check if DX text will draw over top of Memory text
+                                }
+
+                                g.DrawString(SpotControl.DX_Spotter[holder[ii]], font1, grid_text_brush, holder1[ii] - (int)length.Width, H1b + iii);
+
                             }
 
-                            g.DrawString(SpotControl.DX_Station[holder[ii]], font1, grid_text_brush, holder1[ii] - (int)length.Width, H1b + iii); // DX call sign to panadapter
+                            if (bottom) rx2 = 50; // allow only 50 qrz spots per Receiver
+                            else rx2 = 0;
 
-                        }
-                        else // display SPOTTER on Pan (not the Spotted)
-                        {
-                            length = g.MeasureString(SpotControl.DX_Spotter[holder[ii]], font1); //  temp used to determine the size of the string when in LSB and you need to reserve a certain space//  (cl.Width);
-
-                            if ((bb > 0) && (SpotControl.SP6_Active != 0))
+                            if (!mox) // only do when not transmitting
                             {
-                                int x2 = holder1[ii] - (int)length.Width;
-                                int y2 = H1b + iii;
+                                Console.DXW[ii + rx2] = (int)length.Width;    // this is all for QRZ hyperlinking 
+                                Console.DXH[ii + rx2] = (int)length.Height;
+                                Console.DXX[ii + rx2] = holder1[ii] - (int)length.Width;
+                                Console.DXY[ii + rx2] = H1b + iii;
+                                Console.DXS[ii + rx2] = SpotControl.DX_Station[holder[ii]];
 
-                                for (int jj = 0; jj < bb; jj++)
-                                {
-
-                                    if (((x2 + length.Width) >= Console.MMX[jj]) && (x2 < (Console.MMX[jj] + Console.MMW[jj])))
-                                    {
-                                        if (((y2 + length.Height) >= Console.MMY[jj]) && (y2 < (Console.MMY[jj] + Console.MMH[jj])))
-                                        {
-                                            iii = iii + 33;
-                                            break;
-                                        }
-                                    }
-
-                                } // for loop to check if DX text will draw over top of Memory text
                             }
 
-                            g.DrawString(SpotControl.DX_Spotter[holder[ii]], font1, grid_text_brush, holder1[ii] - (int)length.Width, H1b + iii);
 
-                        }
+                        } // LSB side
 
-                        if (bottom) rx2 = 50; // allow only 50 qrz spots per Receiver
-                        else rx2 = 0;
 
-                        if (!mox) // only do when not transmitting
+                        else   // 0=usb so draw on righ side of line (normal)
                         {
-                            Console.DXW[ii + rx2] = (int)length.Width;    // this is all for QRZ hyperlinking 
-                            Console.DXH[ii + rx2] = (int)length.Height;
-                            Console.DXX[ii + rx2] = holder1[ii] - (int)length.Width;
-                            Console.DXY[ii + rx2] = H1b + iii;
-                            Console.DXS[ii + rx2] = SpotControl.DX_Station[holder[ii]];
-
-                        }
-
-
-                    } // LSB side
-
-
-                    else   // 0=usb so draw on righ side of line (normal)
-                    {
-                        if (Console.DXR == 0) // spot
-                        {
-                            length = g.MeasureString(SpotControl.DX_Station[holder[ii]], font1); //  not needed here but used for qrz hyperlinking
-
-                            if ((bb > 0) && (SpotControl.SP6_Active != 0))
+                            if (Console.DXR == 0) // spot
                             {
-                                int x2 = holder1[ii];
-                                int y2 = H1b + iii;
+                                length = g.MeasureString(SpotControl.DX_Station[holder[ii]], font1); //  not needed here but used for qrz hyperlinking
 
-                                for (int jj = 0; jj < bb; jj++)
+                                if ((bb > 0) && (SpotControl.SP6_Active != 0))
                                 {
+                                    int x2 = holder1[ii];
+                                    int y2 = H1b + iii;
 
-                                    if (((x2 + length.Width) >= Console.MMX[jj]) && (x2 < (Console.MMX[jj] + Console.MMW[jj])))
+                                    for (int jj = 0; jj < bb; jj++)
                                     {
-                                        if (((y2 + length.Height) >= Console.MMY[jj]) && (y2 < (Console.MMY[jj] + Console.MMH[jj])))
-                                        {
-                                            iii = iii + 33;
-                                            break;
-                                        }
-                                    }
 
-                                } // for loop to check if DX text will draw over top of Memory text
+                                        if (((x2 + length.Width) >= Console.MMX[jj]) && (x2 < (Console.MMX[jj] + Console.MMW[jj])))
+                                        {
+                                            if (((y2 + length.Height) >= Console.MMY[jj]) && (y2 < (Console.MMY[jj] + Console.MMH[jj])))
+                                            {
+                                                iii = iii + 33;
+                                                break;
+                                            }
+                                        }
+
+                                    } // for loop to check if DX text will draw over top of Memory text
+                                }
+
+                                g.DrawString(SpotControl.DX_Station[holder[ii]], font1, grid_text_brush, holder1[ii], H1b + iii); // DX station name
+                            }
+                            else // spotter
+                            {
+                                length = g.MeasureString(SpotControl.DX_Spotter[holder[ii]], font1); //  not needed here but used for qrz hyperlinking
+
+                                if ((bb > 0) && (SpotControl.SP6_Active != 0))
+                                {
+                                    int x2 = holder1[ii];
+                                    int y2 = H1b + iii;
+
+                                    for (int jj = 0; jj < bb; jj++)
+                                    {
+
+                                        if (((x2 + length.Width) >= Console.MMX[jj]) && (x2 < (Console.MMX[jj] + Console.MMW[jj])))
+                                        {
+                                            if (((y2 + length.Height) >= Console.MMY[jj]) && (y2 < (Console.MMY[jj] + Console.MMH[jj])))
+                                            {
+                                                iii = iii + 33;
+                                                break;
+                                            }
+                                        }
+
+                                    } // for loop to check if DX text will draw over top of Memory text
+                                }
+
+                                g.DrawString(SpotControl.DX_Spotter[holder[ii]], font1, grid_text_brush, holder1[ii], H1b + iii); // DX station name
+
                             }
 
-                            g.DrawString(SpotControl.DX_Station[holder[ii]], font1, grid_text_brush, holder1[ii], H1b + iii); // DX station name
-                        }
-                        else // spotter
-                        {
-                            length = g.MeasureString(SpotControl.DX_Spotter[holder[ii]], font1); //  not needed here but used for qrz hyperlinking
+                            if (bottom) rx2 = 50;
+                            else rx2 = 0;
 
-                            if ((bb > 0) && (SpotControl.SP6_Active != 0))
+                            if (!mox) // only do when not transmitting
                             {
-                                int x2 = holder1[ii];
-                                int y2 = H1b + iii;
-
-                                for (int jj = 0; jj < bb; jj++)
-                                {
-
-                                    if (((x2 + length.Width) >= Console.MMX[jj]) && (x2 < (Console.MMX[jj] + Console.MMW[jj])))
-                                    {
-                                        if (((y2 + length.Height) >= Console.MMY[jj]) && (y2 < (Console.MMY[jj] + Console.MMH[jj])))
-                                        {
-                                            iii = iii + 33;
-                                            break;
-                                        }
-                                    }
-
-                                } // for loop to check if DX text will draw over top of Memory text
+                                Console.DXW[ii + rx2] = (int)length.Width;   // this is all for QRZ hyperlinking 
+                                Console.DXH[ii + rx2] = (int)length.Height;
+                                Console.DXX[ii + rx2] = holder1[ii];
+                                Console.DXY[ii + rx2] = H1b + iii;
+                                Console.DXS[ii + rx2] = SpotControl.DX_Station[holder[ii]];
                             }
 
-                            g.DrawString(SpotControl.DX_Spotter[holder[ii]], font1, grid_text_brush, holder1[ii], H1b + iii); // DX station name
+                            if (vfo_hz >= 50000000) // 50000000 or 50mhz
+                            {
+                                // dont display GRID on panadapter if on an FT8 freq
+                                if ((SpotControl.DX_Freq[holder[ii]] != 1840000) && (SpotControl.DX_Freq[holder[ii]] != 3573000) && (SpotControl.DX_Freq[holder[ii]] != 7074000) && (SpotControl.DX_Freq[holder[ii]] != 10136000) &&
+                                    (SpotControl.DX_Freq[holder[ii]] != 14074000) && (SpotControl.DX_Freq[holder[ii]] != 18100000) && (SpotControl.DX_Freq[holder[ii]] != 21074000) && (SpotControl.DX_Freq[holder[ii]] != 24915000) &&
+                                    (SpotControl.DX_Freq[holder[ii]] != 50313000) && (SpotControl.DX_Freq[holder[ii]] != 50323000))
+                                {
+                                    iii = iii + 11;
+                                    g.DrawString(SpotControl.DX_Grid[holder[ii]], font1, grid_text_brush, holder1[ii], H1b + iii); // DX grid name
+                                }
 
-                        }
+                               
+                            }
 
-                        if (bottom) rx2 = 50;
-                        else rx2 = 0;
+                        } // USB side
 
-                        if (!mox) // only do when not transmitting
-                        {
-                            Console.DXW[ii + rx2] = (int)length.Width;   // this is all for QRZ hyperlinking 
-                            Console.DXH[ii + rx2] = (int)length.Height;
-                            Console.DXX[ii + rx2] = holder1[ii];
-                            Console.DXY[ii + rx2] = H1b + iii;
-                            Console.DXS[ii + rx2] = SpotControl.DX_Station[holder[ii]];
-                        }
-
-                        if (vfo_hz >= 50000000) // 50000000 or 50mhz
-                        {
-                            iii = iii + 11;
-                            g.DrawString(SpotControl.DX_Grid[holder[ii]], font1, grid_text_brush, holder1[ii], H1b + iii); // DX grid name
-                        }
-
-                    } // USB side
-
-                    iii = iii + 11;
-                    if (iii > 90) iii = 0;
+                        iii = iii + 11;
+                        if (iii > 90) iii = 0;
 
 
-                }// for loop through DX_Index
+                    }// for loop through DX_Index
 
 
-            } // SP_Active DX SSB CLUSTER
+                } // SP_Active DX SSB CLUSTER
+
+
+
+
+            } // do above only if BandText is not on
 
             //===============================================================================================================================================================
             //===============================================================================================================================================================
@@ -13317,7 +13195,7 @@ namespace PowerSDR
                                     else if (actual_fgrid < 100.0) offsetL = (int)((label.Length + 1) * 4.1) - 11;
                                     else offsetL = (int)((label.Length + 1) * 4.1) - 8; */
 
-                                    if (bottom) g.DrawString(label, font, new SolidBrush(band_edge_color), vgrid - offsetL, H + (float)Math.Floor(H * .005)); // was .01 ke9ns draw frequency at band edges in RED
+                    if (bottom) g.DrawString(label, font, new SolidBrush(band_edge_color), vgrid - offsetL, H + (float)Math.Floor(H * .005)); // was .01 ke9ns draw frequency at band edges in RED
                                     else g.DrawString(label, font, new SolidBrush(band_edge_color), vgrid - offsetL, (float)Math.Floor(H * .005)); // .01
 
                                 } // actual_fgrid
@@ -13477,7 +13355,7 @@ namespace PowerSDR
 
                         int[] band_edge_list_r2 = { 0135700, 0137800, 0472000, 0479000, 1800000, 2000000, 3500000, 4000000, 5250000,5450000,
                                        7000000, 7300000, 10100000, 10150000, 14000000, 14350000, 18068000, 18168000, 21000000, 21450000,
-                                       24890000, 24990000,26960000, 27410000, 28000000, 29700000, 50000000, 54000000, 144000000, 148000000 }; //ke9ns add CB
+                                       24890000, 24990000, 26960000, 27410000, 28000000, 29700000, 50000000, 54000000, 144000000, 148000000 }; //ke9ns add CB
 
                         for (int i = 0; i < band_edge_list_r2.Length; i++)
                         {
@@ -13878,7 +13756,7 @@ namespace PowerSDR
 
                             if (!show_freq_offset)
                             {
-                                if (actual_fgrid == 1.81 || actual_fgrid == 1.88 ||
+                                if (actual_fgrid == 1.81 || actual_fgrid == 2.0 ||
                                     actual_fgrid == 3.5 || actual_fgrid == 3.8 ||
                                     actual_fgrid == 5.250 || actual_fgrid == 5.45 ||   // ke9ns add
                                     actual_fgrid == 7.0 || actual_fgrid == 7.2 ||
@@ -15109,7 +14987,7 @@ namespace PowerSDR
                             {
                                 if (actual_fgrid == 1.81 || actual_fgrid == 1.88 ||
                                     actual_fgrid == 3.5 || actual_fgrid == 3.8 ||
-                                    actual_fgrid == 5.350 || actual_fgrid == 5.45 ||   // ke9ns add
+                                    actual_fgrid == 5.250 || actual_fgrid == 5.45 ||   // ke9ns add
                                     actual_fgrid == 7.0 || actual_fgrid == 7.2 ||
                                     actual_fgrid == 10.1 || actual_fgrid == 10.15 ||
                                     actual_fgrid == 14.0 || actual_fgrid == 14.35 ||
@@ -16446,9 +16324,10 @@ namespace PowerSDR
             if (bottom) g.FillRectangle(new SolidBrush(display_background_color), 0, H, W, H);
             else g.FillRectangle(new SolidBrush(display_background_color), 0, 0, W, H);
 
-            if (high_swr && !bottom)
-                g.DrawString("High SWR", new System.Drawing.Font("Arial", 14, FontStyle.Bold), new SolidBrush(Color.Red), 245, 20);
+            if (high_swr && !bottom) g.DrawString("High SWR", new System.Drawing.Font("Arial", 14, FontStyle.Bold), new SolidBrush(Color.Red), 245, 20);
         }
+
+
 
         private static float[] scope_min = new float[W];
         public static float[] ScopeMin
@@ -16474,23 +16353,27 @@ namespace PowerSDR
         // ke9ns time vs amplitude using audio.doscope() routine
 		unsafe private static bool DrawScope(Graphics g, int W, int H, bool bottom)
 		{
-			if(scope_min.Length < W) 
+ 
+            if (scope_min.Length < W)  // call the routine if it hasnt been called yet
 			{
 				scope_min = new float[W];
-				Audio.ScopeMin = scope_min;  // ke9ns from DoScope() routine
+				Audio.ScopeMin = scope_min;  // ke9ns get array of Float data (from DoScope() routine)
+              //  Debug.WriteLine("SCOPE MIN");
+
 			}
 
 			if(scope_max.Length < W)
 			{
 				scope_max = new float[W];
 				Audio.ScopeMax = scope_max;
-			}
+              //  Debug.WriteLine("MAX SCOPE");
+            }
 
 			DrawScopeGrid(ref g, W, H, bottom);
 
 			Point[] points = new Point[W*2];            // create Point array
 
-          //  Debug.WriteLine("scope");
+          //  ---------------------------------------------------------------------------------
 
             for (int i=0; i < W; i++)						// fill point array
 			{	
@@ -16502,34 +16385,38 @@ namespace PowerSDR
 				int y = H/2 - pixel;  // ke9ns this is the actual data moved to the part of the display being used
 
 				points[i].X = i;
-				points[i].Y = y;
+				points[i].Y = y; // max value
+
 				if(bottom) points[i].Y += H;
 
 				if(bottom) pixel = (int)(H/2 * scope_min[i]);
 				else pixel = (int)(H/2 * scope_min[i]);
 
 				y = H/2 - pixel;
-				points[W*2-1-i].X = i;
-				points[W*2-1-i].Y = y;
+				points[W*2-1-i].X = i; // for loop is X
 
-				if(bottom)points[W*2-1-i].Y += H;
-				//if(points[W*2-1-i].Y == points[i].Y)
-				//	points[W*2-1-i].Y += 1;
+				points[W*2-1-i].Y = y; // min value
+
+				if(bottom) points[W*2-1-i].Y += H;
+
+				//if(points[W*2-1-i].Y == points[i].Y)	points[W*2-1-i].Y += 1;
 			}
 
 			// draw the connected points
 			g.DrawLines(data_line_pen, points);
-			g.FillPolygon(new SolidBrush(data_line_pen.Color), points);
+
+			g.FillPolygon(new SolidBrush(data_line_pen.Color), points); // ke9ns fill in the area between the min max areas
 
 			// draw long cursor
 			if(current_click_tune_mode != ClickTuneMode.Off)
 			{
 				Pen p;
-				if(current_click_tune_mode == ClickTuneMode.VFOA)
-					p = new Pen(grid_text_color);
+				if(current_click_tune_mode == ClickTuneMode.VFOA) p = new Pen(grid_text_color);
 				else p = new Pen(Color.Red);
+
 				if(bottom) g.DrawLine(p, display_cursor_x, 0, display_cursor_x, H+H);
 				else g.DrawLine(p, display_cursor_x, 0, display_cursor_x, H);
+
 				g.DrawLine(p, 0, display_cursor_y, W, display_cursor_y);
 			}
 
@@ -16660,7 +16547,7 @@ namespace PowerSDR
 		}
 
 		private static Point[] points;
-        
+      
         unsafe static private bool DrawSpectrum(Graphics g, int W, int H, bool bottom)
 		{
 			DrawSpectrumGrid(ref g, W, H, bottom);
@@ -16840,6 +16727,79 @@ namespace PowerSDR
 		
         }  // drawspectrum
 
+
+
+        //==============================================================
+        // ke9ns for gradient color fill (updates the gradient pattern when you change the screen size)
+
+        static LinearGradientBrush pan_Brush;
+        static LinearGradientBrush pan_BrushB; // bottom
+        static ColorBlend pan_cb = new ColorBlend();
+
+        static float GD = 1.0f;
+        public static void Gradient(int max, int min)
+        {
+
+            if (max <= min) max = min + 30;
+
+            if (max < -80) max = -80;
+            if (max > 20) max = 20;
+
+            if (min < -150) min = -150;
+            if (min > -80) min = -80;
+
+            if (W10 < 1) W10 = 1;
+            if (W10 > 3600) W10 = 1900;
+            if (H10 < 1) H10 = 1;
+            if (H10 > 2000) H10 = 1200;
+
+            try
+            {
+                pan_Brush = new LinearGradientBrush(new Point(W10, H10), new Point(W10, 10), Color.Black, Color.Black); // standard RX
+                pan_BrushB = new LinearGradientBrush(new Point(W10, H10), new Point(W10, H10 / 2), Color.Black, Color.Black); // bottom RX
+
+                if ((max != 0) && (min != 0))
+                {
+                    GD = (float)-73 / (float)(min - max); // min=-122, max=-19 (S9=-73) = .708
+                }
+                else GD = 1.0f;  // use to set where Violet = S9 (-73db) based on Min and Max Spectrum values from setup screen
+
+                GD = 1.0f;
+
+                //  Debug.WriteLine("PANGRADIENT " + GD + " , " + (0.07f * GD) + " , " + min + " , " + max + " , " + W + " , " + W10 + " , " + H + " , " + H10);
+
+                pan_cb.Positions = new[] { 0, 0.05f * GD, 0.1f * GD, 0.15f * GD, 0.2f * GD, 0.25f * GD, 0.3f * GD, 0.35f * GD, 0.45f * GD, 0.55f * GD, 0.65f * GD, 0.8f * GD, 1 }; // Black (MIN spectrum value or Lower), Blue, Green, Yellow, Red, Violet = -73 (S9 or better)
+
+                pan_cb.Colors = new[] { Color.FromArgb(panfillalpha, Color.Black), //1
+                            Color.FromArgb(panfillalpha, Color.Blue), //2
+                            Color.FromArgb(panfillalpha, 0,127,255), // 3 blue cyan
+                            Color.FromArgb(panfillalpha, Color.Cyan), //4 
+                            Color.FromArgb(panfillalpha, 0,255,127), // 5 green cyan
+                           // Color.FromArgb(panfillalpha, Color.Green), //6
+                            Color.FromArgb(panfillalpha, 127,255,0), //7 green yellow
+                            Color.FromArgb(panfillalpha, Color.Yellow), //8
+                            Color.FromArgb(panfillalpha, Color.Orange), //9
+                            Color.FromArgb(panfillalpha, Color.Red), //10
+                            Color.FromArgb(panfillalpha,255,0,127), //11 Red Magenta
+                            Color.FromArgb(panfillalpha, Color.Magenta), //12
+                            Color.FromArgb(panfillalpha, 127,0,255), //13 blue magenta
+                            Color.FromArgb(panfillalpha, 127,0,255),
+                             }; // 13 colors
+
+
+                pan_Brush.InterpolationColors = pan_cb; // set the color blend and gradient to the above list
+                pan_BrushB.InterpolationColors = pan_cb; // set the color blend and gradient to the above list
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Gradient failure. " + e, "Gradient creation",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+
+
+        } // Gradient(int max, int min)
+
         //==============================================================
         //==============================================================
         //==============================================================
@@ -16870,8 +16830,22 @@ namespace PowerSDR
         public static int floorB = 1000; // ke9ns add
         public static int countB = 0; // ke9ns add
 
+
+
+        static int W10=1;
+        static int H10=1;
+
         unsafe static private bool DrawPanadapter(Graphics g, int W, int H, int rx, bool bottom)
 		{
+
+
+            if ((panfillgradient) && (pan_fill) && (H10 != H) || (W10 != W))
+            {
+                W10 = W;
+                H10 = H;
+                Gradient(SpectrumGridMax, SpectrumGridMin);
+            }
+
             bool local_mox = false;                 // whether you are transmitting or not
             A3B = A2B = AB = 0;    // ke9ns auto brightness
 
@@ -16879,7 +16853,7 @@ namespace PowerSDR
             if (rx == 2 && tx_on_vfob && mox) local_mox = true;
          
 
-            if (local_mox) // ke9ns ADD reset panadapter to TX mic levels , then set it back when back to RX
+            if (local_mox) // ke9ns ADD reset panadapter to TX mic levels , then set it back 3hen back to RX
             {
               
                 if ((tx_on_vfob) && (rx == 2))
@@ -16919,8 +16893,7 @@ namespace PowerSDR
             }
             else
             {
-                if (points == null || points.Length < W)
-                    points = new Point[W];			// array of points to display
+                if (points == null || points.Length < W)   points = new Point[W];			// array of points to display
             }
 
 			float slope = 0.0F;						// samples to process per pixel
@@ -17118,7 +17091,7 @@ namespace PowerSDR
             //=================================================================
             // draw line that makes up spectrum (width of window)
             //=================================================================
-            for (int i=0; i < W; i++)
+            for (int i = 0; i < W; i++)
 			{
 				float max = float.MinValue;                             // max = y point determined by RX data of spectrum as you go from 0 to W
 				float dval = i * slope + start_sample_index;            // dval = how many digital values per pixel (going left to right)
@@ -17325,11 +17298,11 @@ namespace PowerSDR
 
                 //=========================================================================
                 // ke9ns add auto
-                if (autobright6 == 2) // RX1 waterfall adjust
+                if (autobright6 == 2) // RX1 panadapter level adjust
                 {
                     if ((!mox) && (rx == 1))
                     {
-                      
+                     
                         AB = AB + (long)max; // ke9ns add autobright feature (detect floor)
                     }
 
@@ -17353,6 +17326,8 @@ namespace PowerSDR
 
             }  // for loop from 0 to W wide
 
+
+
             if (console.BeaconSigAvg == true) // ke9ns for beacon scanner floor
             {
                 SpotControl.BX_dBm2 = (int)(max1 / W); // avg db value of the freq your on now
@@ -17363,26 +17338,43 @@ namespace PowerSDR
         
 
             //=========================================================================
-            // ke9ns waterfall adjust
+            // ke9ns Panadapter level adjust
             //=========================================================================
             // ke9ns add auto
             if (autobright6 == 2) // rx1 adjust
             {
-                Debug.WriteLine(" ");
+              //  Debug.WriteLine(" ");
+              //   Debug.WriteLine("==========PAN AUTOBRIGHT6=================");
 
-                Debug.WriteLine("==========AUTOBRIGHT6=================");
-
-                AB1[0] = AB / W; // get avg of the entire read
-
-                AB3 = (float)(AB1[0]);
+                AB3 = (float)(AB / W); // get avg of the entire read
 
                 autobright6 = autobright3 = autobright = 0; // turn off feature
 
-                if ((AB3 > -170) && (AB3 < -50))
+              
+                if ((AB3 > AB3_Last + 4) || (AB3 < AB3_Last - 4) || (console.waterpanClick == true) )
                 {
-                    console.setupForm.udDisplayGridMin.Value = (decimal)(AB3 - abrightpan - (gridoffset - 20));
-                    SpectrumGridMin = (int)(AB3 - abrightpan - (gridoffset - 20));
-                    Debug.WriteLine("min = "+ SpectrumGridMin);
+                    Debug.WriteLine("RX1-2 PAN auto update");
+
+                    if (AB3_count > 0)
+                    {
+                        AB3_count = 0;
+
+                        AB3_Last = AB3;
+                        console.waterpanClick = false;
+
+                        if ((AB3 > -170) && (AB3 < -50))
+                        {
+                            console.setupForm.udDisplayGridMin.Value = (decimal)(AB3 - abrightpan - (gridoffset - 20));
+                            SpectrumGridMin = (int)(AB3 - abrightpan - (gridoffset - 20));
+                            Debug.WriteLine("min = " + SpectrumGridMin);
+                        }
+                    }
+                    else AB3_count++;
+                }
+                else
+                {
+                    AB3_count = 0;
+
                 }
                
 
@@ -17465,23 +17457,44 @@ namespace PowerSDR
 
             if (pan_fill)                               // trace spectrum line and fill under it
             {
-                points[W].X = W; points[W].Y = H;
-                points[W + 1].X = 0; points[W + 1].Y = H;
+                points[W].X = W; // bottom of pan display area
+                points[W].Y = H;
+
+                points[W + 1].X = 0;
+                points[W + 1].Y = H;
+
                 if (bottom)
                 {
                     points[W].Y += H;
                     points[W + 1].Y += H;
                 }
 
-                data_line_pen.Color = DisplayPanFillColor; // was  Color.FromArgb(100, 255, 255, 255); // ke9ns draw white at 100
+                if (panfillgradient == false) // ke9ns add  (normal)
+                {
+                    data_line_pen.Color = DisplayPanFillColor; // was  Color.FromArgb(100, 255, 255, 255); // ke9ns draw white at 100
+                    g.FillPolygon(data_line_pen.Brush, points); // fill with standard color (no gradient)
+                }
+                else // special color gradient mode under spectrum line)
+                {
+                    //   Gradient(); // obtain gradient
+                    
+                    if (bottom)
+                    {
+                        g.FillPolygon(pan_BrushB, points); // fill with gradient color
+                    }
+                    else
+                    {
+                        g.FillPolygon(pan_Brush, points); // fill with gradient color
+                    }
+                } //  if (panfillgradient == true
 
-                g.FillPolygon(data_line_pen.Brush, points);
+
                 points[W] = points[W - 1];
 
                 points[W + 1] = points[W - 1];
                 data_line_pen.Color = data_line_color;
              
-                g.DrawLines(data_line_pen, points);
+                g.DrawLines(data_line_pen, points);                             // trace spectrum line to screen
             }
             else
             {
@@ -18023,8 +18036,12 @@ namespace PowerSDR
 
         // RX1
         private static long AB = 0; // ke9ns for autobright accumulator across a single W length line of data
-        private static long[] AB1 = new long[10];// ke9ns
+      //  private static long[] AB1 = new long[10];// ke9ns
         private static float AB3 = 0; // ke9ns
+        private static float AB3_Last = 0; // ke9ns
+        private static float AB3_LastW = 0; // ke9ns
+        private static int AB3_count = 0; // ke9ns
+        private static int AB3_countW = 0; // ke9ns
 
         private static int AB_Peak = -200; // ke9ns peak signal for scaling small signals
         private static int AB_Count = 0; // ke9ns counter for determining peak signal
@@ -18032,8 +18049,11 @@ namespace PowerSDR
 
         // RX2
         private static long A2B = 0; // ke9ns for autobright
-        private static long[] A2B1 = new long[10];// ke9ns
+     //   private static long[] A2B1 = new long[10];// ke9ns
         private static float A2B3 = 0; // ke9ns
+        private static float A2B3_Last = 0; // ke9ns
+        private static int A2B3_count = 0; // ke9ns
+
 
         // TX
         private static long A3B = 0; // ke9ns for autobright
@@ -18046,7 +18066,8 @@ namespace PowerSDR
         private static int itemp = 0; // ke9ns add continuum mode
         private static int itemp_last = 0; // ke9ns add continuum mode
         private static int timerflag = 0; // ke9ns add
-        private static DateTime DT, DT1; // ke9ns add
+        private static int timerflag1 = 0; // ke9ns add
+        private static DateTime DT, DT1, DT2, DT3; // ke9ns add
 
         static Graphics g1; // 
         
@@ -18585,10 +18606,13 @@ namespace PowerSDR
 
                 if ((rx ==1) && (continuum == 1)) // ke9ns add (get the current Peak dbm value and convert to pixel location left=waterfall_low_threshold , right=waterall_high_threshold
                 {
-                    if ((MaxY < 20)&& (MaxY > -150) )
+                    if ((MaxY < 20) && (MaxY > -150) ) // if its a good dbm value
                     {  
-                        itemp = (int)(150 - Math.Abs(MaxY)) ; // ke9ns add reverse db for plotting
+                        itemp = (int)(150 - Math.Abs(MaxY)); // ke9ns add reverse db for plotting
                         itemp = itemp * (int)((float)W / (float)150);
+
+                        MaxYLast = (int)MaxY;
+
                     }
                     else
                     {
@@ -18602,8 +18626,8 @@ namespace PowerSDR
                     System.Drawing.Font font = new System.Drawing.Font("Swis721 BT", 9, FontStyle.Italic); // Arial size and style of freq text for waterfall
                     SolidBrush grid_text_brush = new SolidBrush(grid_text_color);
                   
-
-                    if (timerflag == 0) // set timer for every 5 seconds
+                   //.............................................................
+                    if (timerflag == 0) // set timer for every 1 seconds
                     {
                         DT1 = DT = DateTime.Now;
                         timerflag = 1;
@@ -18613,14 +18637,77 @@ namespace PowerSDR
                         DT1 = DateTime.Now;
                     }
 
-                 
-                 //   Debug.Write("diff "+ DT1.Subtract(DT).TotalSeconds);
-                  // Debug.Write("ts " + ts);
-
-                    if ((DT1.Subtract(DT).TotalSeconds) >= 5)
+                    //.............................................................
+                    if (timerflag1 == 0) // set timer for every 5 seconds
                     {
-                         g1.DrawString(string.Format("{0:yyyy-MM-dd_hh-mm-ss}", DateTime.Now), font, grid_text_brush, 1, 10); // ke9ns add continuum
-                         timerflag = 0;
+                        DT3 = DT2 = DT1;
+                        timerflag1 = 1;
+                    }
+                    else
+                    {
+                        DT3 = DT1;
+                    }
+
+
+                    //   Debug.Write("diff "+ DT1.Subtract(DT).TotalSeconds);
+                    // Debug.Write("ts " + ts);
+
+
+                    if ((DT1.Subtract(DT).TotalSeconds) >= 0.1) // was 5 seconds
+                    {
+                        string answer = " ";
+                        string Rotor = " ";
+  
+                        if (console.ROTOREnabled == true)
+                        {
+                            answer = console.spotDDUtil_Rotor1; // get rotor angle current position
+                            Rotor = answer + "°";
+                        }
+                        else
+                        {
+                            Rotor = " ";
+                        }
+
+                        if (console.CONT_RUN == true) // if recording 
+                        {
+                         //   Debug.Write("continuum recording... ") ;
+
+                            int temp0a = console.CONT_Curr;
+                           
+                            string temp0 = temp0a.ToString();
+                          
+                            // save CONTINUUM data as: Index, Ant heading, Gregorian time, Modified Julian Date, dBm peak value in the BandPass
+                            string temp1 = temp0 + " , " + answer + " , " + DT1.ToString("hh:mm:ss.ms") + " , " + (DT1.ToOADate() + 2415018.5).ToString() + " , " + MaxYLast.ToString("####");
+
+                            //  console.CONT_dbm[console.CONT_Curr++] = temp1;
+
+                            console.CONT_dbm.Add(temp1);
+                            console.CONT_Curr++;
+
+
+                            if (temp0a > 1000000) // dont allow to run forever  600 reading / min or 36,000 / hr or 864,000 / day
+                            {
+                                console.CONT_Curr = 0;
+                                console.CONT_RUN = false;
+
+                            }
+
+                            //   Debug.WriteLine("cont: " + temp1);
+                        } // if (console.CONT_RUN == true)
+
+                        //  g1.DrawString(string.Format("{0:yyyy-MM-dd_hh-mm-ss}", DateTime.Now), font, grid_text_brush, 1, 10); // ke9ns add continuum
+
+                        if ((DT3.Subtract(DT2).TotalSeconds) >= 2) // was 5 seconds
+                        {
+                          if (console.CONT_RUN == true)
+                                g1.DrawString(string.Format("{0:yyyy-MM-dd hh:mm:ss} , " + Rotor, DT1), font, new SolidBrush(Color.Red), 1, 10); // ke9ns add continuum
+                          else
+                                g1.DrawString(string.Format("{0:yyyy-MM-dd hh:mm:ss} , " + Rotor, DT1), font, grid_text_brush, 1, 10); // ke9ns add continuum
+
+                            timerflag1 = 0;
+                        }
+
+                       timerflag = 0;
                     }
 
                  //   g1.DrawLine(p,itemp,1,itemp_last,0); // ke9ns draw line
@@ -18734,12 +18821,22 @@ namespace PowerSDR
 
                             waterfall_data[i] = waterfall_low_threshold; // ke9ns add no line shown
 
+
+                            // ke9ns i=X position on screen (assuming -150dBm is on the far left side). draw a bright area when the X equals the continuum value 
                             
                             if (itemp > itemp_last)
                             {
                                 if ((i <= itemp) && (i >= itemp_last))
                                 {
-                                    waterfall_data[i] = waterfall_high_threshold; // ke9ns add draw line showing peak power per time
+                                   
+                                    if (console.CONT_RUN == true)
+                                    {
+                                       waterfall_data[i] = waterfall_low_threshold + 40.0f; // ke9ns add draw line showing peak power per time
+                                    }
+                                    else
+                                    {
+                                        waterfall_data[i] = waterfall_high_threshold; // ke9ns add draw line showing peak power per time
+                                    }
                                 }
                                 else
                                 {
@@ -18751,7 +18848,14 @@ namespace PowerSDR
                             {
                                 if ((i >= itemp) && (i <= itemp_last))
                                 {
-                                    waterfall_data[i] = waterfall_high_threshold; // ke9ns add draw line showing peak power per time
+                                    if (console.CONT_RUN == true)
+                                    {
+                                        waterfall_data[i] = waterfall_low_threshold + 40.0f; // ke9ns add draw line showing peak power per time
+                                    }
+                                    else
+                                    {
+                                        waterfall_data[i] = waterfall_high_threshold; // ke9ns add draw line showing peak power per time
+                                    }
                                 }
                                 else
                                 {
@@ -18832,19 +18936,37 @@ namespace PowerSDR
                 {
                     if (autobright == 1) // rx1 adjust
                     {
-                        AB1[0] = AB / W; // get avg of the entire read
-
-                        AB3 = (float)(AB1[0]);
+                        AB3  = (float) (AB / W); // get avg of the entire read
 
                         autobright3 = autobright = 0; // turn off feature
 
-                        if ((AB3 > -170) && (AB3 < -50))
+                        if ( (AB3 > AB3_LastW + 4) || (AB3 < AB3_LastW - 4) || (console.waterpanClick3 == true))
                         {
-                            console.setupForm.WaterfallLowThreshold = temp_low_threshold = WaterfallLowThreshold = AB3 - abright - (wateroffset - 20);
-                            console.setupForm.udDisplayWaterfallLowLevel.Value = (decimal)WaterfallLowThreshold;
+                         //   Debug.WriteLine("RX1 water auto update");
 
-                            //  console.setupForm.udDisplayWaterfallLowLevel.Invalidate();
+                            if (AB3_countW > 0)
+                            {
+                                AB3_countW = 0;
+                                console.waterpanClick3 = false; // reset the flag for changing band or ant
+
+                                AB3_LastW = AB3;
+                                if ((AB3 > -170) && (AB3 < -50))
+                                {
+                                    console.setupForm.WaterfallLowThreshold = temp_low_threshold = WaterfallLowThreshold = AB3 - abright - (wateroffset - 20);
+                                    console.setupForm.udDisplayWaterfallLowLevel.Value = (decimal)WaterfallLowThreshold;
+
+                                    //  console.setupForm.udDisplayWaterfallLowLevel.Invalidate();
+                                }
+                            }
+                            else AB3_countW++;
+
                         }
+                        else
+                        {
+                            AB3_countW = 0; // reset counter
+                        }
+                      
+
                         //  Debug.WriteLine("rx1 value " + AB3);
 
                     } // autobright = 1
@@ -18855,17 +18977,35 @@ namespace PowerSDR
 
                     if (autobright2 == 1)  // rx2 adjust
                     {
-                        A2B1[0] = A2B / W; // get avg of the entire read
+                        A2B3 = (float)(A2B / W); // get avg of the entire read
 
-
-                        A2B3 = (float)(A2B1[0]);
 
                         autobright3 = autobright2 = 0; // turn off feature
 
-                        if ((A2B3 > -140) && (A2B3 < -50))
+                       
+                        if ((A2B3 > A2B3_Last + 4) || (A2B3 < A2B3_Last - 4) || console.waterpanClick2 == true )
                         {
-                            console.setupForm.WaterfallLowRX2Threshold = WaterfallLowRX2Threshold = A2B3 - abright - (wateroffset - 20);
-                            console.setupForm.udDisplayWaterfallRX2Level.Value = (decimal)WaterfallLowRX2Threshold;
+                            Debug.WriteLine("RX2 water auto update");
+
+                            if (A2B3_count > 0)
+                            {
+
+                                A2B3_count = 0;
+
+                                A2B3_Last = A2B3;
+                                console.waterpanClick2 = false;
+
+                                if ((A2B3 > -140) && (A2B3 < -50))
+                                {
+                                    console.setupForm.WaterfallLowRX2Threshold = WaterfallLowRX2Threshold = A2B3 - abright - (wateroffset - 20);
+                                    console.setupForm.udDisplayWaterfallRX2Level.Value = (decimal)WaterfallLowRX2Threshold;
+                                }
+                            }
+                            else A2B3_count++;
+                        }
+                        else
+                        {
+                            A2B3_count = 0;
                         }
                          //  Debug.WriteLine("rx2 value " + A2B3 );
                         //   console.setupForm.udDisplayWaterfallRX2Level.Invalidate();
@@ -19017,6 +19157,7 @@ namespace PowerSDR
 
                 int Maxcolor = 255; // 255
 
+                // ke9ns color: Blue->light blue->Green->light Green->Yellow->Light Yellow->Light Orange->Orange->Dark Orange->Red->Purple->Violet
 
                 if (Gray_Scale == 0) // RGB
                 {
@@ -19046,51 +19187,59 @@ namespace PowerSDR
 
                             float overall_percent = offset / range; // value from 0.0 to 1.0 where 1.0 is high and 0.0 is low.
 
-                            if (overall_percent < (float)2 / 9) // background to blue
+                            if (overall_percent < (float)2 / 9) // background to blue (22% or .22222222)
                             {
-                                float local_percent = overall_percent / ((float)2 / 9);
+                                float local_percent = overall_percent / ((float)2 / 9); // local = 0= 0%  to 1=22%
+
                                 R = (int)((1.0 - local_percent) * waterfall_low_color.R);
                                 G = (int)((1.0 - local_percent) * waterfall_low_color.G);
                                 B = (int)(waterfall_low_color.B + local_percent * (Maxcolor - waterfall_low_color.B));
                             }
-                            else if (overall_percent < (float)3 / 9) // blue to blue-green
+                            else if (overall_percent < (float)3 / 9) // BLUE (min) to blue-green  (33%)
                             {
-                                float local_percent = (overall_percent - (float)2 / 9) / ((float)1 / 9);
+                                float local_percent = (overall_percent - (float)2 / 9) / ((float)1 / 9); // local RANGE = 0(22%) TO 1(33%)
+
                                 R = 0;
                                 G = (int)(local_percent * Maxcolor);
                                 B = Maxcolor;
                             }
-                            else if (overall_percent < (float)4 / 9) // blue-green to green
+                            else if (overall_percent < (float)4 / 9) // blue-green to green (44%)
                             {
-                                float local_percent = (overall_percent - (float)3 / 9) / ((float)1 / 9);
+                                float local_percent = (overall_percent - (float)3 / 9) / ((float)1 / 9); // local range = 0(33%) to 1(44%)
+
+                              
                                 R = 0;
                                 G = Maxcolor;
                                 B = (int)((1.0 - local_percent) * Maxcolor);
                             }
-                            else if (overall_percent < (float)5 / 9) // green to red-green
+                            else if (overall_percent < (float)5 / 9) // GREEN to YELLOW (55%)
                             {
-                                float local_percent = (overall_percent - (float)4 / 9) / ((float)1 / 9);
+                                float local_percent = (overall_percent - (float)4 / 9) / ((float)1 / 9); // local range = 0(44%) to 1(55%)
+
                                 R = (int)(local_percent * Maxcolor);
                                 G = Maxcolor;
-                                B = 0;
+                                B = 0; // yellow = R=255 G =255 (ie when local percent = 1 so overall_percent = 55%)
                             }
-                            else if (overall_percent < (float)7 / 9) // red-green to red
+                            else if (overall_percent < (float)7 / 9) // YELLOW to RED (77%)
                             {
-                                float local_percent = (overall_percent - (float)5 / 9) / ((float)2 / 9);
+                                float local_percent = (overall_percent - (float)5 / 9) / ((float)2 / 9); //0= 55% to 1=77%
+
                                 R = Maxcolor;
                                 G = (int)((1.0 - local_percent) * Maxcolor);
-                                B = 0;
+                                B = 0; 
                             }
-                            else if (overall_percent < (float)8 / 9) // red to red-blue
+                            else if (overall_percent < (float)8 / 9) // RED to Purple (88%)
                             {
-                                float local_percent = (overall_percent - (float)7 / 9) / ((float)1 / 9);
+                                float local_percent = (overall_percent - (float)7 / 9) / ((float)1 / 9); // 7
+
                                 R = 255;
                                 G = 0;
                                 B = (int)(local_percent * Maxcolor);
                             }
-                            else // red-blue to purple end
+                            else //Purple to Violet (max)
                             {
-                                float local_percent = (overall_percent - (float)8 / 9) / ((float)1 / 9);
+                                float local_percent = (overall_percent - (float)8 / 9) / ((float)1 / 9); // 8
+
                                 R = (int)((0.75 + 0.25 * (1.0 - local_percent)) * Maxcolor);
                                 G = (int)(local_percent * Maxcolor * 0.5);
                                 B = Maxcolor;
@@ -19236,7 +19385,7 @@ namespace PowerSDR
                     }
                     else
                     {
-                        g.DrawImageUnscaled(waterfall_bmp, 0, 16);  // ke9ns draw image shift down 16 and over to the right 100 to allow for time stamp and db values	
+                            g.DrawImageUnscaled(waterfall_bmp, 0, 16);  // ke9ns draw image shift down 16 and over to the right 100 to allow for time stamp and db values	
 
                     }
                     //  }
@@ -19335,7 +19484,7 @@ namespace PowerSDR
 			}
 
 			return true;
-		}
+		} // DrawWaterfall
 
 		unsafe static private bool DrawHistogram(Graphics g, int W, int H)
 		{
@@ -19520,9 +19669,9 @@ namespace PowerSDR
 			rx2_peak_buffer[0] = CLEAR_FLAG; // set reset flag
 		}
 
-        private class int16
-        {
-        }
+      //  sealed private class int16
+     //   {
+      //  }
 
 #endregion
 

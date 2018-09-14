@@ -216,17 +216,18 @@ namespace PowerSDR
         private ButtonTS btnIOUpdate;
         private ButtonTS btnEEPROMRead1;
         private ButtonTS buttonTS1;
+        private ButtonTS buttonTS2;
+        private LabelTS labelTS1;
+        private ToolTip toolTip1;
+        private NumericUpDown numericUpDown1;
+        private ButtonTS buttonTS3;
+        private IContainer components;
 
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        private System.ComponentModel.Container components = null;
+        #endregion
 
-		#endregion
+        #region Constructor and Destructor
 
-		#region Constructor and Destructor
-
-		public FLEX5000LLHWForm() // FLEX-5000 Low Level Hardware Control
+        public FLEX5000LLHWForm() // FLEX-5000 Low Level Hardware Control
 		{
 			InitializeComponent();
             //if(!FWC.Open1394Driver())
@@ -293,9 +294,17 @@ namespace PowerSDR
 		/// </summary>
 		private void InitializeComponent()
 		{
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FLEX5000LLHWForm));
             this.udATUL = new System.Windows.Forms.NumericUpDown();
             this.udATUC = new System.Windows.Forms.NumericUpDown();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.buttonTS3 = new System.Windows.Forms.ButtonTS();
+            this.labelTS1 = new System.Windows.Forms.LabelTS();
+            this.buttonTS2 = new System.Windows.Forms.ButtonTS();
+            this.buttonTS1 = new System.Windows.Forms.ButtonTS();
+            this.btnEEPROMRead1 = new System.Windows.Forms.ButtonTS();
             this.lblATUC = new System.Windows.Forms.LabelTS();
             this.lblATUL = new System.Windows.Forms.LabelTS();
             this.grpATURelays = new System.Windows.Forms.GroupBoxTS();
@@ -425,7 +434,6 @@ namespace PowerSDR
             this.lblEEPROMOffset = new System.Windows.Forms.LabelTS();
             this.btnEEPROMWrite = new System.Windows.Forms.ButtonTS();
             this.btnEEPROMRead = new System.Windows.Forms.ButtonTS();
-            this.btnEEPROMRead1 = new System.Windows.Forms.ButtonTS();
             this.grpPIO = new System.Windows.Forms.GroupBoxTS();
             this.comboPIOReg = new System.Windows.Forms.ComboBoxTS();
             this.txtPIORead = new System.Windows.Forms.TextBox();
@@ -460,9 +468,9 @@ namespace PowerSDR
             this.btnDDSRead = new System.Windows.Forms.ButtonTS();
             this.comboMuxChan = new System.Windows.Forms.ComboBoxTS();
             this.lblMuxChannel = new System.Windows.Forms.LabelTS();
-            this.buttonTS1 = new System.Windows.Forms.ButtonTS();
             ((System.ComponentModel.ISupportInitialize)(this.udATUL)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.udATUC)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.grpATURelays.SuspendLayout();
             this.grpFlexWire.SuspendLayout();
             this.grpATU.SuspendLayout();
@@ -502,6 +510,71 @@ namespace PowerSDR
             this.udATUC.Size = new System.Drawing.Size(48, 20);
             this.udATUC.TabIndex = 41;
             this.udATUC.ValueChanged += new System.EventHandler(this.udATUC_ValueChanged);
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(272, 508);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            25,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(48, 20);
+            this.numericUpDown1.TabIndex = 47;
+            this.toolTip1.SetToolTip(this.numericUpDown1, resources.GetString("numericUpDown1.ToolTip"));
+            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
+            // 
+            // buttonTS3
+            // 
+            this.buttonTS3.Image = null;
+            this.buttonTS3.Location = new System.Drawing.Point(336, 507);
+            this.buttonTS3.Name = "buttonTS3";
+            this.buttonTS3.Size = new System.Drawing.Size(88, 23);
+            this.buttonTS3.TabIndex = 48;
+            this.buttonTS3.Text = "Update Turf";
+            this.toolTip1.SetToolTip(this.buttonTS3, resources.GetString("buttonTS3.ToolTip"));
+            this.buttonTS3.Click += new System.EventHandler(this.buttonTS3_Click);
+            // 
+            // labelTS1
+            // 
+            this.labelTS1.Image = null;
+            this.labelTS1.Location = new System.Drawing.Point(157, 512);
+            this.labelTS1.Name = "labelTS1";
+            this.labelTS1.Size = new System.Drawing.Size(112, 16);
+            this.labelTS1.TabIndex = 45;
+            this.labelTS1.Text = "Select Turf Region:";
+            this.toolTip1.SetToolTip(this.labelTS1, resources.GetString("labelTS1.ToolTip"));
+            // 
+            // buttonTS2
+            // 
+            this.buttonTS2.Image = null;
+            this.buttonTS2.Location = new System.Drawing.Point(286, 553);
+            this.buttonTS2.Name = "buttonTS2";
+            this.buttonTS2.Size = new System.Drawing.Size(58, 23);
+            this.buttonTS2.TabIndex = 46;
+            this.buttonTS2.Text = "Normal";
+            this.buttonTS2.Click += new System.EventHandler(this.buttonTS2_Click);
+            // 
+            // buttonTS1
+            // 
+            this.buttonTS1.Image = null;
+            this.buttonTS1.Location = new System.Drawing.Point(211, 553);
+            this.buttonTS1.Name = "buttonTS1";
+            this.buttonTS1.Size = new System.Drawing.Size(58, 23);
+            this.buttonTS1.TabIndex = 45;
+            this.buttonTS1.Text = "MARS";
+            this.buttonTS1.Click += new System.EventHandler(this.buttonTS1_Click);
+            // 
+            // btnEEPROMRead1
+            // 
+            this.btnEEPROMRead1.Image = null;
+            this.btnEEPROMRead1.Location = new System.Drawing.Point(472, 553);
+            this.btnEEPROMRead1.Name = "btnEEPROMRead1";
+            this.btnEEPROMRead1.Size = new System.Drawing.Size(152, 23);
+            this.btnEEPROMRead1.TabIndex = 45;
+            this.btnEEPROMRead1.Text = "Record ALL EEPROM";
+            this.btnEEPROMRead1.Click += new System.EventHandler(this.btnEEPROMRead1_Click);
             // 
             // lblATUC
             // 
@@ -1809,16 +1882,6 @@ namespace PowerSDR
             this.btnEEPROMRead.Text = "Read";
             this.btnEEPROMRead.Click += new System.EventHandler(this.btnEEPROMRead_Click);
             // 
-            // btnEEPROMRead1
-            // 
-            this.btnEEPROMRead1.Image = null;
-            this.btnEEPROMRead1.Location = new System.Drawing.Point(352, 596);
-            this.btnEEPROMRead1.Name = "btnEEPROMRead1";
-            this.btnEEPROMRead1.Size = new System.Drawing.Size(152, 23);
-            this.btnEEPROMRead1.TabIndex = 45;
-            this.btnEEPROMRead1.Text = "Record ALL EEPROM";
-            this.btnEEPROMRead1.Click += new System.EventHandler(this.btnEEPROMRead1_Click);
-            // 
             // grpPIO
             // 
             this.grpPIO.Controls.Add(this.comboPIOReg);
@@ -2198,20 +2261,14 @@ namespace PowerSDR
             this.lblMuxChannel.TabIndex = 1;
             this.lblMuxChannel.Text = "Mux:";
             // 
-            // buttonTS1
-            // 
-            this.buttonTS1.Image = null;
-            this.buttonTS1.Location = new System.Drawing.Point(272, 596);
-            this.buttonTS1.Name = "buttonTS1";
-            this.buttonTS1.Size = new System.Drawing.Size(58, 23);
-            this.buttonTS1.TabIndex = 45;
-            this.buttonTS1.Text = "MARS";
-            this.buttonTS1.Click += new System.EventHandler(this.buttonTS1_Click);
-            // 
             // FLEX5000LLHWForm
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.ClientSize = new System.Drawing.Size(640, 508);
+            this.ClientSize = new System.Drawing.Size(640, 540);
+            this.Controls.Add(this.buttonTS3);
+            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(this.labelTS1);
+            this.Controls.Add(this.buttonTS2);
             this.Controls.Add(this.buttonTS1);
             this.Controls.Add(this.btnEEPROMRead1);
             this.Controls.Add(this.lblATUC);
@@ -2236,8 +2293,10 @@ namespace PowerSDR
             this.Name = "FLEX5000LLHWForm";
             this.Text = "FLEX-5000 Low Level Hardware Control";
             this.Closing += new System.ComponentModel.CancelEventHandler(this.FLEX5000LLHWForm_Closing);
+            this.Load += new System.EventHandler(this.FLEX5000LLHWForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.udATUL)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.udATUC)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.grpATURelays.ResumeLayout(false);
             this.grpFlexWire.ResumeLayout(false);
             this.grpFlexWire.PerformLayout();
@@ -2578,9 +2637,8 @@ namespace PowerSDR
        // ke9ns add change 3000 or 5000 radio to Extended
         private void buttonTS1_Click(object sender, EventArgs e)
         {
-            DialogResult dr = MessageBox.Show("Warning: You must have Authorization as an offical MARS Licensed Operator\n",
-                         
-                           "Do you have authorization?",
+            DialogResult dr = MessageBox.Show("Warning: You must have Authorization as a MARS Licensed Operator.\n",
+                                             "Do you have authorization?",
                            MessageBoxButtons.YesNo,
                            MessageBoxIcon.Question);
 
@@ -2617,6 +2675,11 @@ namespace PowerSDR
 
             }
 
+
+
+
+            MessageBox.Show("You must cycle power to the radio", "Cycle Power",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
         } // buttonTS1_Click
 
 
@@ -3130,6 +3193,85 @@ namespace PowerSDR
 
         }
 
-      
+        private void buttonTS2_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = MessageBox.Show("This will reset any MARS operate back to Normal Standard Operation\n",
+
+                         "Yes?",
+                         MessageBoxButtons.YesNo,
+                         MessageBoxIcon.Question);
+
+            if (dr == DialogResult.Yes)
+            {
+
+                if (FWC.WriteTRXEEPROMByte(0x0034, 0xff) == 0) MessageBox.Show("Error in WriteEEPROM 34");
+                txtEEPROMWrite.BackColor = SystemColors.Window;
+                btnEEPROMRead_Click(this, EventArgs.Empty);
+                if (FWC.WriteTRXEEPROMByte(0x0035, 0xff) == 0) MessageBox.Show("Error in WriteEEPROM 35");
+                txtEEPROMWrite.BackColor = SystemColors.Window;
+                btnEEPROMRead_Click(this, EventArgs.Empty);
+                if (FWC.WriteTRXEEPROMByte(0x0036, 0xff) == 0) MessageBox.Show("Error in WriteEEPROM 36");
+                txtEEPROMWrite.BackColor = SystemColors.Window;
+                btnEEPROMRead_Click(this, EventArgs.Empty);
+                if (FWC.WriteTRXEEPROMByte(0x0037, 0xff) == 0) MessageBox.Show("Error in WriteEEPROM 37");
+                txtEEPROMWrite.BackColor = SystemColors.Window;
+                btnEEPROMRead_Click(this, EventArgs.Empty);
+                if (FWC.WriteTRXEEPROMByte(0x0038, 0xff) == 0) MessageBox.Show("Error in WriteEEPROM 38");
+                txtEEPROMWrite.BackColor = SystemColors.Window;
+                btnEEPROMRead_Click(this, EventArgs.Empty);
+                if (FWC.WriteTRXEEPROMByte(0x0039, 0xff) == 0) MessageBox.Show("Error in WriteEEPROM 39");
+                txtEEPROMWrite.BackColor = SystemColors.Window;
+                btnEEPROMRead_Click(this, EventArgs.Empty);
+                if (FWC.WriteTRXEEPROMByte(0x003A, 0xff) == 0) MessageBox.Show("Error in WriteEEPROM 3a");
+                txtEEPROMWrite.BackColor = SystemColors.Window;
+                btnEEPROMRead_Click(this, EventArgs.Empty);
+                if (FWC.WriteTRXEEPROMByte(0x003B, 0xff) == 0) MessageBox.Show("Error in WriteEEPROM 3b");
+                txtEEPROMWrite.BackColor = SystemColors.Window;
+                btnEEPROMRead_Click(this, EventArgs.Empty);
+                if (FWC.WriteTRXEEPROMByte(0x003C, 0xff) == 0) MessageBox.Show("Error in WriteEEPROM 3c");
+                txtEEPROMWrite.BackColor = SystemColors.Window;
+                btnEEPROMRead_Click(this, EventArgs.Empty);
+
+            }
+
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+           
+
+        } // numericUpDown1_ValueChanged
+
+        private void buttonTS3_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = MessageBox.Show("Warning: You are changing your Turf Region.\n",
+                                          "Do you have authorization?",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question);
+
+            if (dr == DialogResult.Yes)
+            {
+                Debug.WriteLine("Byte value " + (byte)numericUpDown1.Value);
+
+                FWC.WriteTRXEEPROMByte(0x001D, (byte)numericUpDown1.Value);
+                txtEEPROMWrite.BackColor = SystemColors.Window;
+                btnEEPROMRead_Click(this, EventArgs.Empty);
+
+
+            }
+
+            MessageBox.Show("You must close PowerSDR and cycle power to the radio. Then go to setup->General->Options->BandText Udpate", "Cycle Power",
+                              MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+        } //  buttonTS3_Click
+
+        private void FLEX5000LLHWForm_Load(object sender, EventArgs e)
+        {
+            byte data;
+
+            FWC.ReadTRXEEPROMByte(0x001D, out data);
+
+            numericUpDown1.Value = data;
+        }
     }
 }
