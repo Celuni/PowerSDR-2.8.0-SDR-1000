@@ -297,7 +297,7 @@ namespace PowerSDR
 		EXTIGY,
 		MP3_PLUS,
 		SANTA_CRUZ,
-		SB0222
+		SB0222,
 		LAST,
 	}
 
@@ -2416,6 +2416,9 @@ namespace PowerSDR
                     case SoundCard.EDIROL_FA_66:
                         rx1_meter_cal_offset = -46.82864f;
                         break;
+                    case SoundCard.SB0222:
+                        rx1_meter_cal_offset = -25.13887f;
+                        break;
                     case SoundCard.UNSUPPORTED_CARD:
                         rx1_meter_cal_offset = -22.43533f;
                         break;
@@ -2446,6 +2449,9 @@ namespace PowerSDR
                         break;
                     case SoundCard.EDIROL_FA_66:
                         RX1DisplayCalOffset = -80.429f;
+                        break;
+                    case SoundCard.SB0222:
+                        RX1DisplayCalOffset = -57.467f;
                         break;
                     case SoundCard.UNSUPPORTED_CARD:
                         RX1DisplayCalOffset = -48.62103f;
@@ -18381,7 +18387,7 @@ namespace PowerSDR
 
             return;
 
-		/*	if ( current_model != Model.SOFTROCK40)  // -- no aliasing going on 
+			if ( current_model != Model.SOFTROCK40)  // -- no aliasing going on 
 				return;   
 
 			if ( rx1_dsp_mode == DSPMode.DRM )  // for now don't worry about aliasing in DRM land 
@@ -18424,7 +18430,6 @@ namespace PowerSDR
 				// Debug.WriteLine("data_high: " + bin_num); 
 			}
 			return;		
-            */
 		}
 		// end kb9yig sr40 mod 
 
@@ -18535,7 +18540,6 @@ namespace PowerSDR
 						Hdw.X2 = (byte)((Hdw.X2 & 0xC0) | x2_2_tx);
 					break;
 			}
-
         } // UpdateExtCtrl()
 
         // Added 06/24/05 BT for CAT commands
@@ -29226,7 +29230,7 @@ namespace PowerSDR
                         chkFWCATU.Visible = false;
                         chkFWCATUBypass.Visible = false;
                         break;
-                 */   case Model.DEMO:
+                    case Model.DEMO:
                         MinFreq = Math.Max(if_freq, 0.000001);
                         if (XVTRPresent)
                             MaxFreq = 146.0;
@@ -29274,13 +29278,13 @@ namespace PowerSDR
 			set
 			{
 				soft_rock_center_freq = value;
-			/*	if(current_model == Model.SOFTROCK40)
+				if(current_model == Model.SOFTROCK40)
 				{
 					MinFreq = soft_rock_center_freq - sample_rate1/2*1e-6;
 					MaxFreq = soft_rock_center_freq + sample_rate1/2*1e-6;
 					if(setupForm != null)
 						txtVFOAFreq_LostFocus(this, EventArgs.Empty);
-				} */
+				}
 			}
 		}
 
@@ -30383,10 +30387,10 @@ namespace PowerSDR
 			{
 				x2_enabled = value;
 				X2TR = value;
-                if (current_model == Model.SDR1000)
+               if (current_model == Model.SDR1000)
                 {
                     if (value && mox)
-                        Hdw.X2 |= 0x40;
+                    Hdw.X2 |= 0x40;
                     else Hdw.X2 &= 0xBF;
                 }
 			}
@@ -41397,17 +41401,17 @@ namespace PowerSDR
 
 
 					double delta_vfo; 
-				//	if ( current_model != Model.SOFTROCK40 ) 
-				//	{ 					
+					if ( current_model != Model.SOFTROCK40 ) 
+					{ 					
 						delta_vfo = DDSFreq - rx1_avg_last_ddsfreq;
 						delta_vfo *= 1e6; // vfo in mhz moron!
-					//}
-				//	else 
-				//	{ 						
-					//	delta_vfo = dttsp_osc - rx1_avg_last_dttsp_osc; 
-					//	delta_vfo = -delta_vfo; 
+					}
+					else 
+					{ 						
+						delta_vfo = dttsp_osc - rx1_avg_last_dttsp_osc; 
+						delta_vfo = -delta_vfo; 
 					//	Debug.WriteLine("update from dttsp delta_vfo: " + delta_vfo); 
-				//	} 
+					} 
                 
                     					
 					double hz_per_bin = sample_rate1/Display.BUFFER_SIZE;   // ke9ns 192000 / 4096 = 46.875 hz per bin
@@ -41551,17 +41555,17 @@ namespace PowerSDR
 				{ 
 					//Debug.WriteLine("dttsp_osc: " + dttsp_osc); 
 					double delta_vfo; 
-				//	if ( current_model != Model.SOFTROCK40 ) 
-				//	{ 					
+					if ( current_model != Model.SOFTROCK40 ) 
+					{ 					
 						delta_vfo = DDSFreq - rx2_avg_last_ddsfreq;
 						delta_vfo *= 1e6; // vfo in mhz moron!
-				//	}
-				//	else 
-				//	{ 						
-					//	delta_vfo = dttsp_osc - rx2_avg_last_dttsp_osc; 
-					//	delta_vfo = -delta_vfo; 
+					}
+					else 
+					{ 						
+						delta_vfo = dttsp_osc - rx2_avg_last_dttsp_osc; 
+						delta_vfo = -delta_vfo; 
 						//Debug.WriteLine("update from dttsp delta_vfo: " + delta_vfo); 
-				//	} 
+					} 
                 					
 					double hz_per_bin = sample_rate1/Display.BUFFER_SIZE; 
 
@@ -45951,6 +45955,7 @@ namespace PowerSDR
                     }
                     Hdw.PA_ATUTune(ATUTuneMode.BYPASS);
                 }
+
                 CWKeyer.Reset();
                 CWPTT.Start();
 
@@ -46727,10 +46732,10 @@ namespace PowerSDR
                chkMUT.BackColor = SystemColors.Control;
             }
 
-            	if(num_channels == 2)
+            if(num_channels == 2)
             	{
-                if(current_model == Model.SDR1000)  Hdw.MuteRelay = chkMUT.Checked;
-                }
+				if(current_model == Model.SDR1000)  Hdw.MuteRelay = chkMUT.Checked;
+            	}
 
        
 
@@ -47870,8 +47875,7 @@ namespace PowerSDR
                     if (rx1_dsp_mode != DSPMode.DRM &&
                     rx1_dsp_mode != DSPMode.SPEC)
                         if_shift = true;
-				}
-                				
+				}				
 			}   
 
             if (!fwc_init && !hid_init && current_model != Model.FLEX5000 && current_model != Model.FLEX3000 && current_model != Model.FLEX1500)
@@ -47986,7 +47990,7 @@ namespace PowerSDR
 				meter_text_history[i] = 0.0f;
 
 			if(!fwc_init || current_model == Model.SDR1000)
-            comboPreamp.Enabled = !chkMOX.Checked;
+                comboPreamp.Enabled = !chkMOX.Checked;
 			setupForm.MOX = chkMOX.Checked;
 			ResetMultiMeterPeak();
 			chkMOX.BackColor = SystemColors.Control;

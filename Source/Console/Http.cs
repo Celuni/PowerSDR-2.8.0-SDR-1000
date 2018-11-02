@@ -850,7 +850,7 @@ namespace PowerSDR
         //=========================================================================================
         public void HttpServer1()
         {
-
+            Debug.WriteLine("httpserver1 has been called");
             try
             {
                 m_listener = new TcpListener(IPAddress.Any, console.HTTP_PORT);

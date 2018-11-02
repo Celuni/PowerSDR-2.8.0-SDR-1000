@@ -8,6 +8,8 @@
     <ROW Property="AI_PREDEF_LCONDS_PROPS" Value="AI_DETECTED_DOTNET_VERSION"/>
     <ROW Property="AI_REQUIRED_DOTNET_DISPLAY" MultiBuildValue="AnyCPU_Release:4.5.2" ValueLocId="-"/>
     <ROW Property="AI_REQUIRED_DOTNET_VERSION" MultiBuildValue="AnyCPU_Release:4.5.2" ValueLocId="-"/>
+    <ROW Property="AI_REQUIRED_WINDOWS_INSTALLER_DISPLAY" MultiBuildValue="AnyCPU_Release:5.0" ValueLocId="-"/>
+    <ROW Property="AI_REQUIRED_WINDOWS_INSTALLER_VERSION" MultiBuildValue="AnyCPU_Release:5.0" ValueLocId="-"/>
     <ROW Property="ALLUSERS" Value="1"/>
     <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
     <ROW Property="ARPCONTACT" Value="ke9ns@ke9ns.com"/>
@@ -17,24 +19,24 @@
     <ROW Property="ARPURLUPDATEINFO" Value="ke9ns.com/flexpage.html"/>
     <ROW Property="CTRLS" Value="1"/>
     <ROW Property="Manufacturer" Value="ke9ns"/>
-    <ROW Property="ProductCode" Value="1033:{E2585564-C74A-4E2F-829A-FD0E959FEE21} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{C7154071-E272-4C40-A02E-612702FA859D} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
-    <ROW Property="ProductName" Value="PowerSDR v2.8.0.92"/>
-    <ROW Property="ProductVersion" Value="17.137.16.0" Type="32"/>
+    <ROW Property="ProductName" Value="PowerSDR v2.8.0.100"/>
+    <ROW Property="ProductVersion" Value="17.165.16.0" Type="32"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
     <ROW Property="UpgradeCode" Value="{A5226811-E4EA-414C-8491-CEFB1FC47B7C}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="AnyCPU_Release:Windows 9x/ME" ValueLocId="-"/>
     <ROW Property="WindowsType9XDisplay" MultiBuildValue="AnyCPU_Release:Windows 9x/ME" ValueLocId="-"/>
-    <ROW Property="WindowsTypeNT" MultiBuildValue="AnyCPU_Release:Windows XP SP3 x86, Windows Server 2003 SP2 x86" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT" MultiBuildValue="AnyCPU_Release:Windows XP SP3 x86, Windows Server 2003 SP2 x86, Windows Vista x86, Windows Server 2008 x86, Windows 7 RTM x86" ValueLocId="-"/>
     <ROW Property="WindowsTypeNT40" MultiBuildValue="AnyCPU_Release:Windows NT 4.0" ValueLocId="-"/>
     <ROW Property="WindowsTypeNT40Display" MultiBuildValue="AnyCPU_Release:Windows NT 4.0" ValueLocId="-"/>
     <ROW Property="WindowsTypeNT50" MultiBuildValue="AnyCPU_Release:Windows 2000" ValueLocId="-"/>
     <ROW Property="WindowsTypeNT50Display" MultiBuildValue="AnyCPU_Release:Windows 2000" ValueLocId="-"/>
     <ROW Property="WindowsTypeNT5X" MultiBuildValue="AnyCPU_Release:Windows XP/2003 RTM, Windows XP/2003 SP1, Windows XP SP2 x86" ValueLocId="-"/>
     <ROW Property="WindowsTypeNT5XDisplay" MultiBuildValue="AnyCPU_Release:Windows XP/2003 RTM, Windows XP/2003 SP1, Windows XP SP2 x86" ValueLocId="-"/>
-    <ROW Property="WindowsTypeNT64" MultiBuildValue="AnyCPU_Release:Windows XP SP2 x64, Windows Server 2003 SP2 x64" ValueLocId="-"/>
-    <ROW Property="WindowsTypeNT64Display" MultiBuildValue="AnyCPU_Release:Windows XP SP2 x64, Windows Server 2003 SP2 x64" ValueLocId="-"/>
-    <ROW Property="WindowsTypeNTDisplay" MultiBuildValue="AnyCPU_Release:Windows XP SP3 x86, Windows Server 2003 SP2 x86" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT64" MultiBuildValue="AnyCPU_Release:Windows XP SP2 x64, Windows Server 2003 SP2 x64, Windows Vista x64, Windows Server 2008 x64, Windows 7 RTM x64" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT64Display" MultiBuildValue="AnyCPU_Release:Windows XP SP2 x64, Windows Server 2003 SP2 x64, Windows Vista x64, Windows Server 2008 x64, Windows 7 RTM x64" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNTDisplay" MultiBuildValue="AnyCPU_Release:Windows XP SP3 x86, Windows Server 2003 SP2 x86, Windows Vista x86, Windows Server 2008 x86, Windows 7 RTM x86" ValueLocId="-"/>
     <ROW Property="YourProperty" Value="Your Value"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiDirsComponent">
@@ -102,7 +104,7 @@
     <ROW File="Console.png_5" Component_="btnBandHF0.png_2" FileName="Console.png" Attributes="0" SourcePath="..\..\..\..\..\..\..\ProgramData\FlexRadio Systems\PowerSDR\Skins\KE9NS6_World\Console\Console.png" SelfReg="false" NextFile="panelBandHF.png_2"/>
     <ROW File="DXLOC.txt" Component_="DXLOC.txt" FileName="DXLOC.txt" Attributes="0" SourcePath="..\..\..\..\My Webs\ke9ns2\DXLOC.txt" SelfReg="false" NextFile="SWL.csv"/>
     <ROW File="DttSP.dll" Component_="DttSP.dll" FileName="DttSP.dll" Attributes="0" SourcePath="..\bin\Release\DttSP.dll" SelfReg="false" NextFile="PowerMate.dll"/>
-    <ROW File="FCCDATA.dat" Component_="DXLOC.txt" FileName="FCCDATA.dat" Attributes="0" SourcePath="..\..\..\..\My Webs\ke9ns2\FCCDATA.dat" SelfReg="false"/>
+    <ROW File="FCCDATA.dat" Component_="DXLOC.txt" FileName="FCCDATA.dat" Attributes="0" SourcePath="..\..\..\..\My Webs\ke9ns2\FCCDATA.dat" SelfReg="false" NextFile="PowerSDRke9nsv2.8features_white.pdf"/>
     <ROW File="FLEX1500_Firmware_ReadMe.txt" Component_="FLEX1500_Firmware_ReadMe.txt" FileName="FLEX-1~1.TXT|FLEX-1500_Firmware_ReadMe.txt" Attributes="0" SourcePath="..\..\..\..\..\Desktop\PowerSDR Setup Builder - lite\Installer\Payload\Firmware\FLEX-1500\FLEX-1500_Firmware_ReadMe.txt" SelfReg="false" NextFile="FLEX3000_Firmware_v2.1.4.7.bin"/>
     <ROW File="FLEX1500_Firmware_v0.5.3.20.bin" Component_="FLEX1500_Firmware_ReadMe.txt" FileName="FLEX-1~1.BIN|FLEX-1500_Firmware_v0.5.3.20.bin" Attributes="0" SourcePath="..\..\..\..\..\..\..\ProgramData\FlexRadio Systems\FLEX Firmware\FLEX-1500\FLEX-1500_Firmware_v0.5.3.20.bin" SelfReg="false" NextFile="FCCDATA.dat"/>
     <ROW File="FLEX3000_Firmware_ReadMe.txt" Component_="FLEX3000_Firmware_v2.1.4.5.bin" FileName="FLEX-3~1.TXT|FLEX-3000_Firmware_ReadMe.txt" Attributes="0" SourcePath="..\..\..\..\..\Desktop\PowerSDR Setup Builder - lite\Installer\Payload\Firmware\FLEX-3000\FLEX-3000_Firmware_ReadMe.txt" SelfReg="false" NextFile="FLEX1500_Firmware_ReadMe.txt"/>
@@ -118,8 +120,8 @@
     <ROW File="PowerSDR.exe.config" Component_="PowerSDR_T9.exe.config" FileName="POWERS~2.CON|PowerSDR.exe.config" Attributes="0" SourcePath="..\bin\Release\PowerSDR.exe.config" SelfReg="false" NextFile="X20bttn0.png"/>
     <ROW File="PowerSDRTXWaterfallID.pdf" Component_="DXLOC.txt" FileName="POWERS~2.PDF|PowerSDR TX Waterfall ID.pdf" Attributes="0" SourcePath="..\..\..\..\My Webs\ke9ns2\PowerSDR TX Waterfall ID.pdf" SelfReg="false" NextFile="PowerSDR.exe"/>
     <ROW File="PowerSDR_Readme.txt" Component_="DXLOC.txt" FileName="POWERS~1.TXT|PowerSDR_Readme.txt" Attributes="0" SourcePath="..\..\..\..\My Webs\ke9ns2\PowerSDR_Readme.txt" SelfReg="false" NextFile="SWL2.csv"/>
-    <ROW File="PowerSDRke9nsv2.8features.pdf" Component_="PowerSDR_T9.exe.config" FileName="POWERS~2.PDF|PowerSDR ke9ns v2.8 features.pdf" Attributes="0" SourcePath="..\..\..\..\My Webs\ke9ns2\PowerSDR ke9ns v2.8 features.pdf" SelfReg="false" NextFile="PowerSDRke9nsv2.8features.pdf_1"/>
-    <ROW File="PowerSDRke9nsv2.8features.pdf_1" Component_="DXLOC.txt" FileName="POWERS~3.PDF|PowerSDR ke9ns v2.8 features.pdf" Attributes="0" SourcePath="..\..\..\..\My Webs\ke9ns2\PowerSDR ke9ns v2.8 features.pdf" SelfReg="false" NextFile="DttSP.dll"/>
+    <ROW File="PowerSDRke9nsv2.8features.pdf" Component_="PowerSDR_T9.exe.config" FileName="POWERS~2.PDF|PowerSDR ke9ns v2.8 features.pdf" Attributes="0" SourcePath="..\..\..\..\My Webs\ke9ns2\PowerSDR ke9ns v2.8 features.pdf" SelfReg="false" NextFile="DttSP.dll"/>
+    <ROW File="PowerSDRke9nsv2.8features_white.pdf" Component_="DXLOC.txt" FileName="POWERS~1.PDF|PowerSDR ke9ns v2.8 features_white.pdf" Attributes="0" SourcePath="..\..\..\..\My Webs\ke9ns2\PowerSDR ke9ns v2.8 features_white.pdf" SelfReg="false"/>
     <ROW File="SWL.csv" Component_="DXLOC.txt" FileName="SWL.csv" Attributes="0" SourcePath="..\..\..\..\My Webs\ke9ns2\SWL.csv" SelfReg="false" NextFile="test24.bmp"/>
     <ROW File="SWL2.csv" Component_="DXLOC.txt" FileName="SWL2.csv" Attributes="0" SourcePath="..\..\..\..\My Webs\ke9ns2\SWL2.csv" SelfReg="false" NextFile="tool.exe"/>
     <ROW File="X20bttn0.png" Component_="X20bttn0.png" FileName="16X20B~1.PNG|16X20bttn-0.png" Attributes="0" SourcePath="..\..\..\..\..\..\..\ProgramData\FlexRadio Systems\PowerSDR\Skins\KE9NS3_Spot\Console\Base\16X20bttn-0.png" SelfReg="false" NextFile="X20bttn1.png"/>
@@ -1353,7 +1355,7 @@
     <ROW Action="AI_DetectSoftware" Sequence="101"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BuildComponent">
-    <ROW BuildKey="AnyCPU_Release" BuildName="AnyCPU_Release" BuildOrder="1" BuildType="0" PackageFolder="..\..\..\..\Advanced Installer\Projects\PowerSDR ke9ns 2.8.0\Setup Files" PackageFileName="PowerSDR_ke9ns_Incremental_Installer_2.8.0.92" Languages="en" InstallationType="4" UseLargeSchema="true"/>
+    <ROW BuildKey="AnyCPU_Release" BuildName="AnyCPU_Release" BuildOrder="1" BuildType="0" PackageFolder="..\..\..\..\Advanced Installer\Projects\PowerSDR ke9ns 2.8.0\Setup Files" PackageFileName="PowerSDR_ke9ns_Incremental_Installer_2.8.0.100" Languages="en" InstallationType="4" UseLargeSchema="true"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.DictionaryComponent">
     <ROW Path="&lt;AI_DICTS&gt;ui.ail"/>
@@ -1437,12 +1439,13 @@
     <ROW Action="AI_DetectSoftware" Sequence="101"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiLaunchConditionsComponent">
-    <ROW Condition="( Version9X OR ( NOT VersionNT64 ) OR ( VersionNT64 AND ((VersionNT64 &lt;&gt; 502) OR (ServicePackLevel &lt;&gt; 2) OR (MsiNTProductType &lt;&gt; 1)) AND ((VersionNT64 &lt;&gt; 502) OR (ServicePackLevel &lt;&gt; 2) OR (MsiNTProductType = 1)) ) )" Description="[ProductName] cannot be installed on the following Windows versions: [WindowsTypeNT64Display]." DescriptionLocId="AI.LaunchCondition.NoSpecificNT64" IsPredefined="true" Builds="AnyCPU_Release"/>
-    <ROW Condition="( Version9X OR VersionNT64 OR ( VersionNT AND ((VersionNT &lt;&gt; 501) OR (ServicePackLevel &lt;&gt; 3)) AND ((VersionNT &lt;&gt; 502) OR (ServicePackLevel &lt;&gt; 2)) ) )" Description="[ProductName] cannot be installed on the following Windows versions: [WindowsTypeNTDisplay]." DescriptionLocId="AI.LaunchCondition.NoSpecificNT" IsPredefined="true" Builds="AnyCPU_Release"/>
+    <ROW Condition="( Version9X OR ( NOT VersionNT64 ) OR ( VersionNT64 AND ((VersionNT64 &lt;&gt; 502) OR (ServicePackLevel &lt;&gt; 2) OR (MsiNTProductType &lt;&gt; 1)) AND ((VersionNT64 &lt;&gt; 502) OR (ServicePackLevel &lt;&gt; 2) OR (MsiNTProductType = 1)) AND ((VersionNT64 &lt;&gt; 600) OR (MsiNTProductType &lt;&gt; 1)) AND ((VersionNT64 &lt;&gt; 600) OR (MsiNTProductType = 1)) AND ((VersionNT64 &lt;&gt; 601) OR (ServicePackLevel &lt;&gt; 0) OR (MsiNTProductType &lt;&gt; 1)) ) )" Description="[ProductName] cannot be installed on the following Windows versions: [WindowsTypeNT64Display]." DescriptionLocId="AI.LaunchCondition.NoSpecificNT64" IsPredefined="true" Builds="AnyCPU_Release"/>
+    <ROW Condition="( Version9X OR VersionNT64 OR ( VersionNT AND ((VersionNT &lt;&gt; 501) OR (ServicePackLevel &lt;&gt; 3)) AND ((VersionNT &lt;&gt; 502) OR (ServicePackLevel &lt;&gt; 2)) AND ((VersionNT &lt;&gt; 600) OR (MsiNTProductType &lt;&gt; 1)) AND ((VersionNT &lt;&gt; 600) OR (MsiNTProductType = 1)) AND ((VersionNT &lt;&gt; 601) OR (ServicePackLevel &lt;&gt; 0)) ) )" Description="[ProductName] cannot be installed on the following Windows versions: [WindowsTypeNTDisplay]." DescriptionLocId="AI.LaunchCondition.NoSpecificNT" IsPredefined="true" Builds="AnyCPU_Release"/>
     <ROW Condition="(VersionNT &lt;&gt; 400)" Description="[ProductName] cannot be installed on [WindowsTypeNT40Display]." DescriptionLocId="AI.LaunchCondition.NoNT40" IsPredefined="true" Builds="AnyCPU_Release"/>
     <ROW Condition="(VersionNT &lt;&gt; 500)" Description="[ProductName] cannot be installed on [WindowsTypeNT50Display]." DescriptionLocId="AI.LaunchCondition.NoNT50" IsPredefined="true" Builds="AnyCPU_Release"/>
     <ROW Condition="(VersionNT64 OR ((VersionNT &lt;&gt; 501) OR (ServicePackLevel = 3))) AND ((VersionNT &lt;&gt; 502) OR (ServicePackLevel = 2))" Description="[ProductName] cannot be installed on [WindowsTypeNT5XDisplay]." DescriptionLocId="AI.LaunchCondition.NoNT5X" IsPredefined="true" Builds="AnyCPU_Release"/>
     <ROW Condition="AI_DETECTED_DOTNET_VERSION &gt;= AI_REQUIRED_DOTNET_VERSION" Description="[ProductName] cannot be installed on systems with .NET Framework version lower than [AI_REQUIRED_DOTNET_DISPLAY]." DescriptionLocId="AI.LaunchCondition.DotNET" IsPredefined="true" Builds="AnyCPU_Release"/>
+    <ROW Condition="VersionMsi &gt;= AI_REQUIRED_WINDOWS_INSTALLER_VERSION" Description="[ProductName] cannot be installed on systems with Windows Installer version lower than [AI_REQUIRED_WINDOWS_INSTALLER_DISPLAY]." DescriptionLocId="AI.LaunchCondition.WI" IsPredefined="true" Builds="AnyCPU_Release"/>
     <ROW Condition="VersionNT" Description="[ProductName] cannot be installed on [WindowsType9XDisplay]." DescriptionLocId="AI.LaunchCondition.No9X" IsPredefined="true" Builds="AnyCPU_Release"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiRegsComponent">

@@ -128,7 +128,17 @@ Where &lt;DATA&gt; bit6 (64) will always be SET when this box is checked.
 Except on VHF/UHF bands
 
 The Band your on determines which bit0-bit5 of  the  &lt;DATA&gt; byte sets SET
-</value>
+
+&lt;DATA&gt;
+1   = Select bands: L/MW, 160m, 120m  (no relay needed with w6qpl design)
+2   = Select bands: 90m, 80m, 61m, 60m, 49m
+4   = Select bands: 41m, 40m, 31m ,30m
+8   = Select bands: 25m, 22m, 20m, 17m, 16m, 15m, 14m
+16 = Select bands: 13m, 12m, 11m, 10m
+32 = Select bands: 6m
+64 = Remote Amp ON  (only when 3 pos switch on Amp is in middle position)
+         (Relay in Amp turns Power supply ON/OFF as well)
+128 = PTT ON (only when 3pos switch on Amp is in middle position)</value>
   </data>
   <data name="chkBoxIIC.ToolTip" xml:space="preserve">
     <value>Check to use IIC FlexWire bus (address 0x4E) to send commands to an external device for AMP control.
@@ -155,6 +165,108 @@ Where &lt;DATA&gt; runs from the following map:
 
 &lt;DATA&gt; bit6 (64) is SET only if IIC AMP ON/OFF checkbox is set and on an HF/6m band
 </value>
+  </data>
+  <data name="chkBoxHTTP.ToolTip" xml:space="preserve">
+    <value>Setup your Router “Port Forward” to pass the Port# you select. 8081 is default
+get an No-IP.com account which is a permanent URL linked back to your home IP address
+set your router to update your No-Ip.com account (usually under apps and gaming)
+Now if you type in your no-ip.com URL:port#  from a web browser you will see your Panadapter
+
+You can place code into a web page to allow visitors to view your Panadapter.
+ &lt;iframe id="frame" src="https://your_no-ip_URL:8081"&gt;&lt;/iframe&gt;
+</value>
+  </data>
+  <data name="grpAudioDetails2.ToolTip" xml:space="preserve">
+    <value>VAC1: AF Volume Slider &amp; "Mute 1&gt;" box do NOT function in PowerSDR. (VAC2: AF slider &amp; Mute functions DO)
+NOTE: PowerSDR will not get INPUT audio from VAC1 unless you select VFOA as TX
+NOTE: VAC1 will ignore VFOB and Flex-5000 RX2
+
+This allows PowerSDR to send or receive audio to your PC 
+(As though PowerSDR was seperate from your PC and you were using RCA audio cables)
+
+MME:              Multimedia Extensions. Oldest standard with the highest latency (120mSec), but the most compatible drivers.
+DirectSound: Less latency than MME (Buffer Latency setting can be set as low as 90mSec)
+WDM-KS:       Windows Driver Model Kernal Streaming. Very low latency (Buffer Latency can be set as low as 15mSec) 
+
+ASIO:              Audio Stream I/O. Very low (10mSec) latency, but only 1 device allowed and is already being used betwen your Flex and PowerSDR</value>
+  </data>
+  <data name="tpVAC.ToolTip" xml:space="preserve">
+    <value>VAC1: AF Volume Slider &amp; "Mute 1&gt;" box do NOT function in PowerSDR. (VAC2: AF slider &amp; Mute functions DO)
+NOTE: PowerSDR will not get INPUT audio from VAC1 unless you select VFOA as TX
+NOTE: VAC1 will ignore VFOB and Flex-5000 RX2
+
+This allows PowerSDR to send or receive audio to your PC 
+(As though PowerSDR was seperate from your PC and you were using RCA audio cables)
+
+MME:              Multimedia Extensions. Oldest standard with the highest latency (120mSec), but the most compatible drivers.
+DirectSound: Less latency than MME (Buffer Latency setting can be set as low as 90mSec)
+WDM-KS:       Windows Driver Model Kernal Streaming. Very low latency (Buffer Latency can be set as low as 15mSec) 
+
+ASIO:              Audio Stream I/O. Very low (10mSec) latency, but only 1 device allowed and is already being used betwen your Flex and PowerSDR
+</value>
+  </data>
+  <data name="grpAudioDetails3.ToolTip" xml:space="preserve">
+    <value>VAC2: AF Volume Slider &amp; "Mute 1&gt;" box function in PowerSDR and will adjust this volume of RX1 (VAC1 will not). 
+NOTE: PowerSDR will not get VAC MIC INPUT audio from VAC2 unless you select VFOB as TX
+NOTE: If you have a Flex-5000 (with 2nd rec) VAC2 provides audio for RX2 when you enable RX2 &amp; "&lt;2 MUTE" box will function
+
+This allows PowerSDR to send or receive audio to your PC 
+(As though PowerSDR was seperate from your PC and you were using RCA audio cables)
+
+MME:              Multimedia Extensions. Oldest standard with the highest latency (120mSec), but the most compatible drivers.
+DirectSound: Less latency than MME (Buffer Latency setting can be set as low as 90mSec)
+WDM-KS:       Windows Driver Model Kernal Streaming. Very low latency (Buffer Latency can be set as low as 15mSec).
+
+ASIO:              Audio Stream I/O. Very low (10mSec) latency, but only 1 device allowed and is already being used betwen your Flex and PowerSDR
+</value>
+  </data>
+  <data name="tpVAC2.ToolTip" xml:space="preserve">
+    <value>VAC2: AF Volume Slider &amp; "Mute 1&gt;" box function in PowerSDR and will adjust this volume of RX1 (VAC1 will not). 
+NOTE: PowerSDR will not get VAC MIC INPUT audio from VAC2 unless you select VFOB as TX
+NOTE: If you have a Flex-5000 (with 2nd rec) VAC2 provides audio for RX2 when you enable RX2 &amp; "&lt;2 MUTE" box will function
+
+This allows PowerSDR to send or receive audio to your PC 
+(As though PowerSDR was seperate from your PC and you were using RCA audio cables)
+
+MME:              Multimedia Extensions. Oldest standard with the highest latency (120mSec), but the most compatible drivers.
+DirectSound: Less latency than MME (Buffer Latency setting can be set as low as 90mSec)
+WDM-KS:       Windows Driver Model Kernal Streaming. Very low latency (Buffer Latency can be set as low as 15mSec).
+
+ASIO:              Audio Stream I/O. Very low (10mSec) latency, but only 1 device allowed and is already being used betwen your Flex and PowerSDR
+
+</value>
+  </data>
+  <data name="chkDSPLevelerEnabled.ToolTip" xml:space="preserve">
+    <value>The Leveler is intended to even out the sound level variations through your microphone caused by
+varying distance from or angle to it. It is an attempt to level the amplitude presented to the rest of the
+DSP audio processing. The leveler is disabled in DIGU and DIGL modes.</value>
+  </data>
+  <data name="grpDSPLeveler.ToolTip" xml:space="preserve">
+    <value>The Leveler is intended to even out the sound level variations through your microphone caused by
+varying distance from or angle to it. It is an attempt to level the amplitude presented to the rest of the
+DSP audio processing. The leveler is disabled in DIGU and DIGL modes.</value>
+  </data>
+  <data name="grpDSPALC.ToolTip" xml:space="preserve">
+    <value>The ALC is what you would typically consider ALC to be in a transmitter. It is an attempt to prevent
+overdrive of the power amplifier and the distortion that would result. Because of the dual track ALC
+algorithm we use (similar to the AGC), this ALC will allow very high average power while maintaining
+peaks at a controlled level. The Compander (DX and CPDR on the Front Console - see Mode Specific
+Controls – Phone on page 82) work very well together with the ALC to increase average power without
+overdrive.</value>
+  </data>
+  <data name="grpDSPAGC.ToolTip" xml:space="preserve">
+    <value>The AGC is a state of the art, dual track AGC with anticipatory response on both fast and slower tracks.
+Or, stated differently, the AGC is in essence the combination of two AGCs, one with a very fast time
+constant, the other with a much slower time constant</value>
+  </data>
+  <data name="chkBandModeSave.ToolTip" xml:space="preserve">
+    <value>When Checked, will save Transmit DRIVE Slider setpoint, and Drive Max setpoint per Band and per Mode
+
+Normally (unchecked), Only Transmit Drive Slider setpoint is saved per Band 
+
+AGC-T continues to be saves on a per Band basis only.
+
+Do not use this feature if an external program like DDUtil, controls your Drive levels.</value>
   </data>
   <data name="udTXAMCarrierLevel.ToolTip" xml:space="preserve">
     <value>One suggested way to setup for AM mode: 
@@ -183,7 +295,7 @@ Your Audio should now allow for Peaks of Max power out with a Carrier of 25% max
     <value>491, 17</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>64</value>
+    <value>63</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

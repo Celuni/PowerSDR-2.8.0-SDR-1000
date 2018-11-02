@@ -197,14 +197,14 @@ namespace PowerSDR
     /*
              <?xml version="1.0" encoding = "utf-8"?>
              <powersdr>
-                 <version>2.8.0.28</version>
+                 <version>2.8.0.100</version>
                 <url>http://ke9ns.com/flexpage.html/</url>
              </powersdr>
         */
 
             string downloadUrl = "";
             Version newVersion = null;
-            string xmlUrl = "http://ke9ns.com/update.xml";
+            string xmlUrl = "http://sdr.mis.ks.ua/update.xml";
             XmlTextReader reader = null;
 
             try

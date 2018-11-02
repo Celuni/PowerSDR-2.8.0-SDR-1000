@@ -211,35 +211,33 @@ DDUtil may not be running, or configured correctly.
     <value>HIT F1 for HELPBOX
 
 LoTW (ARRL Log Book of The World)
------------------------------------------------------------------------------------------------------------
-If you do NOT have an LoTW account, SIGN UP AT: http://www.arrl.org/quick-start
+
+If you do NOT have an LoTW account, SIGN UP AT: &lt;http://www.arrl.org/quick-start&gt;
 Yes its overly complicated, but you only need to do it one time!
-------------------------------------------------------------------------------------------------------------
 
-You must have your Callsign entered in the box in the bottom Right corner
-Right click on the callsign box and enter in your LoTW password.
-This is the password that you use to login to: https://lotw.arrl.org/lotw/login
+---------------------------------------------------------------------------------------
+DX Spotter Screen:
+1) You must have your Callsign entered in the box in the bottom Right corner
+2) Right click on the Callsign box and enter in your LoTW password.
+This is the password that you use to login to: &lt;https://lotw.arrl.org/lotw/login&gt;
 
-------------------------------------------------------------------------------------------------------------
-Turn ON/OFF LoTW checking (LEFT CLICK):
+---------------------------------------------------------------------------------------
+[Left Click] LoTW Button = (On/Off):
+PowerSDR will check to see if you have a “LoTW_LOG.adi” file, and “FCCDATA.dat” file in your database folder.
 
-PowerSDR will check to see if you have a LoTW_LOG.adi file, and a FCCDATA.dat file in your database folder.
-YES=Open/Read LOTW_LOG and FCCDATA files, and start checking DX Spots for Dups, DXCC Countries list, and US States.
-NO=PowerSDR will go to ARRL and download your FULL LoTW LOG file.
-         If you dont have a FCCDATA file, PowerSDR will attempt to find EN.dat and convert it to FCCDATA
--------------------------------------------------------------------------------------------------------------
-LoTW turns Green when running.
-LoTW turns Yellow when downloading a QSO file
-LoTW turns Red when a fault occurs.
-If you have not downloaded a QSO file from LoTW, it will try to download a Full Log file first before running.
+Files YES= Open/Read “LoTW_LOG.adi” and “FCCDATA.dat” files, and start checking DX Spots for Dups, DXCC Countries list, and US States.
 
--------------------------------------------------------------------------------------------------------------
-Update your LoTW LOG file (RIGHT CLICK):
- 
-Flags PowerSDR to go to LoTW and Download an update to your Last downloaded LoTW file and 
-add it to your originally downloaded LoTW_LOG.adi file.  (should only take a few seconds to download an update).
-If you have an FCC EN.dat file, it will generate a new FCCDATA.dat file from the EN.dat file
-</value>
+Files NO= PowerSDR will go to ARRL and download your FULL LoTW Log file. (This may take a few minutes to download) 
+If you don’t have a “FCCDATA.dat” file, PowerSDR will attempt to find EN.dat and convert it to “FCCDATA.dat”
+
+-----------------------------------------------------------------------------------------------------
+[Right Click]   LoTW Button = incremental Log file update:
+PowerSDR will go to ARRL and download incremental QSO/QSL updates to your LoTW Log file (based on the Date of the Last Update). 
+This requires only a few seconds to update.
+
+LoTW  when running.
+LoTW  when downloading a LoTW Log QSO/QSLfile
+LoTW  when a fault occured.</value>
   </data>
   <metadata name="mainMenu1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>264, 17</value>

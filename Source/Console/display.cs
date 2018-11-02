@@ -2642,6 +2642,8 @@ namespace PowerSDR
         private static Pen p3 = new Pen(Color.Blue, 2.5f);                   // ke9ns add vert line color and thickness    MEMORY
         private static Pen p2 = new Pen(Color.Purple, 2.0f);                  // ke9ns add color for vert line of SWL list
 
+     //   private static Pen p4 = new Pen(Color.White, 2.0f);                  // ke9ns add color for vert line for TIME UTC pos
+
         private static SizeF length;                                          // ke9ns add length of call sign so we can do usb/lsb and define a box to click into
         private static SizeF length1;                                          // ke9ns add length of call sign so we can do usb/lsb and define a box to click into
 
@@ -12001,6 +12003,7 @@ namespace PowerSDR
                 } // MEMORY SPOTTING
 
 
+               SpotForm.hpos = H; // ke9ns add height of panadapter part of picDisplay screen. 573max=full pan, 477max=8020, 286max=panafall
 
 
                 //===============================================================================================================================================================
@@ -12018,6 +12021,54 @@ namespace PowerSDR
                     DateTime UTCD = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc); // used by both RX1 and RX2 SWL display
                     byte UTCDD = (byte)(1 << ((byte)UTCD.DayOfWeek));   // this is the day. Sun = 0, Mon = 1
                     SpotControl.UTCNEW1 = Convert.ToInt16(UTCD.ToString("HHmm"), CultureInfo.InvariantCulture); // convert 24hr UTC to int
+
+                 
+/*
+                    //=============================
+                    // W=1605 full HD, W=1447 full HD with bandstack screen open
+                    // 1440 min / day
+                    // UTC time is time in London
+                    // international date line is off of Alaska coast which is 720min from UTC
+                    // day change takes place wherever 0 utc is (0300UTC= 0 Day line is 180min back)(2300UTC= 0 Day line is 1380min back)
+                    //
+
+                    bool day = false;
+
+                    double minfact =  (double)W / 1440.0; // minfact = 1.114 or 1.004 this is the scaling factor the the current Width of the picDisplay area
+
+                    int mins = UTCD.Hour * 60 + UTCD.Minute; // minutes of the current UTC day (ie current time in London): 0 UTC would place the DAY line over London
+
+                    if (mins >= 720)
+                    {
+                        day = true; //<- UTCDAY | UTCDAY+1 ->
+                    }
+                    else day = false; // <- UTCDAY-1 | UTCDAY ->
+                    
+                    int minpos = (int)((double)mins * minfact); // scale the UTC Day line to the Display area
+
+                    int minpos1 = (int)(((double)W / 2) - minpos); // 1605/2 = 802 - 1174
+
+                    if (minpos1 < 0) minpos1 = W + minpos1; // move over to the left side
+
+                    g.DrawLine(p4, minpos1, H-35, minpos1, H);   // draw vertical line
+
+
+                    if (day == false)
+                    {
+                        SizeF length1 = g.MeasureString("<- " + UTCD.AddDays(-1).ToString("dddd"), font1); //  used for google lookups of SWL stations
+                        g.DrawString("<- " + UTCD.AddDays(-1).ToString("dddd"), font1, grid_text_brush, minpos1 - (length1.Width + 8), H - 15);
+                        g.DrawString(UTCD.ToString("dddd") + " ->", font1, grid_text_brush, minpos1 + 8, H - 15);
+                    }
+                    else
+                    {
+                        SizeF length1 = g.MeasureString("<- " + UTCD.ToString("dddd"), font1); //  used for google lookups of SWL stations
+                        g.DrawString("<- " + UTCD.ToString("dddd"), font1, grid_text_brush, minpos1 - (length1.Width + 8), H - 15);
+                        g.DrawString(UTCD.AddDays(1).ToString("dddd") + " ->", font1, grid_text_brush, minpos1 + 8, H - 15);
+
+                    }
+
+                    //   Debug.WriteLine("day: " + W + " , "+ console.picDisplay.Width + " , " + minpos);
+*/
 
                     if ((!bottom) && (vfoa_hz < 54000000))// do SWL spot if active and not transmitting
                     {
@@ -16594,8 +16645,8 @@ namespace PowerSDR
 						fixed(void *wptr = &current_display_data[0])
 							Win32.memcpy(wptr, rptr, BUFFER_SIZE*sizeof(float));
 
-					//if ( current_model == Model.SOFTROCK40 ) 
-					//	console.AdjustDisplayDataForBandEdge(ref current_display_data);
+					if ( current_model == Model.SOFTROCK40 ) 
+						console.AdjustDisplayDataForBandEdge(ref current_display_data);
 				}
 				data_ready = false;
 			}
@@ -16835,6 +16886,10 @@ namespace PowerSDR
         static int W10=1;
         static int H10=1;
 
+        public static int lastvalue = 0; // DttSP freeze check using SUM value of panadapter
+        public static int lastvaluecount = 0; // counter for how many times the SUM value was frozen.
+        public static int restartcount = 0; // total number of times DttSP had to restart
+
         unsafe static private bool DrawPanadapter(Graphics g, int W, int H, int rx, bool bottom)
 		{
 
@@ -16961,7 +17016,7 @@ namespace PowerSDR
                     // ke9ns data
                    
 
-                 //   if ( current_model == Model.SOFTROCK40 ) 	console.AdjustDisplayDataForBandEdge(ref current_display_data);
+                        if ( current_model == Model.SOFTROCK40 ) 	console.AdjustDisplayDataForBandEdge(ref current_display_data);
 				}
 				data_ready = false;
 
@@ -17173,11 +17228,11 @@ namespace PowerSDR
 
                 //=========================================================================
                 // ke9ns add
-                if ( (console.BeaconSigAvg == true)  && ( rx == 1)) // ke9ns add for beacon scanning
+                if ((!mox) && (rx == 1) && ( (console.BeaconSigAvg == true) || (console.setupForm.chkBoxRestart.Checked && console.chkPower.Checked) || ((console.ScanForm != null) && (console.ScanForm.chkBoxIdent.Checked == true)) )  ) // ke9ns add for beacon scanning
                 {
                     max1 = max1 + max; // sum up entire panadapter line (left to right)
 
-                }
+                } // check for beacon scanning and DttSP freeze conditions
 
               
                 //=========================================================
@@ -17185,7 +17240,7 @@ namespace PowerSDR
                 if ( (!mox) && (console.ScanForm != null) && (console.ScanForm.chkBoxIdent.Checked == true) && (rx == 1))
                 {
                    
-                    max1 = max1 + max; // sum up entire panadapter line (left to right) to come up with floor value (-125 dBm) calculated at the just below this FOR loop
+                 //   max1 = max1 + max; // sum up entire panadapter line (left to right) to come up with floor value (-125 dBm) calculated at the just below this FOR loop
 
                     if (IDENT_Reset == true)
                     {
@@ -17335,7 +17390,40 @@ namespace PowerSDR
 
             } //  if (console.BeaconSigAvg == true)
 
-        
+
+            //===============================================================
+            // ke9ns add DttSP freeze detection
+            //================================================================
+            if ((console.setupForm.chkBoxRestart.Checked) && (console.chkPower.Checked) && !mox) // ((rx1_dsp_mode != DSPMode.CWL && rx1_dsp_mode != DSPMode.CWU) || !mox))  // ke9ns only check for DttSP freeze if PowerSDR is running.
+            {
+              //  Debug.WriteLine("DttSP check");
+                if ((int)max1 == lastvalue)
+                {
+                    if (lastvaluecount++ > 3) // if same exact display for 3 cycles
+                    {
+                        Debug.WriteLine("DttSP appears to be frozen. Will unfreeze");
+                      
+                        console.chkPower.Checked = false; // turn off
+
+                        lastvaluecount = 0;
+                        restartcount++;
+                        console.setupForm.textBoxRestart.Text = restartcount.ToString();
+
+                        console.chkPower.Checked = true; // turn back on
+                    }
+                    else
+                    {
+                        Debug.WriteLine("DttSP freeze value: "+ lastvaluecount);
+                    }
+                }
+                else
+                {
+                    lastvalue = (int)max1;
+                    lastvaluecount = 0; // reset value and counter
+                }
+
+            }
+
 
             //=========================================================================
             // ke9ns Panadapter level adjust

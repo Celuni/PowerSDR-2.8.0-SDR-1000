@@ -342,7 +342,7 @@ namespace PowerSDR
 		EXTIGY,
 		MP3_PLUS,
 		SANTA_CRUZ,
-		SB0222,
+		SB0222,		
 		LAST,
 	}
 
@@ -547,8 +547,8 @@ namespace PowerSDR
     public enum DSPMode
 	{
 		FIRST = -1,
-		LSB,
-		USB,
+		LSB, // 0
+		USB, // 1
 		DSB,
 		CWL,
 		CWU,
@@ -812,6 +812,8 @@ namespace PowerSDR
         private ToolStripMenuItem SWLMenuItem;
         private PictureBox ScreenCap;
         private PictureBox ScreenCap1;
+        public CheckBoxTS checkBoxIICPTT;
+        public CheckBoxTS checkBoxIICON;
         SpeechSynthesizer speaker = new SpeechSynthesizer(); // ke9ns add 
 
         //============================================================================ ke9ns add
@@ -2689,6 +2691,9 @@ namespace PowerSDR
                     case SoundCard.EDIROL_FA_66:
                         rx1_meter_cal_offset = -46.82864f;
                         break;
+					case SoundCard.SB0222:
+                        rx1_meter_cal_offset = -25.13887f;
+                        break;
                     case SoundCard.UNSUPPORTED_CARD:
                         rx1_meter_cal_offset = -22.43533f;
                         break;
@@ -2719,6 +2724,9 @@ namespace PowerSDR
                         break;
                     case SoundCard.EDIROL_FA_66:
                         RX1DisplayCalOffset = -80.429f;
+                        break;
+                    case SoundCard.SB0222:
+                        RX1DisplayCalOffset = -57.467f;
                         break;
                     case SoundCard.UNSUPPORTED_CARD:
                         RX1DisplayCalOffset = -48.62103f;
@@ -2825,6 +2833,14 @@ namespace PowerSDR
 #endif
             txtVFOAFreq_LostFocus(this, EventArgs.Empty);
             txtVFOBFreq_LostFocus(this, EventArgs.Empty);
+
+            if (setupForm != null)
+            {
+                if (setupForm.chkBoxAutoStart.Checked == true)
+                {
+                    chkPower.Checked = true;
+                }
+            }
         } // public console
 
 
@@ -2905,6 +2921,8 @@ namespace PowerSDR
             this.timer_cpu_meter = new System.Windows.Forms.Timer(this.components);
             this.timer_peak_text = new System.Windows.Forms.Timer(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.checkBoxIICPTT = new System.Windows.Forms.CheckBoxTS();
+            this.checkBoxIICON = new System.Windows.Forms.CheckBoxTS();
             this.chkVAC2 = new System.Windows.Forms.CheckBoxTS();
             this.btnZeroBeat = new System.Windows.Forms.ButtonTS();
             this.chkVFOSplit = new System.Windows.Forms.CheckBoxTS();
@@ -3452,6 +3470,27 @@ namespace PowerSDR
             this.toolTip1.AutoPopDelay = 12000;
             this.toolTip1.InitialDelay = 500;
             this.toolTip1.ReshowDelay = 40;
+            // 
+            // checkBoxIICPTT
+            // 
+            resources.ApplyResources(this.checkBoxIICPTT, "checkBoxIICPTT");
+            this.checkBoxIICPTT.BackColor = System.Drawing.Color.Yellow;
+            this.checkBoxIICPTT.FlatAppearance.CheckedBackColor = System.Drawing.Color.LimeGreen;
+            this.checkBoxIICPTT.Name = "checkBoxIICPTT";
+            this.toolTip1.SetToolTip(this.checkBoxIICPTT, resources.GetString("checkBoxIICPTT.ToolTip"));
+            this.checkBoxIICPTT.UseVisualStyleBackColor = false;
+            this.checkBoxIICPTT.CheckedChanged += new System.EventHandler(this.checkBoxIICPTT_CheckedChanged);
+            // 
+            // checkBoxIICON
+            // 
+            resources.ApplyResources(this.checkBoxIICON, "checkBoxIICON");
+            this.checkBoxIICON.BackColor = System.Drawing.Color.Orange;
+            this.checkBoxIICON.FlatAppearance.CheckedBackColor = System.Drawing.Color.Red;
+            this.checkBoxIICON.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.checkBoxIICON.Name = "checkBoxIICON";
+            this.toolTip1.SetToolTip(this.checkBoxIICON, resources.GetString("checkBoxIICON.ToolTip"));
+            this.checkBoxIICON.UseVisualStyleBackColor = false;
+            this.checkBoxIICON.CheckedChanged += new System.EventHandler(this.checkBoxIICON_CheckedChanged);
             // 
             // chkVAC2
             // 
@@ -6043,8 +6082,8 @@ namespace PowerSDR
             // lblDisplayPan
             // 
             this.lblDisplayPan.BackColor = System.Drawing.Color.Black;
-            this.lblDisplayPan.ForeColor = System.Drawing.Color.White;
             resources.ApplyResources(this.lblDisplayPan, "lblDisplayPan");
+            this.lblDisplayPan.ForeColor = System.Drawing.Color.White;
             this.lblDisplayPan.Name = "lblDisplayPan";
             this.toolTip1.SetToolTip(this.lblDisplayPan, resources.GetString("lblDisplayPan.ToolTip"));
             this.lblDisplayPan.UseVisualStyleBackColor = false;
@@ -6639,7 +6678,6 @@ namespace PowerSDR
             resources.ApplyResources(this.spotterMenu, "spotterMenu");
             this.spotterMenu.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.spotterMenu.Name = "spotterMenu";
-            this.spotterMenu.CheckedChanged += new System.EventHandler(this.spotterMenu_CheckedChanged);
             this.spotterMenu.Click += new System.EventHandler(this.spotterMenu_Click);
             this.spotterMenu.MouseDown += new System.Windows.Forms.MouseEventHandler(this.spotterMenu_MouseDown);
             // 
@@ -8229,6 +8267,8 @@ namespace PowerSDR
             // 
             resources.ApplyResources(this, "$this");
             this.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.Controls.Add(this.checkBoxIICPTT);
+            this.Controls.Add(this.checkBoxIICON);
             this.Controls.Add(this.panelVFO);
             this.Controls.Add(this.panelTS1);
             this.Controls.Add(this.VFODialBB);
@@ -8818,6 +8858,23 @@ namespace PowerSDR
 
             power_by_band = new int[(int)Band.LAST];
             for (int i = 0; i < (int)Band.LAST; i++) power_by_band[i] = 50;
+
+            //=============================================
+            // ke9ns add
+            power_by_mode_by_band = new int[(int)Band.LAST,(int)DSPMode.LAST]; // set drive slider based on Mode and Band
+
+            limit_by_mode_by_band = new int[(int)Band.LAST, (int)DSPMode.LAST]; // set TX max drive based on mode and band
+
+            for (int i = 0; i < (int)Band.LAST; i++)
+            {
+                for (int ii = 0; ii < (int)DSPMode.LAST; ii++)
+                {
+                    power_by_mode_by_band[i,ii] = 50;    // default driver slider to 50
+                    limit_by_mode_by_band[i, ii] = 100; // default drive limit to 100
+                }
+            }
+
+
 
             fm_tx_offset_by_band_mhz = new double[(int)Band.LAST];
             for (int i = 0; i < (int)Band.LAST; i++) // setup default FM offsets
@@ -9421,13 +9478,23 @@ namespace PowerSDR
 
             if (flexcontrol_autodetect) FlexControlScan();
 
-            Debug.WriteLine("SWLLOAD1");
+            Debug.WriteLine("Console: Create SpotControl Instance here");
 
 
             if (SpotForm == null || SpotForm.IsDisposed) SpotForm = new SpotControl(this);  // create spotform
 
+         
 
-            SpotForm.DXLOC_FILE(); // ke9ns add preload DXLOCation file
+           SpotForm.Show();
+            SpotForm.Hide();
+
+          //  SpotForm.Focus();
+          //  SpotForm.WindowState = FormWindowState.Normal; // ke9ns add
+
+
+
+            //  SpotForm.textBox1.CreateControl();
+            //  SpotForm.DXLOC_FILE(); // ke9ns add preload DXLOCation file
 
 
 
@@ -10281,6 +10348,35 @@ namespace PowerSDR
                 s += power_by_band[i].ToString() + "|";
             s = s.Substring(0, s.Length - 1);
             a.Add(s);
+
+            //==========================================
+            // ke9ns add
+            s = "power_by_mode_by_band/";
+            for (int i = 0; i < (int)Band.LAST; i++)
+            {
+                for (int ii = 0; ii < (int)DSPMode.LAST; ii++)
+                {
+                    s += power_by_mode_by_band[i,ii].ToString() + "|";
+                }
+            }
+            s = s.Substring(0, s.Length - 1);
+            a.Add(s);
+
+            //==========================================
+            // ke9ns add
+            s = "limit_by_mode_by_band/";
+            for (int i = 0; i < (int)Band.LAST; i++)
+            {
+                for (int ii = 0; ii < (int)DSPMode.LAST; ii++)
+                {
+                    s += limit_by_mode_by_band[i, ii].ToString() + "|";
+                }
+            }
+            s = s.Substring(0, s.Length - 1);
+            a.Add(s);
+
+
+            //==========================================
 
             s = "fm_tx_offset_by_band_mhz/";
             for (int i = 0; i < (int)Band.LAST; i++)
@@ -11239,6 +11335,39 @@ namespace PowerSDR
                             power_by_band[i] = int.Parse(list[i]);
                         }
                         else Debug.WriteLine("index short");
+                    }
+                }
+
+                //========================================================
+                else if (name.StartsWith("power_by_mode_by_band")) // ke9ns add
+                {
+                    string[] list = val.Split('|');
+                    for (int i = 0; i < (int)Band.LAST; i++)
+                    {
+                        for (int ii = 0; ii < (int)DSPMode.LAST; ii++)
+                        {
+                            if ( ((i * (int)DSPMode.LAST) + ii) < list.Length)
+                            {
+                                  power_by_mode_by_band[i,ii] = int.Parse(list[(i* (int)DSPMode.LAST) + ii]); // (i * dspmode.last)+ii
+                            }
+                            else Debug.WriteLine("index short");
+                        }
+                    }
+                }
+                //========================================================
+                else if (name.StartsWith("limit_by_mode_by_band")) // ke9ns add
+                {
+                    string[] list = val.Split('|');
+                    for (int i = 0; i < (int)Band.LAST; i++)
+                    {
+                        for (int ii = 0; ii < (int)DSPMode.LAST; ii++)
+                        {
+                            if (((i * (int)DSPMode.LAST) + ii) < list.Length)
+                            {
+                                limit_by_mode_by_band[i, ii] = int.Parse(list[(i * (int)DSPMode.LAST) + ii]); // 
+                            }
+                            else Debug.WriteLine("index short");
+                        }
                     }
                 }
                 else if (name.StartsWith("fm_tx_offset_by_band_mhz"))
@@ -21007,7 +21136,7 @@ namespace PowerSDR
 
             return;
 
-            /*	if ( current_model != Model.SOFTROCK40)  // -- no aliasing going on 
+            	if ( current_model != Model.SOFTROCK40)  // -- no aliasing going on 
                     return;   
 
                 if ( rx1_dsp_mode == DSPMode.DRM )  // for now don't worry about aliasing in DRM land 
@@ -21050,7 +21179,6 @@ namespace PowerSDR
                     // Debug.WriteLine("data_high: " + bin_num); 
                 }
                 return;		
-                */
         }
         // end kb9yig sr40 mod 
 
@@ -24378,8 +24506,8 @@ namespace PowerSDR
                 case Model.SDR1000:
                 case Model.DEMO:
                 case Model.SOFTROCK40:
-                    //bool rx_only = SetupForm.RXOnly;					// Save RX Only Setting
-                    //SetupForm.RXOnly = true;
+                     //bool rx_only = setupForm.RXOnly;					// Save RX Only Setting
+                     //setupForm.RXOnly = true;
 
                     double vfoa = VFOAFreq;								// save current VFOA
 
@@ -29312,6 +29440,23 @@ namespace PowerSDR
 
         private double[] fm_tx_offset_by_band_mhz;
 
+        //=================================================================
+        // ke9ns add (to allow different power levels per band and per mode
+        private int[,] power_by_mode_by_band = new int[(int)Band.LAST,(int)DSPMode.LAST];
+        private int[,] limit_by_mode_by_band = new int[(int)Band.LAST, (int)DSPMode.LAST]; // setupForm.udTXDriveMax setpoint
+
+        public void SetPowerM(Band b, DSPMode d, int pwr)
+        {
+            power_by_mode_by_band[(int)b,(int)d] = pwr;
+            if (tx_band == b) PWR = pwr;
+        }
+
+        public int GetPowerM(Band b , DSPMode d)
+        {
+            return power_by_mode_by_band[(int)b,(int)d];
+        }
+
+
         private int[] power_by_band;
         public void SetPower(Band b, int pwr)
         {
@@ -32383,13 +32528,13 @@ namespace PowerSDR
             set
             {
                 soft_rock_center_freq = value;
-                /*	if(current_model == Model.SOFTROCK40)
+                	if(current_model == Model.SOFTROCK40)
                     {
                         MinFreq = soft_rock_center_freq - sample_rate1/2*1e-6;
                         MaxFreq = soft_rock_center_freq + sample_rate1/2*1e-6;
                         if(setupForm != null)
                             txtVFOAFreq_LostFocus(this, EventArgs.Empty);
-                    } */
+                    }
             }
         }
 
@@ -35163,24 +35308,27 @@ namespace PowerSDR
             64 = Remote ON / OFF (N.C. relay contact to setup AMP for remote band switching)
                                   (N.O. relay to Power ON AMP and/or PTT enable)
 
-           128 = Select Bands: VHF/UHF bands (currently not used)
+           128 = Select Bands: VHF/UHF bands (currently not used) (now used for PTT instead)
 
             */
 
 
 
-            if ((setupForm != null) && (setupForm.chkBoxIIC.Checked == true))
+            if ((setupForm != null) && (setupForm.chkBoxIIC.Checked == true)) //ke9ns check if IIC is Enabled
             {
                 byte temp1 = 0;
 
-                if ((setupForm.chkBoxIICON.Checked == true) && (AMPBAND1 != 128) )
+                if ((setupForm.chkBoxIICON.Checked == true) && (AMPBAND1 != 128) ) // 128=vhf but not using it now. using it for ptt
                 {
-                    temp1 = (byte)(AMPBAND1 | 64);
+                    temp1 = (byte)(AMPBAND1 | 64); // If AMP is to be ON, then OR 64
+
+                    if (checkBoxIICPTT.Checked == true) temp1 = (byte)(AMPBAND1 | 128 | 64); // if Amp is to allow PTT, then OR 64
+
                 }
                 else
                 {
-                    if (AMPBAND == 128) temp1 = (byte)(128); // also if in VHF/UHF shut down the AMP
-                    else temp1 = 0; // turn OFF
+                  //  if (AMPBAND == 128) temp1 = (byte)(128); // also if in VHF/UHF shut down the AMP
+                  //  else temp1 = 0; // turn OFF
                 }
 
                 if (AMPBAND > 128) // shut down
@@ -35431,6 +35579,96 @@ namespace PowerSDR
             }
         }
 
+
+        //========================================
+        // ke9ns add
+        private DSPMode newMode = DSPMode.LAST;
+
+        public DSPMode TXMode
+        {
+            get
+            {
+                return rx1_dsp_mode;
+            }
+            set
+            {
+                newMode = value;
+
+                if ((int)tx_band < 0) return; // dont save mode drive levels if invalid band or mode data
+                if ((int)rx1_dsp_mode < 0) return;
+                
+
+                int old_pwr = ptbPWR.Value; // current value of the power slider
+                int old_mode = (int)rx1_dsp_mode; // current dsp mode (am,ssb,etc)
+
+                int old_limit = 100;
+                if (setupForm != null) old_limit = (int)setupForm.udTXDriveMax.Value;
+
+   
+                if (old_mode < 0) old_mode = 0;
+
+                if (old_pwr > old_limit) old_pwr = old_limit; // check
+
+                try
+                {
+                     power_by_mode_by_band[(int)tx_band, old_mode] = old_pwr; // save current drive slider setting
+                     limit_by_mode_by_band[(int)tx_band, old_mode] = old_limit; // save current setting for drive limit
+                }
+                catch
+                {
+
+                }
+
+                    if ((setupForm != null) && (setupForm.chkBandModeSave.Checked == true)) // only update slider and max if the option is enabled.
+                    {
+
+                        try
+                        {
+
+                            if (limit_by_mode_by_band[(int)tx_band, (int)newMode] > 100) limit_by_mode_by_band[(int)tx_band, (int)newMode] = 100;
+                            if (limit_by_mode_by_band[(int)tx_band, (int)newMode] < 0) limit_by_mode_by_band[(int)tx_band, (int)newMode] = 0;
+
+                            if (power_by_mode_by_band[(int)tx_band, (int)newMode] > limit_by_mode_by_band[(int)tx_band, (int)newMode])
+                            {
+                                power_by_mode_by_band[(int)tx_band, (int)newMode] = limit_by_mode_by_band[(int)tx_band, (int)newMode];
+                            }
+
+                            if (power_by_mode_by_band[(int)tx_band, (int)newMode] < 0) power_by_mode_by_band[(int)tx_band, (int)newMode] = 0;
+                        }
+                        catch
+                        {
+
+                        }
+
+                        try
+                        {
+
+                            PWR = power_by_mode_by_band[(int)tx_band, (int)newMode]; // set the drive slider to the value from the database because you changed mode
+                            ptbPWR_Scroll(this, EventArgs.Empty);
+                        }
+                        catch (Exception e)
+                        {
+                            Debug.WriteLine("TXMode drive slider fail " + e);
+                        }
+
+                        try
+                        {
+                            if (setupForm != null) setupForm.udTXDriveMax.Value = limit_by_mode_by_band[(int)tx_band, (int)newMode]; // set the drive slider to the value from the database because you changed mode
+
+                        }
+                        catch (Exception e)
+                        {
+                            Debug.WriteLine("TXMODE drive limit fail " + e);
+                        }
+
+                    }
+
+                
+            } // set
+
+
+        } // DSPMode TXMode
+
         //===================================================
         private Band tx_band;
         public Band TXBand
@@ -35465,18 +35703,71 @@ namespace PowerSDR
                     }
                 }     
 */
-                if (tx_band != old_band || initializing)
+                //    if (tx_band != old_band || initializing)
+             
+                if (tx_band != old_band || initializing || ((rx1_dsp_mode != rx1_dsp_mode_last) && (setupForm != null) && (setupForm.chkBandModeSave.Checked == true))    ) // ke9ns mod
                 {
                     WBIRRX1Holdoff();
 
-                    // save values for old band
+                 
+                    rx1_dsp_mode_last = rx1_dsp_mode; // ke9ns
+
+                    //  save values for old band
                     int old_pwr = ptbPWR.Value;
-                    power_by_band[(int)old_band] = old_pwr;
+                    int old_mode = (int)rx1_dsp_mode;
 
-                    //if (tx_xvtr_index < 0)
-                    PWR = power_by_band[(int)value];
 
-                    ptbPWR_Scroll(this, EventArgs.Empty);
+
+                    int old_limit = 100; // ke9ns add
+                    if (setupForm != null) old_limit = (int)setupForm.udTXDriveMax.Value; // ke9ns add
+
+                    if (old_pwr > old_limit) old_pwr = old_limit; // check
+
+                    try
+                    {
+
+
+                        if (setupForm != null && setupForm.chkBandModeSave.Checked == true && (old_mode >= 0 && (int)old_band >= 0 && (int)tx_band >= 0) ) // ke9ns add only update slider and max if the option is enabled.
+                        {
+                            power_by_mode_by_band[(int)old_band, old_mode] = old_pwr; // ke9ns add
+                            limit_by_mode_by_band[(int)old_band, old_mode] = old_limit; // save current setting for drive limit
+                        }
+                        else
+                        {
+                            power_by_band[(int)old_band] = old_pwr; // original way
+                        }
+
+                        if (old_mode >= 0 && (int)old_band >= 0 && (int)tx_band >= 0)
+                        {
+                            if (limit_by_mode_by_band[(int)tx_band, (int)newMode] > 100) limit_by_mode_by_band[(int)tx_band, (int)newMode] = 100;
+                            if (limit_by_mode_by_band[(int)tx_band, (int)newMode] < 0) limit_by_mode_by_band[(int)tx_band, (int)newMode] = 0;
+
+                            if (power_by_mode_by_band[(int)tx_band, (int)newMode] > limit_by_mode_by_band[(int)tx_band, (int)newMode])
+                            {
+                                power_by_mode_by_band[(int)tx_band, (int)newMode] = limit_by_mode_by_band[(int)tx_band, (int)newMode];
+                            }
+
+                            if (power_by_mode_by_band[(int)tx_band, (int)newMode] < 0) power_by_mode_by_band[(int)tx_band, (int)newMode] = 0;
+                            //if (tx_xvtr_index < 0)
+                        }
+
+                        if (setupForm != null && setupForm.chkBandModeSave.Checked == true && (old_mode >= 0 && (int)old_band >= 0 && (int)tx_band >= 0)) // ke9ns add  only update slider and max if the option is enabled.
+                        {
+                            PWR = power_by_mode_by_band[(int)value, (int)newMode]; // ke9ns add
+                            if (setupForm != null) setupForm.udTXDriveMax.Value = limit_by_mode_by_band[(int)value, (int)newMode]; // set the drive slider to the value from the database because you changed mode
+                        }
+                        else
+                        {
+                            PWR = power_by_band[(int)value]; // original way
+                        }
+
+                        ptbPWR_Scroll(this, EventArgs.Empty);
+                    }
+                    catch
+                    {
+
+                    }
+                   
 
                     // save FM TX Offset
                     fm_tx_offset_by_band_mhz[(int)old_band] = fm_tx_offset_mhz;
@@ -35994,6 +36285,8 @@ namespace PowerSDR
         #endregion
 
         private DSPMode rx1_dsp_mode = DSPMode.FIRST;
+        private DSPMode rx1_dsp_mode_last = DSPMode.FIRST; // ke9ns add
+
         public DSPMode RX1DSPMode
         {
             get { return rx1_dsp_mode; }
@@ -38654,7 +38947,7 @@ namespace PowerSDR
 
             //  Debug.WriteLine("picDisplay Paint here");
 
-            if (panelTSBandStack.Enabled == true) // ke9ns add
+            if (panelTSBandStack.Enabled == true) // ke9ns add  if the bandstack window is OPEN, then reduce the Panadapter display width
             {
 
                 picDisplay.Width = panelDisplay.Width - panelTSBandStack.Width - 18;
@@ -46930,17 +47223,17 @@ namespace PowerSDR
 
 
                     double delta_vfo;
-                    //	if ( current_model != Model.SOFTROCK40 ) 
-                    //	{ 					
-                    delta_vfo = DDSFreq - rx1_avg_last_ddsfreq;
-                    delta_vfo *= 1e6; // vfo in mhz moron!
-                                      //}
-                                      //	else 
-                                      //	{ 						
-                                      //	delta_vfo = dttsp_osc - rx1_avg_last_dttsp_osc; 
-                                      //	delta_vfo = -delta_vfo; 
-                                      //	Debug.WriteLine("update from dttsp delta_vfo: " + delta_vfo); 
-                                      //	} 
+                    	if ( current_model != Model.SOFTROCK40 ) 
+                    	{ 					
+                            delta_vfo = DDSFreq - rx1_avg_last_ddsfreq;
+                            delta_vfo *= 1e6; // vfo in mhz moron!
+                        }
+                        else 
+                        { 						
+                            delta_vfo = dttsp_osc - rx1_avg_last_dttsp_osc; 
+                            delta_vfo = -delta_vfo; 
+                            //Debug.WriteLine("update from dttsp delta_vfo: " + delta_vfo); 
+                        } 
 
 
                     double hz_per_bin = sample_rate1 / Display.BUFFER_SIZE;   // ke9ns 192000 / 4096 = 46.875 hz per bin
@@ -47084,17 +47377,17 @@ namespace PowerSDR
                 {
                     //Debug.WriteLine("dttsp_osc: " + dttsp_osc); 
                     double delta_vfo;
-                    //	if ( current_model != Model.SOFTROCK40 ) 
-                    //	{ 					
-                    delta_vfo = DDSFreq - rx2_avg_last_ddsfreq;
-                    delta_vfo *= 1e6; // vfo in mhz moron!
-                                      //	}
-                                      //	else 
-                                      //	{ 						
-                                      //	delta_vfo = dttsp_osc - rx2_avg_last_dttsp_osc; 
-                                      //	delta_vfo = -delta_vfo; 
-                                      //Debug.WriteLine("update from dttsp delta_vfo: " + delta_vfo); 
-                                      //	} 
+                    	if ( current_model != Model.SOFTROCK40 ) 
+                    	{ 					
+                             delta_vfo = DDSFreq - rx2_avg_last_ddsfreq;
+                             delta_vfo *= 1e6; // vfo in mhz moron!
+                        }
+                        else 
+                        { 						
+                             delta_vfo = dttsp_osc - rx2_avg_last_dttsp_osc; 
+                             delta_vfo = -delta_vfo; 
+                             //Debug.WriteLine("update from dttsp delta_vfo: " + delta_vfo); 
+                        } 
 
                     double hz_per_bin = sample_rate1 / Display.BUFFER_SIZE;
 
@@ -49478,8 +49771,12 @@ namespace PowerSDR
 
                     labelTS4.Select(10, labelTS4.TextLength - 10);
 
+                    //   float volts = (float)val / 4096 * 2.5f * 11;
+                    //   if (volts >= 15.0) txtVolts.BackColor = Color.Red;
 
-                    if (volts > 1.27) labelTS4.SelectionColor = Color.Red;   // 14v
+                    if (volts > 1.36) labelTS4.SelectionColor = Color.Red;   // 15v now 
+
+                    // if (volts > 1.27) labelTS4.SelectionColor = Color.Red;   // 14v  was
                     else if (volts < 1.09) labelTS4.SelectionColor = Color.LightBlue;  // 12v
                     else labelTS4.SelectionColor = Color.GreenYellow;
 
@@ -51351,11 +51648,26 @@ namespace PowerSDR
                         e.Handled = true;
                         break;
                     case Keys.Up:
-                        Console_MouseWheel(this, new MouseEventArgs(MouseButtons.None, 0, 0, 0, 120));
+
+                        if (setupForm != null)
+                        {
+                            if (setupForm.chkBoxWheelRev.Checked == true) Console_MouseWheel(this, new MouseEventArgs(MouseButtons.None, 0, 0, 0, -120)); // reverse it here because I will reverse it again in the mousewheel routine
+                            else Console_MouseWheel(this, new MouseEventArgs(MouseButtons.None, 0, 0, 0, 120));
+                        }
+
+                      //  Console_MouseWheel(this, new MouseEventArgs(MouseButtons.None, 0, 0, 0, 120));
+
                         e.Handled = true;
                         break;
                     case Keys.Down:
-                        Console_MouseWheel(this, new MouseEventArgs(MouseButtons.None, 0, 0, 0, -120));
+
+                        if (setupForm != null)
+                        {
+                            if (setupForm.chkBoxWheelRev.Checked == true) Console_MouseWheel(this, new MouseEventArgs(MouseButtons.None, 0, 0, 0, 120));
+                            else Console_MouseWheel(this, new MouseEventArgs(MouseButtons.None, 0, 0, 0, -120));
+                        }
+
+                        //  Console_MouseWheel(this, new MouseEventArgs(MouseButtons.None, 0, 0, 0, -120));
                         e.Handled = true;
                         break;
                     case Keys.A:
@@ -52721,7 +53033,7 @@ namespace PowerSDR
 
             if (chkPower.Checked)
             {
-                IIC_AMPCONTROL(AMPBAND); // ke9ns add
+                IIC_AMPCONTROL(AMPBAND); // ke9ns add to update band data at Turn ON
 
                 //  Display.Power = 1;
 
@@ -53037,6 +53349,7 @@ namespace PowerSDR
                       }
                       Hdw.PA_ATUTune(ATUTuneMode.BYPASS);
                   }
+
                 CWKeyer.Reset();
                 CWPTT.Start();
 
@@ -53130,7 +53443,7 @@ namespace PowerSDR
 
                 if (!(fwc_init && (current_model == Model.FLEX5000 || current_model == Model.FLEX3000)))
                 {
-                    if(current_model == Model.SDR1000)     Hdw.StandBy();
+                      if(current_model == Model.SDR1000)     Hdw.StandBy();
                 }
                 else
                 {
@@ -53876,9 +54189,9 @@ namespace PowerSDR
             }
 
             if(num_channels == 2)
-            {
-            if(current_model == Model.SDR1000)  Hdw.MuteRelay = chkMUT.Checked;
-            }
+				{
+				if(current_model == Model.SDR1000)  Hdw.MuteRelay = chkMUT.Checked;
+            	}
 
 
 
@@ -54384,6 +54697,15 @@ namespace PowerSDR
 
             if (setupForm != null)
             {
+                if (setupForm.udTXDriveMax.Value > 100) setupForm.udTXDriveMax.Value = 100;
+                if (setupForm.udTXDriveMax.Value < 0) setupForm.udTXDriveMax.Value = 0;
+
+                if (ptbPWR.Value < 0) ptbPWR.Value = 0;
+                if (ptbPWR.Value > 100) ptbPWR.Value = 100;
+
+                if (ptbTune.Value < 0) ptbTune.Value = 0;
+                if (ptbTune.Value > 100) ptbTune.Value = 100;
+
                 if (setupForm.udTXDriveMax.Value < ptbPWR.Value)
                 {
                     ptbPWR.Value = (int)setupForm.udTXDriveMax.Value;
@@ -54442,7 +54764,9 @@ namespace PowerSDR
             Band b = tx_band;
 
             int new_pwr = ptbPWR.Value;
-            power_by_band[(int)tx_band] = new_pwr;
+          //  power_by_band[(int)tx_band] = new_pwr;
+
+            power_by_mode_by_band[(int)tx_band, (int)newMode] = new_pwr; // ke9ns add
 
             if ((!tuning || xvtr_tune_power) && (tx_xvtr_index >= 0))
             {
@@ -55162,10 +55486,10 @@ namespace PowerSDR
             }
             else
             {
-                if (chkPower.Checked && mox && current_model == Model.SDR1000)
-                {
-					Hdw.MuteRelay = !chkMON.Checked;
-                }
+                   if (chkPower.Checked && mox && current_model == Model.SDR1000)
+                  {
+                      Hdw.MuteRelay = !chkMON.Checked;
+                  }
             }
 
 
@@ -55213,7 +55537,7 @@ namespace PowerSDR
 
         private void HdwMOXChanged(bool tx, double freq)
         {
-            if(current_model == Model.SDR1000)		Hdw.UpdateHardware = false;
+           	if(current_model == Model.SDR1000)		Hdw.UpdateHardware = false;
 
             if (tx)
             {
@@ -55394,7 +55718,7 @@ namespace PowerSDR
                      rx1_dsp_mode != DSPMode.SPEC)
                          if_shift = true;
                  }
-                 
+             
             }
 
             if (!fwc_init && !hid_init && current_model != Model.FLEX5000 && current_model != Model.FLEX3000 && current_model != Model.FLEX1500)
@@ -55478,7 +55802,7 @@ namespace PowerSDR
                 chkPower.BackColor = Color.Red;
             }
 
-            if(current_model == Model.SDR1000)				comboPreamp.Enabled = !chkMOX.Checked;
+           	if(current_model == Model.SDR1000)				comboPreamp.Enabled = !chkMOX.Checked;
             setupForm.MOX = chkMOX.Checked;
             ResetMultiMeterPeak();
             //chkMOX.BackColor = button_selected_color;
@@ -55538,7 +55862,7 @@ namespace PowerSDR
                 meter_text_history[i] = 0.0f;
 
             if (!fwc_init || current_model == Model.SDR1000)
-            comboPreamp.Enabled = !chkMOX.Checked;
+                comboPreamp.Enabled = !chkMOX.Checked;
             setupForm.MOX = chkMOX.Checked;
             ResetMultiMeterPeak();
             chkMOX.BackColor = SystemColors.Control;
@@ -55596,14 +55920,14 @@ namespace PowerSDR
             }
 
             // only allow softrock style xmit  for cw and ssb for now
-            if (rx1_dsp_mode != DSPMode.CWL && rx1_dsp_mode != DSPMode.CWU &&
-                rx1_dsp_mode != DSPMode.USB && rx1_dsp_mode != DSPMode.LSB &&
-               ( /* current_model == Model.SDR1000_DDSLOCKED || */ current_model == Model.SOFTROCK40)
-               )
-            {
-               chkMOX.Checked = false;
-               return;
-            }
+               if (rx1_dsp_mode != DSPMode.CWL && rx1_dsp_mode != DSPMode.CWU &&
+                   rx1_dsp_mode != DSPMode.USB && rx1_dsp_mode != DSPMode.LSB &&
+                  ( /* current_model == Model.SDR1000_DDSLOCKED || */ current_model == Model.SOFTROCK40)
+                  )
+              {
+                chkMOX.Checked = false;
+                 return;
+              }
 
             bool tx = chkMOX.Checked;
 
@@ -57378,10 +57702,19 @@ namespace PowerSDR
             //			if(this.ActiveControl is NumericUpDownTS) return;
 
 
-            if (CTUN == true)
+            if (CTUN == true) // ke9ns add true = bandpass moves and panadapter stays put.
             {
                 if (e.Delta == 0) return;
+
+
                 int mousewheel = (e.Delta > 0 ? 1 : -1); // 1 per click
+
+                if (setupForm != null)
+                {
+                    if (setupForm.chkBoxWheelRev.Checked == true) mousewheel = -mousewheel; // ke9ns add reverse wheel rotation
+
+                  
+                }
 
                 if ((Display.CurrentDisplayMode == DisplayMode.PANADAPTER) || (Display.CurrentDisplayMode == DisplayMode.PANAFALL) || (Display.CurrentDisplayMode == DisplayMode.PANASCOPE) || (Display.CurrentDisplayMode == DisplayMode.WATERFALL))
                 {
@@ -57424,6 +57757,14 @@ namespace PowerSDR
             if (e.Delta == 0) return;
 
             int num_steps = (e.Delta > 0 ? 1 : -1); // 1 per click
+
+            if (setupForm != null)
+            {
+                if (setupForm.chkBoxWheelRev.Checked == true) num_steps = -num_steps; // ke9ns add reverse wheel rotation
+
+               // Debug.WriteLine("Mousewheel click: " + num_steps);
+
+            }
 
             if (vfo_char_width == 0) GetVFOCharWidth();
 
@@ -58356,7 +58697,7 @@ namespace PowerSDR
                                 }
                             }
                             break;
-                            /*	case Model.SOFTROCK40:
+                            	case Model.SOFTROCK40:
                                     //!!!!drm patch
                                     double osc_freq = soft_rock_center_freq*1e6 - freq*1e6;
                                     if ( rx1_dsp_mode  == DSPMode.DRM ) // if we're in DRM mode we need to be offset 12khz
@@ -58367,7 +58708,7 @@ namespace PowerSDR
                                     tuned_freq = freq;
                                     //Debug.WriteLine("osc_freq: "+osc_freq.ToString("f6"));
                                     dsp.GetDSPRX(0, 0).RXOsc = osc_freq;
-                                    break; */
+                                    break;
                     }
                 }
             }
@@ -58398,7 +58739,7 @@ namespace PowerSDR
 
 
 
-        //  private static double tuned_freq;
+        private static double tuned_freq;
         private void txtVFOAFreq_KeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
         {
 
@@ -62454,9 +62795,10 @@ namespace PowerSDR
 
             if (radModeLSB.Checked)
             {
+                TXMode = DSPMode.LSB;// ke9ns add (to allow power change per band and per mode
                 Debug.WriteLine("call LSB MODE ");
                 SetRX1Mode(DSPMode.LSB);
-
+              
             }
         }
 
@@ -62467,9 +62809,10 @@ namespace PowerSDR
 
             if (radModeUSB.Checked)
             {
+                TXMode = DSPMode.USB; // ke9ns add (to allow power change per band and per mode
                 Debug.WriteLine("call USB MODE ");
                 SetRX1Mode(DSPMode.USB);
-
+               
             }
         }
 
@@ -62480,8 +62823,9 @@ namespace PowerSDR
 
             if (radModeDSB.Checked)
             {
+                TXMode = DSPMode.DSB;// ke9ns add (to allow power change per band and per mode
                 SetRX1Mode(DSPMode.DSB);
-
+               
             }
         }
 
@@ -62492,9 +62836,10 @@ namespace PowerSDR
 
             if (radModeCWL.Checked)
             {
+                TXMode = DSPMode.CWL;// ke9ns add (to allow power change per band and per mode
                 chkANF.Checked = false;
                 SetRX1Mode(DSPMode.CWL);
-
+               
             }
 
         }
@@ -62506,9 +62851,10 @@ namespace PowerSDR
 
             if (radModeCWU.Checked)
             {
+                TXMode = DSPMode.CWU;// ke9ns add (to allow power change per band and per mode
                 chkANF.Checked = false;
                 SetRX1Mode(DSPMode.CWU);
-
+               
             }
         }
 
@@ -62519,8 +62865,9 @@ namespace PowerSDR
 
             if (radModeFMN.Checked)
             {
+                TXMode = DSPMode.FM;// ke9ns add (to allow power change per band and per mode
                 SetRX1Mode(DSPMode.FM);
-
+                
             }
             else
             {
@@ -62689,8 +63036,10 @@ namespace PowerSDR
 
             if (radModeSAM.Checked)
             {
+                TXMode = DSPMode.SAM;// ke9ns add (to allow power change per band and per mode
                 Debug.WriteLine("call SAM MODE ");
                 SetRX1Mode(DSPMode.SAM);
+               
 
             } // if(radModeSAM.Checked)
             else
@@ -62710,11 +63059,14 @@ namespace PowerSDR
 
             if (radModeDIGU.Checked)
             {
+                TXMode = DSPMode.DIGU;// ke9ns add (to allow power change per band and per mode
                 chkANF.Checked = false;
                 chkNR.Checked = false;
                 chkNB.Checked = false;
                 chkDSPNB2.Checked = false;
                 SetRX1Mode(DSPMode.DIGU);
+
+               
 
             }
         }
@@ -62727,6 +63079,7 @@ namespace PowerSDR
             if (radModeSPEC.Checked)
             {
                 SetRX1Mode(DSPMode.SPEC);
+                TXMode = DSPMode.SPEC;// ke9ns add (to allow power change per band and per mode
             }
         }
 
@@ -62738,11 +63091,13 @@ namespace PowerSDR
 
             if (radModeDIGL.Checked)
             {
+                TXMode = DSPMode.DIGL;// ke9ns add (to allow power change per band and per mode
                 chkANF.Checked = false;
                 chkNR.Checked = false;
                 chkNB.Checked = false;
                 chkDSPNB2.Checked = false;
                 SetRX1Mode(DSPMode.DIGL);
+               
 
             }
         }
@@ -62754,7 +63109,9 @@ namespace PowerSDR
 
             if (radModeDRM.Checked)
             {
+                TXMode = DSPMode.DRM;// ke9ns add (to allow power change per band and per mode
                 SetRX1Mode(DSPMode.DRM);
+               
 
             }
         }
@@ -70347,6 +70704,8 @@ namespace PowerSDR
         // ke9ns add to draw curved colored line around groupbox
         private void panelRing_Paint(object sender, PaintEventArgs p2)
         {
+            // ke9ns refer to:  public static void SetBackgroundImage(Control c)  in skin.cs
+
 
             PanelTS box = (PanelTS)sender; // this is the box we are currently repainting
 
@@ -71832,48 +72191,51 @@ namespace PowerSDR
         private void spotterMenu_Click(object sender, EventArgs e)
         {
 
+            Debug.WriteLine("SPOTTER CLICK " + SpotForm);
+
             if (SpotForm == null || SpotForm.IsDisposed)
             {
+                Debug.WriteLine("SPOTTER needs to be started now");
                 SpotForm = new SpotControl(this);
             }
 
+            SpotForm.Refresh();
+            Debug.WriteLine("Refresh ");
 
+         
             SpotForm.Show();
+            Debug.WriteLine("Show ");
+
             SpotForm.Focus();
+            Debug.WriteLine("Focus");
+
             SpotForm.WindowState = FormWindowState.Normal; // ke9ns add
 
+            Debug.WriteLine("windowstate");
 
 
-            //   Debug.WriteLine("SPOTTER CLICK");
-            /*
-                        if (spotterMenu.Checked == false)  //
-                        {
-                            spotterMenu.Checked = true;
-                          //  spotterMenu.Text = "Spotting";
-                        }
-                        else
-                        {
-                            spotterMenu.Checked = false;
-                            spotterMenu.Text = "Spotter";
-                        }
-            */
+          
 
 
         } //  spotterMenu_Click
 
         //====================================================================================================
-        // ke9ns add 
+        // ke9ns add  clicking the MAP button on the main console screen
         private void trackMenuItem1_Click(object sender, EventArgs e)
         {
 
-            if (SpotForm == null || SpotForm.IsDisposed) SpotForm = new SpotControl(this);
-            SpotForm.btnTrack_Click(this, EventArgs.Empty);
+            if (SpotForm == null || SpotForm.IsDisposed)
+            {
+                Debug.WriteLine("SpotControl instance created by Map button");
+                SpotForm = new SpotControl(this);
+            }
+            SpotForm.btnTrack_Click(this, EventArgs.Empty); // virtually clicking the track button on the spotter screen
 
 
         } // trackMenuItem1_Click
 
 
-        // ke9ns add for pulling up World Map
+        // ke9ns add for pulling up World Map (right click on the MAP button)
         private void MapMenuItem_MouseDown(object sender, MouseEventArgs e)
         {
             MouseEventArgs me = (MouseEventArgs)e;
@@ -71906,122 +72268,8 @@ namespace PowerSDR
         }
 
 
-        //====================================================================================================
-        // ke9ns add 
-        private void dxspotMenuItem1_Click(object sender, EventArgs e)
-        {
-            if (SpotForm == null || SpotForm.IsDisposed) SpotForm = new SpotControl(this);
 
-            SpotForm.Show();
-
-            SpotForm.WindowState = FormWindowState.Minimized; // ke9ns add
-
-            SpotForm.spotSSB_Click(this, EventArgs.Empty);
-
-        } // dxspotMenuItem1_Click
-
-
-
-        //====================================================================================================
-        // ke9ns add 
-        private void spotterMenuItem1_Click(object sender, EventArgs e)
-        {
-
-            if (SpotForm == null || SpotForm.IsDisposed) SpotForm = new SpotControl(this);
-
-            SpotForm.Show();
-            SpotForm.Focus();
-            SpotForm.WindowState = FormWindowState.Normal; // ke9ns add
-
-        } // spotterMenuItem1_Click
-
-
-        //====================================================================================================
-        // ke9ns add 
-        private void trackMenuItem2_Click(object sender, EventArgs e)
-        {
-            if (SpotForm == null || SpotForm.IsDisposed) SpotForm = new SpotControl(this);
-
-            SpotForm.btnTrack_Click(this, EventArgs.Empty);
-
-            //  propMenuItem1.Enabled = true;
-
-        } // trackMenuItem2_Click
-
-
-        //====================================================================================================
-        // ke9ns add 
-        private void propMenuItem1_Click(object sender, EventArgs e)
-        {
-
-            if (SpotForm == null || SpotForm.IsDisposed) SpotForm = new SpotControl(this);
-
-            if (SpotControl.SP5_Active == 0) // if tracking map not running, do it now
-            {
-                SpotForm.btnTrack_Click(this, EventArgs.Empty);
-
-                if (SpotForm.checkBoxMUF.Checked == true) return;
-            }
-
-
-            if (SpotForm.checkBoxMUF.Checked == false)
-            {
-                SpotForm.checkBoxMUF.Checked = true;
-            }
-            else
-            {
-                SpotForm.checkBoxMUF.Checked = false;
-            }
-
-
-        } // propMenuItem1_Click
-
-
-
-
-
-
-
-        //====================================================================================================
-        //====================================================================================================
-        // ke9ns add Thread routine
-        private void spotterMenu_CheckedChanged(object sender, EventArgs e)
-        {
-
-            //   Debug.WriteLine("SPOTTER change");
-
-            /*  
-              if (spotterMenu.Checked == true)  // if checked open up dx cluster
-              {
-                  if (setupForm.txtGenCustomTitle.Text != null)
-                  {
-                      SP_Active = 1;
-                      Thread t = new Thread(new ThreadStart(SPOTTER));
-                      t.Name = "Spotter Thread";
-                      t.IsBackground = true;
-                      t.Priority = ThreadPriority.Normal;
-                      t.Start();
-                  }
-
-               //   Debug.WriteLine("start DX SPOT thread");
-
-
-              } // dx spotter using spider.ham-radio-deluxe.com port 8000
-              else
-              {
-
-               //   Debug.WriteLine("END DX SPOT thread");
-
-                  SP_Active = 0;
-
-              }
-
-              */
-
-        } // spotterMenu_CheckedChanged
-
-
-
+    
 
 
         //===================================================================================
@@ -74076,14 +74324,16 @@ namespace PowerSDR
 
         public void NOAA()
         {
-
-            if (SpotForm == null || SpotForm.IsDisposed) SpotForm = new SpotControl(this);
+            Debug.WriteLine("NOAA THREAD HERE");
+            if (SpotForm == null || SpotForm.IsDisposed)
+            {
+                Debug.WriteLine("SpotControl instance created here in NOAA routine");
+                SpotForm = new SpotControl(this);
+            }
 
             if (((int)SpotForm.udDisplayLat.Value > 24) && ((int)SpotForm.udDisplayLat.Value < 51))
             {
-
-             
-
+                
                 if (((int)SpotForm.udDisplayLong.Value > -120) && ((int)SpotForm.udDisplayLong.Value < -73))
                 {
                     string currweth = httpFile.Weather(); // get local weather data if in USA
@@ -74203,10 +74453,13 @@ namespace PowerSDR
             Debug.WriteLine("GET NOAA=========");
 
             suncounter = 1;
-            serverPath1 = "http://services.swpc.noaa.gov/text/wwv.txt"; // this gets SF, A, K and storm data,    SIDC gets SS,  nwra gets Effective sun spot number "https://spawx.nwra.com/spawx/env_latest.html";
+            serverPath1 = "https://services.swpc.noaa.gov/text/wwv.txt"; // this gets SF, A, K and storm data,    SIDC gets SS,  nwra gets Effective sun spot number "https://spawx.nwra.com/spawx/env_latest.html";
 
             try
             {
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                // Use SecurityProtocolType.Ssl3 if needed for compatibility reasons
 
                 HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(serverPath1);
                 HttpWebResponse webResponse = (HttpWebResponse)webRequest.GetResponse();
@@ -74219,6 +74472,7 @@ namespace PowerSDR
                 responseStream1.Close();
                 streamReader1.Close();
 
+                Debug.WriteLine("GOT  NOAA=========");
 
 
                 /*  ftp site turned off on Dec 9th, 2017
@@ -74371,11 +74625,13 @@ namespace PowerSDR
                 }
 
             } // try
-            catch (Exception)
+            catch (Exception ex)
             {
+                Debug.WriteLine("1noaa fault=== " + ex);
+
                 noaaON = 0; // failure to get data
             }
-
+           
             Debug.WriteLine("endof NOAA thread");
 
 
@@ -74406,7 +74662,7 @@ namespace PowerSDR
                 streamReader1.Close();
 
 
-             //   Debug.WriteLine("GET SIDC1=========" + eisn);
+                Debug.WriteLine("GET SIDC1=========" + eisn);
 
                 int len = eisn.Length;
 
@@ -74414,7 +74670,7 @@ namespace PowerSDR
 
                 string sub1 = eisn.Substring(len - 18, 3); // get Sunspot value from end of file (newest data)
 
-            //    Debug.WriteLine("GET SIDC3=========" + sub1);
+             //   Debug.WriteLine("GET SIDC3=========" + sub1);
 
                 try
                 {
@@ -74450,6 +74706,9 @@ namespace PowerSDR
 
             try
             {
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                // Use SecurityProtocolType.Ssl3 if needed for compatibility reasons
 
                 HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(serverPath2);
                 HttpWebResponse webResponse = (HttpWebResponse)webRequest.GetResponse();
@@ -74463,7 +74722,7 @@ namespace PowerSDR
                 streamReader1.Close();
 
 
-                //  Debug.WriteLine("GET SSNe=========" + ssne);
+                 Debug.WriteLine("GET SSNe=========" + ssne);
 
                 //  int len = ssne.Length;
 
@@ -74751,7 +75010,14 @@ namespace PowerSDR
                         }
                         else
                         {
-                            Console_MouseWheel(this, new MouseEventArgs(MouseButtons.None, 0, 0, 0, -120));
+
+                            if (setupForm != null)
+                            {
+                                if (setupForm.chkBoxWheelRev.Checked == true) Console_MouseWheel(this, new MouseEventArgs(MouseButtons.None, 0, 0, 0, 120)); // reverse it here, I will reverse it later also
+                                else Console_MouseWheel(this, new MouseEventArgs(MouseButtons.None, 0, 0, 0, -120));
+                            }
+
+                            //   Console_MouseWheel(this, new MouseEventArgs(MouseButtons.None, 0, 0, 0, -120));
                         }
                     }
                 }
@@ -74776,7 +75042,13 @@ namespace PowerSDR
                         }
                         else
                         {
-                            Console_MouseWheel(this, new MouseEventArgs(MouseButtons.None, 0, 0, 0, 120));
+                            if (setupForm != null)
+                            {
+                                if (setupForm.chkBoxWheelRev.Checked == true) Console_MouseWheel(this, new MouseEventArgs(MouseButtons.None, 0, 0, 0, -120));
+                                else Console_MouseWheel(this, new MouseEventArgs(MouseButtons.None, 0, 0, 0, 120));
+                            }
+
+                          //  Console_MouseWheel(this, new MouseEventArgs(MouseButtons.None, 0, 0, 0, 120));
                         }
                     }
                 }
@@ -75891,10 +76163,13 @@ namespace PowerSDR
 
 
         //==================================================================
-        // ke9ns add so all richtextbox items can still use the mouse wheel to change freq.
-        private void labelTS4_MouseWheel(object sender, System.Windows.Forms.MouseEventArgs e)
+        // ke9ns add so all richtextbox items can still use the mouse wheel to change freq. when the mouse is over the time,cpu,spaceweather, temp, volts panel
+        private void labelTS4_MouseWheel(object sender, System.Windows.Forms.MouseEventArgs e) // this is the volts panel
         {
-            Console_MouseWheel(this, new MouseEventArgs(MouseButtons.None, 0, 0, 0, e.Delta));
+           
+               Console_MouseWheel(this, new MouseEventArgs(MouseButtons.None, 0, 0, 0, e.Delta));
+           
+
         } // labelTS4_MouseWheel
 
 
@@ -77167,7 +77442,41 @@ namespace PowerSDR
 
         public int CONT_Last = 0;
 
-       
+
+        // ke9ns add for IIC solid-state AMP PTT ON/OFF control (remote)
+        // this way I can remotely tune up antenna (verifying SWR using LP-500 remote) before PTT AMP
+        private void checkBoxIICPTT_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxIICPTT.Checked == true)
+            {
+                checkBoxIICPTT.Text = "Amp  PTT";
+            }
+            else
+            {
+                checkBoxIICPTT.Text = "Amp  ̶P̶T̶T̶";
+            }
+
+            IIC_AMPCONTROL(AMPBAND); //  call routine to update the IIC bus
+
+
+        } // checkBoxIICPTT_CheckedChanged
+
+        private void checkBoxIICON_CheckedChanged(object sender, EventArgs e)
+        {
+           if (setupForm != null) setupForm.chkBoxIICON.Checked = checkBoxIICON.Checked;
+
+            if (checkBoxIICON.Checked == true)
+            {
+                checkBoxIICON.Text = "Amp ON";
+            }
+            else
+            {
+                checkBoxIICON.Text = "Amp OFF";
+            }
+
+            IIC_AMPCONTROL(AMPBAND); //  call routine to update the IIC bus
+
+        }
 
         public bool CONT_RUN = false;
 
@@ -77376,7 +77685,7 @@ namespace PowerSDR
         public void AutoAdjuster()
         {
             
-            AA.Restart();
+            AA.Restart(); // timer restart
 
             do
             {

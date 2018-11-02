@@ -93,7 +93,7 @@ namespace PowerSDR
             FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
              
           //  textBox1.Text = "v" + fvi.FileVersion.Substring(0, fvi.FileVersion.LastIndexOf(".")) + "." + SVNRev.LATEST_REV;
-          //  textBox1.Text = "v" + fvi.FileVersion.ToString();
+            //textBox1.Text = "v" + fvi.FileVersion.ToString();
 
             this.Opacity = .00;
 			timer1.Interval = TIMER_INTERVAL;
@@ -128,9 +128,9 @@ namespace PowerSDR
             // pnlStatus
             // 
             this.pnlStatus.BackColor = System.Drawing.Color.Transparent;
-            this.pnlStatus.Location = new System.Drawing.Point(50, 247);
+            this.pnlStatus.Location = new System.Drawing.Point(18, 275);
             this.pnlStatus.Name = "pnlStatus";
-            this.pnlStatus.Size = new System.Drawing.Size(475, 24);
+            this.pnlStatus.Size = new System.Drawing.Size(570, 28);
             this.pnlStatus.TabIndex = 2;
             this.pnlStatus.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlStatus_Paint);
             // 
@@ -144,9 +144,9 @@ namespace PowerSDR
             this.lblTimeRemaining.BackColor = System.Drawing.Color.Transparent;
             this.lblTimeRemaining.ForeColor = System.Drawing.Color.White;
             this.lblTimeRemaining.Image = null;
-            this.lblTimeRemaining.Location = new System.Drawing.Point(296, 289);
+            this.lblTimeRemaining.Location = new System.Drawing.Point(355, 333);
             this.lblTimeRemaining.Name = "lblTimeRemaining";
-            this.lblTimeRemaining.Size = new System.Drawing.Size(100, 16);
+            this.lblTimeRemaining.Size = new System.Drawing.Size(120, 19);
             this.lblTimeRemaining.TabIndex = 1;
             this.lblTimeRemaining.Text = "Time";
             // 
@@ -155,18 +155,18 @@ namespace PowerSDR
             this.lblStatus.BackColor = System.Drawing.Color.Transparent;
             this.lblStatus.ForeColor = System.Drawing.Color.White;
             this.lblStatus.Image = null;
-            this.lblStatus.Location = new System.Drawing.Point(0, 287);
+            this.lblStatus.Location = new System.Drawing.Point(0, 331);
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(400, 16);
+            this.lblStatus.Size = new System.Drawing.Size(480, 19);
             this.lblStatus.TabIndex = 0;
             this.lblStatus.Text = "Status";
             this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Splash
             // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+            this.AutoScaleBaseSize = new System.Drawing.Size(6, 15);
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(600, 384);
+            this.ClientSize = new System.Drawing.Size(610, 391);
             this.Controls.Add(this.pnlStatus);
             this.Controls.Add(this.lblTimeRemaining);
             this.Controls.Add(this.lblStatus);

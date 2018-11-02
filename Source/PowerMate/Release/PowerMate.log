@@ -1,1 +1,7 @@
-﻿
+﻿  Stdafx.cpp
+  AssemblyInfo.cpp
+  PowerMate.cpp
+  EventsHelper.cpp
+  Создание кода...
+  .NETFramework,Version=v4.0.AssemblyAttributes.cpp
+  PowerMate.vcxproj -> F:\Build\PowerSDR_v2.8.0.100\Source\Release\PowerMate.dll

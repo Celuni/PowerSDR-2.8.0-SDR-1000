@@ -43,7 +43,7 @@ namespace PowerSDR
 #else
         
 
-         public const string BUILT_BY = "Mods Compiled by [Excalibur]]";
+         public const string BUILT_BY = "Mods Compiled by [Excalibur]";
 #endif    
         public const string VERSION_SUFFIX = SVNRev.LATEST_REV; // Make this "" for production
 

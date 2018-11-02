@@ -6,4 +6,4 @@
   .NETFramework,Version=v4.0.AssemblyAttributes.cpp
 LINK : warning LNK4075: не учитывается "/INCREMENTAL" из-за спецификации "/LTCG"
   LINK : указан параметр /LTCG, но не требуется создание кода; удалите /LTCG из командной строки компоновки для повышения производительности компоновщика
-  PowerMate.vcxproj -> D:\Build\PowerSDR_v2.8.0.92\Source\Debug\PowerMate.dll
+  PowerMate.vcxproj -> F:\Build\PowerSDR_v2.8.0.100\Source\Debug\PowerMate.dll

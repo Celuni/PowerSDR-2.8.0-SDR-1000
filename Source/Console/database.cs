@@ -1200,20 +1200,23 @@ namespace PowerSDR
                                 18.102000, 18.102000, "17M JT65 DIGU",          true, // ke9ns add
                                 18.102001, 18.103999, "17M JT65 DIGU",          true, // ke9ns add
 
-                                18.104000, 18.107999, "17M RTTY",                true,
+                                18.104000, 18.107999, "17M RTTY",               true,
 
-                                18.108000, 18.108999, "17M PSK / Packet",                true,
+                                18.108000, 18.108999, "17M PSK / Packet",        true,
 
 								18.109000, 18.109999, "17M Beacons",		    true,
                                 18.110000, 18.110000, "17M NCDXF Beacons",	    true,
                                 18.110001, 18.110499, "17M Beacons",		    true,
 
-								18.110500, 18.159999, "17M All Modes",			true,
+								18.110500, 18.147999, "17M All Modes",			true,
+                                18.148000, 18.148001, "17M DV (Digital Voice)", true,                // ke9ns add  
+                                18.148002, 18.159999, "17M All Modes",          true,
+
                                 18.160000, 18.160000, "17M SSB Emergency",		true,
-                               
-                                18.160001, 18.147999, "17M All Modes",                true,
-                                18.148000, 18.148001, "17M DV (Digital Voice)", true,                // ke9ns add   
-								18.148002, 18.167999, "17M All Modes",                true,
+                              
+								18.160001, 18.167999, "17M All Modes",          true,
+
+
 
                             };
 
@@ -2422,7 +2425,7 @@ namespace PowerSDR
                                 14.236000, 14.236000, "20m FreeDV",             true,
                                 14.236001, 14.238000, "20m FreeDV",             true,
 
-                                14.238001, 14.239999, "20M SSB",               true,
+                                14.238001, 14.239999, "20M SSB",                true,
 
                                 14.240000, 14.240000, "20m FreeDV",             true,
                                 14.240001, 14.242000, "20m FreeDV",             true,

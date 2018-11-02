@@ -137,7 +137,7 @@ namespace PowerSDR
                
             }
 
-            foreach (Control c in f.Controls) // load in images
+            foreach (Control c in f.Controls) // load in images ke9ns Match the names of the images to the controls found within Console (including the name Console.png)
                 ReadImages(c);
 
             if (!File.Exists(path + "\\" + name + ".xml"))
@@ -381,17 +381,18 @@ namespace PowerSDR
         {
             Control temp;
 
-            temp = c as GroupBox;
+            temp = c as GroupBox;                 // GroupBox
             if (temp != null)
             {
                 GroupBox grp = (GroupBox)c;
                 SetBackgroundImage(c);
+
                 foreach (Control c2 in grp.Controls)
                     ReadImages(c2);
                 return;
             }
 
-         temp = c as Panel;
+           temp = c as Panel;                   // Panel
             if (temp != null)
             {
               //  Debug.WriteLine("C.NMAE " + c.Name);
@@ -408,14 +409,14 @@ namespace PowerSDR
                 return;
             }
 
-            temp = c as Button;
+            temp = c as Button;                 // Button
             if (temp != null)
             {
                 SetupButtonImages((Button)c);
                 return;
             }
 
-            temp = c as CheckBox;
+            temp = c as CheckBox;                 // CheckBox
             if (temp != null)
             {
                 if(((CheckBox)c).Appearance == Appearance.Button)
@@ -423,21 +424,21 @@ namespace PowerSDR
                 return;
             }
 
-            temp = c as Label;
+            temp = c as Label;                   // Label
             if (temp != null)
             {
                 SetBackgroundImage(c);
                 return;
             }
 
-            temp = c as PrettyTrackBar;
+            temp = c as PrettyTrackBar;           //PettyTrackBar
             if (temp != null)
             {
                 SetupPrettyTrackBarImages((PrettyTrackBar)c);
                 return;
             }
 
-            temp = c as PictureBox;
+            temp = c as PictureBox;                     // PictureBox
             if (temp != null)
             {
 
@@ -447,7 +448,7 @@ namespace PowerSDR
                 return;
             }
 
-            temp = c as RadioButton;
+            temp = c as RadioButton;                    //RadioButton
             if (temp != null)
             {
                 if (((RadioButton)c).Appearance == Appearance.Button)
@@ -1704,7 +1705,7 @@ namespace PowerSDR
 
             c.Name = c.Name.Replace("GN", "VHF"); // ke9ns add
 
-            if (File.Exists(path + "\\" + c.TopLevelControl.Name + "\\" + c.Name + pic_file_ext))
+            if (File.Exists(path + "\\" + c.TopLevelControl.Name + "\\" + c.Name + pic_file_ext)) // pic_file_ext = .png
             {
                 c.BackgroundImage = Image.FromFile(path + "\\" + c.TopLevelControl.Name + "\\" + c.Name + pic_file_ext);
                 c.Invalidate(); // ke9ns add
